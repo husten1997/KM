@@ -58,8 +58,6 @@ import javax.swing.ImageIcon;
 
 
 import org.lwjgl.BufferUtils;
- 
-
 
 import assets.Texture;
 import static org.lwjgl.opengl.GL11.*;
@@ -293,7 +291,7 @@ public class TextureLoader {
         Graphics g = bufferedImage.getGraphics();
         g.drawImage(img, 0, 0, null);
         g.dispose();
- 
+    	
         return bufferedImage;
     }
 }
