@@ -16,6 +16,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.richard.knightmare.Environment;
+
 import res.*;
 import assets.*;
 
@@ -105,6 +107,8 @@ public class KTM_Game_Main implements Strings{
 	}
 
 	public void init(){
+		
+		
 		try{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			
