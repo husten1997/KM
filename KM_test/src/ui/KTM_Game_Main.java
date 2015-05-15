@@ -207,16 +207,16 @@ public class KTM_Game_Main implements Strings{
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
-			CameraMYU = 0.5f * delta;
+			CameraMYU = 0.4f * delta;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
-			CameraMXL = -0.5f * delta;
+			CameraMXL = -0.4f * delta;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)){
-			CameraMYD = -0.5f * delta;	
+			CameraMYD = -0.4f * delta;	
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
-			CameraMXR = 0.5f * delta;
+			CameraMXR = 0.4f * delta;
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)){
@@ -362,6 +362,7 @@ public class KTM_Game_Main implements Strings{
 	    long time = getTime();
 	    int delta = (int) (time - lastFrame);
 	    lastFrame = time;
+	    System.out.println(delta);
 	         
 	    return delta;
 	}
