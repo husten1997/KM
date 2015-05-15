@@ -3,7 +3,7 @@ package assets;
 import loader.TextureLoader;
 
 public class Soldat extends QUAD {
-
+	private int health;
 	public Soldat(float l, float h, float x, float y, TextureLoader loader, String ref) {
 		super(l, h, x, y, loader, ref);
 		
