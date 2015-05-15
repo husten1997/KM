@@ -107,7 +107,7 @@ public class KTM_Game_Main implements Strings{
 	}
 
 	public void init(){
-		
+		Environment.setUpEnvironment("Ares", "Knightmare");
 		
 		try{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
