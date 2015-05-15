@@ -1,5 +1,5 @@
 # KM
-Knightmare-Game
+Knightmare-Game, Informatik-Projekt 2015
 
 Projektleiter: Richard Kellnberger
 
