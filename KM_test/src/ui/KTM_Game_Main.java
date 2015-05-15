@@ -17,6 +17,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import com.richard.knightmare.Environment;
+import com.richard.knightmare.MoodMusic;
 
 import res.*;
 import assets.*;
@@ -108,6 +109,7 @@ public class KTM_Game_Main implements Strings{
 
 	public void init(){
 		Environment.setUpEnvironment("Ares", "Knightmare");
+		MoodMusic.init();
 		
 		try{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));

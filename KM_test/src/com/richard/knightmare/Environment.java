@@ -21,7 +21,7 @@ public class Environment {
 	private static File resConfig, resourceDir;
 	private static String gameDirPath, resourceDirPath;
 	private static HashMap<String, BufferedImage> textures = new HashMap<>();
-	private static HashMap<String, Clip> music = new HashMap<>(), sounds = new HashMap<>();
+	private static HashMap<String, Clip> sounds = new HashMap<>();
 	private static HashMap<String, Map> maps = new HashMap<>();
 
 	public static void setUpEnvironment(String companiesName, String gamesName) {
@@ -66,7 +66,6 @@ public class Environment {
 
 	private static void load() {
 		loadImages();
-		loadMusic();
 		loadSounds();
 		loadMaps();
 	}
@@ -90,27 +89,25 @@ public class Environment {
 		}
 	}
 
-	private static void loadMusic() {
+	private static Clip loadMusic(String name) {
 		String path = "\\Default\\Music";
 
 		File music = new File(new StringBuilder(resourceDir.getAbsolutePath()).append(path).toString());
-		String[] names = music.list();
-		for (int i = 0; i < names.length; i++) {
+		try {
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(resourceDirPath).append("\\Music\\").append(name).toString())));
+			return clip;
+		} catch (Exception e) {
+			// Didn't work, trying default
 			try {
 				Clip clip = AudioSystem.getClip();
-				clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(resourceDirPath).append("\\Music\\").append(names[i]).toString())));
-				Environment.music.put(names[i], clip);
-			} catch (Exception e) {
-				// Didn't work, trying default
-				try {
-					Clip clip = AudioSystem.getClip();
-					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(path).append("\\").append(names[i]).toString())));
-					Environment.music.put(names[i], clip);
-				} catch (Exception e1) {
-					// Just stop trying
-				}
-			}
+				clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(music.getAbsolutePath()).append("\\").append(name).toString())));
+				return clip;
+			} catch (Exception e1) {
+				// Just stop trying
+			}	
 		}
+		return null;
 	}
 
 	private static void loadSounds() {
@@ -183,7 +180,7 @@ public class Environment {
 	}
 	
 	public static Clip getMusic(String name) {
-		return music.get(name);
+		return loadMusic(name);
 	}
 	
 	public static Clip getSound(String name) {
