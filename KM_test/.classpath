@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="res/lwjgl-2.9.3/jar/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="KM_test/res/lwjgl-2.9.3/native/windows"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-=======
-	<classpathentry kind="lib" path="res/lwjgl-2.9.3/jar/lwjgl_util.jar"/>
->>>>>>> 745e270573fbc831393670c7104f1051a0919e2b
 	<classpathentry kind="output" path="bin"/>
 </classpath>
