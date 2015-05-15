@@ -23,42 +23,42 @@ import assets.*;
 public class KTM_Game_Main implements Strings{
 	
 	/** time at last frame */
-	long lastFrame;
+	private long lastFrame;
     /** frames per second */
-    int fps;
+	private int fps;
     /** last fps time */
-    long lastFPS;
+	private long lastFPS;
     
-    int ebenen = 3;
-    String inGameStat = NOTHING;
+	private int ebenen = 3;
+	private String inGameStat = NOTHING;
     
     public static int WIDTH = 1600;
     public static int HEIGHT = 900;
     private boolean fS = true; //fullscreen?
-    int delta;
+    private int delta;
 
-    Soldat figur;
-    Terrain terrain;
-    float CameraMXR = 0;
-    float CameraMYD = 0;
-    float CameraMXL = 0;
-    float CameraMYU = 0;
-    float CameraMX = 0;
-    float CameraMY = 0;
-    Pos pos1 = new Pos(0,0);
-    Pos pos2 = new Pos(0,0);
-    Pos p1;
+    private Soldat figur;
+    private Terrain terrain;
+    private float CameraMXR = 0;
+    private float CameraMYD = 0;
+    private float CameraMXL = 0;
+    private float CameraMYU = 0;
+    private float CameraMX = 0;
+    private float CameraMY = 0;
+    private Pos pos1 = new Pos(0,0);
+    private Pos pos2 = new Pos(0,0);
+    private Pos p1;
     public static float CameraX = 0;
     public static float CameraY = 0;
-    ArrayList<VektorHandler> CalV = new ArrayList<VektorHandler>();
-    Vektor xy;
-    int s = 5;
+    private ArrayList<VektorHandler> CalV = new ArrayList<VektorHandler>();
+    private Vektor xy;
+    private int s = 5;
     
-    ArrayList<gasset> selection = new ArrayList<gasset>();
+    private ArrayList<gasset> selection = new ArrayList<gasset>();
     
-    ArrayList<gasset> renderList[] = new ArrayList[ebenen];
+    private ArrayList<gasset> renderList[] = new ArrayList[ebenen];
     
-    Soldat figuren[] = new Soldat[s];
+    private Soldat figuren[] = new Soldat[s];
     
     private TextureLoader   textureLoader;
     
@@ -447,7 +447,7 @@ public class KTM_Game_Main implements Strings{
             (Display.isFullscreen() == fullscreen)) {
             return;
         }
-         
+
         try {
             DisplayMode targetDisplayMode = null;
              
