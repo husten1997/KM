@@ -218,10 +218,10 @@ public class KTM_Game_Main implements Strings {
 			// TODO
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
-			MoodMusic.changeVolume(-1.0f);
+			MoodMusic.changeVolume(-0.5f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
-			MoodMusic.changeVolume(1.0f);
+			MoodMusic.changeVolume(0.5f);
 		}
 
 		while (Keyboard.next()) {
@@ -251,10 +251,10 @@ public class KTM_Game_Main implements Strings {
 					System.out.println(inGameStat);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_F1) {
-					MoodMusic.changeVolume(-1.0f);
+					MoodMusic.changeVolume(-0.5f);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_F2) {
-					MoodMusic.changeVolume(1.0f);
+					MoodMusic.changeVolume(0.5f);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
