@@ -53,7 +53,6 @@ public class WorldGen implements Strings{
 	
 	public TerrainElement[][] worldGen(){
 		gen();
-		System.out.println("Fertig");
 		return World;
 	}
 /**Die auskomentierten Variablen sind mit absicht drinnen da man mithilfe von time die generierungsdauer auslesen kann!
@@ -61,17 +60,17 @@ public class WorldGen implements Strings{
 	public void gen(){
 		rand = new Random(seed);
 		generator = new RandomGenerator(rand, c, -1);
-//		long Zvor = System.currentTimeMillis();
+		long Zvor = System.currentTimeMillis();
 		genHM(seed, routh);
 		set();
 		trans();
-//		long Znach = System.currentTimeMillis();
-//		long time = Znach-Zvor;
+		long Znach = System.currentTimeMillis();
+		long time = Znach-Zvor;
+		System.out.println("Done in: " + time + "ms");
 	}
 	
 	public void genHM( int seed, float r){
 		int inter = Math.round(x/2);
-		System.out.println(inter);
 		square(inter+1, inter+1, inter, r);
 		smooth(smoothS);
 	}
@@ -86,7 +85,6 @@ public class WorldGen implements Strings{
 				max = (hm[i][j] > max ? hm[i][j]:max);
 			}
 		}
-		System.out.println("Min: " + min + " Max: " + max);
 		dif = max - min;
 	}
 	
