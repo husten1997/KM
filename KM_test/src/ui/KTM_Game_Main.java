@@ -362,7 +362,7 @@ public class KTM_Game_Main implements Strings{
 	    long time = getTime();
 	    int delta = (int) (time - lastFrame);
 	    lastFrame = time;
-	    System.out.println(delta);
+//	    System.out.println(delta);
 	         
 	    return delta;
 	}
