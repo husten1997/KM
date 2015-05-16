@@ -2,6 +2,7 @@ package assets;
 
 import res.Pos;
 import res.Strings;
+import res.WorldGen;
 import ui.KTM_Game_Main;
 import loader.TextureLoader;
 
