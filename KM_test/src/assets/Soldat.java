@@ -1,12 +1,14 @@
 package assets;
 
 import loader.TextureLoader;
+import res.StringConstants;
 
 public class Soldat extends QUAD {
 	private int health;
 	public Soldat(float l, float h, float x, float y, TextureLoader loader, String ref) {
 		super(l, h, x, y, loader, ref);
 		speed = 10;
+		type = StringConstants.EINEHEIT;
 	}
 	
 	public Soldat(float x, float y, TextureLoader loader, String ref) {

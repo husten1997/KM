@@ -1,12 +1,12 @@
 package assets;
 
 import res.Pos;
-import res.Strings;
+import res.StringConstants;
 import res.WorldGen;
 import ui.KTM_Game_Main;
 import loader.TextureLoader;
 
-public class Terrain extends gasset implements Strings{
+public class Terrain extends gasset implements StringConstants{
 	TerrainElement waterPlane;
 	TerrainElement elements[][];
 	TextureLoader textureLoader;

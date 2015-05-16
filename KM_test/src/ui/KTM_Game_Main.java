@@ -21,7 +21,7 @@ import com.richard.knightmare.util.Environment;
 import res.*;
 import assets.*;
 
-public class KTM_Game_Main implements Strings {
+public class KTM_Game_Main implements StringConstants {
 
 	/** time at last frame */
 	private long lastFrame;

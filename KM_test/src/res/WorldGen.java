@@ -7,7 +7,7 @@ import assets.Terrain;
 import assets.TerrainElement;
 import loader.TextureLoader;
 
-public class WorldGen implements Strings{
+public class WorldGen implements StringConstants{
 	
 	static final String RAND = "RAND";
 	static final String RAND_DQ = "RAND_DQ";

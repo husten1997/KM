@@ -1,10 +1,12 @@
 package assets;
 
 import res.Pos;
+import res.StringConstants;
 
 public abstract class gasset {
 	private int sort = 1;
 	protected int speed = 0;
+	protected String type = StringConstants.GROUND;
 	
 	public void setSort(int s){
 		sort = s;
