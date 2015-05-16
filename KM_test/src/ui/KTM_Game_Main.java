@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import loader.TextureLoader;
 
@@ -50,12 +51,11 @@ public class KTM_Game_Main implements StringConstants {
 	private float CameraMY = 0;
 	private Pos pos1 = new Pos(0, 0);
 	private Pos pos2 = new Pos(0, 0);
-	private Pos p1;
 	public static float CameraX = 0;
 	public static float CameraY = 0;
-	private ArrayList<VektorHandler> CalV = new ArrayList<VektorHandler>();
-	private Vektor xy;
 	private int s = 5;
+	
+	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
 
 	private ArrayList<gasset> selection = new ArrayList<gasset>();
 
@@ -307,17 +307,23 @@ public class KTM_Game_Main implements StringConstants {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
 
-					p1 = new Pos(x, y); //Ende
+					Pos p1 = new Pos(x, y); //Ende
 
 					switch (inGameStat) {
 					case NOTHING:
 						break;
 					case S_TRUPS:
+						vektoren.clear();
 						for (int i = 0; i < selection.size(); i++) {
 							Pos p2 = selection.get(i).getPos(); //Start
-							//TODO 
-							xy = new Vektor(p2, p1);
-							CalV.add(new VektorHandler(selection.get(i), xy, p2, p1));
+							if(selection.get(i).getType().equals(StringConstants.EINEHEIT)){
+								Soldat h = (Soldat) selection.get(i);
+								if(vektoren.get(h)==null){
+									vektoren.put(h, new Vektor(p2, p1, h));
+								}else{
+									vektoren.get(h).setEnde(p1);
+								}
+							}
 						}
 						break;
 					case S_BUILDINGS:
@@ -347,7 +353,9 @@ public class KTM_Game_Main implements StringConstants {
 					case S_TRUPS:
 						search((float) pos1.getxPos(), (float) pos1.getyPos(), (float) pos2.getxPos(), (float) pos2.getyPos());
 						for (int i = 0; i < selection.size(); i++) {
-							((Soldat) selection.get(i)).say();
+							if(selection.get(i).getType().equals(StringConstants.EINEHEIT)){
+								((Soldat) selection.get(i)).say();
+							}
 						}
 						break;
 					case S_BUILDINGS:
@@ -428,7 +436,9 @@ public class KTM_Game_Main implements StringConstants {
 					if (renderList[e].get(i).getX() <= Px1 && renderList[e].get(i).getX() >= Px2 && renderList[e].get(i).getY() <= Py1
 							&& renderList[e].get(i).getY() >= Py2) {
 
-						selection.add(renderList[e].get(i));
+						if(renderList[e].get(i).getType().equals(StringConstants.EINEHEIT)){
+							selection.add(renderList[e].get(i));
+						}
 					}
 				}
 			}
@@ -458,9 +468,16 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void calc() {
-		for (int i = 0; i < CalV.size(); i++) {
-			CalV.get(i).red();
-			System.out.println(CalV.get(i).getO().getPos().getPos());
+		Object[] vek = vektoren.values().toArray();
+		Vektor[] vekk = new Vektor[vek.length];
+		for(int i = 0; i<vek.length; i++){
+			vekk[i] = (Vektor) vek[i];
+		}
+		
+		for(int i = 0; i<vekk.length; i++){
+			if(vekk[i].move()){
+				vektoren.remove(vekk[i].getSoldat());
+			}
 		}
 	}
 

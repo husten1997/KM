@@ -1,13 +1,20 @@
 package res;
 
+import assets.Soldat;
+
 public class Vektor {
 	
-	double x;
-	double y;
+	private Pos start, ende;
+	private Soldat soldat;
+	private double x, y, m;
 	
-	public Vektor(Pos pos1, Pos pos2){
-		x = pos2.getxPos() - pos1.getxPos();
-		y = pos2.getyPos() - pos1.getyPos();
+	public Vektor(Pos pos1, Pos pos2, Soldat soldat){
+		start = pos1;
+		ende = pos2;
+		x = ende.getxPos()-start.getxPos();
+		y = ende.getyPos() - start.getyPos();
+		m = x/y;
+		this.soldat = soldat;
 	}
 	
 	public Vektor(Pos pos1){
@@ -23,6 +30,10 @@ public class Vektor {
 	public Vektor(double v1, double v2){
 		this.x = v1;
 		this.y = v2;
+	}
+	
+	public void setEnde(Pos ende){
+		this.ende = ende;
 	}
 	
 	public double getLenght(){
@@ -81,6 +92,41 @@ public class Vektor {
 		double x1 = (v1.getX() + v2.getX())/2;
 		double y1 = (v1.getY() + v2.getY())/2;
 		return new Vektor(x1, y1);
+	}
+	
+	public Soldat getSoldat(){
+		return soldat;
+	}
+	
+	public double distance(Pos p1, Pos p2){
+		return Math.sqrt(Math.pow(p2.getxPos()-p1.getxPos(), 2)+Math.pow(p2.getyPos()-p1.getyPos(), 2));
+	}
+	
+	public boolean move(){
+		double dx = soldat.getSpeed()/Math.sqrt((1.0/(m*m))+1.0);
+		double dy = soldat.getSpeed()/Math.sqrt(m*m + 1.0);
+		Pos newStart;
+		if(ende.getxPos()>start.getxPos()){
+			if(ende.getyPos()>start.getyPos()){
+				newStart = new Pos(start.getxPos()+dx, start.getyPos()+dy);
+			}else{
+				newStart = new Pos(start.getxPos()+dx, start.getyPos()-dy);
+			}
+		}else{
+			if(ende.getyPos()>start.getyPos()){
+				newStart = new Pos(start.getxPos()-dx, start.getyPos()+dy);
+			}else{
+				newStart = new Pos(start.getxPos()-dx, start.getyPos()-dy);
+			}
+		}
+		if(distance(newStart, ende)<distance(start, ende)){
+			soldat.setPos(newStart);
+			start = newStart;
+		}else{
+			soldat.setPos(ende);
+			return true;
+		}
+		return false;
 	}
 	
 	

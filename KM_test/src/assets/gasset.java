@@ -29,8 +29,12 @@ public abstract class gasset {
 	
 	public abstract void setPos(Pos p);
 	
-	public int getSpeed(){
+	public double getSpeed(){
 		return speed;
+	}
+	
+	public String getType(){
+		return type;
 	}
 
 
