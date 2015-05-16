@@ -15,8 +15,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import com.richard.knightmare.Environment;
-import com.richard.knightmare.MoodMusic;
+import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.Environment;
 
 import res.*;
 import assets.*;
@@ -307,15 +307,15 @@ public class KTM_Game_Main implements Strings {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
 
-					p1 = new Pos(x, y);
+					p1 = new Pos(x, y); //Ende
 
 					switch (inGameStat) {
 					case NOTHING:
 						break;
 					case S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
-							Pos p2 = selection.get(i).getPos();
-
+							Pos p2 = selection.get(i).getPos(); //Start
+							//TODO 
 							xy = new Vektor(p2, p1);
 							CalV.add(new VektorHandler(selection.get(i), xy, p2, p1));
 						}

@@ -1,4 +1,4 @@
-package com.richard.knightmare;
+package com.richard.knightmare.util;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -13,8 +13,6 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
-import com.richard.knightmare.Dictionary;
 
 public class Environment {
 

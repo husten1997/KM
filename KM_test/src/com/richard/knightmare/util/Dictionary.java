@@ -1,4 +1,4 @@
-package com.richard.knightmare;
+package com.richard.knightmare.util;
 
 import java.util.HashMap;
 

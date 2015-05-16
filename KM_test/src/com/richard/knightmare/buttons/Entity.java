@@ -1,4 +1,4 @@
-package com.richard.knightmare;
+package com.richard.knightmare.buttons;
 
 public abstract class Entity extends Button{
 

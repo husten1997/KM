@@ -1,4 +1,4 @@
-package com.richard.knightmare;
+package com.richard.knightmare.sound;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+
+import com.richard.knightmare.util.Environment;
 
 public class MusikPlayer {
 	

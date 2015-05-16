@@ -1,6 +1,8 @@
-package com.richard.knightmare;
+package com.richard.knightmare.util;
 
 import java.awt.event.MouseEvent;
+
+import com.richard.knightmare.buttons.Entity;
 
 public class Map {
 

@@ -1,10 +1,12 @@
-package com.richard.knightmare;
+package com.richard.knightmare.sound;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+
+import com.richard.knightmare.util.Environment;
 
 public class MoodMusic {
 
