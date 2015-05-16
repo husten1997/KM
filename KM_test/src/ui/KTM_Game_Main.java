@@ -38,6 +38,8 @@ public class KTM_Game_Main implements Strings{
     public static int WIDTH = 1600;
     public static int HEIGHT = 900;
     private boolean fS = true; //fullscreen?
+    private boolean Vsync = true; 
+    private int VsyncF = 60;
     private int delta;
 
     private Soldat figur;
@@ -101,7 +103,7 @@ public class KTM_Game_Main implements Strings{
 			CameraMY -= CameraMYU + CameraMYD;
 			CameraX -= CameraMX;
 			CameraY -= CameraMY;
-			Display.update();
+			updateDisplay();
 			updateFPS();
 		}
 		Display.destroy();
@@ -110,6 +112,8 @@ public class KTM_Game_Main implements Strings{
 	public void init(){
 		Environment.setUpEnvironment("Ares", "Knightmare");
 		MoodMusic.init();
+		//verwendet eure aktuelle desktopauflösung als gameauflösung
+		initRes();
 		
 		try{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
@@ -139,7 +143,9 @@ public class KTM_Game_Main implements Strings{
 	    
 	    getDelta(); // call once before loop to initialise lastFrame
 	    lastFPS = getTime(); // call before loop to initialise fps timer
-	    setDisplayMode(WIDTH, HEIGHT, fS);
+	    initDisplay();
+	    
+	    
 	}
 
 	public void initRender(gasset input, int e, int se){
@@ -202,8 +208,18 @@ public class KTM_Game_Main implements Strings{
 			figur.setrX(0.3f*delta);
 		}
 		
-		if(Keyboard.isKeyDown(Keyboard.KEY_Q)){
+		if(Keyboard.isKeyDown(Keyboard.KEY_F1)){
+			if(fS){
+				WIDTH = 1600;
+				HEIGHT = 900;
+			}else{
+				initRes();
+			}
 			setDisplayMode(WIDTH, HEIGHT, !fS);
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_F2)){
+			Vsync = !Vsync;
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)){
@@ -495,6 +511,7 @@ public class KTM_Game_Main implements Strings{
             Display.setDisplayMode(targetDisplayMode);
             Display.setFullscreen(fullscreen);
             fS = fullscreen;
+//            VsyncF = Display.getDisplayMode().getFrequency();
             
              
         } catch (LWJGLException e) {
@@ -508,6 +525,22 @@ public class KTM_Game_Main implements Strings{
 
 	public float getW(){
 		return WIDTH;
+	}
+	public void initRes(){
+		HEIGHT = Display.getDesktopDisplayMode().getHeight();
+		WIDTH = Display.getDesktopDisplayMode().getWidth();
+	}
+	public void initDisplay(){
+		
+		setDisplayMode(WIDTH, HEIGHT, fS);
+		
+	}
+	
+	public void updateDisplay(){
+		if(Vsync){
+			Display.sync(VsyncF);
+		}
+		Display.update();
 	}
 
 }
