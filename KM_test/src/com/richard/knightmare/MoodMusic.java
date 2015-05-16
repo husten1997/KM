@@ -12,45 +12,46 @@ public class MoodMusic {
 	private static MusikPlayer player;
 	private static HashMap<String, ArrayList<String>> moodMusic = new HashMap<>();
 	private static float volume;
-
-	public static void addMood(String name) {
-		if (!moodMusic.containsKey(name)) {
+	private static String mood;
+	
+	public static void addMood(String name){
+		if(!moodMusic.containsKey(name)){
 			moodMusic.put(name, new ArrayList<>());
 		}
 	}
-
-	public static void addClipToMood(String mood, String music) {
-		if (!moodMusic.containsKey(mood)) {
+	
+	public static void addClipToMood(String mood, String music){
+		if(!moodMusic.containsKey(mood)){
 			addMood(mood);
 		}
-		if (!moodMusic.get(mood).contains(music)) {
+		if(!moodMusic.get(mood).contains(music)){
 			moodMusic.get(mood).add(music);
 		}
 	}
-
-	private static void setMood(String mood) {
+	
+	private static void setMood(String mood){
 		ArrayList<String> names = moodMusic.get(mood);
-
-		int index = (int) (Math.random() * names.size());
-
-		while (!((!names.get(index).equals(lastPlayed[0])) && (!names.get(index).equals(lastPlayed[1])) && (!names.get(index).equals(lastPlayed[2])))) {
-			index = (int) (Math.random() * names.size());
-			if (names.size() < 4) {
+		
+		int index = (int) (Math.random()*names.size());
+		
+		while(!((!names.get(index).equals(lastPlayed[0]))&&(!names.get(index).equals(lastPlayed[1]))&&(!names.get(index).equals(lastPlayed[2])))){
+			if(names.size()<4){
 				break;
 			}
+			index = (int) (Math.random()*names.size());
 		}
-
+		
 		String name = names.get(index);
-
-		if (lastPlayed[0] == null) {
+		
+		if(lastPlayed[0]==null){
 			lastPlayed[0] = name;
-		} else if (lastPlayed[1] == null) {
+		}else if(lastPlayed[1]==null){
 			lastPlayed[1] = name;
-		} else if (lastPlayed[2] == null) {
+		}else if(lastPlayed[2]==null){
 			lastPlayed[2] = name;
-		} else {
-			for (int i = 0; i < 2; i++) {
-				lastPlayed[i] = lastPlayed[i + 1];
+		}else{
+			for(int i = 0; i <2; i++){
+				lastPlayed[i] = lastPlayed[i+1];
 			}
 			lastPlayed[2] = name;
 		}
@@ -59,7 +60,7 @@ public class MoodMusic {
 		long duration = player.start();
 		Timer timer = new Timer(true);
 		timer.schedule(new TimerTask() {
-
+			
 			@Override
 			public void run() {
 				try {
@@ -67,29 +68,43 @@ public class MoodMusic {
 				} catch (InterruptedException e) {
 					// Ignore
 				}
-				changeMood(mood);
+				if(mood.equals(MoodMusic.mood)){
+					changeMood(mood);
+				}
 			}
 		}, 0);
 	}
-
-	public static void init() {
+	
+	public static void init(){
 		String[] list = Environment.getMusicList();
-		for (int i = 0; i < list.length; i++) {
+		for(int i = 0; i<list.length; i++){
 			addClipToMood("Default", list[i]);
 		}
 		setMoodToDefault();
 	}
-
-	public static void setMoodToDefault() {
-		setMood("Default");
-	}
-
-	public static void changeMood(String mood) {
-		player.stop();
+	
+	public static void setMoodToDefault(){
+		mood = "Default";
 		setMood(mood);
 	}
-
-	public void changeVolume(Float change) {
+	
+	public static void changeMood(String mood){
+		if(!mood.equals(MoodMusic.mood)){
+			for(float i = volume; i>-30; i--){
+				player.changeVolume(-1.0f);
+				try {
+					TimeUnit.MILLISECONDS.sleep(100);
+				} catch (InterruptedException e) {
+					// Let's just pretend that everything is fine
+				}
+			}
+			player.stop();
+			MoodMusic.mood = mood;
+			setMood(mood);
+		}
+	}
+	
+	public static void changeVolume(Float change){
 		volume += change;
 		player.setVolume(volume);
 	}
