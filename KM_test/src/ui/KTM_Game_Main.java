@@ -80,9 +80,9 @@ public class KTM_Game_Main implements StringConstants {
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 //			grafikCycl();
-			gT.run();
-			gameCycl();
 			
+			gameCycl();
+			gT.run();
 			updateDisplay();
 			updateFPS();
 		}
