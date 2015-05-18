@@ -38,7 +38,7 @@ public class KTM_Game_Main implements StringConstants {
 	public static int HEIGHT = 900;
 	private boolean fS = true; // fullscreen?
 	private boolean Vsync = true;
-	private int VsyncF = 60;
+	private int VsyncF = 120;
 	private int delta;
 
 	private Soldat figur;
@@ -64,9 +64,11 @@ public class KTM_Game_Main implements StringConstants {
 	private Soldat figuren[] = new Soldat[s];
 
 	private TextureLoader textureLoader;
+	static WorkingThread gT;
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
+		gT = new GrafikThread(hw);
 		hw.start();
 	}
 
@@ -74,31 +76,13 @@ public class KTM_Game_Main implements StringConstants {
 
 		init();
 		objectinit();
-
+		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			glMatrixMode(GL_PROJECTION);
-			glTranslatef(CameraMX, CameraMY, 0f);
-			CameraMX = 0;
-			CameraMY = 0;
-
-			CameraMYU = 0;
-			CameraMYD = 0;
-
-			CameraMXL = 0;
-			CameraMXR = 0;
-
-			glMatrixMode(GL_MODELVIEW);
-
-			glLoadIdentity();
-
-			render();
-			calc();
-			pollInput();
-			CameraMX -= CameraMXR + CameraMXL;
-			CameraMY -= CameraMYU + CameraMYD;
-			CameraX -= CameraMX;
-			CameraY -= CameraMY;
+//			grafikCycl();
+			gT.run();
+			gameCycl();
+			
 			updateDisplay();
 			updateFPS();
 		}
@@ -112,7 +96,10 @@ public class KTM_Game_Main implements StringConstants {
 		initRes();
 
 		try {
-			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+//			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+//			DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
+//			DM.
+			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
 
 			Display.create();
 		} catch (LWJGLException e) {
@@ -139,7 +126,8 @@ public class KTM_Game_Main implements StringConstants {
 
 		getDelta(); // call once before loop to initialise lastFrame
 		lastFPS = getTime(); // call before loop to initialise fps timer
-		initDisplay();
+//		initDisplay();
+		
 
 	}
 
@@ -269,6 +257,7 @@ public class KTM_Game_Main implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
 					Vsync = !Vsync;
+					Display.setVSyncEnabled(Vsync);
 				}
 
 			}
@@ -548,19 +537,48 @@ public class KTM_Game_Main implements StringConstants {
 	public void initRes() {
 		HEIGHT = Display.getDesktopDisplayMode().getHeight();
 		WIDTH = Display.getDesktopDisplayMode().getWidth();
+		System.out.println("H: " +  HEIGHT + " W: " + WIDTH);
 	}
 
 	public void initDisplay() {
 
 		setDisplayMode(WIDTH, HEIGHT, fS);
-
+		System.out.println("H: " +  HEIGHT + " W: " + WIDTH);
 	}
 
 	public void updateDisplay() {
-		if (Vsync) {
-			Display.sync(VsyncF);
-		}
+		if(Vsync)Display.sync(VsyncF);
+		
+		
 		Display.update();
+	}
+	
+	public void grafikCycl(){
+		glMatrixMode(GL_PROJECTION);
+		glTranslatef(CameraMX, CameraMY, 0f);
+		CameraMX = 0;
+		CameraMY = 0;
+
+		CameraMYU = 0;
+		CameraMYD = 0;
+
+		CameraMXL = 0;
+		CameraMXR = 0;
+
+		glMatrixMode(GL_MODELVIEW);
+
+		glLoadIdentity();
+
+		render();
+	}
+	
+	public void gameCycl(){
+		calc();
+		pollInput();
+		CameraMX -= CameraMXR + CameraMXL;
+		CameraMY -= CameraMYU + CameraMYD;
+		CameraX -= CameraMX;
+		CameraY -= CameraMY;
 	}
 
 }
