@@ -483,6 +483,7 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void calc() {
+		float delta = getDelta()*0.5f;
 		Object[] vek = vektoren.values().toArray();
 		Vektor[] vekk = new Vektor[vek.length];
 		for(int i = 0; i<vek.length; i++){
@@ -490,7 +491,7 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		
 		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move((getDelta()*0.5f)*0.09f)){
+			if(vekk[i].move(delta*0.09f)){
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}
