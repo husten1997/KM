@@ -216,6 +216,7 @@ public class QUAD extends gasset {
             
         }
         glEnd();
+        glColor3f(0.7f, 0.7f, 0.8f);
         // restore the model view matrix to prevent contamination
         glPopMatrix();
 	}

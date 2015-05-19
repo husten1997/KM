@@ -592,5 +592,7 @@ public class KTM_Game_Main implements StringConstants {
 		CameraX -= CameraMX;
 		CameraY -= CameraMY;
 	}
+	
+	
 
 }
