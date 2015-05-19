@@ -70,8 +70,8 @@ public class Terrain extends gasset implements StringConstants{
 	@Override
 	public void draw() {
 		waterPlane.draw();
-		for(int x1 = (int)(KTM_Game_Main.CameraX/32); x1 < (int)((KTM_Game_Main.CameraX+KTM_Game_Main.WIDTH)/32+4); x1++){
-			for(int y1 = (int)(KTM_Game_Main.CameraY/32); y1 < (int)((KTM_Game_Main.CameraY+KTM_Game_Main.HEIGHT)/32+4); y1++){
+		for(int x1 = (int)(KTM_Game_Main.CameraX/32); x1 < (int)((KTM_Game_Main.CameraX+KTM_Game_Main.WIDTH*KTM_Game_Main.scale)/32+4); x1++){
+			for(int y1 = (int)(KTM_Game_Main.CameraY/32); y1 < (int)((KTM_Game_Main.CameraY+KTM_Game_Main.HEIGHT*KTM_Game_Main.scale)/32+4); y1++){
 				try {
 					elements[x1][y1].draw();
 				} catch (Exception e) {

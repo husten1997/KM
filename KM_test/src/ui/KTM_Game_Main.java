@@ -45,17 +45,13 @@ public class KTM_Game_Main implements StringConstants {
 
 	private Soldat figur;
 	private Terrain terrain;
-	private float CameraMXR = 0;
-	private float CameraMYD = 0;
-	private float CameraMXL = 0;
-	private float CameraMYU = 0;
-	private float CameraMX = 0;
-	private float CameraMY = 0;
+	
 	private Pos pos1 = new Pos(0, 0);
 	private Pos pos2 = new Pos(0, 0);
 	public static float CameraX = 0;
 	public static float CameraY = 0;
 	private int s = 5;
+	public static float scale = 1f;
 	
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
 
@@ -101,9 +97,11 @@ public class KTM_Game_Main implements StringConstants {
 //			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 //			DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
 //			DM.
-			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
-
 			Display.create();
+			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
+			glViewport(0, 0, WIDTH, HEIGHT);
+
+			
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -111,7 +109,7 @@ public class KTM_Game_Main implements StringConstants {
 		// enable textures since we're going to use these for our sprites
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
-
+		
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		// disable the OpenGL depth test since we're rendering 2D graphics
 		glDisable(GL_DEPTH_TEST);
@@ -128,7 +126,7 @@ public class KTM_Game_Main implements StringConstants {
 
 		getDelta(); // call once before loop to initialise lastFrame
 		lastFPS = getTime(); // call before loop to initialise fps timer
-//		initDisplay();
+		initDisplay();
 		
 
 	}
@@ -173,6 +171,17 @@ public class KTM_Game_Main implements StringConstants {
 		if (Mouse.isButtonDown(1)) {
 
 		}
+		
+		int dWheel = Mouse.getDWheel();
+	    if (dWheel < 0) {
+	        scale += 0.1f;
+//	        glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
+	    } else if (dWheel > 0){
+	        scale -= 0.1f;
+//	        glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
+	   }
+		
+		
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
 			System.out.println("Space is down");
@@ -192,16 +201,16 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraMYU = 0.4f * delta;
+			CameraY += 0.4f * delta;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraMXL = -0.4f * delta;
+			CameraX -= 0.4f * delta;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraMYD = -0.4f * delta;
+			CameraY -= 0.4f * delta;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraMXR = 0.4f * delta;
+			CameraX += 0.4f * delta;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
@@ -219,6 +228,10 @@ public class KTM_Game_Main implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 					System.exit(0);
+				}
+				
+				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
+					scale = 1f;
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
@@ -271,6 +284,7 @@ public class KTM_Game_Main implements StringConstants {
 
 		while (Mouse.next()) {
 			if (Mouse.getEventButtonState()) {
+				
 				if (Mouse.getEventButton() == 0) {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
@@ -567,15 +581,14 @@ public class KTM_Game_Main implements StringConstants {
 	
 	public void grafikCycl(){
 		glMatrixMode(GL_PROJECTION);
-		glTranslatef(CameraMX, CameraMY, 0f);
-		CameraMX = 0;
-		CameraMY = 0;
-
-		CameraMYU = 0;
-		CameraMYD = 0;
-
-		CameraMXL = 0;
-		CameraMXR = 0;
+		glLoadIdentity();
+//		glTranslatef(CameraMX, CameraMY, 0f);
+		glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
+		glTranslatef(-CameraX, -CameraY, 0f);
+		
+		
+		
+		
 
 		glMatrixMode(GL_MODELVIEW);
 
@@ -585,12 +598,20 @@ public class KTM_Game_Main implements StringConstants {
 	}
 	
 	public void gameCycl(){
+		testVariable();
 		calc();
 		pollInput();
-		CameraMX -= CameraMXR + CameraMXL;
-		CameraMY -= CameraMYU + CameraMYD;
-		CameraX -= CameraMX;
-		CameraY -= CameraMY;
+		
+	}
+	
+	public void updateZoom(){
+		
+	}
+	
+	private void testVariable(){
+		if(scale < 0.1f){
+			scale = 0.1f;
+		}
 	}
 	
 	
