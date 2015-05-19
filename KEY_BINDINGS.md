@@ -2,8 +2,8 @@
 Please update if needed
 
 #- Mouse
-	Left Click: Interaction
-	Rights Click: Selection
+	Right Click: Interaction
+	Left Click: Selection
 	Mouse Weehl: Zoome in/out
 	
 #- Keyboard
