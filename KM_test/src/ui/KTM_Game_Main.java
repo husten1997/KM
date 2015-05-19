@@ -353,6 +353,9 @@ public class KTM_Game_Main implements StringConstants {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
 
+					x*=scale;
+					y*=scale;
+					
 					pos2.setxPos(x);
 					pos2.setyPos(y);
 
