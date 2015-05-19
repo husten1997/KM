@@ -5,7 +5,7 @@ import res.StringConstants;
 
 public abstract class gasset {
 	private int sort = 1;
-	protected int speed = 0;
+	
 	protected String type = StringConstants.GROUND;
 	
 	public void setSort(int s){
@@ -29,9 +29,7 @@ public abstract class gasset {
 	
 	public abstract void setPos(Pos p);
 	
-	public double getSpeed(){
-		return speed;
-	}
+	
 	
 	public String getType(){
 		return type;

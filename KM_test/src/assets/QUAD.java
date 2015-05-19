@@ -81,11 +81,6 @@ public class QUAD extends gasset {
 		}
 	}
 	
-	public void init(){
-		H = texture.getImageHeight()* Cs;
-		L = texture.getImageWidth()* Cs;
-	}
-	
 	public QUAD(float h, float b, float x, float y){
 		H = h;
 		L = b;
@@ -95,6 +90,10 @@ public class QUAD extends gasset {
 		rot = (int) ran;
 	}
 	
+	public void init(){
+		H = texture.getImageHeight()* Cs;
+		L = texture.getImageWidth()* Cs;
+	}
 	//Getters § Setters ------------------------------------
 	
 	public float getH() {

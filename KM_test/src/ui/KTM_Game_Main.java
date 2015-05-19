@@ -259,6 +259,10 @@ public class KTM_Game_Main implements StringConstants {
 					Vsync = !Vsync;
 					Display.setVSyncEnabled(Vsync);
 				}
+				
+				if(Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0){
+					System.out.println(selection.size());
+				}
 
 			}
 		}
@@ -322,6 +326,7 @@ public class KTM_Game_Main implements StringConstants {
 				}
 
 			} else {
+				//Buton releasd
 				if (Mouse.getEventButton() == 0) {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
@@ -395,47 +400,52 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void search(float x1, float y1, float x2, float y2) {
-		selection.clear();
-		float Px1;
-		float Px2;
+		if(x1 == x2 && y1 == y2){
+			search(x1, y1);
+		}else{
+			selection.clear();
+			float Px1;
+			float Px2;
 
-		float Py1;
-		float Py2;
+			float Py1;
+			float Py2;
 
-		if (x1 < x2) {
-			Px1 = x2;
-			Px2 = x1;
-		} else {
-			Px1 = x1;
-			Px2 = x2;
-		}
+			if (x1 < x2) {
+				Px1 = x2;
+				Px2 = x1;
+			} else {
+				Px1 = x1;
+				Px2 = x2;
+			}
 
-		if (y1 < y2) {
-			Py1 = y2;
-			Py2 = y1;
-		} else {
-			Py1 = y1;
-			Py2 = y2;
-		}
+			if (y1 < y2) {
+				Py1 = y2;
+				Py2 = y1;
+			} else {
+				Py1 = y1;
+				Py2 = y2;
+			}
 
-		try {
-			for (int e = 0; e < ebenen; e++) {
+			try {
+				for (int e = 0; e < ebenen; e++) {
 
-				for (int i = 0; i < renderList[e].size(); i++) {
-					if (renderList[e].get(i).getX() <= Px1 && renderList[e].get(i).getX() >= Px2 && renderList[e].get(i).getY() <= Py1
-							&& renderList[e].get(i).getY() >= Py2) {
+					for (int i = 0; i < renderList[e].size(); i++) {
+						if (renderList[e].get(i).getX() <= Px1 && renderList[e].get(i).getX() >= Px2 && renderList[e].get(i).getY() <= Py1
+								&& renderList[e].get(i).getY() >= Py2) {
 
-						if(renderList[e].get(i).getType().equals(StringConstants.EINEHEIT)){
-							selection.add(renderList[e].get(i));
+							if(renderList[e].get(i).getType().equals(StringConstants.EINEHEIT)){
+								selection.add(renderList[e].get(i));
+							}
 						}
 					}
 				}
+			} catch (Exception e) {
+
 			}
-		} catch (Exception e) {
-
 		}
+		
 	}
-
+	//Für einzelauswahl
 	public void search(float x, float y) {
 		gasset xy = figur;
 		selection.clear();
@@ -464,7 +474,7 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		
 		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move()){
+			if(vekk[i].move((delta*0.5f)*0.09f)){
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}

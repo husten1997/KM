@@ -102,9 +102,9 @@ public class Vektor {
 		return Math.sqrt(Math.pow(p2.getxPos()-p1.getxPos(), 2)+Math.pow(p2.getyPos()-p1.getyPos(), 2));
 	}
 	
-	public boolean move(){
-		double dx = soldat.getSpeed()/Math.sqrt((1.0/(m*m))+1.0);
-		double dy = soldat.getSpeed()/Math.sqrt(m*m + 1.0);
+	public boolean move(float delta){
+		double dx = soldat.getSpeed()/Math.sqrt((1.0/(m*m))+1.0)*delta;
+		double dy = soldat.getSpeed()/Math.sqrt(m*m + 1.0)*delta;
 		Pos newStart;
 		if(ende.getxPos()>start.getxPos()){
 			if(ende.getyPos()>start.getyPos()){
