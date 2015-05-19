@@ -290,6 +290,9 @@ public class KTM_Game_Main implements StringConstants {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
 
+					x*=scale;
+					y*=scale;
+					
 					pos1.setxPos(x);
 					pos1.setyPos(y);
 
@@ -316,7 +319,10 @@ public class KTM_Game_Main implements StringConstants {
 				if (Mouse.getEventButton() == 1) {
 					int x = Mouse.getX() + (int) CameraX;
 					int y = Mouse.getY() + (int) CameraY;
-
+					
+					x*=scale;
+					y*=scale;
+					
 					Pos p1 = new Pos(x, y); //Ende
 
 					switch (inGameStat) {
