@@ -29,7 +29,7 @@ public class KTM_Game_Main implements StringConstants {
 	/** time at last frame */
 	private long lastFrame;
 	/** frames per second */
-	private int fps;
+	private int fps, FPS = 60;
 	/** last fps time */
 	private long lastFPS;
 
@@ -77,7 +77,8 @@ public class KTM_Game_Main implements StringConstants {
 		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			delta = getDelta();
+			delta = 1000/(FPS==0?1:FPS);
+			System.out.println("Fps:"+FPS+"|Delta:"+delta);
 //			grafikCycl();
 			
 			gameCycl();
@@ -421,6 +422,7 @@ public class KTM_Game_Main implements StringConstants {
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Display.setTitle("FPS: " + fps);
+			FPS = fps;
 			fps = 0;
 			lastFPS += 1000;
 		}
@@ -505,7 +507,7 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		
 		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move(delta*0.01f)){
+			if(vekk[i].move(delta*0.1f)){
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}
