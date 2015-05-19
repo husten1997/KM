@@ -6,7 +6,7 @@ Please update if needed
 	Rights Click: Selection
 	Mouse Weehl: Zoome in/out
 	
-#-Keyboard
+#- Keyboard
 	Up: Moves Map up
 	Down: Moves Map down
 	Left: Moves Map Left
