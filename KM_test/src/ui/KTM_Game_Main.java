@@ -29,7 +29,8 @@ public class KTM_Game_Main implements StringConstants {
 	/** time at last frame */
 	private long lastFrame;
 	/** frames per second */
-	private int fps, FPS = 60;
+	private int fps;
+	private float FPS = 60;
 	/** last fps time */
 	private long lastFPS;
 
@@ -41,7 +42,7 @@ public class KTM_Game_Main implements StringConstants {
 	private boolean fS = true; // fullscreen?
 	private boolean Vsync = false;
 	private int VsyncF = 120;
-	private int delta;
+	private float delta;
 
 	private Soldat figur;
 	private Terrain terrain;
@@ -77,7 +78,7 @@ public class KTM_Game_Main implements StringConstants {
 		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			delta = 1000/(FPS==0?1:FPS);
+			delta = ((float) (1000))/(FPS==0?1:FPS);
 			System.out.println("Fps:"+FPS+"|Delta:"+delta);
 //			grafikCycl();
 			
