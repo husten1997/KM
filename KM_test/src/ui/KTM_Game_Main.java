@@ -41,7 +41,7 @@ public class KTM_Game_Main implements StringConstants {
 	private boolean fS = true; // fullscreen?
 	private boolean Vsync = true;
 	private int VsyncF = 120;
-	private int delta;
+//	private int delta;
 
 	private Soldat figur;
 	private Terrain terrain;
@@ -164,6 +164,7 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void pollInput() {
+		int delta = getDelta();
 
 		if (Mouse.isButtonDown(0)) {
 
@@ -411,7 +412,7 @@ public class KTM_Game_Main implements StringConstants {
 			lastFPS += 1000;
 		}
 		fps++;
-		delta = getDelta();
+		
 	}
 
 	public void search(float x1, float y1, float x2, float y2) {
@@ -489,7 +490,7 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		
 		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move((delta*0.5f)*0.09f)){
+			if(vekk[i].move((getDelta()*0.5f)*0.09f)){
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}
@@ -597,6 +598,7 @@ public class KTM_Game_Main implements StringConstants {
 	}
 	
 	public void gameCycl(){
+		
 		testVariable();
 		calc();
 		pollInput();
