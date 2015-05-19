@@ -322,7 +322,6 @@ public class KTM_Game_Main implements StringConstants {
 					case NOTHING:
 						break;
 					case S_TRUPS:
-						vektoren.clear();
 						for (int i = 0; i < selection.size(); i++) {
 							Pos p2 = selection.get(i).getPos(); //Start
 							if(selection.get(i).getType().equals(StringConstants.EINEHEIT)){
