@@ -39,9 +39,9 @@ public class KTM_Game_Main implements StringConstants {
 	public static int WIDTH = 1600;
 	public static int HEIGHT = 900;
 	private boolean fS = true; // fullscreen?
-	private boolean Vsync = true;
+	private boolean Vsync = false;
 	private int VsyncF = 120;
-//	private int delta;
+	private int delta;
 
 	private Soldat figur;
 	private Terrain terrain;
@@ -77,6 +77,7 @@ public class KTM_Game_Main implements StringConstants {
 		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+			delta = getDelta();
 //			grafikCycl();
 			
 			gameCycl();
@@ -164,11 +165,12 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void pollInput() {
-		int delta = getDelta();
+//		int delta = this.delta;
 
 		if (Mouse.isButtonDown(0)) {
 
 		}
+		
 		if (Mouse.isButtonDown(1)) {
 
 		}
@@ -202,16 +204,16 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraY += 0.4f * delta;
+			CameraY += 0.5f * delta;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraX -= 0.4f * delta;
+			CameraX -= 0.5f * delta;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraY -= 0.4f * delta;
+			CameraY -= 0.5f * delta;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraX += 0.4f * delta;
+			CameraX += 0.5f * delta;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
@@ -273,7 +275,7 @@ public class KTM_Game_Main implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
 					Vsync = !Vsync;
-					Display.setVSyncEnabled(Vsync);
+//					Display.setVSyncEnabled(Vsync);
 				}
 				
 				if(Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0){
@@ -407,9 +409,11 @@ public class KTM_Game_Main implements StringConstants {
 	// benutzen für frame unabhängige bewegungen zb
 	public int getDelta() {
 		long time = getTime();
+		
 		int delta = (int) (time - lastFrame);
+//		System.out.println(time - lastFrame);
 		lastFrame = time;
-		// System.out.println(delta);
+		 
 
 		return delta;
 	}
@@ -421,6 +425,7 @@ public class KTM_Game_Main implements StringConstants {
 			lastFPS += 1000;
 		}
 		fps++;
+		
 		
 	}
 
@@ -492,7 +497,7 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void calc() {
-		float delta = getDelta()*0.5f;
+//		float delta = getDelta()*0.5f;
 		Object[] vek = vektoren.values().toArray();
 		Vektor[] vekk = new Vektor[vek.length];
 		for(int i = 0; i<vek.length; i++){
@@ -500,7 +505,7 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		
 		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move(delta*0.09f)){
+			if(vekk[i].move(delta*0.01f)){
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}
