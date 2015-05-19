@@ -20,6 +20,8 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Environment;
 
 import res.*;
+import res.thread.GrafikThread;
+import res.thread.WorkingThread;
 import assets.*;
 
 public class KTM_Game_Main implements StringConstants {
