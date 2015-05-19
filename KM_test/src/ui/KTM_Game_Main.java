@@ -165,6 +165,7 @@ public class KTM_Game_Main implements StringConstants {
 
 	public void pollInput() {
 		int delta = getDelta();
+		System.out.println(delta);
 
 		if (Mouse.isButtonDown(0)) {
 
