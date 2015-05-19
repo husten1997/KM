@@ -103,8 +103,8 @@ public class Vektor {
 	}
 	
 	public boolean move(float delta){
-		double dx = soldat.getSpeed()*delta/Math.sqrt((1.0/(m*m))+1.0);
-		double dy = soldat.getSpeed()*delta/Math.sqrt(m*m + 1.0);
+		double dx = soldat.getSpeed()/Math.sqrt((1.0/(m*m))+1.0)*delta;
+		double dy = soldat.getSpeed()/Math.sqrt(m*m + 1.0)*delta;
 		Pos newStart;
 		if(ende.getxPos()>start.getxPos()){
 			if(ende.getyPos()>start.getyPos()){
