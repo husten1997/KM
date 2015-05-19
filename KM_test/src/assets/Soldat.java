@@ -5,11 +5,10 @@ import res.StringConstants;
 
 public class Soldat extends QUAD {
 	private int health;
-	private int speed = 0;
+	private int speed = 5;
 	//TODO Inventory
 	public Soldat(float l, float h, float x, float y, TextureLoader loader, String ref) {
 		super(l, h, x, y, loader, ref);
-		speed = 5;
 		type = StringConstants.EINEHEIT;
 	}
 	
