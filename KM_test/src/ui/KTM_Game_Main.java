@@ -44,7 +44,6 @@ public class KTM_Game_Main implements StringConstants {
 	private boolean fS = true; // fullscreen?
 	private boolean Vsync = false;
 	private int VsyncF = 120;
-	private float delta;
 
 	private Soldat figur;
 	private Terrain terrain;
@@ -84,17 +83,15 @@ public class KTM_Game_Main implements StringConstants {
 			
 			@Override
 			public void run() {
-				calc();
+				gameCycl();
 			}
 		}, 0, gameSpeed);
 		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			delta = ((float) (1000))/(FPS==0?1:FPS);
-			System.out.println("Fps:"+FPS+"|Delta:"+delta);
 //			grafikCycl();
 			
-			gameCycl();
+//			gameCycl();
 			gT.run();
 			updateDisplay();
 			updateFPS();
@@ -205,29 +202,29 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			figur.setrY(0.3f * delta);
+			figur.setrY(0.3f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			figur.setrX(-0.3f * delta);
+			figur.setrX(-0.3f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			figur.setrY(-0.3f * delta);
+			figur.setrY(-0.3f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			figur.setrX(0.3f * delta);
+			figur.setrX(0.3f);
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraY += 0.5f * delta;
+			CameraY += 0.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraX -= 0.5f * delta;
+			CameraX -= 0.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraY -= 0.5f * delta;
+			CameraY -= 0.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraX += 0.5f * delta;
+			CameraX += 0.5f;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
@@ -630,7 +627,7 @@ public class KTM_Game_Main implements StringConstants {
 	public void gameCycl(){
 		
 		testVariable();
-//		calc();
+		calc();
 		pollInput();
 		
 	}
