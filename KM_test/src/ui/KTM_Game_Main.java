@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL11.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import loader.TextureLoader;
 
@@ -64,6 +66,8 @@ public class KTM_Game_Main implements StringConstants {
 
 	private TextureLoader textureLoader;
 	static WorkingThread gT;
+	
+	private int gameSpeed = 2; //inverted
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
@@ -75,6 +79,14 @@ public class KTM_Game_Main implements StringConstants {
 
 		init();
 		objectinit();
+		
+		new Timer(true).scheduleAtFixedRate(new TimerTask() {
+			
+			@Override
+			public void run() {
+				calc();
+			}
+		}, 0, gameSpeed);
 		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -508,7 +520,7 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		
 		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move(delta*0.1f)){
+			if(vekk[i].move()){
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}
@@ -618,7 +630,7 @@ public class KTM_Game_Main implements StringConstants {
 	public void gameCycl(){
 		
 		testVariable();
-		calc();
+//		calc();
 		pollInput();
 		
 	}
