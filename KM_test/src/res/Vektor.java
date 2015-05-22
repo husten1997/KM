@@ -9,6 +9,7 @@ public class Vektor {
 	private double x, y, m;
 	
 	public Vektor(Pos pos1, Pos pos2, Soldat soldat){
+		pos2 = new Pos(pos2.getxPos()-16, pos2.getyPos()-16);
 		start = pos1;
 		ende = pos2;
 		x = ende.getxPos()-start.getxPos();
@@ -33,6 +34,7 @@ public class Vektor {
 	}
 	
 	public void setEnde(Pos ende){
+		ende = new Pos(ende.getxPos()-16, ende.getyPos()-16);
 		this.ende = ende;
 	}
 	
@@ -122,6 +124,9 @@ public class Vektor {
 		if(distance(newStart, ende)<distance(start, ende)){
 			soldat.setPos(newStart);
 			start = newStart;
+			x = ende.getxPos()-start.getxPos();
+			y = ende.getyPos() - start.getyPos();
+			m = x/y;
 		}else{
 			soldat.setPos(ende);
 			return true;

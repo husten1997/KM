@@ -66,7 +66,7 @@ public class KTM_Game_Main implements StringConstants {
 	private TextureLoader textureLoader;
 	static WorkingThread gT;
 	
-	private int gameSpeed = 2; //inverted
+	private int gameSpeed = 10; //inverted
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
@@ -83,7 +83,9 @@ public class KTM_Game_Main implements StringConstants {
 			
 			@Override
 			public void run() {
+				long t = System.currentTimeMillis();
 				gameCycl();
+				System.out.println(System.currentTimeMillis()-t);
 			}
 		}, 0, gameSpeed);
 //		
@@ -103,6 +105,9 @@ public class KTM_Game_Main implements StringConstants {
 	public void init() {
 		Environment.setUpEnvironment("Ares", "Knightmare");
 		MoodMusic.init();
+		MoodMusic.addMood("buildingMood");
+		MoodMusic.addClipToMood("buildingMood", "Knightmare_Soundtrack_2.WAV");
+		MoodMusic.addClipToMood("buildingMood", "Knightmare_Soundtrack_4.WAV");
 		// verwendet eure aktuelle desktopauflösung als gameauflösung
 		initRes();
 
@@ -293,6 +298,10 @@ public class KTM_Game_Main implements StringConstants {
 				if(Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0){
 					System.out.println(selection.size());
 				}
+				
+				if(Keyboard.getEventKey() == Keyboard.KEY_M){
+					MoodMusic.changeMood("buildingMood");
+				}
 
 			}
 		}
@@ -301,11 +310,8 @@ public class KTM_Game_Main implements StringConstants {
 			if (Mouse.getEventButtonState()) {
 				
 				if (Mouse.getEventButton() == 0) {
-					int x = Mouse.getX() + (int) CameraX;
-					int y = Mouse.getY() + (int) CameraY;
-
-					x*=scale;
-					y*=scale;
+					int x = (int) (Mouse.getX()*scale + CameraX);
+					int y = (int) (Mouse.getY()*scale + CameraY);
 					
 					pos1.setxPos(x);
 					pos1.setyPos(y);
@@ -331,11 +337,8 @@ public class KTM_Game_Main implements StringConstants {
 				}
 
 				if (Mouse.getEventButton() == 1) {
-					int x = Mouse.getX() + (int) CameraX;
-					int y = Mouse.getY() + (int) CameraY;
-					
-					x*=scale;
-					y*=scale;
+					int x = (int) (Mouse.getX()*scale + CameraX);
+					int y = (int) (Mouse.getY()*scale + CameraY);
 					
 					Pos p1 = new Pos(x, y); //Ende
 
@@ -364,11 +367,8 @@ public class KTM_Game_Main implements StringConstants {
 			} else {
 				//Buton releasd
 				if (Mouse.getEventButton() == 0) {
-					int x = Mouse.getX() + (int) CameraX;
-					int y = Mouse.getY() + (int) CameraY;
-
-					x*=scale;
-					y*=scale;
+					int x = (int) (Mouse.getX()*scale + CameraX);
+					int y = (int) (Mouse.getY()*scale + CameraY);
 					
 					pos2.setxPos(x);
 					pos2.setyPos(y);
@@ -640,6 +640,9 @@ public class KTM_Game_Main implements StringConstants {
 	private void testVariable(){
 		if(scale < 0.1f){
 			scale = 0.1f;
+		}
+		if(CameraX <= 0){
+			CameraX = 0;
 		}
 	}
 	

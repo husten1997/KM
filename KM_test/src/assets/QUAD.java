@@ -133,6 +133,10 @@ public class QUAD extends gasset {
 	public float getX() {
 		return (float)pos.getxPos();
 	}
+	
+	public float getXC() {
+		return (float)pos.getxPos() + 16;
+	}
 
 	@Override
 	public void setX(float x) {
@@ -142,6 +146,8 @@ public class QUAD extends gasset {
 	public void setrX(float x) {
 		pos.setxPos(pos.getxPos() + x);
 	}
+	
+	
 	
 	@Override
 	public float getY() {
