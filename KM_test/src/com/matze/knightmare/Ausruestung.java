@@ -6,7 +6,7 @@ public class Ausruestung {
 									// Verteidigung[3] usw angegeben sein
 
 	public Ausruestung() {
-		changeStats = new int[9];
+		changeStats = new int[10];
 		for (int i = 0; i < changeStats.length; i++) {
 			changeStats[i] = 0;
 		}

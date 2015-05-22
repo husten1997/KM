@@ -15,8 +15,4 @@ public class Armee {
 		anz++;
 	}
 	
-	public void fight(Armee a){
-		
-	}
-	
 }
