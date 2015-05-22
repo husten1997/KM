@@ -86,13 +86,14 @@ public class KTM_Game_Main implements StringConstants {
 				gameCycl();
 			}
 		}, 0, gameSpeed);
-		
+//		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 //			grafikCycl();
 			
 //			gameCycl();
 			gT.run();
+			pollInput();
 			updateDisplay();
 			updateFPS();
 		}
@@ -628,7 +629,7 @@ public class KTM_Game_Main implements StringConstants {
 		
 		testVariable();
 		calc();
-		pollInput();
+		
 		
 	}
 	
