@@ -11,6 +11,13 @@ public class Ausruestung {
 			changeStats[i] = 0;
 		}
 	}
+	
+	public Ausruestung(int[] a) {
+		changeStats = new int[12];
+		for (int i = 0; i < changeStats.length; i++) {
+			changeStats[i] = a[i];
+		}
+	}
 
 	public int[] getCS() {
 		return changeStats;

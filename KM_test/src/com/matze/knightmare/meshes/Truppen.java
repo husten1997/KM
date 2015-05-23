@@ -7,6 +7,8 @@ public class Truppen{
 	protected int bonusAng;
 	protected String name;
 	protected int reichweite;
+	protected int grundmoral, moral;
+	protected int ausdauer;
 	protected int geschwindigkeit;
 	protected int kosten;
 	protected Ausruestung ausruestung[];
@@ -18,7 +20,7 @@ public class Truppen{
 		ausruestung = new Ausruestung[8];
 	}
 	
-	public void verbesserung(int[] ang, int[] ver, int b, int reichw, int geschw){
+	public void verbesserung(int[] ang, int[] ver, int b, int reichw, int geschw, int mor, int aus){
 		
 		for (int i = 0; i < angriff.length; i++){
 			angriff[i] += ang[i];
@@ -27,9 +29,11 @@ public class Truppen{
 		bonusAng = b;
 		reichweite += reichw;
 		geschwindigkeit += geschw;
+		grundmoral+= mor;
+		ausdauer = aus;
 	}
 	
-	public void init(int[] ang, int[] ver, int b, String nam, int reichw, int geschw, int kost){
+	public void init(int[] ang, int[] ver, int b, String nam, int reichw, int geschw, int kost, int mo, int aus){
 		for (int i = 0; i < 2; i++){
 			angriff[i] += ang[i];
 			verteidigung[i] += ver[i]; 
@@ -39,6 +43,22 @@ public class Truppen{
 		geschwindigkeit += geschw;
 		name = nam;
 		kosten = kost;
+		grundmoral = mo;
+		ausdauer = aus;
+	}
+	
+	public int ausdauerBerechnen(int a, int einheitenFreundlich, int einheitenFeindlich){ //int a entspricht der ausdauer die zuvor returnt wird
+		ausdauer = a*(1+(moralBerechnen(einheitenFreundlich,einheitenFeindlich)/100));
+		return ausdauer;
+	}
+	
+	public int moralBerechnen(int einheitenFreundlich, int einheitenFeindlich){
+		moral = grundmoral*(1+((einheitenFreundlich - einheitenFeindlich)/100));
+		return moral;
+	}
+	
+	public int getMoral(){
+		return moral;
 	}
 	
 	public void setAusruestung(int i, Ausruestung aus){
@@ -56,6 +76,8 @@ public class Truppen{
 		geschwindigkeit += stats[7];
 		kosten += stats[8]; 
 		bonusAng += stats[9];
+		ausdauer += stats[10];
+		grundmoral += stats[11];
 		
 	}
 	
