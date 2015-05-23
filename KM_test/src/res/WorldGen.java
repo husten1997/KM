@@ -101,13 +101,13 @@ public class WorldGen implements StringConstants{
 					World[i][j] = null;
 				}
 				if(z > WW && z < WS){
-					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "textures/sand.png", SAND);
+					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "sand.png", SAND);
 				}
 				if(z > WS && z < WG){
-					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "textures/gras.png", GRAS);
+					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "gras.png", GRAS);
 				}
 				if(z > WG && z < WR){
-					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "textures/rock.png", ROCK);
+					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "rock.png", ROCK);
 				}
 			}
 		}

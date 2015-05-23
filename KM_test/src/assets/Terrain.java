@@ -33,7 +33,7 @@ public class Terrain extends gasset implements StringConstants{
 	}
 	
 	public void initTerrain(int x, int y){
-		waterPlane = new TerrainElement(x*32, y*32, 0, 0, textureLoader, "textures/water.png", WATER);
+		waterPlane = new TerrainElement(x*32, y*32, 0, 0, textureLoader, "water.png", WATER);
 		waterPlane.setTCX(x);
     	waterPlane.setTCY(y);
 		elements = new TerrainElement[x][y];

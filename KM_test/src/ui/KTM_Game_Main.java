@@ -163,12 +163,12 @@ public class KTM_Game_Main implements StringConstants {
 		for (int i = 0; i < s; i++) {
 			double x = Math.random() * 1200;
 			double y = Math.random() * 800;
-			figuren[i] = new Soldat(32, 32, (float) x, (float) y, textureLoader, "textures/figure.png");
+			figuren[i] = new Soldat(32, 32, (float) x, (float) y, textureLoader, "figure.png");
 			initRender(figuren[i], 1, 1);
 		}
 		terrain = new Terrain(textureLoader, (512) + 1, (512) + 1);
 
-		figur = new Soldat(32, 32, 0, 0, textureLoader, "textures/figure.png");
+		figur = new Soldat(32, 32, 0, 0, textureLoader, "figure.png");
 
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
@@ -321,10 +321,10 @@ public class KTM_Game_Main implements StringConstants {
 
 					switch (inGameStat) {
 					case N_BUILDINGS:
-						initRender(new Building((xR / 2) * 64, yR * 32, textureLoader, "textures/Haus.png"), 1, 2);
+						initRender(new Building((xR / 2) * 64, yR * 32, textureLoader, "Haus.png"), 1, 2);
 						break;
 					case N_TRUPS:
-						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "textures/figure.png"), 1, 1);
+						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "figure.png"), 1, 1);
 						break;
 					case S_TRUPS:
 						search(x, y);
@@ -378,10 +378,10 @@ public class KTM_Game_Main implements StringConstants {
 
 					switch (inGameStat) {
 					case N_BUILDINGS:
-						initRender(new Building((xR / 2) * 64, yR * 32, textureLoader, "textures/Haus.png"), 1, 2);
+						initRender(new Building((xR / 2) * 64, yR * 32, textureLoader, "Haus.png"), 1, 2);
 						break;
 					case N_TRUPS:
-						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "textures/figure.png"), 1, 1);
+						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "figure.png"), 1, 1);
 						break;
 					case S_TRUPS:
 						search((float) pos1.getxPos(), (float) pos1.getyPos(), (float) pos2.getxPos(), (float) pos2.getyPos());

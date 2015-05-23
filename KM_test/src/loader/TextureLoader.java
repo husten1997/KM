@@ -33,7 +33,6 @@ package loader;
  
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -44,7 +43,6 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
@@ -53,11 +51,9 @@ import java.util.Hashtable;
  
 
 
-import javax.swing.ImageIcon;
- 
-
-
 import org.lwjgl.BufferUtils;
+
+import com.richard.knightmare.util.Environment;
 
 import assets.Texture;
 import static org.lwjgl.opengl.GL11.*;
@@ -168,7 +164,7 @@ public class TextureLoader {
         // bind this texture
         glBindTexture(target, textureID);
  
-        BufferedImage bufferedImage = loadImage(resourceName);
+        BufferedImage bufferedImage = Environment.getTexture(resourceName);/*loadImage(resourceName);*/
         texture.setWidth(bufferedImage.getWidth());
         texture.setHeight(bufferedImage.getHeight());
  
@@ -277,22 +273,22 @@ public class TextureLoader {
      * @return The loaded buffered image
      * @throws IOException Indicates a failure to find a resource
      */
-    private BufferedImage loadImage(String ref) throws IOException {
-        URL url = TextureLoader.class.getClassLoader().getResource(ref);
- 
-        if (url == null) {
-            throw new IOException("Cannot find: " + ref);
-        }
- 
-        // due to an issue with ImageIO and mixed signed code
-        // we are now using good oldfashioned ImageIcon to load
-        // images and the paint it on top of a new BufferedImage
-        Image img = new ImageIcon(url).getImage();
-        BufferedImage bufferedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics g = bufferedImage.getGraphics();
-        g.drawImage(img, 0, 0, null);
-        g.dispose();
-    	
-        return bufferedImage;
-    }
+//    private BufferedImage loadImage(String ref) throws IOException {
+//        URL url = TextureLoader.class.getClassLoader().getResource(ref);
+// 
+//        if (url == null) {
+//            throw new IOException("Cannot find: " + ref);
+//        }
+// 
+//        // due to an issue with ImageIO and mixed signed code
+//        // we are now using good oldfashioned ImageIcon to load
+//        // images and the paint it on top of a new BufferedImage
+//        Image img = new ImageIcon(url).getImage();
+//        BufferedImage bufferedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+//        Graphics g = bufferedImage.getGraphics();
+//        g.drawImage(img, 0, 0, null);
+//        g.dispose();
+//    	
+//        return bufferedImage;
+//    }
 }
