@@ -67,7 +67,7 @@ public class KTM_Game_Main implements StringConstants {
 	private TextureLoader textureLoader;
 	static WorkingThread gT;
 	
-	private int gameSpeed = 10; //inverted
+	private int gameSpeed = 1; //inverted
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
@@ -84,9 +84,8 @@ public class KTM_Game_Main implements StringConstants {
 			
 			@Override
 			public void run() {
-				long t = System.currentTimeMillis();
+				pollInput();
 				gameCycl();
-				System.out.println(System.currentTimeMillis()-t);
 			}
 		}, 0, gameSpeed);
 //		
@@ -96,7 +95,6 @@ public class KTM_Game_Main implements StringConstants {
 			
 //			gameCycl();
 			gT.run();
-			pollInput();
 			updateDisplay();
 			updateFPS();
 		}
