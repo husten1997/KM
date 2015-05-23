@@ -18,6 +18,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.husten.knightmare.constants.StringConstants;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Environment;
 
@@ -37,7 +38,7 @@ public class KTM_Game_Main implements StringConstants {
 	private long lastFPS;
 
 	private int ebenen = 3;
-	private String inGameStat = NOTHING;
+	private String inGameStat = state.NOTHING;
 
 	public static int WIDTH = 1600;
 	public static int HEIGHT = 900;
@@ -255,22 +256,22 @@ public class KTM_Game_Main implements StringConstants {
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
-					inGameStat = S_TRUPS;
+					inGameStat = state.S_TRUPS;
 					System.out.println(inGameStat);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_V) {
-					inGameStat = S_BUILDINGS;
+					inGameStat = state.S_BUILDINGS;
 					System.out.println(inGameStat);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_B) {
-					inGameStat = N_BUILDINGS;
+					inGameStat = state.N_BUILDINGS;
 					System.out.println(inGameStat);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_N) {
-					inGameStat = N_TRUPS;
+					inGameStat = state.N_TRUPS;
 					System.out.println(inGameStat);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_F1) {
@@ -320,17 +321,17 @@ public class KTM_Game_Main implements StringConstants {
 					int yR = y / 32;
 
 					switch (inGameStat) {
-					case N_BUILDINGS:
+					case state.N_BUILDINGS:
 						initRender(new Building((xR / 2) * 64, yR * 32, textureLoader, "Haus.png"), 1, 2);
 						break;
-					case N_TRUPS:
+					case state.N_TRUPS:
 						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "figure.png"), 1, 1);
 						break;
-					case S_TRUPS:
+					case state.S_TRUPS:
 						search(x, y);
 						figur = (Soldat) selection.get(selection.size() - 1);
 						break;
-					case S_BUILDINGS:
+					case state.S_BUILDINGS:
 						search(x, y);
 						break;
 					}
@@ -343,12 +344,12 @@ public class KTM_Game_Main implements StringConstants {
 					Pos p1 = new Pos(x, y); //Ende
 
 					switch (inGameStat) {
-					case NOTHING:
+					case state.NOTHING:
 						break;
-					case S_TRUPS:
+					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
 							Pos p2 = selection.get(i).getPos(); //Start
-							if(selection.get(i).getType().equals(StringConstants.EINEHEIT)){
+							if(selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)){
 								Soldat h = (Soldat) selection.get(i);
 								if(vektoren.get(h)==null){
 									vektoren.put(h, new Vektor(p2, p1, h));
@@ -358,7 +359,7 @@ public class KTM_Game_Main implements StringConstants {
 							}
 						}
 						break;
-					case S_BUILDINGS:
+					case state.S_BUILDINGS:
 						break;
 
 					}
@@ -377,21 +378,21 @@ public class KTM_Game_Main implements StringConstants {
 					int yR = y / 32;
 
 					switch (inGameStat) {
-					case N_BUILDINGS:
+					case state.N_BUILDINGS:
 						initRender(new Building((xR / 2) * 64, yR * 32, textureLoader, "Haus.png"), 1, 2);
 						break;
-					case N_TRUPS:
+					case state.N_TRUPS:
 						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "figure.png"), 1, 1);
 						break;
-					case S_TRUPS:
+					case state.S_TRUPS:
 						search((float) pos1.getxPos(), (float) pos1.getyPos(), (float) pos2.getxPos(), (float) pos2.getyPos());
 						for (int i = 0; i < selection.size(); i++) {
-							if(selection.get(i).getType().equals(StringConstants.EINEHEIT)){
+							if(selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)){
 								((Soldat) selection.get(i)).say();
 							}
 						}
 						break;
-					case S_BUILDINGS:
+					case state.S_BUILDINGS:
 						search(x, y);
 						break;
 
@@ -476,7 +477,7 @@ public class KTM_Game_Main implements StringConstants {
 						if (renderList[e].get(i).getX() <= Px1 && renderList[e].get(i).getX() >= Px2 && renderList[e].get(i).getY() <= Py1
 								&& renderList[e].get(i).getY() >= Py2) {
 
-							if(renderList[e].get(i).getType().equals(StringConstants.EINEHEIT)){
+							if(renderList[e].get(i).getType().equals(StringConstants.MeshType.EINEHEIT)){
 								selection.add(renderList[e].get(i));
 							}
 						}

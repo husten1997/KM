@@ -1,13 +1,14 @@
 package assets;
 
+import com.husten.knightmare.constants.StringConstants;
+
 import loader.TextureLoader;
-import res.StringConstants;
 
 public class Building extends QUAD {
 
 	public Building(float l, float h, float x, float y, TextureLoader loader, String ref) {
 		super(l, h, x, y, loader, ref);
-		type = StringConstants.GEBÄUDE;
+		type = StringConstants.MeshType.GEBÄUDE;
 		
 	}
 	

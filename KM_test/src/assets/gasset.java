@@ -1,12 +1,13 @@
 package assets;
 
+import com.husten.knightmare.constants.StringConstants;
+
 import res.Pos;
-import res.StringConstants;
 
 public abstract class gasset {
 	private int sort = 1;
 	
-	protected String type = StringConstants.GROUND;
+	protected String type = StringConstants.MeshType.GROUND;
 	
 	public void setSort(int s){
 		sort = s;

@@ -1,9 +1,8 @@
 package assets;
 
-import res.StringConstants;
 import loader.TextureLoader;
 
-public class TerrainElement extends QUAD implements StringConstants{
+public class TerrainElement extends QUAD {
 	String type;
 
 	public TerrainElement(float l, float h, float x, float y,TextureLoader loader, String ref, String Type) {

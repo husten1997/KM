@@ -1,7 +1,8 @@
 package assets;
 
+import com.husten.knightmare.constants.StringConstants;
+
 import loader.TextureLoader;
-import res.StringConstants;
 
 public class Soldat extends QUAD {
 	private int health;
@@ -9,7 +10,7 @@ public class Soldat extends QUAD {
 	//TODO Inventory
 	public Soldat(float l, float h, float x, float y, TextureLoader loader, String ref) {
 		super(l, h, x, y, loader, ref);
-		type = StringConstants.EINEHEIT;
+		type = StringConstants.MeshType.EINEHEIT;
 	}
 	
 	public Soldat(float x, float y, TextureLoader loader, String ref) {

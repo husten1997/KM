@@ -1,9 +1,11 @@
 package assets;
 
 import res.Pos;
-import res.StringConstants;
 import res.WorldGen;
 import ui.KTM_Game_Main;
+
+import com.husten.knightmare.constants.StringConstants;
+
 import loader.TextureLoader;
 
 public class Terrain extends gasset implements StringConstants{
@@ -33,7 +35,7 @@ public class Terrain extends gasset implements StringConstants{
 	}
 	
 	public void initTerrain(int x, int y){
-		waterPlane = new TerrainElement(x*32, y*32, 0, 0, textureLoader, "water.png", WATER);
+		waterPlane = new TerrainElement(x*32, y*32, 0, 0, textureLoader, "water.png", Material.WATER);
 		waterPlane.setTCX(x);
     	waterPlane.setTCY(y);
 		elements = new TerrainElement[x][y];

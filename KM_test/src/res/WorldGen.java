@@ -2,6 +2,8 @@ package res;
 
 import java.util.Random;
 
+import com.husten.knightmare.constants.StringConstants;
+
 import res.generator.*;
 import assets.Terrain;
 import assets.TerrainElement;
@@ -101,13 +103,13 @@ public class WorldGen implements StringConstants{
 					World[i][j] = null;
 				}
 				if(z > WW && z < WS){
-					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "sand.png", SAND);
+					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "sand.png", Material.SAND);
 				}
 				if(z > WS && z < WG){
-					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "gras.png", GRAS);
+					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "gras.png", Material.GRAS);
 				}
 				if(z > WG && z < WR){
-					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "rock.png", ROCK);
+					World[i][j] = new TerrainElement(32,32,i*32,j*32, tL, "rock.png", Material.ROCK);
 				}
 			}
 		}
