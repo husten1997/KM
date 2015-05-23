@@ -67,7 +67,7 @@ public class KTM_Game_Main implements StringConstants {
 	private TextureLoader textureLoader;
 	static WorkingThread gT;
 	
-	private int gameSpeed = 1; //inverted
+	private int gameSpeed = 10; //inverted
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
@@ -220,16 +220,16 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraY += 0.5f;
+			CameraY += 2.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraX -= 0.5f;
+			CameraX -= 2.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraY -= 0.5f;
+			CameraY -= 2.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraX += 0.5f;
+			CameraX += 2.5f;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
