@@ -69,6 +69,7 @@ public class KTM_Game_Main implements StringConstants {
 	static WorkingThread gT;
 
 	private int gameSpeed = 10; // inverted
+	private float zomingSpeed = 0.1f, scrollingSpeed = 5f;
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
@@ -359,18 +360,18 @@ public class KTM_Game_Main implements StringConstants {
 		int dWheel = Mouse.getDWheel();
 
 		if (dWheel < 0) {
-			float width = WIDTH*scale;
-			float height = HEIGHT*scale;
-			scale += 0.1f;
-			if(scale > (float) (terrain.getSx() * 32)/WIDTH){
-				scale = (float) (terrain.getSx() * 32)/WIDTH;
+			float width = WIDTH * scale;
+			float height = HEIGHT * scale;
+			scale += zomingSpeed;
+			if (scale > (float) (terrain.getSx() * 32) / WIDTH) {
+				scale = (float) (terrain.getSx() * 32) / WIDTH;
 			}
-			CameraX+=(width-WIDTH*scale)/2;
-			CameraY+=(height-HEIGHT*scale)/2;
-			if(CameraX<0){
+			CameraX += (width - WIDTH * scale) / 2;
+			CameraY += (height - HEIGHT * scale) / 2;
+			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			if(CameraY<0){
+			if (CameraY < 0) {
 				CameraY = 0;
 			}
 			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
@@ -380,18 +381,18 @@ public class KTM_Game_Main implements StringConstants {
 				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
 			}
 		} else if (dWheel > 0) {
-			float width = WIDTH*scale;
-			float height = HEIGHT*scale;
-			scale -= 0.1f;
-			if(scale < 0.1f){
+			float width = WIDTH * scale;
+			float height = HEIGHT * scale;
+			scale -= zomingSpeed;
+			if (scale < 0.1f) {
 				scale = 0.1f;
 			}
-			CameraX+=(width-WIDTH*scale)/2;
-			CameraY+=(height-HEIGHT*scale)/2;
-			if(CameraX<0){
+			CameraX += (width - WIDTH * scale) / 2;
+			CameraY += (height - HEIGHT * scale) / 2;
+			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			if(CameraY<0){
+			if (CameraY < 0) {
 				CameraY = 0;
 			}
 			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
@@ -405,10 +406,10 @@ public class KTM_Game_Main implements StringConstants {
 		if (Mouse.isButtonDown(2)) {
 			CameraX = -(Mouse.getX() * scale - (float) ang.getxPos());
 			CameraY = -(Mouse.getY() * scale - (float) ang.getyPos());
-			if(CameraX<0){
+			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			if(CameraY<0){
+			if (CameraY < 0) {
 				CameraY = 0;
 			}
 			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
@@ -437,27 +438,52 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraY += 2.5f*scale;
+			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
 			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraX -= 2.5f*scale;
-			if(CameraX<0){
+			CameraX -= scrollingSpeed * scale;
+			if (CameraX < 0) {
 				CameraX = 0;
 			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraY -= 2.5f*scale;
-			if(CameraY<0){
+			CameraY -= scrollingSpeed * scale;
+			if (CameraY < 0) {
 				CameraY = 0;
 			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraX += 2.5f*scale;
+			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
 				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			}
+		}
+
+		if (Mouse.getX() < 32) {
+			CameraX -= scrollingSpeed * scale;
+			if (CameraX < 0) {
+				CameraX = 0;
+			}
+		}
+		if (Mouse.getX() > WIDTH - 32) {
+			CameraX += scrollingSpeed * scale;
+			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
+				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			}
+		}
+		if (Mouse.getY() < 32) {
+			CameraY -= scrollingSpeed * scale;
+			if (CameraY < 0) {
+				CameraY = 0;
+			}
+		}
+		if (Mouse.getY() > HEIGHT - 32) {
+			CameraY += scrollingSpeed * scale;
+			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
 			}
 		}
 
