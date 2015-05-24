@@ -49,6 +49,7 @@ public class Truppen{
 	
 	public int ausdauerBerechnen(int a, int einheitenFreundlich, int einheitenFeindlich){ //int a entspricht der ausdauer die zuvor returnt wird
 		ausdauer = a*(1+(moralBerechnen(einheitenFreundlich,einheitenFeindlich)/100));
+		if (ausdauer < 10) ausdauer = 10;
 		return ausdauer;
 	}
 	

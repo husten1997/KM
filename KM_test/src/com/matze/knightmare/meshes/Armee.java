@@ -15,4 +15,8 @@ public class Armee {
 		anz++;
 	}
 	
+	public Truppen getTroop(int i){
+		return t[i];
+	}
+	
 }
