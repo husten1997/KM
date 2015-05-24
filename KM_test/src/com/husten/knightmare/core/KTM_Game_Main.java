@@ -80,19 +80,22 @@ public class KTM_Game_Main implements StringConstants {
 		init();
 		objectinit();
 		
+		
+		
 		new Timer(true).scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
 			public void run() {
-				pollInput();
 				gameCycl();
+				
 			}
 		}, 0, gameSpeed);
 //		
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 //			grafikCycl();
-			
+			pollInput();
+			testVariable();
 //			gameCycl();
 			gT.run();
 			updateDisplay();
@@ -179,69 +182,10 @@ public class KTM_Game_Main implements StringConstants {
 			});
 		}
 	}
-
+	Pos ang = null;
 	public void pollInput() {
-//		int delta = this.delta;
-
-		if (Mouse.isButtonDown(0)) {
-
-		}
 		
-		if (Mouse.isButtonDown(1)) {
-
-		}
-		
-		int dWheel = Mouse.getDWheel();
-	    if (dWheel < 0) {
-	        scale += 0.1f;
-//	        glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
-	    } else if (dWheel > 0){
-	        scale -= 0.1f;
-//	        glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
-	   }
-		
-		
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			System.out.println("Space is down");
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			figur.setrY(0.3f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			figur.setrX(-0.3f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			figur.setrY(-0.3f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			figur.setrX(0.3f);
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraY += 2.5f;
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraX -= 2.5f;
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraY -= 2.5f;
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraX += 2.5f;
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-			// TODO
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
-			MoodMusic.changeVolume(-0.5f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
-			MoodMusic.changeVolume(0.5f);
-		}
-
+		//Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
@@ -301,10 +245,9 @@ public class KTM_Game_Main implements StringConstants {
 				if(Keyboard.getEventKey() == Keyboard.KEY_M){
 					MoodMusic.changeMood("buildingMood");
 				}
-
 			}
 		}
-
+		//Mosue-------------------------------------------------------------------------------------------------------
 		while (Mouse.next()) {
 			if (Mouse.getEventButtonState()) {
 				
@@ -334,10 +277,17 @@ public class KTM_Game_Main implements StringConstants {
 						break;
 					}
 				}
+				
+				if(Mouse.getEventButton() == 2){
+					ang = new Pos(CameraX + Mouse.getX()*scale, CameraY + Mouse.getY()*scale);
+					System.out.println(1);
+//					CameraX -= Mouse.getX();
+//					CameraY -= Mouse.getY();
+				}
 
 				if (Mouse.getEventButton() == 1) {
-					int x = (int) (Mouse.getX()*scale + CameraX);
-					int y = (int) (Mouse.getY()*scale + CameraY);
+					int x = (int) (Mouse.getX()*scale - CameraX);
+					int y = (int) (Mouse.getY()*scale - CameraY);
 					
 					Pos p1 = new Pos(x, y); //Ende
 
@@ -398,6 +348,69 @@ public class KTM_Game_Main implements StringConstants {
 				}
 			}
 		}
+		//Keyboard/Mouse holding---------------------------------------------------------------------------
+		if (Mouse.isButtonDown(0)) {
+
+		}
+		
+		if (Mouse.isButtonDown(1)) {
+
+		}
+		
+		int dWheel = Mouse.getDWheel();
+		
+	    if (dWheel < 0) {
+	        scale += 0.1f;
+	    } else if (dWheel > 0){
+	        scale -= 0.1f;
+	    }
+		
+		if(Mouse.isButtonDown(2)){
+			System.out.println(2);
+			CameraX = -(Mouse.getX()*scale - (float)ang.getxPos());
+			CameraY = -(Mouse.getY()*scale - (float)ang.getyPos());
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			System.out.println("Space is down");
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			figur.setrY(0.3f);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			figur.setrX(-0.3f);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			figur.setrY(-0.3f);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			figur.setrX(0.3f);
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+			CameraY += 2.5f;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+			CameraX -= 2.5f;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+			CameraY -= 2.5f;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+			CameraX += 2.5f;
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+			// TODO
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
+			MoodMusic.changeVolume(-0.5f);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
+			MoodMusic.changeVolume(0.5f);
+		}
+//		testVariable();
 
 	}
 
@@ -612,11 +625,6 @@ public class KTM_Game_Main implements StringConstants {
 //		glTranslatef(CameraMX, CameraMY, 0f);
 		glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
 		glTranslatef(-CameraX, -CameraY, 0f);
-		
-		
-		
-		
-
 		glMatrixMode(GL_MODELVIEW);
 
 		glLoadIdentity();
@@ -642,6 +650,15 @@ public class KTM_Game_Main implements StringConstants {
 		}
 		if(CameraX <= 0){
 			CameraX = 0;
+		}
+		if(CameraY <= 0){
+			CameraY = 0;
+		}
+		if(CameraX >= terrain.getSx()*32 - HEIGHT*scale){
+			CameraX = terrain.getSx()*32 - HEIGHT*scale;
+		}
+		if(CameraY >= terrain.getSy()*32 - WIDTH*scale){
+			CameraY = terrain.getSy()*32 - WIDTH*scale;
 		}
 	}
 	
