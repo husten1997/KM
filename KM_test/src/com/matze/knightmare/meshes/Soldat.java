@@ -5,7 +5,6 @@ import com.husten.knightmare.graphicalObjects.QUAD;
 import com.husten.knightmare.graphicalObjects.TextureLoader;
 
 public class Soldat extends QUAD {
-	private int health;
 	private int speed = 5;
 	//TODO Inventory
 	public Soldat(float l, float h, float x, float y, TextureLoader loader, String ref) {
