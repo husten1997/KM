@@ -296,7 +296,6 @@ public class KTM_Game_Main implements StringConstants {
 				
 				if(Mouse.getEventButton() == 2){
 					ang = new Pos(CameraX + Mouse.getX()*scale, CameraY + Mouse.getY()*scale);
-					System.out.println(1);
 				}
 
 				if (Mouse.getEventButton() == 1) {
@@ -380,7 +379,6 @@ public class KTM_Game_Main implements StringConstants {
 	    }
 		
 		if(Mouse.isButtonDown(2)){
-			System.out.println(2);
 			CameraX = -(Mouse.getX()*scale - (float)ang.getxPos());
 			CameraY = -(Mouse.getY()*scale - (float)ang.getyPos());
 		}
