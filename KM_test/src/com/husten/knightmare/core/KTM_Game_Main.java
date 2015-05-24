@@ -165,6 +165,12 @@ public class KTM_Game_Main implements StringConstants {
 		input.setSort(se);
 		renderList[e].add(input);
 	}
+	
+	public void initObject(gasset input, int e, int se) {
+		input.setSort(se);
+		ObjectList[e].add(input);
+		initRender(input, e, se);
+	}
 
 	public void objectinit() {
 
