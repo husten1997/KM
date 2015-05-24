@@ -654,11 +654,11 @@ public class KTM_Game_Main implements StringConstants {
 		if(CameraY <= 0){
 			CameraY = 0;
 		}
-		if(CameraX >= terrain.getSx()*32 - HEIGHT*scale){
-			CameraX = terrain.getSx()*32 - HEIGHT*scale;
+		if(CameraX >= terrain.getSx()*32 - WIDTH*scale){
+			CameraX = terrain.getSx()*32 - WIDTH*scale;
 		}
-		if(CameraY >= terrain.getSy()*32 - WIDTH*scale){
-			CameraY = terrain.getSy()*32 - WIDTH*scale;
+		if(CameraY >= terrain.getSy()*32 - HEIGHT*scale){
+			CameraY = terrain.getSy()*32 - HEIGHT*scale;
 		}
 	}
 	
