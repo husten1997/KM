@@ -61,6 +61,7 @@ public class KTM_Game_Main implements StringConstants {
 	private ArrayList<gasset> selection = new ArrayList<gasset>();
 
 	private ArrayList<gasset> renderList[] = new ArrayList[ebenen];
+	private ArrayList<gasset> ObjectList[] = new ArrayList[ebenen];
 
 	private Soldat figuren[] = new Soldat[s];
 
@@ -281,8 +282,6 @@ public class KTM_Game_Main implements StringConstants {
 				if(Mouse.getEventButton() == 2){
 					ang = new Pos(CameraX + Mouse.getX()*scale, CameraY + Mouse.getY()*scale);
 					System.out.println(1);
-//					CameraX -= Mouse.getX();
-//					CameraY -= Mouse.getY();
 				}
 
 				if (Mouse.getEventButton() == 1) {
