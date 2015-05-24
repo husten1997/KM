@@ -87,6 +87,7 @@ public class KTM_Game_Main implements StringConstants {
 			
 			@Override
 			public void run() {
+				pollInput();
 				gameCycl();
 				
 			}
@@ -95,7 +96,15 @@ public class KTM_Game_Main implements StringConstants {
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 //			grafikCycl();
-			pollInput();
+			if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
+				if (fS) {
+					WIDTH = 1600;
+					HEIGHT = 900;
+				} else {
+					initRes();
+				}
+				setDisplayMode(WIDTH, HEIGHT, !fS);
+			}
 			testVariable();
 //			gameCycl();
 			gT.run();
@@ -224,15 +233,15 @@ public class KTM_Game_Main implements StringConstants {
 					MoodMusic.changeVolume(0.5f);
 				}
 
-				if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
-					if (fS) {
-						WIDTH = 1600;
-						HEIGHT = 900;
-					} else {
-						initRes();
-					}
-					setDisplayMode(WIDTH, HEIGHT, !fS);
-				}
+//				if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
+//					if (fS) {
+//						WIDTH = 1600;
+//						HEIGHT = 900;
+//					} else {
+//						initRes();
+//					}
+//					setDisplayMode(WIDTH, HEIGHT, !fS);
+//				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
 					Vsync = !Vsync;
