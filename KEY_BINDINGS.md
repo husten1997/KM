@@ -4,7 +4,9 @@ Please update if needed
 #- Mouse
 	Right Click: Interaction
 	Left Click: Selection
+	Middl Click: Scroling of Map
 	Mouse Weehl: Zoome in/out
+	
 	
 #- Keyboard
 	Up: Moves Map up
