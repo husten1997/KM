@@ -360,9 +360,9 @@ public class KTM_Game_Main implements StringConstants {
 		int dWheel = Mouse.getDWheel();
 		
 	    if (dWheel < 0) {
-	        scale += 0.1f;
+	        scale += 0.2f;
 	    } else if (dWheel > 0){
-	        scale -= 0.1f;
+	        scale -= 0.2f;
 	    }
 		
 		if(Mouse.isButtonDown(2)){
@@ -647,6 +647,9 @@ public class KTM_Game_Main implements StringConstants {
 	private void testVariable(){
 		if(scale < 0.1f){
 			scale = 0.1f;
+		}
+		if(scale > 8.5f){
+			scale = 8.55f;
 		}
 		if(CameraX <= 0){
 			CameraX = 0;
