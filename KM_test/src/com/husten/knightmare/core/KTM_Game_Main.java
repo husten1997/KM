@@ -48,14 +48,14 @@ public class KTM_Game_Main implements StringConstants {
 
 	private Soldat figur;
 	private Terrain terrain;
-	
+
 	private Pos pos1 = new Pos(0, 0);
 	private Pos pos2 = new Pos(0, 0);
 	public static float CameraX = 0;
 	public static float CameraY = 0;
 	private int s = 5;
 	public static float scale = 1f;
-	
+
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
 
 	private ArrayList<gasset> selection = new ArrayList<gasset>();
@@ -67,8 +67,8 @@ public class KTM_Game_Main implements StringConstants {
 
 	private TextureLoader textureLoader;
 	static WorkingThread gT;
-	
-	private int gameSpeed = 10; //inverted
+
+	private int gameSpeed = 10; // inverted
 
 	public static void main(String[] argv) {
 		KTM_Game_Main hw = new KTM_Game_Main();
@@ -80,22 +80,20 @@ public class KTM_Game_Main implements StringConstants {
 
 		init();
 		objectinit();
-		
-		
-		
+
 		new Timer(true).scheduleAtFixedRate(new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				pollInput();
 				gameCycl();
-				
+
 			}
 		}, 0, gameSpeed);
-//		
+		//
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-//			grafikCycl();
+			// grafikCycl();
 			if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 				if (fS) {
 					WIDTH = 1600;
@@ -105,8 +103,6 @@ public class KTM_Game_Main implements StringConstants {
 				}
 				setDisplayMode(WIDTH, HEIGHT, !fS);
 			}
-			testVariable();
-//			gameCycl();
 			gT.run();
 			updateDisplay();
 			updateFPS();
@@ -124,14 +120,13 @@ public class KTM_Game_Main implements StringConstants {
 		initRes();
 
 		try {
-//			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-//			DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
-//			DM.
+			// Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			// DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
+			// DM.
 			Display.create();
 			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
 			glViewport(0, 0, WIDTH, HEIGHT);
 
-			
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -139,7 +134,7 @@ public class KTM_Game_Main implements StringConstants {
 		// enable textures since we're going to use these for our sprites
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
-		
+
 		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		// disable the OpenGL depth test since we're rendering 2D graphics
 		glDisable(GL_DEPTH_TEST);
@@ -157,7 +152,6 @@ public class KTM_Game_Main implements StringConstants {
 		getDelta(); // call once before loop to initialise lastFrame
 		lastFPS = getTime(); // call before loop to initialise fps timer
 		initDisplay();
-		
 
 	}
 
@@ -165,7 +159,7 @@ public class KTM_Game_Main implements StringConstants {
 		input.setSort(se);
 		renderList[e].add(input);
 	}
-	
+
 	public void initObject(gasset input, int e, int se) {
 		input.setSort(se);
 		ObjectList[e].add(input);
@@ -198,17 +192,19 @@ public class KTM_Game_Main implements StringConstants {
 			});
 		}
 	}
+
 	Pos ang = null;
+
 	public void pollInput() {
-		
-		//Keyboard------------------------------------------------------------------------------------
+
+		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 					System.exit(0);
 				}
-				
+
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
@@ -238,39 +234,28 @@ public class KTM_Game_Main implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_F2) {
 					MoodMusic.changeVolume(0.5f);
 				}
-
-//				if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
-//					if (fS) {
-//						WIDTH = 1600;
-//						HEIGHT = 900;
-//					} else {
-//						initRes();
-//					}
-//					setDisplayMode(WIDTH, HEIGHT, !fS);
-//				}
-
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
 					Vsync = !Vsync;
-//					Display.setVSyncEnabled(Vsync);
+					// Display.setVSyncEnabled(Vsync);
 				}
-				
-				if(Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0){
+
+				if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
 					System.out.println(selection.size());
 				}
-				
-				if(Keyboard.getEventKey() == Keyboard.KEY_M){
+
+				if (Keyboard.getEventKey() == Keyboard.KEY_M) {
 					MoodMusic.changeMood("buildingMood");
 				}
 			}
 		}
-		//Mosue-------------------------------------------------------------------------------------------------------
+		// Mosue-------------------------------------------------------------------------------------------------------
 		while (Mouse.next()) {
 			if (Mouse.getEventButtonState()) {
-				
+
 				if (Mouse.getEventButton() == 0) {
-					int x = (int) (Mouse.getX()*scale + CameraX);
-					int y = (int) (Mouse.getY()*scale + CameraY);
-					
+					int x = (int) (Mouse.getX() * scale + CameraX);
+					int y = (int) (Mouse.getY() * scale + CameraY);
+
 					pos1.setxPos(x);
 					pos1.setyPos(y);
 
@@ -293,28 +278,28 @@ public class KTM_Game_Main implements StringConstants {
 						break;
 					}
 				}
-				
-				if(Mouse.getEventButton() == 2){
-					ang = new Pos(CameraX + Mouse.getX()*scale, CameraY + Mouse.getY()*scale);
+
+				if (Mouse.getEventButton() == 2) {
+					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
 				}
 
 				if (Mouse.getEventButton() == 1) {
-					int x = (int) (Mouse.getX()*scale + CameraX);
-					int y = (int) (Mouse.getY()*scale + CameraY);
-					
-					Pos p1 = new Pos(x, y); //Ende
+					int x = (int) (Mouse.getX() * scale + CameraX);
+					int y = (int) (Mouse.getY() * scale + CameraY);
+
+					Pos p1 = new Pos(x, y); // Ende
 
 					switch (inGameStat) {
 					case state.NOTHING:
 						break;
 					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
-							Pos p2 = selection.get(i).getPos(); //Start
-							if(selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)){
+							Pos p2 = selection.get(i).getPos(); // Start
+							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
-								if(vektoren.get(h)==null){
+								if (vektoren.get(h) == null) {
 									vektoren.put(h, new Vektor(p2, p1, h));
-								}else{
+								} else {
 									vektoren.get(h).setEnde(p1);
 								}
 							}
@@ -327,11 +312,11 @@ public class KTM_Game_Main implements StringConstants {
 				}
 
 			} else {
-				//Buton releasd
+				// Buton releasd
 				if (Mouse.getEventButton() == 0) {
-					int x = (int) (Mouse.getX()*scale + CameraX);
-					int y = (int) (Mouse.getY()*scale + CameraY);
-					
+					int x = (int) (Mouse.getX() * scale + CameraX);
+					int y = (int) (Mouse.getY() * scale + CameraY);
+
 					pos2.setxPos(x);
 					pos2.setyPos(y);
 
@@ -348,7 +333,7 @@ public class KTM_Game_Main implements StringConstants {
 					case state.S_TRUPS:
 						search((float) pos1.getxPos(), (float) pos1.getyPos(), (float) pos2.getxPos(), (float) pos2.getyPos());
 						for (int i = 0; i < selection.size(); i++) {
-							if(selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)){
+							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								((Soldat) selection.get(i)).say();
 							}
 						}
@@ -361,26 +346,51 @@ public class KTM_Game_Main implements StringConstants {
 				}
 			}
 		}
-		//Keyboard/Mouse holding---------------------------------------------------------------------------
+		// Keyboard/Mouse
+		// holding---------------------------------------------------------------------------
 		if (Mouse.isButtonDown(0)) {
 
 		}
-		
+
 		if (Mouse.isButtonDown(1)) {
 
 		}
-		
+
 		int dWheel = Mouse.getDWheel();
-		
-	    if (dWheel < 0) {
-	        scale += 0.2f;
-	    } else if (dWheel > 0){
-	        scale -= 0.2f;
-	    }
-		
-		if(Mouse.isButtonDown(2)){
-			CameraX = -(Mouse.getX()*scale - (float)ang.getxPos());
-			CameraY = -(Mouse.getY()*scale - (float)ang.getyPos());
+
+		if (dWheel < 0) {
+				scale += 0.1f;
+			if(scale > (float) (terrain.getSx() * 32)/WIDTH){
+				scale = (float) (terrain.getSx() * 32)/WIDTH;
+			}
+			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
+				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			}
+			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			}
+		} else if (dWheel > 0) {
+				scale -= 0.1f;
+			if(scale < 0.1f){
+				scale = 0.1f;
+			}
+		}
+
+		if (Mouse.isButtonDown(2)) {
+			CameraX = -(Mouse.getX() * scale - (float) ang.getxPos());
+			CameraY = -(Mouse.getY() * scale - (float) ang.getyPos());
+			if(CameraX<0){
+				CameraX = 0;
+			}
+			if(CameraY<0){
+				CameraY = 0;
+			}
+			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
+				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			}
+			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			}
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
@@ -401,16 +411,28 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			CameraY += 2.5f;
+			CameraY += 2.5f*scale;
+			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			CameraX -= 2.5f;
+			CameraX -= 2.5f*scale;
+			if(CameraX<0){
+				CameraX = 0;
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			CameraY -= 2.5f;
+			CameraY -= 2.5f*scale;
+			if(CameraY<0){
+				CameraY = 0;
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			CameraX += 2.5f;
+			CameraX += 2.5f*scale;
+			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
+				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			}
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
@@ -422,7 +444,7 @@ public class KTM_Game_Main implements StringConstants {
 		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
 			MoodMusic.changeVolume(0.5f);
 		}
-//		testVariable();
+		// testVariable();
 
 	}
 
@@ -445,11 +467,10 @@ public class KTM_Game_Main implements StringConstants {
 	// benutzen für frame unabhängige bewegungen zb
 	public int getDelta() {
 		long time = getTime();
-		
+
 		int delta = (int) (time - lastFrame);
-//		System.out.println(time - lastFrame);
+		// System.out.println(time - lastFrame);
 		lastFrame = time;
-		 
 
 		return delta;
 	}
@@ -462,14 +483,13 @@ public class KTM_Game_Main implements StringConstants {
 			lastFPS += 1000;
 		}
 		fps++;
-		
-		
+
 	}
 
 	public void search(float x1, float y1, float x2, float y2) {
-		if(x1 == x2 && y1 == y2){
+		if (x1 == x2 && y1 == y2) {
 			search(x1, y1);
-		}else{
+		} else {
 			selection.clear();
 			float Px1;
 			float Px2;
@@ -500,7 +520,7 @@ public class KTM_Game_Main implements StringConstants {
 						if (renderList[e].get(i).getX() <= Px1 && renderList[e].get(i).getX() >= Px2 && renderList[e].get(i).getY() <= Py1
 								&& renderList[e].get(i).getY() >= Py2) {
 
-							if(renderList[e].get(i).getType().equals(StringConstants.MeshType.EINEHEIT)){
+							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								selection.add(renderList[e].get(i));
 							}
 						}
@@ -510,9 +530,10 @@ public class KTM_Game_Main implements StringConstants {
 
 			}
 		}
-		
+
 	}
-	//Für einzelauswahl
+
+	// Für einzelauswahl
 	public void search(float x, float y) {
 		gasset xy = figur;
 		selection.clear();
@@ -534,15 +555,15 @@ public class KTM_Game_Main implements StringConstants {
 	}
 
 	public void calc() {
-//		float delta = getDelta()*0.5f;
+		// float delta = getDelta()*0.5f;
 		Object[] vek = vektoren.values().toArray();
 		Vektor[] vekk = new Vektor[vek.length];
-		for(int i = 0; i<vek.length; i++){
+		for (int i = 0; i < vek.length; i++) {
 			vekk[i] = (Vektor) vek[i];
 		}
-		
-		for(int i = 0; i<vekk.length; i++){
-			if(vekk[i].move()){
+
+		for (int i = 0; i < vekk.length; i++) {
+			if (vekk[i].move()) {
 				vektoren.remove(vekk[i].getSoldat());
 			}
 		}
@@ -615,27 +636,27 @@ public class KTM_Game_Main implements StringConstants {
 	public void initRes() {
 		HEIGHT = Display.getDesktopDisplayMode().getHeight();
 		WIDTH = Display.getDesktopDisplayMode().getWidth();
-		System.out.println("H: " +  HEIGHT + " W: " + WIDTH);
+		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
 	}
 
 	public void initDisplay() {
 
 		setDisplayMode(WIDTH, HEIGHT, fS);
-		System.out.println("H: " +  HEIGHT + " W: " + WIDTH);
+		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
 	}
 
 	public void updateDisplay() {
-		if(Vsync)Display.sync(VsyncF);
-		
-		
+		if (Vsync)
+			Display.sync(VsyncF);
+
 		Display.update();
 	}
-	
-	public void grafikCycl(){
+
+	public void grafikCycl() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-//		glTranslatef(CameraMX, CameraMY, 0f);
-		glOrtho(0, WIDTH*scale, 0, HEIGHT*scale, 3, -1);
+		// glTranslatef(CameraMX, CameraMY, 0f);
+		glOrtho(0, WIDTH * scale, 0, HEIGHT * scale, 3, -1);
 		glTranslatef(-CameraX, -CameraY, 0f);
 		glMatrixMode(GL_MODELVIEW);
 
@@ -643,40 +664,13 @@ public class KTM_Game_Main implements StringConstants {
 
 		render();
 	}
-	
-	public void gameCycl(){
-		
-		testVariable();
+
+	public void gameCycl() {
 		calc();
-		
-		
 	}
-	
-	public void updateZoom(){
-		
+
+	public void updateZoom() {
+
 	}
-	
-	private void testVariable(){
-		if(scale < 0.1f){
-			scale = 0.1f;
-		}
-		if(scale > 8.5f){
-			scale = 8.55f;
-		}
-		if(CameraX <= 0){
-			CameraX = 0;
-		}
-		if(CameraY <= 0){
-			CameraY = 0;
-		}
-		if(CameraX >= terrain.getSx()*32 - WIDTH*scale){
-			CameraX = terrain.getSx()*32 - WIDTH*scale;
-		}
-		if(CameraY >= terrain.getSy()*32 - HEIGHT*scale){
-			CameraY = terrain.getSy()*32 - HEIGHT*scale;
-		}
-	}
-	
-	
 
 }
