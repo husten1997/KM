@@ -73,15 +73,27 @@ public class MoodMusic {
 
 	public static void changeMood(String mood) {
 		if (!mood.equals(MoodMusic.mood)) {
-			ausblenden();
-			MoodMusic.mood = mood;
-			setMood(mood);
+			new Timer(true).schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					ausblenden();
+					MoodMusic.mood = mood;
+					setMood(mood);
+				}
+			}, 0);
 		}
 	}
 
 	public static void nextClip() {
-		ausblenden();
-		setMood(mood);
+		new Timer(true).schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				ausblenden();
+				setMood(mood);
+			}
+		}, 0);
 	}
 
 	private static void ausblenden() {
