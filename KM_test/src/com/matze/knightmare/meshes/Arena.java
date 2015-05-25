@@ -59,9 +59,9 @@ public class Arena {
 
 		fillAngrVert();
 
-		k.init(angr, vert, 20, "Kav", 10, 30, 15, 40, 55, false, new Artillerie());
-		at.init(angr, vert, 30, "Art", 100, 10, 100, 50, 40, false, new Infanterie());
-		i.init(angr, vert, 20, "Infa", 5, 20, 25, 35, 35, false, new Infanterie());
+		k.init(angr, vert, 20, "Kav", 10, 30, 15, 40, 55, false);
+		at.init(angr, vert, 30, "Art", 100, 10, 100, 50, 40, false);
+		i.init(angr, vert, 20, "Infa", 5, 20, 25, 35, 35, false);
 
 		switch (typ) {
 		case 0: {

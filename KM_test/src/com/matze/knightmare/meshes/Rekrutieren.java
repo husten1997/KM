@@ -21,21 +21,21 @@ public class Rekrutieren {
 	public Truppen Bogenschuetze(){
 		t = new Infanterie();
 		init_Array(5,25,0,4,7,1);
-		t.init(ang, ver, 12, "Bogenschütze", 50, 20, 15, 25, 50, false, new Kavallerie());
+		t.init(ang, ver, 12, "Bogenschütze", 50, 20, 15, 25, 50, false);
 		return t;
 	}
 	
 	public Truppen Ritter(){
 		t = new Infanterie();
 		init_Array(25,0,0,15,15,5);
-		t.init(ang, ver, 15, "Ritter", 5, 15, 25, 30, 15, false, new Artillerie());
+		t.init(ang, ver, 15, "Ritter", 5, 15, 25, 30, 15, false);
 		return t;
 	}
 	
 	public Truppen Kolbentraeger(){
 		t = new Infanterie();
 		init_Array(20, 0, 0, 10, 8, 1);
-		t.init(ang, ver, 10, "Kolbenträger", 5, 23, 18, 23, 40, false, new Artillerie());
+		t.init(ang, ver, 10, "Kolbenträger", 5, 23, 18, 23, 40, false);
 		return t;
 	}
 	

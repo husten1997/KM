@@ -10,7 +10,7 @@ public class Truppen {
 	protected int bonusAng, reichweite, grundmoral, moral, ausdauer,
 			geschwindigkeit, kosten;
 	protected String name;
-	protected Truppen effektiv;
+	protected int effektiv, typ;
 	protected Ausruestung ausruestung[];
 	protected boolean wasser;
 
@@ -37,7 +37,7 @@ public class Truppen {
 	}
 
 	public void init(int[] ang, int[] ver, int b, String nam, int reichw,
-			int geschw, int kost, int mo, int aus, boolean water, Truppen effekt) {
+			int geschw, int kost, int mo, int aus, boolean water) {
 		for (int i = 0; i < 2; i++) {
 			angriff[i] += ang[i];
 			verteidigung[i] += ver[i];
@@ -50,7 +50,14 @@ public class Truppen {
 		grundmoral = mo;
 		ausdauer = aus;
 		wasser = water;
-		effektiv = effekt;
+	}
+	
+	public int getTyp(){
+		return typ;
+	}
+	
+	public int getEffektiv() {
+		return effektiv;
 	}
 
 	public int ausdauerBerechnen(int a, int einheitenFreundlich,
