@@ -47,7 +47,7 @@ public class Arena {
 		if (ar1 > ar2) {
 			System.out.println("Armee 1 hat gewonnen " + ar1 + ":" + ar2);
 		} else {
-			System.out.println("Armee 1 hat gewonnen " + ar1 + ":" + ar2);
+			System.out.println("Armee 2 hat gewonnen " + ar2 + ":" + ar1);
 		}
 
 	}
@@ -59,9 +59,9 @@ public class Arena {
 
 		fillAngrVert();
 
-		k.init(angr, vert, 20, "Kav", 10, 30, 15, 40, 55);
-		at.init(angr, vert, 30, "Art", 100, 10, 100, 50, 40);
-		i.init(angr, vert, 20, "Infa", 5, 20, 25, 35, 35);
+		k.init(angr, vert, 20, "Kav", 10, 30, 15, 40, 55, false, new Artillerie());
+		at.init(angr, vert, 30, "Art", 100, 10, 100, 50, 40, false, new Infanterie());
+		i.init(angr, vert, 20, "Infa", 5, 20, 25, 35, 35, false, new Infanterie());
 
 		switch (typ) {
 		case 0: {

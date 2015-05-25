@@ -7,9 +7,13 @@ public class Truppen {
 											// entspricht gegen Gebäude;
 	// [0] entspricht nahkampf [1] entspricht fernkampf, [2] entspricht gegen
 	// Artillerie;
-	protected int bonusAng, reichweite, grundmoral, moral, ausdauer, geschwindigkeit, kosten;
+	protected int bonusAng, reichweite, grundmoral, moral, ausdauer,
+			geschwindigkeit, kosten;
 	protected String name;
+	protected Truppen effektiv;
 	protected Ausruestung ausruestung[];
+	protected boolean wasser;
+
 	// protected sound s;
 
 	public Truppen() {
@@ -18,7 +22,8 @@ public class Truppen {
 		ausruestung = new Ausruestung[8];
 	}
 
-	public void verbesserung(int[] ang, int[] ver, int b, int reichw, int geschw, int mor, int aus) {
+	public void verbesserung(int[] ang, int[] ver, int b, int reichw,
+			int geschw, int mor, int aus) {
 
 		for (int i = 0; i < angriff.length; i++) {
 			angriff[i] += ang[i];
@@ -31,7 +36,8 @@ public class Truppen {
 		ausdauer = aus;
 	}
 
-	public void init(int[] ang, int[] ver, int b, String nam, int reichw, int geschw, int kost, int mo, int aus) {
+	public void init(int[] ang, int[] ver, int b, String nam, int reichw,
+			int geschw, int kost, int mo, int aus, boolean water, Truppen effekt) {
 		for (int i = 0; i < 2; i++) {
 			angriff[i] += ang[i];
 			verteidigung[i] += ver[i];
@@ -43,25 +49,30 @@ public class Truppen {
 		kosten = kost;
 		grundmoral = mo;
 		ausdauer = aus;
+		wasser = water;
+		effektiv = effekt;
 	}
 
-	public int ausdauerBerechnen(int a, int einheitenFreundlich, int einheitenFeindlich) { // int
-																							// a
-																							// entspricht
-																							// der
-																							// ausdauer
-																							// die
-																							// zuvor
-																							// returnt
-																							// wird
-		ausdauer = a * (1 + (moralBerechnen(einheitenFreundlich, einheitenFeindlich) / 100));
+	public int ausdauerBerechnen(int a, int einheitenFreundlich,
+			int einheitenFeindlich) { // int
+										// a
+										// entspricht
+										// der
+										// ausdauer
+										// die
+										// zuvor
+										// returnt
+										// wird
+		ausdauer = a
+				* (1 + (moralBerechnen(einheitenFreundlich, einheitenFeindlich) / 100));
 		if (ausdauer < 10)
 			ausdauer = 10;
 		return ausdauer;
 	}
 
 	public int moralBerechnen(int einheitenFreundlich, int einheitenFeindlich) {
-		moral = grundmoral * (1 + ((einheitenFreundlich - einheitenFeindlich) / 100));
+		moral = grundmoral
+				* (1 + ((einheitenFreundlich - einheitenFeindlich) / 100));
 		return moral;
 	}
 

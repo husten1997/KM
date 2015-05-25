@@ -9,4 +9,8 @@ public class Kavallerie extends Truppen {
 		hatpferd = true;
 	}
 
+	public void setPferd(boolean x) {
+		hatpferd = x;
+	}
+
 }
