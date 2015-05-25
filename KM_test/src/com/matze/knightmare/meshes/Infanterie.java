@@ -1,9 +1,9 @@
 package com.matze.knightmare.meshes;
 
-public class Infanterie extends Truppen{
+public class Infanterie extends Truppen {
 
-	public Infanterie(){
+	public Infanterie() {
 		super();
 	}
-	
+
 }

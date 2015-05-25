@@ -257,8 +257,8 @@ public class KTM_Game_Main implements StringConstants {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					pos1.setxPos(x);
-					pos1.setyPos(y);
+					pos1.setX(x);
+					pos1.setY(y);
 
 					int xR = x / 32;
 					int yR = y / 32;
@@ -318,8 +318,8 @@ public class KTM_Game_Main implements StringConstants {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					pos2.setxPos(x);
-					pos2.setyPos(y);
+					pos2.setX(x);
+					pos2.setY(y);
 
 					int xR = x / 32;
 					int yR = y / 32;
@@ -332,7 +332,7 @@ public class KTM_Game_Main implements StringConstants {
 						initRender(new Soldat(xR * 32, yR * 32, textureLoader, "figure.png"), 1, 1);
 						break;
 					case state.S_TRUPS:
-						search((float) pos1.getxPos(), (float) pos1.getyPos(), (float) pos2.getxPos(), (float) pos2.getyPos());
+						search((float) pos1.getX(), (float) pos1.getY(), (float) pos2.getX(), (float) pos2.getY());
 						for (int i = 0; i < selection.size(); i++) {
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								((Soldat) selection.get(i)).say();
@@ -404,8 +404,8 @@ public class KTM_Game_Main implements StringConstants {
 		}
 
 		if (Mouse.isButtonDown(2)) {
-			CameraX = -(Mouse.getX() * scale - (float) ang.getxPos());
-			CameraY = -(Mouse.getY() * scale - (float) ang.getyPos());
+			CameraX = -(Mouse.getX() * scale - (float) ang.getX());
+			CameraY = -(Mouse.getY() * scale - (float) ang.getY());
 			if (CameraX < 0) {
 				CameraX = 0;
 			}

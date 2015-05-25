@@ -23,7 +23,8 @@ public class Environment {
 	private static HashMap<String, Map> maps = new HashMap<>();
 
 	public static void setUpEnvironment(String companiesName, String gamesName) {
-		gameDirPath = new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\AppData\\Roaming\\").append(companiesName).append("\\").append(gamesName).toString();
+		gameDirPath = new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\AppData\\Roaming\\").append(companiesName).append("\\")
+				.append(gamesName).toString();
 		resourceDir = new File(new StringBuilder(gameDirPath).append("\\Resources").toString());
 		File configsDir = new File(new StringBuilder(gameDirPath).append("\\Configs").toString());
 		File savesDir = new File(new StringBuilder(gameDirPath).append("\\saves").toString());
@@ -103,7 +104,7 @@ public class Environment {
 				return clip;
 			} catch (Exception e1) {
 				// Just stop trying
-			}	
+			}
 		}
 		return null;
 	}
@@ -130,30 +131,31 @@ public class Environment {
 			}
 		}
 	}
-	
-	private static void loadMaps(){
+
+	private static void loadMaps() {
 		File mapDir = new File(new StringBuilder(resourceDirPath).append("\\Maps").toString());
 		String[] mapList = mapDir.list();
-		for(int i = 0; i<mapList.length; i++){
+		for (int i = 0; i < mapList.length; i++) {
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(new File(new StringBuilder(mapDir.getAbsolutePath()).append("\\").append(mapList[i]).toString())));
+				BufferedReader reader = new BufferedReader(
+						new FileReader(new File(new StringBuilder(mapDir.getAbsolutePath()).append("\\").append(mapList[i]).toString())));
 				String line = reader.readLine();
 				ArrayList<String[]> lines = new ArrayList<>();
 				int y = 0;
-				while(line!=null){
+				while (line != null) {
 					String[] lineArray = new String[line.length()];
-					for(int x = 0; x<line.length(); x++){
-						lineArray[x] = line.substring(x, x+1);
+					for (int x = 0; x < line.length(); x++) {
+						lineArray[x] = line.substring(x, x + 1);
 					}
 					lines.add(lineArray);
 					y++;
 					line = reader.readLine();
 				}
-				String map[][] = new String[lines.get(0).length][lines.size()]; 
+				String map[][] = new String[lines.get(0).length][lines.size()];
 				Map m = new Map(lines.get(0).length, lines.size(), 32);
-				for(int x = 0; x<lines.get(0).length; x++){
-					for(y = 0; y<lines.size(); y++){
-						map[x][y]=Dictionary.getFullName(lines.get(y)[x]);
+				for (int x = 0; x < lines.get(0).length; x++) {
+					for (y = 0; y < lines.size(); y++) {
+						map[x][y] = Dictionary.getFullName(lines.get(y)[x]);
 					}
 				}
 				m.setGround(map);
@@ -176,19 +178,19 @@ public class Environment {
 	public static BufferedImage getTexture(String name) {
 		return textures.get(name);
 	}
-	
+
 	public static Clip getMusic(String name) {
 		return loadMusic(name);
 	}
-	
+
 	public static Clip getSound(String name) {
 		return sounds.get(name);
 	}
 
-	public static Map getMap(String name){
+	public static Map getMap(String name) {
 		return maps.get(name);
 	}
-	
+
 	public static String[] getMusicList() {
 		return new File(resourceDirPath + "\\Music").list();
 	}

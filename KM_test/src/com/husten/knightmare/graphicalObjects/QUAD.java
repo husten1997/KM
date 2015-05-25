@@ -20,212 +20,202 @@ import java.io.IOException;
 import com.richard.knightmare.util.Pos;
 
 public class QUAD extends gasset {
-	float H; //Höhe
-	float L; //Länge
-	Pos pos; //Position
-	float Cs = 1;
-	int rot; //rotation
-
-	float tc_x = 1; 
-	float tc_y = 1;
-	
+	private double height, width, Cs = 1, tc_x = 1, tc_y = 1;
+	private Pos position;
+	private int rotation;
 	private Texture texture;
-	
-	public QUAD(float l, float h, float x, float y, float r){
-		H = h;
-		L = l;
-		pos = new Pos(x, y);
-		double ran = Math.random()*4;
-		rot = (int) ran;
-	}
-	
-	public QUAD(float l, float h, float x, float y, TextureLoader loader, String ref){
-		H = h;
-		L = l;
-		pos = new Pos(x, y);
-		double ran = Math.random()*4;
-		rot = (int) ran;
-		try {
-			texture = loader.getTexture(ref);
-		} catch (IOException e) {
-			e.printStackTrace();
-		      System.exit(-1);
-		}
-	}
-	
-	public QUAD( float x, float y, float cs,  TextureLoader loader, String ref){
-		pos = new Pos(x, y);
-		Cs = cs;
-		double ran = Math.random()*4;
-		rot = (int) ran;
-		try {
-			texture = loader.getTexture(ref);
-			init();
-		} catch (IOException e) {
-			e.printStackTrace();
-		    System.exit(-1);
-		}
-	}
-	
-	public QUAD( float x, float y,  TextureLoader loader, String ref){
-		pos = new Pos(x, y);
-		double ran = Math.random()*4;
-		rot = (int) ran;
-		try {
-			texture = loader.getTexture(ref);
-			init();
-		} catch (IOException e) {
-			e.printStackTrace();
-		    System.exit(-1);
-		}
-	}
-	
-	public QUAD(float h, float b, float x, float y){
-		H = h;
-		L = b;
-		pos.setxPos(x);
-		pos.setyPos(y);
-		double ran = Math.random()*4;
-		rot = (int) ran;
-	}
-	
-	public void init(){
-		H = texture.getImageHeight()* Cs;
-		L = texture.getImageWidth()* Cs;
-	}
-	//Getters § Setters ------------------------------------
-	
-	public float getH() {
-		return H;
+
+	public QUAD(Pos position, double width, double height) {
+		this.height = height;
+		this.width = width;
+		this.position = position;
+		rotation = (int) (Math.random() * 4);
 	}
 
-	public void setH(float h) {
-		H = h;
+	public QUAD(float l, float h, float x, float y, TextureLoader loader, String ref) {
+		height = h;
+		width = l;
+		position = new Pos(x, y);
+		double ran = Math.random() * 4;
+		rotation = (int) ran;
+		try {
+			texture = loader.getTexture(ref);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
-	
-	//Relatiever setter
+
+	public QUAD(float x, float y, float cs, TextureLoader loader, String ref) {
+		position = new Pos(x, y);
+		Cs = cs;
+		double ran = Math.random() * 4;
+		rotation = (int) ran;
+		try {
+			texture = loader.getTexture(ref);
+			init();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+
+	public QUAD(float x, float y, TextureLoader loader, String ref) {
+		position = new Pos(x, y);
+		double ran = Math.random() * 4;
+		rotation = (int) ran;
+		try {
+			texture = loader.getTexture(ref);
+			init();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+
+	public QUAD(float h, float b, float x, float y) {
+		height = h;
+		width = b;
+		position.setX(x);
+		position.setY(y);
+		double ran = Math.random() * 4;
+		rotation = (int) ran;
+	}
+
+	public void init() {
+		height = texture.getImageHeight() * Cs;
+		width = texture.getImageWidth() * Cs;
+	}
+	// Getters § Setters ------------------------------------
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	// Relatiever setter
 	public void setrH(float h) {
-		H += h;
+		height += h;
 	}
-	
-	public void setCS(float cs){
+
+	public void setCS(float cs) {
 		Cs = cs;
 	}
-	
-	public float getCS(){
+
+	public float getCS() {
 		return Cs;
 	}
-	
+
 	public float getL() {
-		return L;
+		return width;
 	}
 
 	public void setL(float l) {
-		L = l;
+		width = l;
 	}
-	
+
 	public void setrL(float l) {
-		L += l;
+		width += l;
 	}
-	
+
 	@Override
 	public float getX() {
-		return (float)pos.getxPos();
+		return (float) position.getX();
 	}
-	
+
 	public float getXC() {
-		return (float)pos.getxPos() + 16;
+		return (float) position.getX() + 16;
 	}
 
 	@Override
 	public void setX(float x) {
-		pos.setxPos(x);
+		position.setX(x);
 	}
-	
+
 	public void setrX(float x) {
-		pos.setxPos(pos.getxPos() + x);
+		position.setX(position.getX() + x);
 	}
-	
-	
-	
+
 	@Override
 	public float getY() {
-		return (float) pos.getyPos();
+		return (float) position.getY();
 	}
 
 	@Override
 	public void setY(float y) {
-		pos.setyPos(y);
+		position.setY(y);
 	}
-	
+
 	public void setrY(float y) {
-		pos.setyPos(pos.getyPos() + y);
+		position.setY(position.getY() + y);
 	}
-	
-	public void setTCX(float x){
+
+	public void setTCX(float x) {
 		tc_x = x;
 	}
-	
-	public void setTCY(float y){
+
+	public void setTCY(float y) {
 		tc_y = y;
 	}
-	
-	public void transformXY(float x, float y){
-		pos.setxPos(x);
-		pos.setyPos(y);
+
+	public void transformXY(float x, float y) {
+		position.setX(x);
+		position.setY(y);
 	}
-	
-	public Pos getPos(){
-		return pos;
+
+	public Pos getPos() {
+		return position;
 	}
-	
-	public void setPos(Pos pos){
-		this.pos = pos;
+
+	public void setPos(Pos pos) {
+		this.position = pos;
 	}
-	
+
 	@Override
-	public void draw2(){
-		double x = ((Math.random()*2)-1) * 5;
-		double y = ((Math.random()*2)-1) * 5;
-		setrX((float)x);
-		setrY((float)y);
+	public void draw2() {
+		double x = ((Math.random() * 2) - 1) * 5;
+		double y = ((Math.random() * 2) - 1) * 5;
+		setrX((float) x);
+		setrY((float) y);
 		draw();
 		glColor3f(1f, 1f, 1f);
 	}
 
 	@Override
-	public void draw(){
+	public void draw() {
 		// store the current model matrix
-        glPushMatrix();
-        // bind to the appropriate texture for this sprite
-        texture.bind();
-        glMatrixMode(GL_TEXTURE);
-        glLoadIdentity();
-        glRotatef(90*rot, 0f, 0f, 1f);
-        glMatrixMode(GL_MODELVIEW);
-        // translate to the right location and prepare to draw
-        glTranslatef((float)pos.getxPos(), (float)pos.getyPos(), 0);
-        // draw a quad textured to match the sprite
-        glBegin(GL_QUADS);{
-            glTexCoord2f(0, 0);
-            glVertex2f(0, 0);
- 
-            glTexCoord2f(0, -texture.getHeight()*tc_y);
-            glVertex2f(0, H);
- 
-            glTexCoord2f(-texture.getWidth()*tc_x, -texture.getHeight()*tc_y);
-            glVertex2f(L, H);
- 
-            glTexCoord2f(-texture.getWidth()*tc_x, 0);
-            glVertex2f(L, 0);
-            
-        }
-        glEnd();
-        glColor3f(1f, 1f, 0.9f);
-        // restore the model view matrix to prevent contamination
-        glPopMatrix();
-	}
+		glPushMatrix();
+		// bind to the appropriate texture for this sprite
+		texture.bind();
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+		glRotatef(90 * rotation, 0f, 0f, 1f);
+		glMatrixMode(GL_MODELVIEW);
+		// translate to the right location and prepare to draw
+		glTranslatef((float) position.getX(), (float) position.getY(), 0);
+		// draw a quad textured to match the sprite
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f(0, 0);
+			glVertex2f(0, 0);
 
-	
+			glTexCoord2f(0, -texture.getHeight() * tc_y);
+			glVertex2f(0, height);
+
+			glTexCoord2f(-texture.getWidth() * tc_x, -texture.getHeight() * tc_y);
+			glVertex2f(width, height);
+
+			glTexCoord2f(-texture.getWidth() * tc_x, 0);
+			glVertex2f(width, 0);
+
+		}
+		glEnd();
+		glColor3f(1f, 1f, 0.9f);
+		// restore the model view matrix to prevent contamination
+		glPopMatrix();
+	}
 
 }

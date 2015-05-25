@@ -1,23 +1,23 @@
 package com.richard.knightmare.buttons;
 
-public abstract class Entity extends Button{
+public abstract class Entity extends Button {
 
 	private String player;
 	private int team;
-	
-	public Entity(String player, int team, String texur){
+
+	public Entity(String player, int team, String texur) {
 		super(texur);
 		this.player = player;
 		this.team = team;
 	}
-	
-	public String getPlayer(){
+
+	public String getPlayer() {
 		return player;
 	}
-	
-	public int getTeam(){
+
+	public int getTeam() {
 		return team;
 	}
-	
+
 	public abstract boolean isTroop();
 }
