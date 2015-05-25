@@ -1,26 +1,11 @@
 package com.husten.knightmare.graphicalObjects;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
-
-import java.io.IOException;
+import static org.lwjgl.opengl.GL11.*;
 
 import com.richard.knightmare.util.Pos;
 
 public class QUAD extends gasset {
-	private double height, width, Cs = 1, tc_x = 1, tc_y = 1;
+	private double height, width, scale = 1, tc_x = 1, tc_y = 1;
 	private Pos position;
 	private int rotation;
 	private Texture texture;
@@ -32,59 +17,32 @@ public class QUAD extends gasset {
 		rotation = (int) (Math.random() * 4);
 	}
 
-	public QUAD(float l, float h, float x, float y, TextureLoader loader, String ref) {
-		height = h;
-		width = l;
-		position = new Pos(x, y);
-		double ran = Math.random() * 4;
-		rotation = (int) ran;
-		try {
-			texture = loader.getTexture(ref);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+	public QUAD(Pos position, double width, double height, TextureLoader loader, String textureName) {
+		this.height = height;
+		this.width = width;
+		this.position = position;
+		rotation = (int) (Math.random() * 4);
+		texture = loader.getTexture(textureName);
 	}
 
-	public QUAD(float x, float y, float cs, TextureLoader loader, String ref) {
-		position = new Pos(x, y);
-		Cs = cs;
-		double ran = Math.random() * 4;
-		rotation = (int) ran;
-		try {
-			texture = loader.getTexture(ref);
-			init();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+	public QUAD(Pos position, double scale, TextureLoader loader, String textureName) {
+		this.position = position;
+		this.scale = scale;
+		rotation = (int) (Math.random() * 4);
+		texture = loader.getTexture(textureName);
+		init();
 	}
 
-	public QUAD(float x, float y, TextureLoader loader, String ref) {
-		position = new Pos(x, y);
-		double ran = Math.random() * 4;
-		rotation = (int) ran;
-		try {
-			texture = loader.getTexture(ref);
-			init();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-	}
-
-	public QUAD(float h, float b, float x, float y) {
-		height = h;
-		width = b;
-		position.setX(x);
-		position.setY(y);
-		double ran = Math.random() * 4;
-		rotation = (int) ran;
+	public QUAD(Pos position, TextureLoader loader, String textureName) {
+		this.position = position;
+		rotation = (int) (Math.random() * 4);
+		texture = loader.getTexture(textureName);
+		init();
 	}
 
 	public void init() {
-		height = texture.getImageHeight() * Cs;
-		width = texture.getImageWidth() * Cs;
+		height = texture.getImageHeight() * scale;
+		width = texture.getImageWidth() * scale;
 	}
 	// Getters § Setters ------------------------------------
 
@@ -97,71 +55,71 @@ public class QUAD extends gasset {
 	}
 
 	// Relatiever setter
-	public void setrH(float h) {
-		height += h;
+	public void setRelativeHeight(double height) {
+		this.height += height;
 	}
 
-	public void setCS(float cs) {
-		Cs = cs;
+	public void setScale(double scale) {
+		this.scale = scale;
 	}
 
-	public float getCS() {
-		return Cs;
+	public double getScale() {
+		return scale;
 	}
 
-	public float getL() {
+	public double getWidth() {
 		return width;
 	}
 
-	public void setL(float l) {
-		width = l;
+	public void setWidth(double width) {
+		this.width = width;
 	}
 
-	public void setrL(float l) {
-		width += l;
-	}
-
-	@Override
-	public float getX() {
-		return (float) position.getX();
-	}
-
-	public float getXC() {
-		return (float) position.getX() + 16;
+	public void setRelativeWidth(double width) {
+		this.width += width;
 	}
 
 	@Override
-	public void setX(float x) {
+	public double getX() {
+		return position.getX();
+	}
+
+	public double getXC() {
+		return position.getX() + 16;
+	}
+
+	@Override
+	public void setX(double x) {
 		position.setX(x);
 	}
 
-	public void setrX(float x) {
+	public void setRelativeX(double x) {
 		position.setX(position.getX() + x);
 	}
 
 	@Override
-	public float getY() {
-		return (float) position.getY();
+	public double getY() {
+		return position.getY();
 	}
 
 	@Override
-	public void setY(float y) {
+	public void setY(double y) {
 		position.setY(y);
 	}
 
-	public void setrY(float y) {
+	public void setRelativeY(double y) {
 		position.setY(position.getY() + y);
 	}
 
-	public void setTCX(float x) {
+	public void setTCX(double x) {
 		tc_x = x;
 	}
 
-	public void setTCY(float y) {
+	public void setTCY(double y) {
 		tc_y = y;
 	}
 
-	public void transformXY(float x, float y) {
+	public void transformXY(double x, double y) {
 		position.setX(x);
 		position.setY(y);
 	}
@@ -176,10 +134,8 @@ public class QUAD extends gasset {
 
 	@Override
 	public void draw2() {
-		double x = ((Math.random() * 2) - 1) * 5;
-		double y = ((Math.random() * 2) - 1) * 5;
-		setrX((float) x);
-		setrY((float) y);
+		setRelativeX(((Math.random() * 2) - 1) * 5);
+		setRelativeY(((Math.random() * 2) - 1) * 5);
 		draw();
 		glColor3f(1f, 1f, 1f);
 	}
@@ -202,14 +158,14 @@ public class QUAD extends gasset {
 			glTexCoord2f(0, 0);
 			glVertex2f(0, 0);
 
-			glTexCoord2f(0, -texture.getHeight() * tc_y);
-			glVertex2f(0, height);
+			glTexCoord2f(0, (float) (-texture.getHeight() * tc_y));
+			glVertex2f(0, (float) height);
 
-			glTexCoord2f(-texture.getWidth() * tc_x, -texture.getHeight() * tc_y);
-			glVertex2f(width, height);
+			glTexCoord2f((float) (-texture.getWidth() * tc_x), (float) (-texture.getHeight() * tc_y));
+			glVertex2f((float) width, (float) height);
 
-			glTexCoord2f(-texture.getWidth() * tc_x, 0);
-			glVertex2f(width, 0);
+			glTexCoord2f((float) (-texture.getWidth() * tc_x), 0);
+			glVertex2f((float) width, 0);
 
 		}
 		glEnd();

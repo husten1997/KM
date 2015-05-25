@@ -2,10 +2,8 @@ package com.matze.knightmare.meshes;
 
 public class Arena {
 
-	private Armee a1;
-	private Armee a2;
-	private int angr[];
-	private int vert[];
+	private Armee a1, a2;
+	private int angr[], vert[];
 
 	public Arena() {
 		angr = new int[3];
@@ -20,7 +18,7 @@ public class Arena {
 
 		for (int i = 0; i < 50; i++) {
 			init(a2, (int) (Math.random() * 3));
-			System.out.println(i + " " + a1.getTroop(i).name+ " vs. " + a2.getTroop(i).name);
+			System.out.println(i + " " + a1.getTroop(i).name + " vs. " + a2.getTroop(i).name);
 		}
 
 		fight();
@@ -28,8 +26,7 @@ public class Arena {
 
 	public void fight() {
 		for (int i = 0; i < 50; i++) {
-			while (a1.getTroop(i).verteidigung[0] > 0
-					&& a2.getTroop(i).verteidigung[0] > 0) {
+			while (a1.getTroop(i).verteidigung[0] > 0 && a2.getTroop(i).verteidigung[0] > 0) {
 				if (a2.getTroop(i).verteidigung[0] > 0)
 					a1.getTroop(i).verteidigung[0] -= a2.getTroop(i).angriff[0];
 				if (a1.getTroop(i).verteidigung[0] > 0)
@@ -99,7 +96,7 @@ public class Arena {
 	}
 
 	public static void main(String[] argv) {
-		Arena a = new Arena();
+		new Arena();
 	}
 
 }

@@ -11,7 +11,7 @@ public class Ausruestung {
 			changeStats[i] = 0;
 		}
 	}
-	
+
 	public Ausruestung(int[] a) {
 		changeStats = new int[12];
 		for (int i = 0; i < changeStats.length; i++) {
@@ -22,8 +22,8 @@ public class Ausruestung {
 	public int[] getCS() {
 		return changeStats;
 	}
-	
-	public void setStats(int i, int amount){
-		changeStats[i]=amount;
+
+	public void setStats(int i, int amount) {
+		changeStats[i] = amount;
 	}
 }

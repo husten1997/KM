@@ -1,26 +1,24 @@
 package com.matze.knightmare.meshes;
 
-import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.QUAD;
 import com.husten.knightmare.graphicalObjects.TextureLoader;
+import com.richard.knightmare.util.Pos;
 
 public class Soldat extends QUAD {
 	private int speed = 5;
 
 	// TODO Inventory
-	public Soldat(float l, float h, float x, float y, TextureLoader loader, String ref) {
-		super(l, h, x, y, loader, ref);
-		type = StringConstants.MeshType.EINEHEIT;
+	public Soldat(Pos position, double width, double height, TextureLoader loader, String textureName) {
+		super(position, width, height, loader, textureName);
+		type = MeshType.EINEHEIT;
 	}
 
-	public Soldat(float x, float y, TextureLoader loader, String ref) {
-		super(x, y, loader, ref);
-
+	public Soldat(Pos position, TextureLoader loader, String ref) {
+		super(position, loader, ref);
 	}
 
-	public Soldat(float x, float y, float cs, TextureLoader loader, String ref) {
-		super(x, y, cs, loader, ref);
-
+	public Soldat(Pos position, double scale, TextureLoader loader, String textureName) {
+		super(position, scale, loader, textureName);
 	}
 
 	public void say() {

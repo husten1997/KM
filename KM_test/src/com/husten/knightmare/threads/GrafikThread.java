@@ -1,23 +1,20 @@
 package com.husten.knightmare.threads;
 
-import com.husten.knightmare.core.KTM_Game_Main;
+import com.husten.knightmare.core.Knightmare;
 
-public class GrafikThread extends WorkingThread{
-	KTM_Game_Main game;
-	
-	public GrafikThread(KTM_Game_Main game){
+public class GrafikThread extends WorkingThread {
+	private Knightmare game;
+
+	public GrafikThread(Knightmare game) {
 		this.game = game;
 	}
 
 	@Override
 	public void run() {
-//		while(true){
-			game.grafikCycl();
-//		}
-		
-		
+		// while(true){
+		game.grafikCycl();
+		// }
+
 	}
-	
-	
 
 }

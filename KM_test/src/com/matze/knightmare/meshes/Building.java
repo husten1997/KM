@@ -1,24 +1,23 @@
 package com.matze.knightmare.meshes;
 
-import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.QUAD;
 import com.husten.knightmare.graphicalObjects.TextureLoader;
+import com.richard.knightmare.util.Pos;
 
 public class Building extends QUAD {
 
-	public Building(float l, float h, float x, float y, TextureLoader loader, String ref) {
-		super(l, h, x, y, loader, ref);
-		type = StringConstants.MeshType.GEBÄUDE;
+	public Building(Pos position, double width, double height, TextureLoader loader, String textureName) {
+		super(position, width, height, loader, textureName);
+		type = MeshType.GEBÄUDE;
+	}
+
+	public Building(Pos position, TextureLoader loader, String textureName) {
+		super(position, loader, textureName);
 
 	}
 
-	public Building(float x, float y, TextureLoader loader, String ref) {
-		super(x, y, loader, ref);
-
-	}
-
-	public Building(float x, float y, float cs, TextureLoader loader, String ref) {
-		super(x, y, cs, loader, ref);
+	public Building(Pos position, double scale, TextureLoader loader, String textureName) {
+		super(position, scale, loader, textureName);
 
 	}
 

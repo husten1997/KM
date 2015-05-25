@@ -1,31 +1,32 @@
 package com.husten.knightmare.graphicalObjects;
 
+import com.richard.knightmare.util.Pos;
+
 public class TerrainElement extends QUAD {
 	String type;
 
-	public TerrainElement(float l, float h, float x, float y,TextureLoader loader, String ref, String Type) {
-		super(l, h, x, y, loader, ref);
+	public TerrainElement(Pos position, double width, double height, TextureLoader loader, String textureName, String Type) {
+		super(position, width, height, loader, textureName);
 		type = Type;
 	}
-	
-	public TerrainElement(float x, float y,TextureLoader loader, String ref, String Type) {
-		super(x, y, loader, ref);
+
+	public TerrainElement(Pos postition, TextureLoader loader, String textureName, String Type) {
+		super(postition, loader, textureName);
 		type = Type;
 	}
-	
-	public TerrainElement(float x, float y,float cs,TextureLoader loader, String ref, String Type) {
-		super(x, y, cs, loader, ref);
+
+	public TerrainElement(Pos postition, double cs, TextureLoader loader, String textureName, String Type) {
+		super(postition, cs, loader, textureName);
 		type = Type;
-		
+
 	}
-	
-	public void setType(String Type){
+
+	public void setType(String Type) {
 		type = Type;
 	}
-	
-	public String getType(){
+
+	public String getType() {
 		return type;
 	}
-	
 
 }
