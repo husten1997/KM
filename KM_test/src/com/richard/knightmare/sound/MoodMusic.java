@@ -60,8 +60,7 @@ public class MoodMusic {
 		player = new MusikPlayer(name);
 		player.setVolume(volume);
 		long duration = player.start();
-		Timer timer = new Timer(true);
-		timer.schedule(new TimerTask() {
+		new Timer(true).schedule(new TimerTask() {
 
 			@Override
 			public void run() {
@@ -92,18 +91,27 @@ public class MoodMusic {
 
 	public static void changeMood(String mood) {
 		if (!mood.equals(MoodMusic.mood)) {
-			for (float i = volume; i > -30; i--) {
-				player.changeVolume(-1.0f);
-				try {
-					TimeUnit.MILLISECONDS.sleep(100);
-				} catch (InterruptedException e) {
-					// Let's just pretend that everything is fine
-				}
-			}
-			player.stop();
+			ausblenden();
 			MoodMusic.mood = mood;
 			setMood(mood);
 		}
+	}
+	
+	public static void nextClip(){
+		ausblenden();
+		setMood(mood);
+	}
+	
+	private static void ausblenden(){
+		for (float i = volume; i > -30; i--) {
+			player.changeVolume(-1.0f);
+			try {
+				TimeUnit.MILLISECONDS.sleep(100);
+			} catch (InterruptedException e) {
+				// Let's just pretend that everything is fine
+			}
+		}
+		player.stop();
 	}
 
 	public static void changeVolume(Float change) {

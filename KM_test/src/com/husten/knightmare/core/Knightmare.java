@@ -99,9 +99,6 @@ public class Knightmare implements StringConstants {
 	public void init() {
 		Environment.setUpEnvironment("Ares", "Knightmare");
 		MoodMusic.init();
-		MoodMusic.addMood("buildingMood");
-		MoodMusic.addClipToMood("buildingMood", "Knightmare_Soundtrack_2.WAV");
-		MoodMusic.addClipToMood("buildingMood", "Knightmare_Soundtrack_4.WAV");
 		// verwendet eure aktuelle desktopauflösung als gameauflösung
 		initRes();
 
@@ -230,7 +227,7 @@ public class Knightmare implements StringConstants {
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_M) {
-					MoodMusic.changeMood("buildingMood");
+					MoodMusic.nextClip();
 				}
 			}
 		}

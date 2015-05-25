@@ -66,7 +66,7 @@ public class Environment {
 	private static void load() {
 		loadImages();
 		loadSounds();
-		loadMaps();
+		loadMaps(); //TODO change
 	}
 
 	private static void loadImages() {
