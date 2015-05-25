@@ -26,3 +26,6 @@ Please update if needed
 	
 	F11: Fullscreen on/off
 	F12: VSync on/off
+	
+	M: Set mood to "BuildingMood"
+	N: Next clip
