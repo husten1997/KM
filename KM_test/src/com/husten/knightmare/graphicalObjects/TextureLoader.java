@@ -160,7 +160,7 @@ public class TextureLoader {
 			bufferedImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
 			Graphics graphics = bufferedImage.getGraphics();
 			graphics.setColor(Color.MAGENTA);
-			graphics.drawRect(0, 0, 32, 32);
+			graphics.drawString(resourceName.substring(0, 1), 0, 32);
 			graphics.dispose();
 		}
 		texture.setWidth(bufferedImage.getWidth());
