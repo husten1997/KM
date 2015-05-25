@@ -74,7 +74,7 @@ public class MoodMusic {
 	public static void changeMood(String mood) {
 		if (!mood.equals(MoodMusic.mood)) {
 			new Timer(true).schedule(new TimerTask() {
-				
+
 				@Override
 				public void run() {
 					ausblenden();
@@ -87,7 +87,7 @@ public class MoodMusic {
 
 	public static void nextClip() {
 		new Timer(true).schedule(new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				ausblenden();
