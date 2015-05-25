@@ -10,7 +10,7 @@ import com.richard.knightmare.util.Environment;
 
 public class MoodMusic {
 
-	private static String[] lastPlayed = new String[3];
+	private static ArrayList<String> lastPlayed = new ArrayList<>();
 	private static MusikPlayer player;
 	private static HashMap<String, ArrayList<String>> moodMusic = new HashMap<>();
 	private static float volume;
@@ -33,31 +33,13 @@ public class MoodMusic {
 
 	private static void setMood(String mood) {
 		ArrayList<String> names = moodMusic.get(mood);
-
+		editListLenght(names.size());
 		int index = (int) (Math.random() * names.size());
-
-		while (!((!names.get(index).equals(lastPlayed[0])) && (!names.get(index).equals(lastPlayed[1])) && (!names.get(index).equals(lastPlayed[2])))) {
-			if (names.size() < 4) {
-				break;
-			}
+		while (isPlayed(names.get(index))) {
 			index = (int) (Math.random() * names.size());
 		}
-
-		String name = names.get(index);
-
-		if (lastPlayed[0] == null) {
-			lastPlayed[0] = name;
-		} else if (lastPlayed[1] == null) {
-			lastPlayed[1] = name;
-		} else if (lastPlayed[2] == null) {
-			lastPlayed[2] = name;
-		} else {
-			for (int i = 0; i < 2; i++) {
-				lastPlayed[i] = lastPlayed[i + 1];
-			}
-			lastPlayed[2] = name;
-		}
-		player = new MusikPlayer(name);
+		setPlayed(names.get(index), names.size());
+		player = new MusikPlayer(names.get(index));
 		player.setVolume(volume);
 		long duration = player.start();
 		new Timer(true).schedule(new TimerTask() {
@@ -96,13 +78,13 @@ public class MoodMusic {
 			setMood(mood);
 		}
 	}
-	
-	public static void nextClip(){
+
+	public static void nextClip() {
 		ausblenden();
 		setMood(mood);
 	}
-	
-	private static void ausblenden(){
+
+	private static void ausblenden() {
 		for (float i = volume; i > -30; i--) {
 			player.changeVolume(-1.0f);
 			try {
@@ -112,6 +94,23 @@ public class MoodMusic {
 			}
 		}
 		player.stop();
+	}
+
+	private static void setPlayed(String name, int clipcount) {
+		lastPlayed.add(name);
+		if (lastPlayed.size() > (int) (clipcount / 2)) {
+			lastPlayed.remove(0);
+		}
+	}
+
+	private static void editListLenght(int clipcount) {
+		while (lastPlayed.size() > (int) (clipcount / 2)) {
+			lastPlayed.remove(0);
+		}
+	}
+
+	private static boolean isPlayed(String name) {
+		return lastPlayed.contains(name);
 	}
 
 	public static void changeVolume(Float change) {
