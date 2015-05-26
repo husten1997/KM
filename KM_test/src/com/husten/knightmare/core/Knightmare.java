@@ -670,11 +670,9 @@ public class Knightmare implements StringConstants {
 	public void initRes() {
 		HEIGHT = Display.getDesktopDisplayMode().getHeight();
 		WIDTH = Display.getDesktopDisplayMode().getWidth();
-		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
 	}
 
 	public void initDisplay() {
-
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
 	}
