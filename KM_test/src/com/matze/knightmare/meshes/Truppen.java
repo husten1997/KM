@@ -1,6 +1,6 @@
 package com.matze.knightmare.meshes;
 
-public class Truppen {
+public class Truppen{
 
 	protected int[] angriff, verteidigung; // [0] entspricht nahkampf [1]
 											// entspricht fernkampf, [2]

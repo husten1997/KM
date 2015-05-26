@@ -6,6 +6,7 @@ public class Kavallerie extends Truppen {
 
 	public Kavallerie() {
 		super();
+		typ = 1;
 		hatpferd = true;
 	}
 
