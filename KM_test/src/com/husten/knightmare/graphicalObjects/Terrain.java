@@ -115,5 +115,12 @@ public class Terrain extends gasset {
 	@Override
 	public void setPos(Pos p) {
 	}
+	
+	public String getMeterial(int x, int y){
+		if(elements[x][y]==null){
+			return null;
+		}
+		return elements[x][y].getType();
+	}
 
 }
