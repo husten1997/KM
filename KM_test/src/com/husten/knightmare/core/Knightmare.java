@@ -58,14 +58,13 @@ public class Knightmare implements StringConstants {
 
 	private int gameSpeed = 10; // inverted
 
-	public static void main(String[] argv) {
-		Knightmare hw = new Knightmare();
-		gT = new GrafikThread(hw);
-		hw.start();
+	public Knightmare(){
+		start();
 	}
 
-	public void start() {
-
+	private void start() {
+		gT = new GrafikThread(this);
+		
 		init();
 		objectinit();
 
@@ -198,7 +197,7 @@ public class Knightmare implements StringConstants {
 		Display.destroy();
 	}
 
-	public void init() {
+	private void init() {
 		Environment.setUpEnvironment("Ares", "Knightmare");
 		MoodMusic.init();
 		// verwendet eure aktuelle desktopauflösung als gameauflösung
