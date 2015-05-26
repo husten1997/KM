@@ -292,7 +292,7 @@ public class Knightmare implements StringConstants {
 						}
 						break;
 					case state.N_TRUPS:
-						if (world[xR][yR] == null) {
+						if (world[xR][yR] == null && terrain.getMeterial(xR, yR) != null) {
 							Soldat s = new Soldat(new Pos(xR * 32, yR * 32), 32, 32, textureLoader, "figure.png");
 							s.setSort(1);
 							pending.add(s);
