@@ -323,10 +323,12 @@ public class Knightmare implements StringConstants {
 							Pos p2 = selection.get(i).getPos(); // Start
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
-								if (vektoren.get(h) == null) {
-									vektoren.put(h, new Vektor(p2, p1, h));
-								} else {
-									vektoren.get(h).setEnde(p1);
+								if(world[(int) (p1.getX()/32)][(int) (p1.getY()/32)]==null){
+									if (vektoren.get(h) == null) {
+										vektoren.put(h, new Vektor(p2, p1, h));
+									} else {
+										vektoren.get(h).setEnde(p1);
+									}
 								}
 							}
 						}
@@ -619,7 +621,6 @@ public class Knightmare implements StringConstants {
 	}
 
 	public void calc() {
-		// float delta = getDelta()*0.5f;
 		Object[] vek = vektoren.values().toArray();
 		Vektor[] vekk = new Vektor[vek.length];
 		for (int i = 0; i < vek.length; i++) {
