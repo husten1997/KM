@@ -129,20 +129,24 @@ public class MainMenue {
 			System.exit(0);
 		}
 		// enable textures since we're going to use these for our sprites
-		glEnable(GL_TEXTURE_2D);
-		glShadeModel(GL11.GL_SMOOTH);
-		glEnable(GL_BLEND);
-
-//		glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		// disable the OpenGL depth test since we're rendering 2D graphics
-		glDisable(GL_DEPTH_TEST);
-
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel(GL11.GL_SMOOTH);        
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_LIGHTING);                    
+  
+        GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
+        GL11.glClearDepth(1);                                       
+  
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+  
+        GL11.glViewport(0,0,WIDTH,HEIGHT);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+  
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
 		glOrtho(0, WIDTH, 0, HEIGHT, 3, -1);
-		glTranslatef(0, 0, 0f);
+//		glTranslatef(0, 0, 0f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 

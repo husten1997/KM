@@ -18,6 +18,7 @@ public class Text extends gasset {
 	public Text(String Font, int style ,int size, String Text, double xPos, double yPos, Color color){
 		Font awtFont = new Font(Font, style, size);
 	    font = new TrueTypeFont(awtFont, false);
+//		font = new Un
 	    this.Text = Text;
 	    this.xPos = xPos;
 	    this.yPos = yPos;
@@ -27,6 +28,7 @@ public class Text extends gasset {
 	@Override
 	public void draw() {
 		font.drawString((float)xPos, (float)yPos, Text, color);
+		
 		
 	}
 
