@@ -158,13 +158,13 @@ public class QUAD extends gasset {
 			glTexCoord2f(0, 0);
 			glVertex2f(0, 0);
 
-			glTexCoord2f(0, (float) (-texture.getHeight() * tc_y));
+			glTexCoord2f(0, (float) (texture.getHeight() * tc_y));
 			glVertex2f(0, (float) height);
 
-			glTexCoord2f((float) (-texture.getWidth() * tc_x), (float) (-texture.getHeight() * tc_y));
+			glTexCoord2f((float) (texture.getWidth() * tc_x), (float) (texture.getHeight() * tc_y));
 			glVertex2f((float) width, (float) height);
 
-			glTexCoord2f((float) (-texture.getWidth() * tc_x), 0);
+			glTexCoord2f((float) (texture.getWidth() * tc_x), 0);
 			glVertex2f((float) width, 0);
 
 		}
