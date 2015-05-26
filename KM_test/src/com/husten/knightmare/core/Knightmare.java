@@ -51,27 +51,28 @@ public class Knightmare implements StringConstants {
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
-	private ArrayList<gasset> selection = new ArrayList<gasset>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen], pending = new ArrayList<>();
+	private ArrayList<gasset> selection = new ArrayList<gasset>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
+			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 
 	private TextureLoader textureLoader;
 	private static WorkingThread gT;
 
 	private int gameSpeed = 10; // inverted
-	
+
 	private gasset[][] world;
 
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		new Knightmare();
 	}
-	
-	public Knightmare(){
+
+	public Knightmare() {
 		start();
 	}
 
 	private void start() {
 		gT = new GrafikThread(this);
-		
+
 		init();
 		objectinit();
 
@@ -86,11 +87,11 @@ public class Knightmare implements StringConstants {
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			if(screenToSet){
+			if (screenToSet) {
 				setDisplayMode(WIDTH, HEIGHT, !fullscreen);
 				screenToSet = false;
 			}
-			while(pending.size()>0){
+			while (pending.size() > 0) {
 				initRender(pending.get(0), pendingEbenen.get(0));
 				pending.remove(0);
 				pendingEbenen.remove(0);
@@ -145,10 +146,7 @@ public class Knightmare implements StringConstants {
 	}
 
 	public void initRender(gasset input, int e) {
-		if(world[(int) (input.getX()/32)][(int) (input.getY()/32)]==null){
-			world[(int) (input.getX()/32)][(int) (input.getY()/32)]=input;
-			renderList[e].add(input);
-		}
+		renderList[e].add(input);
 	}
 
 	public void initObject(gasset input, int e, int se) {
@@ -284,16 +282,23 @@ public class Knightmare implements StringConstants {
 
 					switch (inGameStat) {
 					case state.N_BUILDINGS:
-						Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, textureLoader, "haus.png");
-						b.setSort(2);
-						pending.add(b);
-						pendingEbenen.add(1);
+						if (world[xR][yR] == null && world[xR + 1][yR] == null && terrain.getMeterial(xR, yR) != null && terrain.getMeterial(xR + 1, yR) != null) {
+							Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, textureLoader, "haus.png");
+							b.setSort(2);
+							pending.add(b);
+							pendingEbenen.add(1);
+							world[xR][yR] = b;
+							world[xR + 1][yR] = b;
+						}
 						break;
 					case state.N_TRUPS:
-						Soldat s = new Soldat(new Pos(xR * 32, yR * 32), 32, 32, textureLoader, "figure.png");
-						s.setSort(1);
-						pending.add(s);
-						pendingEbenen.add(1);
+						if (world[xR][yR] == null) {
+							Soldat s = new Soldat(new Pos(xR * 32, yR * 32), 32, 32, textureLoader, "figure.png");
+							s.setSort(1);
+							pending.add(s);
+							pendingEbenen.add(1);
+							world[xR][yR] = s;
+						}
 						break;
 					case state.S_TRUPS:
 						search(x, y);
@@ -323,7 +328,8 @@ public class Knightmare implements StringConstants {
 							Pos p2 = selection.get(i).getPos(); // Start
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
-								if(world[(int) (p1.getX()/32)][(int) (p1.getY()/32)]==null){
+								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
+										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
 									if (vektoren.get(h) == null) {
 										vektoren.put(h, new Vektor(p2, p1, h));
 									} else {
