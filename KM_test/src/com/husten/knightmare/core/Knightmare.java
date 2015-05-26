@@ -87,7 +87,122 @@ public class Knightmare implements StringConstants {
 				} else {
 					initRes();
 				}
+				if (scale < 0.1f) {
+					scale = 0.1f;
+				}
+				if (scale > terrain.getSx() * 32 / WIDTH) {
+					scale = terrain.getSx() * 32 / WIDTH;
+				}
+				if (CameraX < 0) {
+					CameraX = 0;
+				}
+				if (CameraY < 0) {
+					CameraY = 0;
+				}
+				if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
+					CameraX = terrain.getSx() * 32 - WIDTH * scale;
+				}
+				if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
+					CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+				}
 				setDisplayMode(WIDTH, HEIGHT, !fullscreen);
+			}
+			while (Mouse.next()) {
+				if (Mouse.getEventButtonState()) {
+
+					if (Mouse.getEventButton() == 0) {
+						int x = (int) (Mouse.getX() * scale + CameraX);
+						int y = (int) (Mouse.getY() * scale + CameraY);
+
+						pos1.setX(x);
+						pos1.setY(y);
+
+						int xR = x / 32;
+						int yR = y / 32;
+
+						switch (inGameStat) {
+						case state.N_BUILDINGS:
+							initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "haus.png"), 1, 2);
+							break;
+						case state.N_TRUPS:
+							initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
+							break;
+						case state.S_TRUPS:
+							search(x, y);
+							figur = (Soldat) selection.get(selection.size() - 1);
+							break;
+						case state.S_BUILDINGS:
+							search(x, y);
+							break;
+						}
+					}
+
+					if (Mouse.getEventButton() == 2) {
+						ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
+					}
+
+					if (Mouse.getEventButton() == 1) {
+						int x = (int) (Mouse.getX() * scale + CameraX);
+						int y = (int) (Mouse.getY() * scale + CameraY);
+
+						Pos p1 = new Pos(x, y); // Ende
+
+						switch (inGameStat) {
+						case state.NOTHING:
+							break;
+						case state.S_TRUPS:
+							for (int i = 0; i < selection.size(); i++) {
+								Pos p2 = selection.get(i).getPos(); // Start
+								if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
+									Soldat h = (Soldat) selection.get(i);
+									if (vektoren.get(h) == null) {
+										vektoren.put(h, new Vektor(p2, p1, h));
+									} else {
+										vektoren.get(h).setEnde(p1);
+									}
+								}
+							}
+							break;
+						case state.S_BUILDINGS:
+							break;
+
+						}
+					}
+
+				} else {
+					// Buton releasd
+					if (Mouse.getEventButton() == 0) {
+						int x = (int) (Mouse.getX() * scale + CameraX);
+						int y = (int) (Mouse.getY() * scale + CameraY);
+
+						pos2.setX(x);
+						pos2.setY(y);
+
+						int xR = x / 32;
+						int yR = y / 32;
+
+						switch (inGameStat) {
+						case state.N_BUILDINGS:
+							initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "haus.png"), 1, 2);
+							break;
+						case state.N_TRUPS:
+							initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
+							break;
+						case state.S_TRUPS:
+							search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
+							for (int i = 0; i < selection.size(); i++) {
+								if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
+									((Soldat) selection.get(i)).say();
+								}
+							}
+							break;
+						case state.S_BUILDINGS:
+							search(x, y);
+							break;
+
+						}
+					}
+				}
 			}
 			gT.run();
 			updateDisplay();
@@ -232,103 +347,7 @@ public class Knightmare implements StringConstants {
 			}
 		}
 		// Mosue-------------------------------------------------------------------------------------------------------
-		while (Mouse.next()) {
-			if (Mouse.getEventButtonState()) {
-
-				if (Mouse.getEventButton() == 0) {
-					int x = (int) (Mouse.getX() * scale + CameraX);
-					int y = (int) (Mouse.getY() * scale + CameraY);
-
-					pos1.setX(x);
-					pos1.setY(y);
-
-					int xR = x / 32;
-					int yR = y / 32;
-
-					switch (inGameStat) {
-					case state.N_BUILDINGS:
-						initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "Haus.png"), 1, 2);
-						break;
-					case state.N_TRUPS:
-						initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
-						break;
-					case state.S_TRUPS:
-						search(x, y);
-						figur = (Soldat) selection.get(selection.size() - 1);
-						break;
-					case state.S_BUILDINGS:
-						search(x, y);
-						break;
-					}
-				}
-
-				if (Mouse.getEventButton() == 2) {
-					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
-				}
-
-				if (Mouse.getEventButton() == 1) {
-					int x = (int) (Mouse.getX() * scale + CameraX);
-					int y = (int) (Mouse.getY() * scale + CameraY);
-
-					Pos p1 = new Pos(x, y); // Ende
-
-					switch (inGameStat) {
-					case state.NOTHING:
-						break;
-					case state.S_TRUPS:
-						for (int i = 0; i < selection.size(); i++) {
-							Pos p2 = selection.get(i).getPos(); // Start
-							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
-								Soldat h = (Soldat) selection.get(i);
-								if (vektoren.get(h) == null) {
-									vektoren.put(h, new Vektor(p2, p1, h));
-								} else {
-									vektoren.get(h).setEnde(p1);
-								}
-							}
-						}
-						break;
-					case state.S_BUILDINGS:
-						break;
-
-					}
-				}
-
-			} else {
-				// Buton releasd
-				if (Mouse.getEventButton() == 0) {
-					int x = (int) (Mouse.getX() * scale + CameraX);
-					int y = (int) (Mouse.getY() * scale + CameraY);
-
-					pos2.setX(x);
-					pos2.setY(y);
-
-					int xR = x / 32;
-					int yR = y / 32;
-
-					switch (inGameStat) {
-					case state.N_BUILDINGS:
-						initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "haus.png"), 1, 2);
-						break;
-					case state.N_TRUPS:
-						initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
-						break;
-					case state.S_TRUPS:
-						search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
-						for (int i = 0; i < selection.size(); i++) {
-							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
-								((Soldat) selection.get(i)).say();
-							}
-						}
-						break;
-					case state.S_BUILDINGS:
-						search(x, y);
-						break;
-
-					}
-				}
-			}
-		}
+		
 		// Keyboard/Mouse
 		// holding---------------------------------------------------------------------------
 		if (Mouse.isButtonDown(0)) {
