@@ -40,7 +40,7 @@ public class Knightmare implements StringConstants {
 	private String inGameStat = state.NOTHING;
 
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = true, Vsync = false;
+	private boolean fullscreen = true, Vsync = false, screenToSet = false;
 
 	private Soldat figur, figuren[] = new Soldat[s];
 	private Terrain terrain;
@@ -57,6 +57,8 @@ public class Knightmare implements StringConstants {
 	private static WorkingThread gT;
 
 	private int gameSpeed = 10; // inverted
+	
+	private gasset[] world;
 
 	public Knightmare(){
 		start();
@@ -79,32 +81,9 @@ public class Knightmare implements StringConstants {
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested()) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
-				if (fullscreen) {
-					WIDTH = 1600;
-					HEIGHT = 900;
-				} else {
-					initRes();
-				}
-				if (scale < 0.1f) {
-					scale = 0.1f;
-				}
-				if (scale > terrain.getSx() * 32 / WIDTH) {
-					scale = terrain.getSx() * 32 / WIDTH;
-				}
-				if (CameraX < 0) {
-					CameraX = 0;
-				}
-				if (CameraY < 0) {
-					CameraY = 0;
-				}
-				if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-					CameraX = terrain.getSx() * 32 - WIDTH * scale;
-				}
-				if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-					CameraY = terrain.getSy() * 32 - HEIGHT * scale;
-				}
+			if(screenToSet){
 				setDisplayMode(WIDTH, HEIGHT, !fullscreen);
+				screenToSet = false;
 			}
 			while (Mouse.next()) {
 				if (Mouse.getEventButtonState()) {
@@ -281,6 +260,33 @@ public class Knightmare implements StringConstants {
 
 	public void pollInput() {
 
+		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
+			if (fullscreen) {
+				WIDTH = 1600;
+				HEIGHT = 900;
+			} else {
+				initRes();
+			}
+			screenToSet = true;
+			if (scale < 0.1f) {
+				scale = 0.1f;
+			}
+			if (scale > terrain.getSx() * 32 / WIDTH) {
+				scale = terrain.getSx() * 32 / WIDTH;
+			}
+			if (CameraX < 0) {
+				CameraX = 0;
+			}
+			if (CameraY < 0) {
+				CameraY = 0;
+			}
+			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
+				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			}
+			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			}
+		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
