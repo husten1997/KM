@@ -2,7 +2,7 @@ package com.matze.knightmare.meshes;
 
 public class AusruestungErzeugen {
 
-	private Items i;
+	private Ausruestung i;
 	private int stats[];
 
 	public AusruestungErzeugen() {
@@ -26,29 +26,55 @@ public class AusruestungErzeugen {
 		stats[11] = moral;
 	}
 
-	public Items Helm() {
+	public Ausruestung Helm() {
 		init_Array(0, 0, 0, 5, 8, 0, 0, 0, 5, 0, 0, 6);
 		i = new Ausruestung(0, stats);
 		return i;
 	}
 	
-	public Items Brustpanzer() {
+	public Ausruestung Brustpanzer() {
 		init_Array(0, 0, 0, 10, 10, 0, 0, 0, 10, 0, -5, 5);
 		i = new Ausruestung(1, stats);
 		return i;
 	}
 	
-	public Items Armschienen() {
+	public Ausruestung Armschienen() {
 		init_Array(0, 0, 0, 10, 0, 0, 5, 0, 5, 2, 0, 4);
 		i = new Ausruestung(2, stats);
 		return i;
 	}
 	
-	public Items Langschwert() {
+	public Ausruestung Langschwert() {
 		init_Array(12, 0, 0, 0, 0, 0, 2, 0, 15, 0, -2, 4);
 		i = new Ausruestung(3, stats);
 		return i;
 	}
+	
+	public Ausruestung Wurfspeer() {
+		init_Array(0, 15, 0, 0, 0, 0, 80, 0, 15, 5, 0, 3);
+		i = new Ausruestung(4, stats);
+		return i;
+	}
+	
+	public Ausruestung Leichte_Ruestung() {
+		init_Array(0, 0, 0, 4, 5, 0, 0, 10, 10, 0, 15, -5);
+		i = new Ausruestung(5, stats);
+		return i;
+	}
+	
+	public Ausruestung Schwere_Ruestung() {
+		init_Array(0, 0, 0, 20, 15, 5, 0, -10, 25, 0, -7, 2);
+		i = new Ausruestung(6, stats);
+		return i;
+	}
+	
+	public Ausruestung test() {
+		init_Array(12, 0, 0, 0, 0, 0, 2, 0, 15, 0, -2, 4);
+		i = new Ausruestung(7, stats);
+		return i;
+	}
+	
+	
 	
 	
 }

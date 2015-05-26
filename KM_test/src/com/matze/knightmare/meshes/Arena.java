@@ -3,9 +3,11 @@ package com.matze.knightmare.meshes;
 public class Arena {
 
 	private Armee a1, a2;
+	private AusruestungErzeugen it;
 	private int angr[], vert[];
 
 	public Arena() {
+		it = new AusruestungErzeugen();
 		angr = new int[3];
 		vert = new int[3];
 
@@ -62,6 +64,8 @@ public class Arena {
 		k.init(angr, vert, 20, "Kav", 10, 30, 15, 40, 55, false);
 		at.init(angr, vert, 30, "Art", 100, 10, 100, 50, 40, false);
 		i.init(angr, vert, 20, "Infa", 5, 20, 25, 35, 35, false);
+		
+		k.setAusruestung(0, it.Schwere_Ruestung());
 
 		switch (typ) {
 		case 0: {
