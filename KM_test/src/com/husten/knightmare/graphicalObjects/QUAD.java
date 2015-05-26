@@ -28,27 +28,27 @@ public class QUAD extends gasset {
 		this.loader = loader;
 	}
 
-	public QUAD(Pos position, double scale, TextureLoader loader, String textureName) {
-		this.position = position;
-		this.scale = scale;
-		rotation = (int) (Math.random() * 4);
-		name = textureName;
-		this.loader = loader;
-		init();
-	}
-
-	public QUAD(Pos position, TextureLoader loader, String textureName) {
-		this.position = position;
-		rotation = (int) (Math.random() * 4);
-		name = textureName;
-		this.loader = loader;
-		init();
-	}
-
-	public void init() {
-		height = texture.getImageHeight() * scale;
-		width = texture.getImageWidth() * scale;
-	}
+//	public QUAD(Pos position, double scale, TextureLoader loader, String textureName) {
+//		this.position = position;
+//		this.scale = scale;
+//		rotation = (int) (Math.random() * 4);
+//		name = textureName;
+//		this.loader = loader;
+//		init();
+//	}
+//
+//	public QUAD(Pos position, TextureLoader loader, String textureName) {
+//		this.position = position;
+//		rotation = (int) (Math.random() * 4);
+//		name = textureName;
+//		this.loader = loader;
+//		init();
+//	}
+//
+//	public void init() {
+//		height = 32/*texture.getImageHeight()*/ * scale;
+//		width = 32/*texture.getImageWidth()*/ * scale;
+//	}
 	// Getters § Setters ------------------------------------
 
 	public double getHeight() {

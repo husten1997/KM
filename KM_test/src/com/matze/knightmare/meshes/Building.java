@@ -11,14 +11,14 @@ public class Building extends QUAD {
 		type = MeshType.GEBÄUDE;
 	}
 
-	public Building(Pos position, TextureLoader loader, String textureName) {
-		super(position, loader, textureName);
-
-	}
-
-	public Building(Pos position, double scale, TextureLoader loader, String textureName) {
-		super(position, scale, loader, textureName);
-
-	}
+//	public Building(Pos position, TextureLoader loader, String textureName) {
+//		super(position, loader, textureName);
+//
+//	}
+//
+//	public Building(Pos position, double scale, TextureLoader loader, String textureName) {
+//		super(position, scale, loader, textureName);
+//
+//	}
 
 }

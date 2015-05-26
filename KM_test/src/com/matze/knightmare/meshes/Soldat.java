@@ -13,13 +13,13 @@ public class Soldat extends QUAD {
 		type = MeshType.EINEHEIT;
 	}
 
-	public Soldat(Pos position, TextureLoader loader, String ref) {
-		super(position, loader, ref);
-	}
-
-	public Soldat(Pos position, double scale, TextureLoader loader, String textureName) {
-		super(position, scale, loader, textureName);
-	}
+//	public Soldat(Pos position, TextureLoader loader, String ref) {
+//		super(position, loader, ref);
+//	}
+//
+//	public Soldat(Pos position, double scale, TextureLoader loader, String textureName) {
+//		super(position, scale, loader, textureName);
+//	}
 
 	public void say() {
 		System.out.println("Ich bin da");

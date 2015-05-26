@@ -10,16 +10,16 @@ public class TerrainElement extends QUAD {
 		type = Type;
 	}
 
-	public TerrainElement(Pos postition, TextureLoader loader, String textureName, String Type) {
-		super(postition, loader, textureName);
-		type = Type;
-	}
-
-	public TerrainElement(Pos postition, double cs, TextureLoader loader, String textureName, String Type) {
-		super(postition, cs, loader, textureName);
-		type = Type;
-
-	}
+//	public TerrainElement(Pos postition, TextureLoader loader, String textureName, String Type) {
+//		super(postition, loader, textureName);
+//		type = Type;
+//	}
+//
+//	public TerrainElement(Pos postition, double cs, TextureLoader loader, String textureName, String Type) {
+//		super(postition, cs, loader, textureName);
+//		type = Type;
+//
+//	}
 
 	public void setType(String Type) {
 		type = Type;
