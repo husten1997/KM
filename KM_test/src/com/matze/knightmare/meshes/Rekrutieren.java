@@ -74,6 +74,16 @@ public class Rekrutieren {
 		return t;
 	}
 	
+	public Truppen Leichte_Lanz_Reiter(){
+		t = new Kavallerie();
+		return t;
+	}
+	
+	public Truppen Schwere_Lanz_Reiter(){
+		t = new Kavallerie();
+		return t;
+	}
+	
 	public Truppen Hussaren(){
 		t = new Kavallerie();
 		return t;
