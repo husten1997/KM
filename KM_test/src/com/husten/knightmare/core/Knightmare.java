@@ -74,7 +74,7 @@ public class Knightmare implements StringConstants {
 			@Override
 			public void run() {
 				pollInput();
-				gameCycl();
+				calc();
 
 			}
 		}, 0, gameSpeed);
@@ -178,16 +178,7 @@ public class Knightmare implements StringConstants {
 						pos2.setX(x);
 						pos2.setY(y);
 
-						int xR = x / 32;
-						int yR = y / 32;
-
 						switch (inGameStat) {
-						case state.N_BUILDINGS:
-							initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "haus.png"), 1, 2);
-							break;
-						case state.N_TRUPS:
-							initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
-							break;
 						case state.S_TRUPS:
 							search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
 							for (int i = 0; i < selection.size(); i++) {
@@ -196,10 +187,6 @@ public class Knightmare implements StringConstants {
 								}
 							}
 							break;
-						case state.S_BUILDINGS:
-							search(x, y);
-							break;
-
 						}
 					}
 				}
@@ -714,14 +701,6 @@ public class Knightmare implements StringConstants {
 		glLoadIdentity();
 
 		render();
-	}
-
-	public void gameCycl() {
-		calc();
-	}
-
-	public void updateZoom() {
-
 	}
 
 }
