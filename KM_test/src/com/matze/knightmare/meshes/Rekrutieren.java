@@ -18,6 +18,9 @@ public class Rekrutieren {
 		ver[2] = v2;
 	}
 	
+	
+	//Infanterie:
+	
 	public Truppen Bogenschuetze(){
 		t = new Infanterie();
 		init_Array(5,25,0,4,7,1);
@@ -48,6 +51,8 @@ public class Rekrutieren {
 	
 	public Truppen Speertraeger(){
 		t = new Infanterie();
+		init_Array(15, 0, 0, 15, 5, 2);
+		t.init(ang, ver, 40, "Speertr‰ger", 32, 10, 12, 20, 20, false);
 		return t;
 	}
 	
@@ -60,6 +65,9 @@ public class Rekrutieren {
 		t = new Infanterie();
 		return t;
 	}
+	
+	
+	//Kavallerie:
 	
 	public Truppen Leichte_Reiter(){
 		t = new Kavallerie();
@@ -85,6 +93,9 @@ public class Rekrutieren {
 		t = new Kavallerie();
 		return t;
 	}
+	
+	
+	//Artillerie:
 	
 	public Truppen Kanone(){
 		t = new Artillerie();
@@ -123,6 +134,44 @@ public class Rekrutieren {
 	
 	public Truppen Leitern(){
 		t = new Artillerie();
+		return t;
+	}
+	
+	
+	//Fahrzeuge:
+	
+	public Truppen Handelsschiff(){
+		t = new Vehicle();
+		return t;
+	}
+	
+	public Truppen Groﬂes_Kriegsschiff(){
+		t = new Vehicle();
+		return t;
+	}
+	
+	public Truppen Kleines_Kriegsschiff(){
+		t = new Vehicle();
+		return t;
+	}
+	
+	public Truppen Bewaffnetes_Handelschiff(){
+		t = new Vehicle();
+		return t;
+	}
+	
+	public Truppen Kutsche(){
+		t = new Vehicle();
+		return t;
+	}
+	
+	public Truppen Handelskarren(){
+		t = new Vehicle();
+		return t;
+	}
+	
+	public Truppen Transportkarren(){
+		t = new Vehicle();
 		return t;
 	}
 	
