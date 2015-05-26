@@ -47,9 +47,10 @@ public class Text extends gasset {
 	public Text(TextureLoader textureLoader, double width, double height, double xPos, double yPos, String text, Color color, Font font){
 		this.xPos = xPos;
 		this.yPos = yPos;
-		this.width = width;
-		this.height = height;
 		texture = textureLoader.getStringTexture(text, (int) width, (int) height, color, font);
+		this.width = texture.getWidth();
+		this.height = texture.getHeight();
+		
 	}
 
 	@Override
@@ -68,13 +69,13 @@ public class Text extends gasset {
 				// draw a quad textured to match the sprite
 				glBegin(GL_QUADS);
 				{
-					glTexCoord2f((float) (texture.getWidth()), 0);
+					glTexCoord2f(-(float) (texture.getWidth()), 0);
 					glVertex2f(0, 0);
 
-					glTexCoord2f((float) (texture.getWidth()), (float) (texture.getHeight()));
+					glTexCoord2f(-(float) (texture.getWidth()), -(float) (texture.getHeight()));
 					glVertex2f(0, (float) height);
 
-					glTexCoord2f(0, (float) (texture.getHeight()));
+					glTexCoord2f(0, -(float) (texture.getHeight()));
 					glVertex2f((float) width, (float) height);
 
 					glTexCoord2f(0, 0);
