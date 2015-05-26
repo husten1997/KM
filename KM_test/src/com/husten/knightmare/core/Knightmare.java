@@ -247,7 +247,7 @@ public class Knightmare implements StringConstants {
 
 					switch (inGameStat) {
 					case state.N_BUILDINGS:
-						initRender(new Building(new Pos((xR / 2) * 64, yR * 32), textureLoader, "Haus.png"), 1, 2);
+						initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "Haus.png"), 1, 2);
 						break;
 					case state.N_TRUPS:
 						initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
@@ -308,7 +308,7 @@ public class Knightmare implements StringConstants {
 
 					switch (inGameStat) {
 					case state.N_BUILDINGS:
-						initRender(new Building(new Pos((xR / 2) * 64, yR * 32), textureLoader, "Haus.png"), 1, 2);
+						initRender(new Building(new Pos(xR * 32, yR * 32), textureLoader, "haus.png"), 1, 2);
 						break;
 					case state.N_TRUPS:
 						initRender(new Soldat(new Pos(xR * 32, yR * 32), textureLoader, "figure.png"), 1, 1);
