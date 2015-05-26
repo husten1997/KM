@@ -68,16 +68,16 @@ public class Text extends gasset {
 				// draw a quad textured to match the sprite
 				glBegin(GL_QUADS);
 				{
-					glTexCoord2f(0, 0);
+					glTexCoord2f((float) (texture.getWidth()), 0);
 					glVertex2f(0, 0);
 
-					glTexCoord2f(0, (float) (texture.getHeight()));
+					glTexCoord2f((float) (texture.getWidth()), (float) (texture.getHeight()));
 					glVertex2f(0, (float) height);
 
-					glTexCoord2f((float) (texture.getWidth()), (float) (texture.getHeight()));
+					glTexCoord2f(0, (float) (texture.getHeight()));
 					glVertex2f((float) width, (float) height);
 
-					glTexCoord2f((float) (texture.getWidth()), 0);
+					glTexCoord2f(0, 0);
 					glVertex2f((float) width, 0);
 
 				}
