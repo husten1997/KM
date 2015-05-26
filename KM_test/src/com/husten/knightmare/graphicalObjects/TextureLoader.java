@@ -32,6 +32,7 @@
 package com.husten.knightmare.graphicalObjects;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
@@ -182,6 +183,46 @@ public class TextureLoader {
 
 		// produce a texture from the byte buffer
 		glTexImage2D(target, 0, dstPixelFormat, get2Fold(bufferedImage.getWidth()), get2Fold(bufferedImage.getHeight()), 0, srcPixelFormat, GL_UNSIGNED_BYTE,
+				textureBuffer);
+
+		return texture;
+	}
+	
+	public Texture getStringTexture(String text, int width, int height, Color color, Font font) {
+		int srcPixelFormat;
+
+		// create the texture ID for this texture
+		int textureID = createTextureID();
+		Texture texture = new Texture(GL_TEXTURE_2D, textureID);
+
+		// bind this texture
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics graphics = bufferedImage.getGraphics();
+			graphics.setColor(color);
+			graphics.setFont(font);
+			graphics.drawString(text, 0, (int) (height*0.75));
+			graphics.dispose();
+		
+		texture.setWidth(bufferedImage.getWidth());
+		texture.setHeight(bufferedImage.getHeight());
+
+		if (bufferedImage.getColorModel().hasAlpha()) {
+			srcPixelFormat = GL_RGBA;
+		} else {
+			srcPixelFormat = GL_RGB;
+		}
+
+		// convert that image into a byte buffer of texture data
+		ByteBuffer textureBuffer = convertImageData(bufferedImage, texture);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		
+
+		// produce a texture from the byte buffer
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, get2Fold(bufferedImage.getWidth()), get2Fold(bufferedImage.getHeight()), 0, srcPixelFormat, GL_UNSIGNED_BYTE,
 				textureBuffer);
 
 		return texture;
