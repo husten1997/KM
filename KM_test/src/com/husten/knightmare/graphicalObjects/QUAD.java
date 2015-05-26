@@ -9,6 +9,8 @@ public class QUAD extends gasset {
 	private Pos position;
 	private int rotation;
 	private Texture texture;
+	private TextureLoader loader;
+	private String name;
 
 	public QUAD(Pos position, double width, double height) {
 		this.height = height;
@@ -22,21 +24,24 @@ public class QUAD extends gasset {
 		this.width = width;
 		this.position = position;
 		rotation = (int) (Math.random() * 4);
-		texture = loader.getTexture(textureName);
+		name = textureName;
+		this.loader = loader;
 	}
 
 	public QUAD(Pos position, double scale, TextureLoader loader, String textureName) {
 		this.position = position;
 		this.scale = scale;
 		rotation = (int) (Math.random() * 4);
-		texture = loader.getTexture(textureName);
+		name = textureName;
+		this.loader = loader;
 		init();
 	}
 
 	public QUAD(Pos position, TextureLoader loader, String textureName) {
 		this.position = position;
 		rotation = (int) (Math.random() * 4);
-		texture = loader.getTexture(textureName);
+		name = textureName;
+		this.loader = loader;
 		init();
 	}
 
@@ -142,6 +147,7 @@ public class QUAD extends gasset {
 
 	@Override
 	public void draw() {
+		texture = loader.getTexture(name);
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
