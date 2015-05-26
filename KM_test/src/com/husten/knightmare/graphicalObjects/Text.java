@@ -1,9 +1,11 @@
 package com.husten.knightmare.graphicalObjects;
 
-import java.awt.Font;
+import static org.lwjgl.opengl.GL11.glRotatef;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.TrueTypeFont;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+
+import org.newdawn.slick.*;
 
 import com.richard.knightmare.util.Pos;
 
@@ -15,10 +17,16 @@ public class Text extends gasset {
 	double yPos;
 	Color color;
 	
-	public Text(String Font, int style ,int size, String Text, double xPos, double yPos, Color color){
-		Font awtFont = new Font(Font, style, size);
+	public Text(String FontS, int style ,int size, String Text, double xPos, double yPos, Color color){
+		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+		
+		Font awtFont = new Font(all[1].getFontName(), style, size);
+		
+		
 	    font = new TrueTypeFont(awtFont, false);
-//		font = new Un
+	    
+	    
+//		font = new UnicodeFont(awtFont);
 	    this.Text = Text;
 	    this.xPos = xPos;
 	    this.yPos = yPos;
@@ -28,6 +36,7 @@ public class Text extends gasset {
 	@Override
 	public void draw() {
 		font.drawString((float)xPos, (float)yPos, Text, color);
+		
 		
 		
 	}

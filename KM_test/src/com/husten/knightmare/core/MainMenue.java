@@ -3,8 +3,8 @@ package com.husten.knightmare.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
-
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -101,9 +101,10 @@ public class MainMenue {
 		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, textureLoader, "gras.png");
 		Background.setTCX(WIDTH/32);
 		Background.setTCY(HEIGHT/32);
+		
 		Text Start = new Text("Times New Roman", Font.BOLD, 24, "START", 100, 100, Color.yellow);
 		
-//		initRender(Background, 0, 0);
+		initRender(Background, 0, 0);
 		initRender(Start, 1, 0);
 	}
 	
@@ -117,12 +118,11 @@ public class MainMenue {
 		
 
 		try {
-			// Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			 Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			// DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
 			// DM.
 			Display.create();
-			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
-			glViewport(0, 0, WIDTH, HEIGHT);
+			
 
 		} catch (LWJGLException e) {
 			e.printStackTrace();
@@ -140,12 +140,13 @@ public class MainMenue {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
   
-        GL11.glViewport(0,0,WIDTH,HEIGHT);
+        GL11.glViewport(WIDTH, HEIGHT, -WIDTH, -HEIGHT);
+        
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
   
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-		glOrtho(0, WIDTH, 0, HEIGHT, 3, -1);
+		glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
 //		glTranslatef(0, 0, 0f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
