@@ -10,6 +10,7 @@ import java.util.Comparator;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -76,6 +77,7 @@ public class MainMenue {
 //			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 			render();
+			pollinput();
 			updateDisplay();
 			updateFPS();
 		}
@@ -101,8 +103,10 @@ public class MainMenue {
 		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, textureLoader, "gras.png");
 		Background.setTCX(WIDTH/32);
 		Background.setTCY(HEIGHT/32);
+		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		
-		Text Start = new Text("Times New Roman", Font.BOLD, 24, "START", 100, 100, Color.yellow);
+		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
+		Text Start = new Text(textureLoader,(double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
 		
 		initRender(Background, 0, 0);
 		initRender(Start, 1, 0);
@@ -261,6 +265,12 @@ public class MainMenue {
 		}
 		
 
+	}
+	
+	public void pollinput(){
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
+			System.exit(1);
+		}
 	}
 
 
