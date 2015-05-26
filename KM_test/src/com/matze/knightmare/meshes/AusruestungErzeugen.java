@@ -9,7 +9,6 @@ public class AusruestungErzeugen {
 		stats = new int[12];
 	}
 
-	// s0 - s2 = Angriff|| -s5 = verteidigung
 	public void init_Array(int ang0, int ang1, int ang2, int ver0, int ver1, int ver2,
 			int reichweite, int v, int cost, int bAng, int ausd, int moral) {
 		stats[0] = ang0;

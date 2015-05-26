@@ -41,6 +41,8 @@ public class Rekrutieren {
 	
 	public Truppen Armbrustschuetze(){
 		t = new Infanterie();
+		init_Array(5, 25, 0, 10, 15, 0);
+		t.init(ang, ver, 20, "Armbrustschütze", 80, 20, 30, 30, 45, false);
 		return t;
 	}
 	
