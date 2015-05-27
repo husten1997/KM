@@ -18,10 +18,9 @@ import org.newdawn.slick.Color;
 
 import com.husten.knightmare.graphicalObjects.QUAD;
 import com.husten.knightmare.graphicalObjects.Text;
-import com.husten.knightmare.graphicalObjects.TextureLoader;
 import com.husten.knightmare.graphicalObjects.gasset;
 import com.richard.knightmare.sound.MoodMusic;
-import com.richard.knightmare.util.Environment;
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 import java.awt.event.ActionEvent;
@@ -52,7 +51,8 @@ public class MainMenue {
 	
 	
 
-	private TextureLoader textureLoader;
+//	private TextureLoader textureLoader;
+	private Loader loader;
 	
 
 	
@@ -101,21 +101,20 @@ public class MainMenue {
 			});
 		}
 		
-		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, textureLoader, "menue.png");
+		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*/loader, "menue.png");
 		Background.setTCX(1);
 		Background.setTCY(1);
 		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		
 		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
-		Text Start = new Text(textureLoader,(double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
+		Text Start = new Text(/*textureLoader*/loader ,(double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
 		
 		initRender(Background, 0, 0);
 		initRender(Start, 1, 0);
 	}
 	
 	private void init() {
-		Environment.setUpEnvironment("Ares", "Knightmare");
-		MoodMusic.init();
+//		Environment.setUpEnvironment("Ares", "Knightmare");
 		// verwendet eure aktuelle desktopauflösung als gameauflösung
 		initRes();
 		
@@ -156,7 +155,9 @@ public class MainMenue {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		textureLoader = new TextureLoader();
+//		textureLoader = new TextureLoader();
+		loader = new Loader("Ares", "Knightmare");
+		MoodMusic.init();
 
 		
 		lastFPS = getTime(); // call before loop to initialise fps timer

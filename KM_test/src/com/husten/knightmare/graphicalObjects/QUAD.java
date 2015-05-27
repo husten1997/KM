@@ -2,6 +2,7 @@ package com.husten.knightmare.graphicalObjects;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 public class QUAD extends gasset {
@@ -9,7 +10,8 @@ public class QUAD extends gasset {
 	private Pos position;
 	private int rotation;
 	private Texture texture;
-	private TextureLoader loader;
+//	private TextureLoader loader;
+	private Loader loader;
 	private String name;
 
 	public QUAD(Pos position, double width, double height) {
@@ -19,7 +21,7 @@ public class QUAD extends gasset {
 		rotation = (int) (Math.random() * 4);
 	}
 
-	public QUAD(Pos position, double width, double height, TextureLoader loader, String textureName) {
+	public QUAD(Pos position, double width, double height, Loader loader/*TextureLoader loader*/, String textureName) {
 		this.height = height;
 		this.width = width;
 		this.position = position;

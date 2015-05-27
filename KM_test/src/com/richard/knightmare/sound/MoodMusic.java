@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import com.richard.knightmare.util.Environment;
+import com.richard.knightmare.util.Loader;
 
 public class MoodMusic {
 
@@ -59,7 +59,7 @@ public class MoodMusic {
 	}
 
 	public static void init() {
-		String[] list = Environment.getMusicList();
+		String[] list = Loader.getMusicList();/*Environment.getMusicList();*/
 		for (int i = 0; i < list.length; i++) {
 			addClipToMood("Default", list[i]);
 		}

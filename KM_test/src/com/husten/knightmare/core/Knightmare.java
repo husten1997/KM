@@ -23,7 +23,7 @@ import com.husten.knightmare.threads.WorkingThread;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
-import com.richard.knightmare.util.Environment;
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 
@@ -55,7 +55,8 @@ public class Knightmare implements StringConstants {
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 
-	private TextureLoader textureLoader;
+//	private TextureLoader textureLoader;
+	private Loader loader;
 	private static WorkingThread gT;
 
 	private int gameSpeed = 10; // inverted
@@ -104,8 +105,6 @@ public class Knightmare implements StringConstants {
 	}
 
 	private void init() {
-		Environment.setUpEnvironment("Ares", "Knightmare");
-		MoodMusic.init();
 		// verwendet eure aktuelle desktopauflösung als gameauflösung
 		initRes();
 
@@ -137,7 +136,9 @@ public class Knightmare implements StringConstants {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		textureLoader = new TextureLoader();
+//		textureLoader = new TextureLoader();
+		loader = new Loader("Ares", "Knightmare");
+		MoodMusic.init();
 
 		getDelta(); // call once before loop to initialise lastFrame
 		lastFPS = getTime(); // call before loop to initialise fps timer
@@ -161,17 +162,17 @@ public class Knightmare implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<gasset>();
 		}
-		terrain = new Terrain(textureLoader, (512) + 1, (512) + 1);
+		terrain = new Terrain(loader/*textureLoader*/, (512) + 1, (512) + 1);
 		world = new gasset[513][513];
 		for (int i = 0; i < s; i++) {
 			double x = Math.random() * 1200;
 			double y = Math.random() * 800;
-			figuren[i] = new Soldat(new Pos(x, y), 32, 32, textureLoader, "figure.png");
+			figuren[i] = new Soldat(new Pos(x, y), 32, 32, loader/*textureLoader*/, "figure.png");
 			figuren[i].setSort(1);
 			initRender(figuren[i], 1);
 		}
 
-		figur = new Soldat(new Pos(0, 0), 32, 32, textureLoader, "figure.png");
+		figur = new Soldat(new Pos(0, 0), 32, 32, loader/*textureLoader*/, "figure.png");
 
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
@@ -283,7 +284,7 @@ public class Knightmare implements StringConstants {
 					switch (inGameStat) {
 					case state.N_BUILDINGS:
 						if (world[xR][yR] == null && world[xR + 1][yR] == null && terrain.getMeterial(xR, yR) != null && terrain.getMeterial(xR + 1, yR) != null) {
-							Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, textureLoader, "haus.png");
+							Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, loader/*textureLoader*/, "haus.png");
 							b.setSort(2);
 							pending.add(b);
 							pendingEbenen.add(1);
@@ -293,7 +294,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.N_TRUPS:
 						if (world[xR][yR] == null && terrain.getMeterial(xR, yR) != null) {
-							Soldat s = new Soldat(new Pos(xR * 32, yR * 32), 32, 32, textureLoader, "figure.png");
+							Soldat s = new Soldat(new Pos(xR * 32, yR * 32), 32, 32, /*textureLoader*/loader, "figure.png");
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);

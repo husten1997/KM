@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import com.richard.knightmare.util.Environment;
+import com.richard.knightmare.util.Loader;
 
 public class SoundPlayer {
 
@@ -16,7 +16,7 @@ public class SoundPlayer {
 	private Float volume;
 
 	public SoundPlayer(String name) {
-		clip = Environment.getSound(name);
+		clip = /*Environment.getSound(name);*/ Loader.getSound(name);
 		ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		volume = ctrl.getValue();
 	}
@@ -63,7 +63,7 @@ public class SoundPlayer {
 
 	public void changeClip(String name) {
 		stop();
-		clip = Environment.getSound(name);
+		clip = /*Environment.getSound(name);*/ Loader.getSound(name);
 		ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		setVolume(volume);
 	}

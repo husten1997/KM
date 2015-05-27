@@ -18,6 +18,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import java.awt.Color;
 import java.awt.Font;
 
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 public class Text extends gasset {
@@ -44,10 +45,11 @@ public class Text extends gasset {
 //	    this.color = color;
 //	}
 	
-	public Text(TextureLoader textureLoader, double width, double height, double xPos, double yPos, String text, Color color, Font font){
+	public Text(Loader loader/*TextureLoader textureLoader*/, double width, double height, double xPos, double yPos, String text, Color color, Font font){
 		this.xPos = xPos;
 		this.yPos = yPos;
-		texture = textureLoader.getStringTexture(text, (int) width, (int) height, color, font);
+//		texture = textureLoader.getStringTexture(text, (int) width, (int) height, color, font);
+		texture = loader.getTexture(text); //TODO fix
 		this.width = texture.getWidth();
 		this.height = texture.getHeight();
 		

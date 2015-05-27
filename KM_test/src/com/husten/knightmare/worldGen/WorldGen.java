@@ -5,7 +5,7 @@ import java.util.Random;
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.graphicalObjects.TerrainElement;
-import com.husten.knightmare.graphicalObjects.TextureLoader;
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 
@@ -16,7 +16,8 @@ public class WorldGen implements StringConstants {
 
 	private TerrainElement World[][];
 	private Terrain Terrain;
-	private TextureLoader textureLoader;
+//	private TextureLoader textureLoader;
+	private Loader loader;
 
 	private int x, y, smoothS = 71;
 
@@ -35,7 +36,8 @@ public class WorldGen implements StringConstants {
 	public WorldGen(TerrainElement world[][], Terrain terrain) {
 		World = world;
 		Terrain = terrain;
-		textureLoader = Terrain.getTextureLoader();
+//		textureLoader = Terrain.getTextureLoader();
+		loader = Terrain.getLoader();
 		x = Terrain.getSx();
 		y = Terrain.getSy();
 		hm = new float[x][y];
@@ -94,13 +96,13 @@ public class WorldGen implements StringConstants {
 					World[i][j] = null;
 				}
 				if (z > WW && z < WS) {
-					World[i][j] = new TerrainElement(new Pos(i*32,j*32), 32, 32, textureLoader, "sand.png", Material.SAND);
+					World[i][j] = new TerrainElement(new Pos(i*32,j*32), 32, 32, loader/*textureLoader*/, "sand.png", Material.SAND);
 				}
 				if (z > WS && z < WG) {
-					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), 32, 32, textureLoader, "gras.png", Material.GRAS);
+					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), 32, 32, loader/*textureLoader*/, "gras.png", Material.GRAS);
 				}
 				if (z > WG && z < WR) {
-					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), 32, 32, textureLoader, "rock.png", Material.ROCK);
+					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), 32, 32, loader/*textureLoader*/, "rock.png", Material.ROCK);
 				}
 			}
 		}
