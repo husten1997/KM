@@ -84,6 +84,7 @@ public class MainMenue {
 		Display.destroy();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void objectinit() {
 
 		for (int i = 0; i < ebenen; i++) {
@@ -100,9 +101,9 @@ public class MainMenue {
 			});
 		}
 		
-		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, textureLoader, "gras.png");
-		Background.setTCX(WIDTH/32);
-		Background.setTCY(HEIGHT/32);
+		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, textureLoader, "menue.png");
+		Background.setTCX(1);
+		Background.setTCY(1);
 		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		
 		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
