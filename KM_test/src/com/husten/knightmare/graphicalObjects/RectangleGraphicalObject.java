@@ -52,6 +52,18 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		}
 	}
 	
+	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation, String material) {
+		super(position, MeshType.GROUND);
+		this.width = width;
+		this.height = height;
+		this.textureName = textureName;
+		this.randomRotation = randomRotation;
+		if(randomRotation){
+			rotation =(int) (Math.random()*4);
+		}
+		this.material = material;
+	}
+	
 	public RectangleGraphicalObject(Pos position, int width, int height, String text, Color color, Font font) {
 		super(position, MeshType.GROUND);
 		this.width = width;
@@ -83,13 +95,13 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		// draw a quad textured to match the sprite
 		glBegin(GL_QUADS);
 		{
-			glTexCoord2f((float) width, 0);
+			glTexCoord2f((float) width/texture.getImageWidth(), 0);
 			glVertex2f(0, 0);
 
-			glTexCoord2f((float) width, (float) height);
+			glTexCoord2f((float) width/texture.getImageWidth(), (float) height/texture.getImageHeight());
 			glVertex2f(0, (float) height);
 
-			glTexCoord2f(0, (float) height);
+			glTexCoord2f(0, (float) height/texture.getImageHeight());
 			glVertex2f((float) width, (float) height);
 
 			glTexCoord2f(0, 0);

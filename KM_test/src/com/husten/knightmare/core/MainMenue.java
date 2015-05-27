@@ -14,20 +14,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
-
 import com.husten.knightmare.graphicalObjects.QUAD;
 import com.husten.knightmare.graphicalObjects.Text;
 import com.husten.knightmare.graphicalObjects.gasset;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 
 
 public class MainMenue {

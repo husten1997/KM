@@ -13,9 +13,7 @@ public class World extends GraphicalObject{
 		super(new Pos(0,0), MeshType.GROUND);
 		this.width = width;
 		this.height = height;
-		waterPlane = new RectangleGraphicalObject(position, width*32, height*32, false);
-		waterPlane.setTextureName("water.png");
-		waterPlane.setMaterial(Material.WATER);
+		waterPlane = new RectangleGraphicalObject(position, width*32, height*32, "water.png", false, Material.WATER);
 		elements = new RectangleGraphicalObject[width][height];
 		WorldGenerator WG = new WorldGenerator(elements, this);
 		elements = WG.worldGen();
