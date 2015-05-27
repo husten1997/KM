@@ -23,7 +23,7 @@ import com.richard.knightmare.util.Pos;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width, height, rotation = 0;
+	protected int width, height, rotation = 2;
 	protected String textureName, material;
 	protected boolean randomRotation;
 	protected Texture texture;

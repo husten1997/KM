@@ -3,6 +3,7 @@ package com.husten.knightmare.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
@@ -14,7 +15,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+
+import com.husten.knightmare.constants.StringConstants.Material;
+import com.husten.knightmare.graphicalObjects.GraphicalObject;
 import com.husten.knightmare.graphicalObjects.QUAD;
+import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Text;
 import com.husten.knightmare.graphicalObjects.gasset;
 import com.richard.knightmare.sound.MoodMusic;
@@ -44,7 +49,8 @@ public class MainMenue {
 	
 
 //	private TextureLoader textureLoader;
-	
+	//TODO
+	private RectangleGraphicalObject m;
 
 	
 
@@ -95,6 +101,8 @@ public class MainMenue {
 		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*//*loader, */"menue.png");
 		Background.setTCX(1);
 		Background.setTCY(1);
+		//TODO
+		m = new RectangleGraphicalObject(new Pos(100,100), 64, 32, "Start", Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 20)); //TODO funzt na ned so ganz
 		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		
 		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
@@ -256,6 +264,8 @@ public class MainMenue {
 				((gasset) renderList[e].get(i)).draw();
 			}
 		}
+		//TODO
+		m.draw();
 		
 
 	}
