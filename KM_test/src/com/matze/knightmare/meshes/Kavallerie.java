@@ -4,8 +4,8 @@ public class Kavallerie extends Truppen {
 
 	protected boolean hatpferd;
 
-	public Kavallerie() {
-		super();
+	public Kavallerie(int h) {
+		super(h);
 		typ = 1;
 		hatpferd = true;
 	}

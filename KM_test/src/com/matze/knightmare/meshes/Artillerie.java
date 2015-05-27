@@ -5,8 +5,8 @@ public class Artillerie extends Truppen {
 	private int benötigteMann;
 	private int mann;
 	
-	public Artillerie(){
-		super();
+	public Artillerie(int h){
+		super(h);
 		typ = 2;
 	}
 	

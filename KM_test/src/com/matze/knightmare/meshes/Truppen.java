@@ -13,13 +13,15 @@ public class Truppen{
 	protected int effektiv, typ;
 	protected Ausruestung ausruestung[];
 	protected boolean wasser;
+	protected int health;
 
 	// protected sound s;
 
-	public Truppen() {
+	public Truppen(int h) {
 		angriff = new int[3];
 		verteidigung = new int[3];
 		ausruestung = new Ausruestung[8];
+		health = h;
 	}
 
 	public void verbesserung(int[] ang, int[] ver, int b, int reichw,
@@ -107,6 +109,7 @@ public class Truppen{
 
 	}
 	
+	//TODO Methode schreiben
 	public void stop(){
 		
 	}

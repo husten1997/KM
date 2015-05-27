@@ -74,10 +74,14 @@ public class AusruestungErzeugen {
 	}
 	
 	public Ausruestung Feuerpfeil_Basiliste(){
+		init_Array(0, 10, 40, 0, 0, 0, -64, 0, 10, 5, 0, 10);
+		i = new Ausruestung(8, stats);
 		return i;
 	}
 	
 	public Ausruestung Feuerpfeile_Bogenschütze(){
+		init_Array(0, 10, 5, 0, 0, 0, -32, 0, 0, 5, 0, 8);
+		i = new Ausruestung(9, stats);
 		return i;
 	}
 	

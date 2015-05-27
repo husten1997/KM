@@ -8,7 +8,8 @@ public class Vehicle extends Truppen {
 	private int slotGrösse;
 	private boolean warenTransport = false, truppenTransport = false;
 
-	public Vehicle() {
+	public Vehicle(int h) {
+		super(h);
 		typ = 3;
 	}
 

@@ -55,9 +55,9 @@ public class Arena {
 	}
 
 	public void init(Armee a, int typ) {
-		Kavallerie k = new Kavallerie();
-		Artillerie at = new Artillerie();
-		Infanterie i = new Infanterie();
+		Kavallerie k = new Kavallerie(50);
+		Artillerie at = new Artillerie(50);
+		Infanterie i = new Infanterie(50);
 
 		fillAngrVert();
 
