@@ -1,8 +1,8 @@
 package com.husten.knightmare.graphicalObjects;
 
-import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.Test;
 
 public class World extends GraphicalObject{
 
@@ -22,8 +22,8 @@ public class World extends GraphicalObject{
 	@Override
 	public void draw() {
 		waterPlane.draw();
-		for (int x1 = (int) (Knightmare.CameraX / 32); x1 < (int) ((Knightmare.CameraX + Knightmare.WIDTH * Knightmare.scale) / 32 + 4); x1++) {
-			for (int y1 = (int) (Knightmare.CameraY / 32); y1 < (int) ((Knightmare.CameraY + Knightmare.HEIGHT * Knightmare.scale) / 32 + 4); y1++) {
+		for (int x1 = (int) (Test.CameraX / 32); x1 < (int) ((Test.CameraX + Test.WIDTH * Test.scale) / 32 + 4); x1++) {
+			for (int y1 = (int) (Test.CameraY / 32); y1 < (int) ((Test.CameraY + Test.HEIGHT * Test.scale) / 32 + 4); y1++) {
 				try {
 					elements[x1][y1].draw();
 				} catch (Exception e) {

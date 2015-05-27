@@ -3,9 +3,9 @@ package com.husten.knightmare.worldGen;
 import java.util.Random;
 
 import com.husten.knightmare.constants.StringConstants;
-import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
+import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.World;
 
 public class WorldGenerator implements StringConstants {
@@ -17,7 +17,11 @@ public class WorldGenerator implements StringConstants {
 
 	private double lW = 0.58, lS = 0.61, lG = 0.81, lR = 1;
 
-	private float max, min, dif, hm[][], routh = 0.6f, fallof = 0.8f, c = 2f;
+	private float max, min, dif;
+
+	private float[][] hm;
+
+	private float routh = 0.6f, fallof = 0.8f, c = 2f;
 
 	private static int seed = 1005464490;
 	private Random rand;
@@ -41,7 +45,7 @@ public class WorldGenerator implements StringConstants {
 	 * Die auskomentierten Variablen sind mit absicht drinnen da man mithilfe
 	 * von time die generierungsdauer auslesen kann!
 	 */
-	private void gen() {
+	public void gen() {
 		rand = new Random(seed);
 		generator = new RandomGenerator(rand, c, -1);
 		long Zvor = System.currentTimeMillis();
@@ -53,13 +57,13 @@ public class WorldGenerator implements StringConstants {
 		System.out.println("Done in: " + time + "ms");
 	}
 
-	private void genHM(int seed, float r) {
+	public void genHM(int seed, float r) {
 		int inter = Math.round(x / 2);
 		square(inter + 1, inter + 1, inter, r);
 		smooth(smoothS);
 	}
 
-	private void set() {
+	public void set() {
 		min = hm[1][1];
 		max = hm[1][1];
 		for (int i = 0; i < hm.length; i++) {
@@ -71,7 +75,7 @@ public class WorldGenerator implements StringConstants {
 		dif = max - min;
 	}
 
-	private void trans() {
+	public void trans() {
 		double WW = min + (lW * dif);
 		double WS = min + (lS * dif);
 		double WG = min + (lG * dif);
@@ -82,27 +86,21 @@ public class WorldGenerator implements StringConstants {
 
 				if (z < WW) {
 					World[i][j] = null;
-				} else {
-					RectangleGraphicalObject object = new RectangleGraphicalObject(new Pos(i * 32, j * 32), 32, 32, true);
-					if (z > WW && z < WS) {
-						object.setTextureName("sand.png");
-						object.setMaterial(Material.SAND);
-						World[i][j] = object;
-					} else if (z > WS && z < WG) {
-						object.setTextureName("gras.png");
-						object.setMaterial(Material.GRAS);
-						World[i][j] = object;
-					} else if (z > WG && z < WR) {
-						object.setTextureName("rock.png");
-						object.setMaterial(Material.ROCK);
-						World[i][j] = object;
-					}
+				}
+				if (z > WW && z < WS) {
+					World[i][j] = new RectangleGraphicalObject(new Pos(i*32, j*32), 32, 32, "sand.png", true, Material.SAND);
+				}
+				if (z > WS && z < WG) {
+					World[i][j] = new RectangleGraphicalObject(new Pos(i * 32, j * 32), 32, 32, "gras.png", true, Material.GRAS);
+				}
+				if (z > WG && z < WR) {
+					World[i][j] = new RectangleGraphicalObject(new Pos(i * 32, j * 32), 32, 32, "rock.png", true, Material.ROCK);
 				}
 			}
 		}
 	}
 
-	private void square(int xPos, int yPos, int inter, float r) {
+	public void square(int xPos, int yPos, int inter, float r) {
 		if (xPos < x && xPos >= 0 && yPos < y && yPos >= 0) {
 			if (hm[xPos][yPos] == 0.0) {
 				hm[xPos][yPos] = generator.getValue(xPos, yPos, r, dsquare(xPos, yPos, inter));
@@ -114,7 +112,7 @@ public class WorldGenerator implements StringConstants {
 		}
 	}
 
-	private void diamond(int xPos, int yPos, int inter, float r) {
+	public void diamond(int xPos, int yPos, int inter, float r) {
 		if (inter >= 1 && xPos < x && xPos >= 0 && yPos < y && yPos >= 0) {
 			if (hm[xPos][yPos] == 0.0) {
 				hm[xPos][yPos] = generator.getValue(xPos, yPos, r, ddia(xPos, yPos, inter));
@@ -137,13 +135,13 @@ public class WorldGenerator implements StringConstants {
 
 	}
 
-	private Vektor middl(Vektor v1, Vektor v2) {
+	public Vektor middl(Vektor v1, Vektor v2) {
 		double x1 = (v1.getX() + v2.getX()) / 2;
 		double y1 = (v1.getY() + v2.getY()) / 2;
 		return new Vektor(x1, y1);
 	}
 
-	private float ddia(int xPos, int yPos, int inter) {
+	public float ddia(int xPos, int yPos, int inter) {
 		int blub = 0;
 		float value = 0;
 		if (xPos + inter < x) {
@@ -165,7 +163,7 @@ public class WorldGenerator implements StringConstants {
 		return value / blub;
 	}
 
-	private float dsquare(int xPos, int yPos, int inter) {
+	public float dsquare(int xPos, int yPos, int inter) {
 		int blub = 0;
 		float value = 0;
 		if (xPos + inter < x && yPos + inter < y) {
@@ -187,7 +185,7 @@ public class WorldGenerator implements StringConstants {
 		return value / blub;
 	}
 
-	private void smooth(int am) {
+	public void smooth(int am) {
 		for (int s = 0; s < am; s++) {
 			for (int i = 0; i < hm.length; i++) {
 				for (int j = 0; j < hm.length; j++) {
