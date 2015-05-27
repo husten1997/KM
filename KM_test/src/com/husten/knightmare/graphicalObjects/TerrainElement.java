@@ -1,13 +1,12 @@
 package com.husten.knightmare.graphicalObjects;
 
-import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 public class TerrainElement extends QUAD {
 	String type;
 
-	public TerrainElement(Pos position, double width, double height, Loader loader/*TextureLoader loader*/, String textureName, String Type) {
-		super(position, width, height, loader, textureName);
+	public TerrainElement(Pos position, double width, double height, String textureName, String Type) {
+		super(position, width, height, textureName);
 		type = Type;
 	}
 
@@ -21,10 +20,6 @@ public class TerrainElement extends QUAD {
 //		type = Type;
 //
 //	}
-
-	public void setType(String Type) {
-		type = Type;
-	}
 
 	public String getType() {
 		return type;

@@ -45,11 +45,11 @@ public class Text extends gasset {
 //	    this.color = color;
 //	}
 	
-	public Text(Loader loader/*TextureLoader textureLoader*/, double width, double height, double xPos, double yPos, String text, Color color, Font font){
+	public Text(double width, double height, double xPos, double yPos, String text, Color color, Font font){
 		this.xPos = xPos;
 		this.yPos = yPos;
 //		texture = textureLoader.getStringTexture(text, (int) width, (int) height, color, font);
-		texture = loader.getTexture(text); //TODO fix
+		texture = Loader.getTexture(text); //TODO fix
 		this.width = texture.getWidth();
 		this.height = texture.getHeight();
 		

@@ -1,15 +1,14 @@
 package com.matze.knightmare.meshes;
 
 import com.husten.knightmare.graphicalObjects.QUAD;
-import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 public class Soldat extends QUAD {
 	private int speed = 5;
 
 	// TODO Inventory
-	public Soldat(Pos position, double width, double height, Loader loader /*TextureLoader loader*/, String textureName) {
-		super(position, width, height, loader, textureName);
+	public Soldat(Pos position, double width, double height, String textureName) {
+		super(position, width, height, textureName);
 		type = MeshType.EINEHEIT;
 	}
 

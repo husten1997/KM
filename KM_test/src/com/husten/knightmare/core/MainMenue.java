@@ -52,7 +52,6 @@ public class MainMenue {
 	
 
 //	private TextureLoader textureLoader;
-	private Loader loader;
 	
 
 	
@@ -101,13 +100,13 @@ public class MainMenue {
 			});
 		}
 		
-		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*/loader, "menue.png");
+		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*//*loader, */"menue.png");
 		Background.setTCX(1);
 		Background.setTCY(1);
 		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		
 		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
-		Text Start = new Text(/*textureLoader*/loader ,(double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
+		Text Start = new Text((double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
 		
 		initRender(Background, 0, 0);
 		initRender(Start, 1, 0);
@@ -156,7 +155,7 @@ public class MainMenue {
 		glLoadIdentity();
 
 //		textureLoader = new TextureLoader();
-		loader = new Loader("Ares", "Knightmare");
+		Loader.initLoader("Ares", "Knightmare");
 		MoodMusic.init();
 
 		

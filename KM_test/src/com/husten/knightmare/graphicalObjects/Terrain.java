@@ -2,29 +2,25 @@ package com.husten.knightmare.graphicalObjects;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGen;
-import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 public class Terrain extends gasset {
 	private TerrainElement waterPlane, elements[][];
 //	TextureLoader textureLoader;
-	private Loader loader;
 	// Achtung sind in World Units --> WU * 32 = PixelUnit
 	private int Sx, Sy;
 	private double x, y;
 
-	public Terrain(/*TextureLoader tL*/Loader loader) {
+	public Terrain() {
 //		textureLoader = tL;
-		this.loader = loader;
 
 		Sx = 100;
 		Sy = 100;
 		initTerrain(Sx, Sy);
 	}
 
-	public Terrain(Loader loader/*TextureLoader tL*/, int x, int y) {
+	public Terrain(int x, int y) {
 //		textureLoader = tL;
-		this.loader = loader;
 
 		Sx = x;
 		Sy = y;
@@ -32,7 +28,7 @@ public class Terrain extends gasset {
 	}
 
 	public void initTerrain(int width, int height) {
-		waterPlane = new TerrainElement(new Pos(0, 0), width * 32, height * 32, loader/*textureLoader*/, "water.png", Material.WATER);
+		waterPlane = new TerrainElement(new Pos(0, 0), width * 32, height * 32, "water.png", Material.WATER);
 		waterPlane.setTCX(width);
 		waterPlane.setTCY(height);
 		elements = new TerrainElement[width][height];
@@ -64,10 +60,6 @@ public class Terrain extends gasset {
 //	public TextureLoader getTextureLoader() {
 //		return textureLoader;
 //	}
-	
-	public Loader getLoader(){
-		return loader;
-	}
 
 	@Override
 	public void draw() {

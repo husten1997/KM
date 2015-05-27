@@ -1,13 +1,12 @@
 package com.matze.knightmare.meshes;
 
 import com.husten.knightmare.graphicalObjects.QUAD;
-import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 public class Building extends QUAD {
 
-	public Building(Pos position, double width, double height, Loader loader/*TextureLoader loader*/, String textureName) {
-		super(position, width, height, loader, textureName);
+	public Building(Pos position, double width, double height, String textureName) {
+		super(position, width, height, textureName);
 		type = MeshType.GEBÄUDE;
 	}
 

@@ -3,45 +3,36 @@ package com.husten.knightmare.worldGen;
 import java.util.Random;
 
 import com.husten.knightmare.constants.StringConstants;
-import com.husten.knightmare.graphicalObjects.Terrain;
-import com.husten.knightmare.graphicalObjects.TerrainElement;
+import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
+import com.husten.knightmare.graphicalObjects.World;
 
-public class WorldGen implements StringConstants {
+public class WorldGenerator implements StringConstants {
 
-	@SuppressWarnings("unused")
-	private static final String RAND = "RAND", RAND_DQ = "RAND_DQ", RAND_DD = "RAND_DD", SIN = "SIN";
-
-	private TerrainElement World[][];
-	private Terrain Terrain;
-//	private TextureLoader textureLoader;
+	private RectangleGraphicalObject World[][];
+	private World Terrain;
 
 	private int x, y, smoothS = 71;
 
 	private double lW = 0.58, lS = 0.61, lG = 0.81, lR = 1;
 
-	private float max, min, dif;
-
-	private float[][] hm;
-
-	private float routh = 0.6f, fallof = 0.8f, c = 2f;
+	private float max, min, dif, hm[][], routh = 0.6f, fallof = 0.8f, c = 2f;
 
 	private static int seed = 1005464490;
 	private Random rand;
 	private Generator generator;
 
-	public WorldGen(TerrainElement world[][], Terrain terrain) {
+	public WorldGenerator(RectangleGraphicalObject world[][], World terrain) {
 		World = world;
 		Terrain = terrain;
-//		textureLoader = Terrain.getTextureLoader();
-		x = Terrain.getSx();
-		y = Terrain.getSy();
+		x = Terrain.getWidth();
+		y = Terrain.getHeight();
 		hm = new float[x][y];
 
 	}
 
-	public TerrainElement[][] worldGen() {
+	public RectangleGraphicalObject[][] worldGen() {
 		gen();
 		return World;
 	}
@@ -50,7 +41,7 @@ public class WorldGen implements StringConstants {
 	 * Die auskomentierten Variablen sind mit absicht drinnen da man mithilfe
 	 * von time die generierungsdauer auslesen kann!
 	 */
-	public void gen() {
+	private void gen() {
 		rand = new Random(seed);
 		generator = new RandomGenerator(rand, c, -1);
 		long Zvor = System.currentTimeMillis();
@@ -62,13 +53,13 @@ public class WorldGen implements StringConstants {
 		System.out.println("Done in: " + time + "ms");
 	}
 
-	public void genHM(int seed, float r) {
+	private void genHM(int seed, float r) {
 		int inter = Math.round(x / 2);
 		square(inter + 1, inter + 1, inter, r);
 		smooth(smoothS);
 	}
 
-	public void set() {
+	private void set() {
 		min = hm[1][1];
 		max = hm[1][1];
 		for (int i = 0; i < hm.length; i++) {
@@ -80,7 +71,7 @@ public class WorldGen implements StringConstants {
 		dif = max - min;
 	}
 
-	public void trans() {
+	private void trans() {
 		double WW = min + (lW * dif);
 		double WS = min + (lS * dif);
 		double WG = min + (lG * dif);
@@ -91,21 +82,27 @@ public class WorldGen implements StringConstants {
 
 				if (z < WW) {
 					World[i][j] = null;
-				}
-				if (z > WW && z < WS) {
-					World[i][j] = new TerrainElement(new Pos(i*32,j*32), 32, 32, "sand.png", Material.SAND);
-				}
-				if (z > WS && z < WG) {
-					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), 32, 32, "gras.png", Material.GRAS);
-				}
-				if (z > WG && z < WR) {
-					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), 32, 32, "rock.png", Material.ROCK);
+				} else {
+					RectangleGraphicalObject object = new RectangleGraphicalObject(new Pos(i * 32, j * 32), 32, 32, true);
+					if (z > WW && z < WS) {
+						object.setTextureName("sand.png");
+						object.setMaterial(Material.SAND);
+						World[i][j] = object;
+					} else if (z > WS && z < WG) {
+						object.setTextureName("gras.png");
+						object.setMaterial(Material.GRAS);
+						World[i][j] = object;
+					} else if (z > WG && z < WR) {
+						object.setTextureName("rock.png");
+						object.setMaterial(Material.ROCK);
+						World[i][j] = object;
+					}
 				}
 			}
 		}
 	}
 
-	public void square(int xPos, int yPos, int inter, float r) {
+	private void square(int xPos, int yPos, int inter, float r) {
 		if (xPos < x && xPos >= 0 && yPos < y && yPos >= 0) {
 			if (hm[xPos][yPos] == 0.0) {
 				hm[xPos][yPos] = generator.getValue(xPos, yPos, r, dsquare(xPos, yPos, inter));
@@ -117,7 +114,7 @@ public class WorldGen implements StringConstants {
 		}
 	}
 
-	public void diamond(int xPos, int yPos, int inter, float r) {
+	private void diamond(int xPos, int yPos, int inter, float r) {
 		if (inter >= 1 && xPos < x && xPos >= 0 && yPos < y && yPos >= 0) {
 			if (hm[xPos][yPos] == 0.0) {
 				hm[xPos][yPos] = generator.getValue(xPos, yPos, r, ddia(xPos, yPos, inter));
@@ -140,13 +137,13 @@ public class WorldGen implements StringConstants {
 
 	}
 
-	public Vektor middl(Vektor v1, Vektor v2) {
+	private Vektor middl(Vektor v1, Vektor v2) {
 		double x1 = (v1.getX() + v2.getX()) / 2;
 		double y1 = (v1.getY() + v2.getY()) / 2;
 		return new Vektor(x1, y1);
 	}
 
-	public float ddia(int xPos, int yPos, int inter) {
+	private float ddia(int xPos, int yPos, int inter) {
 		int blub = 0;
 		float value = 0;
 		if (xPos + inter < x) {
@@ -168,7 +165,7 @@ public class WorldGen implements StringConstants {
 		return value / blub;
 	}
 
-	public float dsquare(int xPos, int yPos, int inter) {
+	private float dsquare(int xPos, int yPos, int inter) {
 		int blub = 0;
 		float value = 0;
 		if (xPos + inter < x && yPos + inter < y) {
@@ -190,7 +187,7 @@ public class WorldGen implements StringConstants {
 		return value / blub;
 	}
 
-	public void smooth(int am) {
+	private void smooth(int am) {
 		for (int s = 0; s < am; s++) {
 			for (int i = 0; i < hm.length; i++) {
 				for (int j = 0; j < hm.length; j++) {
