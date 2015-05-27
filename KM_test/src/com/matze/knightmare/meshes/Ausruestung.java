@@ -7,7 +7,7 @@ public class Ausruestung extends Items{
 
 	public Ausruestung(int id) {
 		super(id);
-		changeStats = new int[10];
+		changeStats = new int[12];
 		for (int i = 0; i < changeStats.length; i++) {
 			changeStats[i] = 0;
 		}
@@ -21,8 +21,8 @@ public class Ausruestung extends Items{
 		}
 	}
 
-	public int[] getCS() {
-		return changeStats;
+	public int getCS(int i) {
+		return changeStats[i];
 	}
 
 	public void setStats(int i, int amount) {

@@ -95,11 +95,18 @@ public class Truppen{
 	}
 
 	private void changeStats(int a) {
-		int[] stats = ausruestung[a].getCS();
+	
+		int[] stats = new int[12];
+		
+		for (int i = 0; i < stats.length; i++){
+			stats[i] = ausruestung[a].getCS(i);
+		}
+		
 		for (int i = 0; i < 3; i++) {
 			angriff[i] += stats[i];
-			verteidigung[i + 3] += stats[i + 3];
+			verteidigung[i] += stats[i + 3];
 		}
+		
 		reichweite += stats[6];
 		geschwindigkeit += stats[7];
 		kosten += stats[8];
