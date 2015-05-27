@@ -14,6 +14,7 @@ public class World extends GraphicalObject{
 		this.width = width;
 		this.height = height;
 		waterPlane = new RectangleGraphicalObject(position, width*32, height*32, "water.png", false, Material.WATER);
+		waterPlane.setStrached(false);
 		elements = new RectangleGraphicalObject[width][height];
 		WorldGenerator WG = new WorldGenerator(elements, this);
 		elements = WG.worldGen();

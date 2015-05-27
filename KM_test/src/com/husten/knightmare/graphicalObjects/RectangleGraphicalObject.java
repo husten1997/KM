@@ -25,45 +25,45 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	protected int width, height, rotation = 2;
 	protected String textureName, material;
-	protected boolean randomRotation;
+	protected boolean randomRotation, stratched = true;
 	protected Texture texture;
 	private boolean isText;
 	private Color color;
 	private Font font;
-	
+
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
 		this.width = width;
 		this.height = height;
 		this.randomRotation = randomRotation;
-		if(randomRotation){
-			rotation =(int) (Math.random()*4);
+		if (randomRotation) {
+			rotation = (int) (Math.random() * 4);
 		}
 	}
-	
+
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation) {
 		super(position, MeshType.GROUND);
 		this.width = width;
 		this.height = height;
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
-		if(randomRotation){
-			rotation =(int) (Math.random()*4);
+		if (randomRotation) {
+			rotation = (int) (Math.random() * 4);
 		}
 	}
-	
+
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation, String material) {
 		super(position, MeshType.GROUND);
 		this.width = width;
 		this.height = height;
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
-		if(randomRotation){
-			rotation =(int) (Math.random()*4);
+		if (randomRotation) {
+			rotation = (int) (Math.random() * 4);
 		}
 		this.material = material;
 	}
-	
+
 	public RectangleGraphicalObject(Pos position, int width, int height, String text, Color color, Font font) {
 		super(position, MeshType.GROUND);
 		this.width = width;
@@ -77,9 +77,9 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	@Override
 	public void draw() {
-		if(isText){
+		if (isText) {
 			texture = Loader.createStringTexture(textureName, width, height, color, font);
-		}else{
+		} else {
 			texture = Loader.getTexture(textureName);
 		}
 		// store the current model matrix
@@ -95,13 +95,13 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		// draw a quad textured to match the sprite
 		glBegin(GL_QUADS);
 		{
-			glTexCoord2f((float) width/texture.getImageWidth(), 0);
+			glTexCoord2f((stratched ? 1 : (float) width / texture.getImageWidth()), 0);
 			glVertex2f(0, 0);
 
-			glTexCoord2f((float) width/texture.getImageWidth(), (float) height/texture.getImageHeight());
+			glTexCoord2f((stratched ? 1 : (float) width / texture.getImageWidth()), (stratched ? 1 : (float) height / texture.getImageHeight()));
 			glVertex2f(0, (float) height);
 
-			glTexCoord2f(0, (float) height/texture.getImageHeight());
+			glTexCoord2f(0, (stratched ? 1 : (float) height / texture.getImageHeight()));
 			glVertex2f((float) width, (float) height);
 
 			glTexCoord2f(0, 0);
@@ -113,20 +113,28 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		// restore the model view matrix to prevent contamination
 		glPopMatrix();
 	}
+
+	public void setStrached(boolean strached){
+		this.stratched = strached;
+	}
 	
-	public void setMaterial(String material){
+	public boolean getStrached(){
+		return stratched;
+	}
+	
+	public void setMaterial(String material) {
 		this.material = material;
 	}
-	
-	public String getMaterial(){
+
+	public String getMaterial() {
 		return material;
 	}
-	
-	public void setTextureName(String name){
+
+	public void setTextureName(String name) {
 		textureName = name;
 	}
-	
-	public String getTextureName(){
+
+	public String getTextureName() {
 		return textureName;
 	}
 

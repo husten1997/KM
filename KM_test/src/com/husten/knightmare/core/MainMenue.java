@@ -98,17 +98,18 @@ public class MainMenue {
 			});
 		}
 		
-		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*//*loader, */"menue.png");
-		Background.setTCX(1);
-		Background.setTCY(1);
+//		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*//*loader, */"menue.png");
+//		Background.setTCX(1);
+//		Background.setTCY(1);
 		//TODO
-		m = new RectangleGraphicalObject(new Pos(100,100), 64, 32, "Start", Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 20)); //TODO funzt na ned so ganz
+		m = new RectangleGraphicalObject(new Pos(0,0), WIDTH, HEIGHT, "menue.png", false);
+//		m = new RectangleGraphicalObject(new Pos(100,100), 64, 32, "Start", Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 20)); //TODO funzt na ned so ganz
 		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		
 		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
 		Text Start = new Text((double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
 		
-		initRender(Background, 0, 0);
+//		initRender(Background, 0, 0);
 		initRender(Start, 1, 0);
 	}
 	
