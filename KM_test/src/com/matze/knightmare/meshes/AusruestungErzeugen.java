@@ -73,6 +73,14 @@ public class AusruestungErzeugen {
 		return i;
 	}
 	
+	public Ausruestung Feuerpfeil_Basiliste(){
+		return i;
+	}
+	
+	public Ausruestung Feuerpfeile_Bogenschütze(){
+		return i;
+	}
+	
 	
 	
 	

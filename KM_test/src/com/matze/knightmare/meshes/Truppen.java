@@ -106,5 +106,9 @@ public class Truppen{
 		grundmoral += stats[11];
 
 	}
+	
+	public void stop(){
+		
+	}
 
 }

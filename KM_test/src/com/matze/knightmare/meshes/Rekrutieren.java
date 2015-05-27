@@ -128,39 +128,49 @@ public class Rekrutieren {
 	public Truppen Kanone(){
 		Artillerie t = new Artillerie();
 		init_Array(5, 80, 60, 8, 10, 2);
-		t.init(ang, ver, 40, "Kanone", 200, 5, 150, 30, 20, false);
+		t.init(ang, ver, 40, "Kanone", 200, 5, 150, 30, -20, false);
 		return t;
 	}
 	
 	public Truppen Leiter(){
 		Artillerie t = new Artillerie();
 		init_Array(1, 0, 0, 1, 1, 1);
-		t.init(ang, ver, 0, "Leiterträger", 32, 60, 5, 10, 20, false);
+		t.init(ang, ver, 0, "Leiterträger", 32, 60, 5, 10, -20, false);
 		return t;
 	}
 	
 	public Truppen Katapult(){
 		Artillerie t = new Artillerie();
+		init_Array(0, 30, 50, 10, 5, 15);
+		t.init(ang, ver, 20, "Katapult", 350, 15, 80, 0, -5, false);
 		return t;
 	}
 	
 	public Truppen Rammbock(){
 		Artillerie t = new Artillerie();
+		init_Array(0, 0, 40, 10, 30, 20);
+		t.init(ang, ver, 5, "Rammbock", 40, 20, 60, 0, -5, false);
 		return t;
 	}
 	
 	public Truppen Schild(){
 		Artillerie t = new Artillerie();
+		init_Array(0, 0, 0, 20, 60, 20);
+		t.init(ang, ver, 0, "Schild", 0, 30, 50, 4, -2, false);
 		return t;
 	}
 	
 	public Truppen Baliste(){
 		Artillerie t = new Artillerie();
+		init_Array(10, 40, 0, 2, 15, 10);
+		t.init(ang, ver, 10, "Baliste", 380, 30, 80, 10, -10, false);
 		return t;
 	}
 	
 	public Truppen Tribok(){
 		Artillerie t = new Artillerie();
+		init_Array(10, 90, 90, 10, 14, 10);
+		t.init(ang, ver, 2, "Tribok", 800, 10, 200, 30, -20, false);
 		return t;
 	}
 	
