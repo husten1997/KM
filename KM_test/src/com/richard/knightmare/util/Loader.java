@@ -160,7 +160,7 @@ public class Loader {
 		Texture texture = new Texture(GL_TEXTURE_2D, textureID);
 		// bind this texture
 		glBindTexture(GL_TEXTURE_2D, textureID);
-		BufferedImage bufferedImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics graphics = bufferedImage.getGraphics();
 		graphics.setColor(color);
 		graphics.setFont(font);
