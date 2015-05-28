@@ -98,7 +98,7 @@ public class MainMenue {
 			});
 		}
 		
-//		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, /*textureLoader*//*loader, */"menue.png");
+//		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, "menue.png");
 //		Background.setTCX(1);
 //		Background.setTCY(1);
 		//TODO

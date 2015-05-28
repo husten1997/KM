@@ -77,10 +77,10 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	@Override
 	public void draw() {
-		if (isText) {
-			texture = Loader.createStringTexture(textureName, width, height, color, font);
-		} else {
+		if (!isText) {
 			texture = Loader.getTexture(textureName);
+		} else {
+			texture = Loader.createStringTexture(textureName, width, height, color, font);
 		}
 		// store the current model matrix
 		glPushMatrix();
