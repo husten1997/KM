@@ -15,53 +15,26 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
-public class RectangleGraphicalObject extends GraphicalObject {
+public class TextObject extends RectangleGraphicalObject{
 
-	protected int width, height, rotation = 2;
-	protected String textureName, material;
-	protected boolean randomRotation, stratched = true;
-	protected Texture texture;
-	protected double widthCount = 1, heightCount = 1;
-
-	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
-		super(position, MeshType.GROUND);
-		this.width = width;
-		this.height = height;
-		this.randomRotation = randomRotation;
-		if (randomRotation) {
-			rotation = (int) (Math.random() * 4);
-		}
+	private Color color;
+	private Font font;
+	
+	protected TextObject(Pos position, int width, int height, String text, Color color, Font font) {
+		super(position, width, height, text, false);
+		this.color = color;
+		this.font = font;
 	}
-
-	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation) {
-		super(position, MeshType.GROUND);
-		this.width = width;
-		this.height = height;
-		this.textureName = textureName;
-		this.randomRotation = randomRotation;
-		if (randomRotation) {
-			rotation = (int) (Math.random() * 4);
-		}
-	}
-
-	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation, String material) {
-		super(position, MeshType.GROUND);
-		this.width = width;
-		this.height = height;
-		this.textureName = textureName;
-		this.randomRotation = randomRotation;
-		if (randomRotation) {
-			rotation = (int) (Math.random() * 4);
-		}
-		this.material = material;
-	}
-
+	
 	@Override
 	public void draw() {
-		texture = Loader.getTexture(textureName);
+		texture = Loader.createStringTexture(textureName, width, height, color, font);
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
@@ -112,46 +85,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glColor3f(1f, 1f, 0.9f);
 		// restore the model view matrix to prevent contamination
 		glPopMatrix();
-	}
-
-	public void setHeightCount(double heightCount) {
-		this.heightCount = heightCount;
-	}
-
-	public double getHeightCount() {
-		return heightCount;
-	}
-
-	public void setWidthCount(double widthCount) {
-		this.widthCount = widthCount;
-	}
-
-	public double getWidthCount() {
-		return widthCount;
-	}
-
-	public void setStrached(boolean strached) {
-		this.stratched = strached;
-	}
-
-	public boolean getStrached() {
-		return stratched;
-	}
-
-	public void setMaterial(String material) {
-		this.material = material;
-	}
-
-	public String getMaterial() {
-		return material;
-	}
-
-	public void setTextureName(String name) {
-		textureName = name;
-	}
-
-	public String getTextureName() {
-		return textureName;
 	}
 
 }
