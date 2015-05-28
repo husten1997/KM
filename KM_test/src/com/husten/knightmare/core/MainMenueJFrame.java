@@ -41,7 +41,7 @@ public class MainMenueJFrame extends JFrame implements ActionListener{
 		a.setUndecorated(true);
 		a.setTitle("Knightmare");
 		a.setVisible(true);
-		a.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+		a.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 	}
 
 	@Override
