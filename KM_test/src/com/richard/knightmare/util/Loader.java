@@ -85,6 +85,8 @@ public class Loader {
 				// File seems to be broken
 			}
 		}
+		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Textures").toString());
+		texturesDefault = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\Default\\Textures").toString());
 
 		// Preload Textures
 		load();
@@ -133,6 +135,8 @@ public class Loader {
 				// File seems to be broken
 			}
 		}
+		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Textures").toString());
+		texturesDefault = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\Default\\Textures").toString());
 	}
 
 	public static void load() {
@@ -141,9 +145,7 @@ public class Loader {
 	}
 
 	private static void loadTextures() {
-		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Textures").toString());
 		if (texturesRes.exists()) {
-			texturesDefault = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\Default\\Textures").toString());
 			String[] textureNames = texturesDefault.list();
 			if (textureNames != null) {
 				for (int i = 0; i < textureNames.length; i++) {
@@ -338,5 +340,30 @@ public class Loader {
 			ret *= 2;
 		}
 		return ret;
+	}
+	
+	public static BufferedImage getImage(String name){
+		BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = ImageIO.read(new File(new StringBuilder(texturesRes
+					.getAbsolutePath())
+					.append("\\")
+					.append(name)
+					.toString()));
+		} catch (IOException e) {
+			try {
+				bufferedImage = ImageIO.read(new File(new StringBuilder(texturesDefault.getAbsolutePath()).append("\\").append(name).toString()));
+			} catch (IOException e1) {
+				// Ignore
+			}
+		}
+		if (bufferedImage == null) {
+			bufferedImage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+			Graphics graphics = bufferedImage.getGraphics();
+			graphics.setColor(Color.MAGENTA);
+			graphics.drawString(name, 0, 20);
+			graphics.dispose();
+		}
+		return bufferedImage;
 	}
 }
