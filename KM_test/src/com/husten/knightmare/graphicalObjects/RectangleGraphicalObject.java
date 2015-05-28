@@ -27,6 +27,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected String textureName, material;
 	protected boolean randomRotation, stratched = true;
 	protected Texture texture;
+	protected double widthCount = 1, heightCount = 1;
 	private boolean isText;
 	private Color color;
 	private Font font;
@@ -93,35 +94,71 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
 		// draw a quad textured to match the sprite
-		glBegin(GL_QUADS);
-		{
-			glTexCoord2f((stratched ? 1 : (float) width / texture.getImageWidth()), 0);
-			glVertex2f(0, 0);
+		if (stratched) {
+			glBegin(GL_QUADS);
+			{
+				glTexCoord2f((float) widthCount, 0);
+				glVertex2f(0, 0);
 
-			glTexCoord2f((stratched ? 1 : (float) width / texture.getImageWidth()), (stratched ? 1 : (float) height / texture.getImageHeight()));
-			glVertex2f(0, (float) height);
+				glTexCoord2f((float) widthCount, (float) heightCount);
+				glVertex2f(0, (float) height);
 
-			glTexCoord2f(0, (stratched ? 1 : (float) height / texture.getImageHeight()));
-			glVertex2f((float) width, (float) height);
+				glTexCoord2f(0, (float) heightCount);
+				glVertex2f((float) width, (float) height);
 
-			glTexCoord2f(0, 0);
-			glVertex2f((float) width, 0);
+				glTexCoord2f(0, 0);
+				glVertex2f((float) width, 0);
 
+			}
+			glEnd();
+		} else {
+			glBegin(GL_QUADS);
+			{
+				glTexCoord2f((float) width / texture.getImageWidth(), 0);
+				glVertex2f(0, 0);
+
+				glTexCoord2f((float) width / texture.getImageWidth(), (float) height / texture.getImageHeight());
+				glVertex2f(0, (float) height);
+
+				glTexCoord2f(0, (float) height / texture.getImageHeight());
+				glVertex2f((float) width, (float) height);
+
+				glTexCoord2f(0, 0);
+				glVertex2f((float) width, 0);
+
+			}
+			glEnd();
 		}
-		glEnd();
+
 		glColor3f(1f, 1f, 0.9f);
 		// restore the model view matrix to prevent contamination
 		glPopMatrix();
 	}
 
-	public void setStrached(boolean strached){
+	public void setHeightCount(double heightCount) {
+		this.heightCount = heightCount;
+	}
+
+	public double getHeightCount() {
+		return heightCount;
+	}
+
+	public void setWidthCount(double widthCount) {
+		this.widthCount = widthCount;
+	}
+
+	public double getWidthCount() {
+		return widthCount;
+	}
+
+	public void setStrached(boolean strached) {
 		this.stratched = strached;
 	}
-	
-	public boolean getStrached(){
+
+	public boolean getStrached() {
 		return stratched;
 	}
-	
+
 	public void setMaterial(String material) {
 		this.material = material;
 	}
