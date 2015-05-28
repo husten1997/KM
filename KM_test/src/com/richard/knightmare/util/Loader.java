@@ -89,8 +89,53 @@ public class Loader {
 		// Preload Textures
 		load();
 	}
+	
+	public static void initLoaderWithoutLoad(String firmenname, String spielname) {
+		glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT,
+				DataBuffer.TYPE_BYTE);
 
-	private static void load() {
+		glColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 0 }, false, false, Transparency.OPAQUE,
+				DataBuffer.TYPE_BYTE);
+		String path = new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\AppData\\Roaming\\").append(firmenname).append("\\")
+				.append(spielname).toString();
+		saves = new File(new StringBuffer(path).append("\\").append("saves").toString());
+		configs = new File(new StringBuffer(path).append("\\").append("configs").toString());
+		resourcepacks = new File(new StringBuffer(path).append("\\").append("resourcepacks").toString());
+
+		if (!saves.exists()) {
+			saves.mkdirs();
+		}
+		if (!configs.exists()) {
+			configs.mkdirs();
+		}
+		if (!resourcepacks.exists()) {
+			resourcepacks.mkdirs();
+		}
+
+		// Config Files
+		resourcepackCfg = new File(new StringBuilder(configs.getAbsolutePath()).append("\\Resourcepack.cfg").toString());
+
+		if (resourcepackCfg.exists()) {
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(resourcepackCfg));
+				resourcepack = reader.readLine();
+				reader.close();
+			} catch (IOException e) {
+				// File seems to be broken
+			}
+		} else {
+			try {
+				resourcepackCfg.createNewFile();
+				BufferedWriter writer = new BufferedWriter(new FileWriter(resourcepackCfg));
+				writer.write(resourcepack);
+				writer.close();
+			} catch (IOException e) {
+				// File seems to be broken
+			}
+		}
+	}
+
+	public static void load() {
 		loadTextures();
 		loadSounds();
 	}

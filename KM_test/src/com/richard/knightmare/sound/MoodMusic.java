@@ -59,7 +59,7 @@ public class MoodMusic {
 	}
 
 	public static void init() {
-		String[] list = Loader.getMusicList();/*Environment.getMusicList();*/
+		String[] list = Loader.getMusicList();
 		for (int i = 0; i < list.length; i++) {
 			addClipToMood("Default", list[i]);
 		}
