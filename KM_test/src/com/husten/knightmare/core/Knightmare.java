@@ -18,8 +18,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
-import com.husten.knightmare.threads.GrafikThread;
-import com.husten.knightmare.threads.WorkingThread;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
@@ -56,7 +54,6 @@ public class Knightmare implements StringConstants {
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 
 	// private TextureLoader textureLoader;
-	private static WorkingThread gT;
 
 	private int gameSpeed = 10; // inverted
 
@@ -71,8 +68,6 @@ public class Knightmare implements StringConstants {
 	}
 
 	private void start() {
-		gT = new GrafikThread(this);
-
 		init();
 		objectinit();
 
@@ -96,7 +91,7 @@ public class Knightmare implements StringConstants {
 				pending.remove(0);
 				pendingEbenen.remove(0);
 			}
-			gT.run();
+			grafikCycl();
 			updateDisplay();
 			updateFPS();
 		}
