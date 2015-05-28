@@ -3,7 +3,7 @@ package com.matze.knightmare.meshes;
 public class Ausruestung extends Items{
 
 	protected int[] changeStats; // muss in der Reihenfolge Anfriff[3]
-									// Verteidigung[3] usw angegeben sein
+	protected boolean fürGebäude;								// Verteidigung[3] usw angegeben sein
 
 	public Ausruestung(int id) {
 		super(id);
@@ -13,12 +13,13 @@ public class Ausruestung extends Items{
 		}
 	}
 
-	public Ausruestung(int id, int[] a) {
+	public Ausruestung(int id, int[] a, boolean gebaeude) {
 		super(id);
 		changeStats = new int[12];
 		for (int i = 0; i < changeStats.length; i++) {
 			changeStats[i] = a[i];
 		}
+		fürGebäude = gebaeude;
 	}
 
 	public int getCS(int i) {

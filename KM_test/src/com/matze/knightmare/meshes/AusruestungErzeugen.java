@@ -27,61 +27,61 @@ public class AusruestungErzeugen {
 
 	public Ausruestung Helm() {
 		init_Array(0, 0, 0, 5, 8, 0, 0, 0, 5, 0, 0, 6);
-		i = new Ausruestung(0, stats);
+		i = new Ausruestung(0, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Brustpanzer() {
 		init_Array(0, 0, 0, 10, 10, 0, 0, 0, 10, 0, -5, 5);
-		i = new Ausruestung(1, stats);
+		i = new Ausruestung(1, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Armschienen() {
 		init_Array(0, 0, 0, 10, 0, 0, 5, 0, 5, 2, 0, 4);
-		i = new Ausruestung(2, stats);
+		i = new Ausruestung(2, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Langschwert() {
 		init_Array(12, 0, 0, 0, 0, 0, 2, 0, 15, 0, -2, 4);
-		i = new Ausruestung(3, stats);
+		i = new Ausruestung(3, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Wurfspeer() {
 		init_Array(0, 15, 0, 0, 0, 0, 80, 0, 15, 5, 0, 3);
-		i = new Ausruestung(4, stats);
+		i = new Ausruestung(4, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Leichte_Ruestung() {
 		init_Array(0, 0, 0, 4, 5, 0, 0, 10, 10, 0, 15, -5);
-		i = new Ausruestung(5, stats);
+		i = new Ausruestung(5, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Schwere_Ruestung() {
 		init_Array(0, 0, 0, 20, 15, 5, 0, -10, 25, 0, -7, 2);
-		i = new Ausruestung(6, stats);
+		i = new Ausruestung(6, stats, false);
 		return i;
 	}
 	
 	public Ausruestung test() {
 		init_Array(12, 0, 0, 0, 0, 0, 2, 0, 15, 0, -2, 4);
-		i = new Ausruestung(7, stats);
+		i = new Ausruestung(7, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Feuerpfeil_Basiliste(){
 		init_Array(0, 10, 40, 0, 0, 0, -64, 0, 10, 5, 0, 10);
-		i = new Ausruestung(8, stats);
+		i = new Ausruestung(8, stats, false);
 		return i;
 	}
 	
 	public Ausruestung Feuerpfeile_Bogenschütze(){
 		init_Array(0, 10, 5, 0, 0, 0, -32, 0, 0, 5, 0, 8);
-		i = new Ausruestung(9, stats);
+		i = new Ausruestung(9, stats, false);
 		return i;
 	}
 	
