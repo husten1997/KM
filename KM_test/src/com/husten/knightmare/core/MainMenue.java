@@ -1,6 +1,5 @@
 package com.husten.knightmare.core;
 
-
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
@@ -18,17 +17,14 @@ import org.lwjgl.opengl.GL11;
 
 import com.husten.knightmare.constants.StringConstants.Material;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
-import com.husten.knightmare.graphicalObjects.QUAD;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
-import com.husten.knightmare.graphicalObjects.Text;
-import com.husten.knightmare.graphicalObjects.gasset;
+import com.husten.knightmare.graphicalObjects.TextObject;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
-
 public class MainMenue {
-	
+
 	/** time at last frame */
 	/** last fps time */
 	private long lastFrame, lastFPS;
@@ -37,41 +33,32 @@ public class MainMenue {
 	@SuppressWarnings("unused")
 	private double FPS = 60;
 
-	
-
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = false, Vsync = false;
-	
-	private ArrayList[] renderList = new ArrayList[ebenen];
-	
 
-	
-	
+	private ArrayList<GraphicalObject>[] renderList = new ArrayList[ebenen];
 
-//	private TextureLoader textureLoader;
-	//TODO
-	private RectangleGraphicalObject m;
-
-	
+	// private TextureLoader textureLoader;
+	// TODO
+//	private RectangleGraphicalObject m;
 
 	public static void main(String[] args) {
-				new MainMenue().spielStarten();
+		new MainMenue().spielStarten();
 	}
-	
-	private void spielStarten(){
+
+	private void spielStarten() {
 		start();
-//		new Knightmare();
+		// new Knightmare();
 	}
-	
+
 	private void start() {
-		
-		
+
 		init();
 		objectinit();
 
-		
 		while (!Display.isCloseRequested()) {
-//			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+			// GL11.glClear(GL11.GL_COLOR_BUFFER_BIT |
+			// GL11.GL_DEPTH_BUFFER_BIT);
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 			render();
 			pollinput();
@@ -80,53 +67,53 @@ public class MainMenue {
 		}
 		Display.destroy();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void objectinit() {
 
 		for (int i = 0; i < ebenen; i++) {
-			renderList[i] = new ArrayList<gasset>();
+			renderList[i] = new ArrayList<>();
 		}
 
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
-			renderList[i].sort(new Comparator<gasset>() {
+			renderList[i].sort(new Comparator<GraphicalObject>() {
 				@Override
-				public int compare(gasset i1, gasset i2) {
+				public int compare(GraphicalObject i1, GraphicalObject i2) {
 					return (i1.getSort() < i2.getSort() ? -1 : 1);
 				}
 			});
 		}
-		
-//		QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, "menue.png");
-//		Background.setTCX(1);
-//		Background.setTCY(1);
-		//TODO
-		m = new RectangleGraphicalObject(new Pos(0,0), WIDTH, HEIGHT, "menue.png", false);
-//		m = new RectangleGraphicalObject(new Pos(100,100), 64, 32, "Start", Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 20)); //TODO funzt na ned so ganz
-		Font[] all = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
-		
-		Font awtFont = new Font(all[1].getFontName(), Font.BOLD, 25);
-		Text Start = new Text((double) 1000,(double) 1000,(double) 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
-		
-//		initRender(Background, 0, 0);
+
+		// QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, "menue.png");
+		// Background.setTCX(1);
+		// Background.setTCY(1);
+		// TODO
+//		m = new RectangleGraphicalObject(new Pos(0, 0), WIDTH, HEIGHT, "menue.png", false);
+		// m = new RectangleGraphicalObject(new Pos(100,100), 64, 32, "Start",
+		// Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 20)); //TODO funzt
+		// na ned so ganz
+
+		// Text Start = new Text((double) 1000,(double) 1000,(double)
+		// 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
+		TextObject Start = new TextObject(new Pos(1000, 1000), 100, 100, "Sart", Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 32));
+
+		// initRender(Background, 0, 0);
 		initRender(Start, 1, 0);
 	}
-	
+
 	private void init() {
-//		Environment.setUpEnvironment("Ares", "Knightmare");
+		// Environment.setUpEnvironment("Ares", "Knightmare");
 		// verwendet eure aktuelle desktopauflösung als gameauflösung
 		initRes();
-		
-		 // load a default java font
-		
+
+		// load a default java font
 
 		try {
-			 Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			// DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
 			// DM.
 			Display.create();
-			
 
 		} catch (LWJGLException e) {
 			e.printStackTrace();
@@ -134,44 +121,43 @@ public class MainMenue {
 		}
 		// enable textures since we're going to use these for our sprites
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glShadeModel(GL11.GL_SMOOTH);        
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDisable(GL11.GL_LIGHTING);                    
-  
-        GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
-        GL11.glClearDepth(1);                                       
-  
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-  
-        GL11.glViewport(WIDTH, HEIGHT, -WIDTH, -HEIGHT);
-        
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-  
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDisable(GL11.GL_LIGHTING);
+
+		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GL11.glClearDepth(1);
+
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		GL11.glViewport(WIDTH, HEIGHT, -WIDTH, -HEIGHT);
+
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
 		glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
-//		glTranslatef(0, 0, 0f);
+		// glTranslatef(0, 0, 0f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-//		textureLoader = new TextureLoader();
+		// textureLoader = new TextureLoader();
 		Loader.initLoader("Ares", "Knightmare");
 		MoodMusic.init();
 
-		
 		lastFPS = getTime(); // call before loop to initialise fps timer
 		initDisplay();
 
 	}
-	
+
 	public void updateDisplay() {
 		if (Vsync)
 			Display.sync(VsyncF);
 
 		Display.update();
 	}
-	
+
 	public void initRes() {
 		HEIGHT = Display.getDesktopDisplayMode().getHeight();
 		WIDTH = Display.getDesktopDisplayMode().getWidth();
@@ -181,7 +167,7 @@ public class MainMenue {
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
 	}
-	
+
 	public void setDisplayMode(int width, int height, boolean fullscreen) {
 
 		// return if requested DisplayMode is already set
@@ -237,7 +223,7 @@ public class MainMenue {
 			System.out.println("Unable to setup mode " + width + "x" + height + " fullscreen=" + fullscreen + e);
 		}
 	}
-	
+
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Display.setTitle("FPS: " + fps);
@@ -248,34 +234,32 @@ public class MainMenue {
 		fps++;
 
 	}
-	
+
 	public long getTime() {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
-	
-	public void initRender(gasset input, int e, int se) {
+
+	public void initRender(GraphicalObject input, int e, int se) {
 		input.setSort(se);
 		renderList[e].add(input);
 	}
-	
+
 	public void render() {
-		
+
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
-				((gasset) renderList[e].get(i)).draw();
+				((GraphicalObject) renderList[e].get(i)).draw();
 			}
 		}
-		//TODO
-		m.draw();
-		
+		// TODO
+//		m.draw();
 
 	}
-	
-	public void pollinput(){
-		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
+
+	public void pollinput() {
+		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			System.exit(1);
 		}
 	}
-
 
 }

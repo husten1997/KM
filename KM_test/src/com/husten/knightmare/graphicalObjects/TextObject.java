@@ -26,7 +26,7 @@ public class TextObject extends RectangleGraphicalObject{
 	private Color color;
 	private Font font;
 	
-	protected TextObject(Pos position, int width, int height, String text, Color color, Font font) {
+	public TextObject(Pos position, int width, int height, String text, Color color, Font font) {
 		super(position, width, height, text, false);
 		this.color = color;
 		this.font = font;

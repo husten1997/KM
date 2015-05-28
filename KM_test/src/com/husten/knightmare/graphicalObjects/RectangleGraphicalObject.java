@@ -114,6 +114,14 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glPopMatrix();
 	}
 
+	public void moveX(double x){
+		position.setX(position.getX()+x);
+	}
+	
+	public void moveY(double y){
+		position.setY(position.getY()+y);
+	}
+	
 	public void setHeightCount(double heightCount) {
 		this.heightCount = heightCount;
 	}

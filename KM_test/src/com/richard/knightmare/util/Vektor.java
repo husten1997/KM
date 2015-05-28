@@ -122,13 +122,13 @@ public class Vektor {
 			}
 		}
 		if (distance(newStart, ende) < distance(start, ende)) {
-			soldat.setPos(newStart);
+			soldat.setPosition(newStart);
 			start = newStart;
 			x = ende.getX() - start.getX();
 			y = ende.getY() - start.getY();
 			m = x / y;
 		} else {
-			soldat.setPos(ende);
+			soldat.setPosition(ende);
 			return true;
 		}
 		return false;

@@ -43,7 +43,7 @@ public class Knightmare implements StringConstants {
 	private boolean fullscreen = true, Vsync = false, screenToSet = false;
 
 	private Soldat figur, figuren[] = new Soldat[s];
-	private Terrain terrain;
+	private World terrain;
 
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0);
 	public static double CameraX = 0, CameraY = 0, scale = 1;
@@ -51,16 +51,16 @@ public class Knightmare implements StringConstants {
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
-	private ArrayList<gasset> selection = new ArrayList<gasset>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
+	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 
-//	private TextureLoader textureLoader;
+	// private TextureLoader textureLoader;
 	private static WorkingThread gT;
 
 	private int gameSpeed = 10; // inverted
 
-	private gasset[][] world;
+	private GraphicalObject[][] world;
 
 	public static void main(String args[]) {
 		new Knightmare();
@@ -135,7 +135,7 @@ public class Knightmare implements StringConstants {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-//		textureLoader = new TextureLoader();
+		// textureLoader = new TextureLoader();
 		Loader.initLoader("Ares", "Knightmare");
 		MoodMusic.init();
 
@@ -145,11 +145,11 @@ public class Knightmare implements StringConstants {
 
 	}
 
-	public void initRender(gasset input, int e) {
+	public void initRender(GraphicalObject input, int e) {
 		renderList[e].add(input);
 	}
 
-	public void initObject(gasset input, int e, int se) {
+	public void initObject(GraphicalObject input, int e, int se) {
 		input.setSort(se);
 		ObjectList[e].add(input);
 		input.setSort(se);
@@ -159,10 +159,10 @@ public class Knightmare implements StringConstants {
 	public void objectinit() {
 
 		for (int i = 0; i < ebenen; i++) {
-			renderList[i] = new ArrayList<gasset>();
+			renderList[i] = new ArrayList<GraphicalObject>();
 		}
-		terrain = new Terrain((512) + 1, (512) + 1);
-		world = new gasset[513][513];
+		terrain = new World((512) + 1, (512) + 1);
+		world = new GraphicalObject[513][513];
 		for (int i = 0; i < s; i++) {
 			double x = Math.random() * 1200;
 			double y = Math.random() * 800;
@@ -175,9 +175,9 @@ public class Knightmare implements StringConstants {
 
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
-			renderList[i].sort(new Comparator<gasset>() {
+			renderList[i].sort(new Comparator<GraphicalObject>() {
 				@Override
-				public int compare(gasset i1, gasset i2) {
+				public int compare(GraphicalObject i1, GraphicalObject i2) {
 					return (i1.getSort() < i2.getSort() ? -1 : 1);
 				}
 			});
@@ -199,8 +199,8 @@ public class Knightmare implements StringConstants {
 			if (scale < 0.1f) {
 				scale = 0.1f;
 			}
-			if (scale > terrain.getSx() * 32 / WIDTH) {
-				scale = terrain.getSx() * 32 / WIDTH;
+			if (scale > terrain.getWidth() * 32 / WIDTH) {
+				scale = terrain.getWidth() * 32 / WIDTH;
 			}
 			if (CameraX < 0) {
 				CameraX = 0;
@@ -208,11 +208,11 @@ public class Knightmare implements StringConstants {
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
 		// Keyboard------------------------------------------------------------------------------------
@@ -325,7 +325,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
-							Pos p2 = selection.get(i).getPos(); // Start
+							Pos p2 = selection.get(i).getPosition(); // Start
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
@@ -383,8 +383,8 @@ public class Knightmare implements StringConstants {
 			double width = WIDTH * scale;
 			double height = HEIGHT * scale;
 			scale += zomingSpeed;
-			if (scale > terrain.getSx() * 32 / WIDTH) {
-				scale = terrain.getSx() * 32 / WIDTH;
+			if (scale > terrain.getWidth() * 32 / WIDTH) {
+				scale = terrain.getWidth() * 32 / WIDTH;
 			}
 			CameraX += (width - WIDTH * scale) / 2;
 			CameraY += (height - HEIGHT * scale) / 2;
@@ -394,11 +394,11 @@ public class Knightmare implements StringConstants {
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		} else if (dWheel > 0) {
 			double width = WIDTH * scale;
@@ -415,11 +415,11 @@ public class Knightmare implements StringConstants {
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
 
@@ -432,11 +432,11 @@ public class Knightmare implements StringConstants {
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
 
@@ -445,22 +445,22 @@ public class Knightmare implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			figur.setRelativeY(0.3f);
+			figur.moveY(0.3f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			figur.setRelativeX(-0.3f);
+			figur.moveX(-0.3f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			figur.setRelativeY(-0.3f);
+			figur.moveY(-0.3f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			figur.setRelativeX(0.3f);
+			figur.moveX(0.3f);
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
 			CameraY += scrollingSpeed * scale;
-			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
@@ -477,8 +477,8 @@ public class Knightmare implements StringConstants {
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
 			CameraX += scrollingSpeed * scale;
-			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
 		}
 
@@ -490,8 +490,8 @@ public class Knightmare implements StringConstants {
 		}
 		if (Mouse.getX() > WIDTH - 32) {
 			CameraX += scrollingSpeed * scale;
-			if (CameraX > terrain.getSx() * 32 - WIDTH * scale) {
-				CameraX = terrain.getSx() * 32 - WIDTH * scale;
+			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
 		}
 		if (Mouse.getY() < 32) {
@@ -502,8 +502,8 @@ public class Knightmare implements StringConstants {
 		}
 		if (Mouse.getY() > HEIGHT - 32) {
 			CameraY += scrollingSpeed * scale;
-			if (CameraY > terrain.getSy() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getSy() * 32 - HEIGHT * scale;
+			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
 
@@ -589,8 +589,8 @@ public class Knightmare implements StringConstants {
 				for (int e = 0; e < ebenen; e++) {
 
 					for (int i = 0; i < renderList[e].size(); i++) {
-						if (renderList[e].get(i).getX() <= Px1 && renderList[e].get(i).getX() >= Px2 && renderList[e].get(i).getY() <= Py1
-								&& renderList[e].get(i).getY() >= Py2) {
+						if (renderList[e].get(i).getPosition().getX() <= Px1 && renderList[e].get(i).getPosition().getX() >= Px2
+								&& renderList[e].get(i).getPosition().getY() <= Py1 && renderList[e].get(i).getPosition().getY() >= Py2) {
 
 							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
 								selection.add(renderList[e].get(i));
@@ -607,15 +607,15 @@ public class Knightmare implements StringConstants {
 
 	// Für einzelauswahl
 	public void search(double x, double y) {
-		gasset xy = figur;
+		GraphicalObject xy = figur;
 		selection.clear();
 
 		try {
 			for (int e = 0; e < ebenen; e++) {
 
 				for (int i = 0; i < renderList[e].size(); i++) {
-					if (renderList[e].get(i).getX() <= x && renderList[e].get(i).getX() >= x - 64 && renderList[e].get(i).getY() <= y
-							&& renderList[e].get(i).getY() >= y - 64) {
+					if (renderList[e].get(i).getPosition().getX() <= x && renderList[e].get(i).getPosition().getX() >= x - 64
+							&& renderList[e].get(i).getPosition().getY() <= y && renderList[e].get(i).getPosition().getY() >= y - 64) {
 						xy = renderList[e].get(i);
 					}
 				}
