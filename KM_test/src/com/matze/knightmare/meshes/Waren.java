@@ -6,9 +6,9 @@ public class Waren {
 
 	private int amount;
 	private String typ;
-	private BufferedImage textur;
+	private String textur;
 	
-	public Waren(int am, String typ, BufferedImage t){
+	public Waren(int am, String typ, String t){
 		amount = am;
 		this.typ = typ;
 		textur = t;
