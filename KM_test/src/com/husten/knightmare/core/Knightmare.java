@@ -53,6 +53,7 @@ public class Knightmare implements StringConstants {
 		init();
 		objectinit();
 		Loader.initLoader("Ares", "Knightmare");
+		initMenues();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -79,6 +80,11 @@ public class Knightmare implements StringConstants {
 			updateFPS();
 		}
 		Display.destroy();
+	}
+
+	private void initMenues() {
+		RectangleGraphicalObject kopfzeile = new RectangleGraphicalObject(new Pos(0,0), WIDTH, 100, "kopfzeile.png", false);
+		initRender(kopfzeile, 2);
 	}
 
 	private void init() {
