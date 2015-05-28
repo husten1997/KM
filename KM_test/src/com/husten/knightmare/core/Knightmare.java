@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -27,41 +26,24 @@ import com.richard.knightmare.util.Vektor;
 
 public class Knightmare implements StringConstants {
 
-	/** time at last frame */
-	/** last fps time */
 	private long lastFrame, lastFPS;
-	/** frames per second */
-	private int fps, ebenen = 3, VsyncF = 120, s = 5;
+	private int fps, ebenen = 3, VsyncF = 120, s = 5, gameSpeed = 10; // inverted
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
-
 	private String inGameStat = state.NOTHING;
-
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = true, Vsync = false, screenToSet = false;
-
+	private boolean fullscreen = true, Vsync = false, screenToSet = false, running = true;
 	private Soldat figur, figuren[] = new Soldat[s];
 	private World terrain;
-
-	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0);
+	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
-
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
-
-	// private TextureLoader textureLoader;
-
-	private int gameSpeed = 10; // inverted
-
 	private GraphicalObject[][] world;
-
-	public static void main(String args[]) {
-		new Knightmare();
-	}
+	private Timer timer = new Timer(true);
 
 	public Knightmare() {
 		start();
@@ -70,8 +52,9 @@ public class Knightmare implements StringConstants {
 	private void start() {
 		init();
 		objectinit();
+		Loader.initLoader("Ares", "Knightmare");
 
-		new Timer(true).scheduleAtFixedRate(new TimerTask() {
+		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
@@ -80,7 +63,7 @@ public class Knightmare implements StringConstants {
 
 			}
 		}, 0, gameSpeed);
-		while (!Display.isCloseRequested()) {
+		while (!Display.isCloseRequested() && running) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			if (screenToSet) {
 				setDisplayMode(WIDTH, HEIGHT, !fullscreen);
@@ -99,13 +82,9 @@ public class Knightmare implements StringConstants {
 	}
 
 	private void init() {
-		// verwendet eure aktuelle desktopauflösung als gameauflösung
 		initRes();
 
 		try {
-			// Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-			// DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
-			// DM.
 			Display.create();
 			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
 			glViewport(0, 0, WIDTH, HEIGHT);
@@ -130,10 +109,6 @@ public class Knightmare implements StringConstants {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		// textureLoader = new TextureLoader();
-		Loader.initLoader("Ares", "Knightmare");
-		MoodMusic.init();
-
 		getDelta(); // call once before loop to initialise lastFrame
 		lastFPS = getTime(); // call before loop to initialise fps timer
 		initDisplay();
@@ -152,7 +127,6 @@ public class Knightmare implements StringConstants {
 	}
 
 	public void objectinit() {
-
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
@@ -165,9 +139,7 @@ public class Knightmare implements StringConstants {
 			figuren[i].setSort(1);
 			initRender(figuren[i], 1);
 		}
-
 		figur = new Soldat(new Pos(0, 0), 32, 32, "figure.png");
-
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -179,10 +151,7 @@ public class Knightmare implements StringConstants {
 		}
 	}
 
-	Pos ang = null;
-
 	public void pollInput() {
-
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 			if (fullscreen) {
 				WIDTH = 1600;
@@ -215,7 +184,11 @@ public class Knightmare implements StringConstants {
 			if (Keyboard.getEventKeyState()) {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-					System.exit(0);
+					timer.cancel();
+					running = false;
+					MoodMusic.abwürgen();
+					new MainMenueJFrame();
+					return;
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
@@ -249,7 +222,6 @@ public class Knightmare implements StringConstants {
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
 					Vsync = !Vsync;
-					// Display.setVSyncEnabled(Vsync);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
@@ -264,7 +236,6 @@ public class Knightmare implements StringConstants {
 		// Mosue-------------------------------------------------------------------------------------------------------
 		while (Mouse.next()) {
 			if (Mouse.getEventButtonState()) {
-
 				if (Mouse.getEventButton() == 0) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
@@ -336,10 +307,8 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_BUILDINGS:
 						break;
-
 					}
 				}
-
 			} else {
 				// Buton releasd
 				if (Mouse.getEventButton() == 0) {
@@ -364,16 +333,7 @@ public class Knightmare implements StringConstants {
 		}
 		// Keyboard/Mouse
 		// holding---------------------------------------------------------------------------
-		if (Mouse.isButtonDown(0)) {
-
-		}
-
-		if (Mouse.isButtonDown(1)) {
-
-		}
-
 		int dWheel = Mouse.getDWheel();
-
 		if (dWheel < 0) {
 			double width = WIDTH * scale;
 			double height = HEIGHT * scale;
@@ -501,18 +461,12 @@ public class Knightmare implements StringConstants {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-			// TODO
-		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
 			MoodMusic.changeVolume(-0.5f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
 			MoodMusic.changeVolume(0.5f);
 		}
-		// testVariable();
-
 	}
 
 	public void render() {
@@ -523,22 +477,17 @@ public class Knightmare implements StringConstants {
 			}
 		}
 		figur.draw();
-
 	}
 
 	public long getTime() {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 
-	// Delta --> zeit die seit dem letzten frame vergangen ist => kann man
-	// benutzen für frame unabhängige bewegungen zb
 	public int getDelta() {
 		long time = getTime();
 
 		int delta = (int) (time - lastFrame);
-		// System.out.println(time - lastFrame);
 		lastFrame = time;
-
 		return delta;
 	}
 
@@ -550,7 +499,6 @@ public class Knightmare implements StringConstants {
 			lastFPS += 1000;
 		}
 		fps++;
-
 	}
 
 	public void search(double x1, double y1, double x2, double y2) {
@@ -636,7 +584,6 @@ public class Knightmare implements StringConstants {
 	}
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {
-
 		// return if requested DisplayMode is already set
 		if ((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
 			return;
@@ -684,8 +631,6 @@ public class Knightmare implements StringConstants {
 			Display.setDisplayMode(targetDisplayMode);
 			Display.setFullscreen(fullscreen);
 			this.fullscreen = fullscreen;
-			// VsyncF = Display.getDisplayMode().getFrequency();
-
 		} catch (LWJGLException e) {
 			System.out.println("Unable to setup mode " + width + "x" + height + " fullscreen=" + fullscreen + e);
 		}
@@ -719,7 +664,6 @@ public class Knightmare implements StringConstants {
 	public void grafikCycl() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		// glTranslatef(CameraMX, CameraMY, 0f);
 		glOrtho(0, WIDTH * scale, 0, HEIGHT * scale, 3, -1);
 		glTranslatef((float) -CameraX, (float) -CameraY, 0f);
 		glMatrixMode(GL_MODELVIEW);

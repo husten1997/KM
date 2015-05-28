@@ -107,6 +107,10 @@ public class MoodMusic {
 		}
 		player.stop();
 	}
+	
+	public static void abwürgen(){
+		player.stop();
+	}
 
 	private static void setPlayed(String name, int clipcount) {
 		lastPlayed.add(name);

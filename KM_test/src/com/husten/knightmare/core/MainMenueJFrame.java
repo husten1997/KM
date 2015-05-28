@@ -47,14 +47,15 @@ public class MainMenueJFrame extends JFrame {
 		setUndecorated(true);
 		setTitle("Knightmare");
 		setSize(screen);
+		setAlwaysOnTop(true);
 		setVisible(true);
 		
 		//Spiel Starten
 		buttons.add(new Button(new Pos(w(848)*width, h(465)*height), new Pos(width, h(586)*height)) {
 			@Override
 			public void onClick() {
-				new Knightmare();
 				dispose();
+				new Knightmare();
 			}
 		});
 		
@@ -70,8 +71,8 @@ public class MainMenueJFrame extends JFrame {
 		buttons.add(new Button(new Pos(w(848)*width, h(751)*height), new Pos(width, h(838)*height)) {
 			@Override
 			public void onClick() {
-				new Knightmare();
 				dispose();
+				new Knightmare();
 			}
 		});
 		
