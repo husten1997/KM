@@ -20,7 +20,7 @@ public class MainMenueJFrame extends JFrame {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
 	
-	private MainMenueJFrame() {
+	public MainMenueJFrame() {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		MoodMusic.init();
 		double resolution = (double) 16/ (double) 9;
@@ -49,8 +49,34 @@ public class MainMenueJFrame extends JFrame {
 		setSize(screen);
 		setVisible(true);
 		
-		buttons.add(new Button(new Pos(0, 0), new Pos(0.5*width, 0.25*height)) {
-			
+		//Spiel Starten
+		buttons.add(new Button(new Pos(w(848)*width, h(465)*height), new Pos(width, h(586)*height)) {
+			@Override
+			public void onClick() {
+				new Knightmare();
+				dispose();
+			}
+		});
+		
+		//Optionen
+		buttons.add(new Button(new Pos(w(848)*width, h(608)*height), new Pos(width, h(729)*height)) {
+			@Override
+			public void onClick() {
+				dispose();
+			}
+		});
+		
+		//Laden
+		buttons.add(new Button(new Pos(w(848)*width, h(751)*height), new Pos(width, h(838)*height)) {
+			@Override
+			public void onClick() {
+				new Knightmare();
+				dispose();
+			}
+		});
+		
+		//Schliessen
+		buttons.add(new Button(new Pos(w(848)*width, h(894)*height), new Pos(width, h(967)*height)) {
 			@Override
 			public void onClick() {
 				dispose();
@@ -84,6 +110,14 @@ public class MainMenueJFrame extends JFrame {
 				click(new Pos(e.getX()-(screen.getWidth()-width)/2, e.getY()-(screen.getHeight()-height)/2));
 			}
 		});
+	}
+	
+	public double w(double x){
+		return (double) x / (double) 1920;
+	}
+	
+	public double h(double x){
+		return (double) x / (double) 1080;
 	}
 
 	public static void main(String[] args) {

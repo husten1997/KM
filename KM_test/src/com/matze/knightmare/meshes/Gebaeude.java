@@ -46,7 +46,8 @@ public class Gebaeude {
 	}
 
 	public Waren getProduzierteWare() {
-		if (amountProduzierteWare == 0) {
+		if (amountProduzierteWare == 0 || produziert == null) {
+			System.out.println("Du kannst nichts abholen, oder dieses Gebäude produziert nichts");
 			return null;
 		}
 		return produziert;
@@ -62,7 +63,7 @@ public class Gebaeude {
 	}
 
 	public void changeStats(Ausruestung a) {
-
+		//int stats = new
 	}
 
 }
