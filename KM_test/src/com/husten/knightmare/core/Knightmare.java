@@ -471,12 +471,12 @@ public class Knightmare implements StringConstants {
 
 	public void render() {
 		terrain.draw();
+		figur.draw();
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
 				renderList[e].get(i).draw();
 			}
 		}
-		figur.draw();
 	}
 
 	public long getTime() {
