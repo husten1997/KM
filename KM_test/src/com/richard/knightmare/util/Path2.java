@@ -1,9 +1,5 @@
 package com.richard.knightmare.util;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
@@ -14,19 +10,12 @@ public class Path2 {
 	private PathObject[][] pointsInGrid, possiblePointsInGrid;
 	private GraphicalObject[][] world;
 	private Pos ziel;
-	private BufferedWriter br;
 
 	public static void main(String[] args) {
 		new Path2(new GraphicalObject[513][513]);
 	}
 
 	private Path2(GraphicalObject[][] world) {
-		try {
-			br = new BufferedWriter(new FileWriter(new File("D:\\Log.log")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		Pos start = new Pos(0, 0);
 		ziel = new Pos(512, 512);
 
@@ -54,21 +43,10 @@ public class Path2 {
 			}
 		} else {
 			System.out.println("Cannot reach");
-			for (int i = path.size() - 1; i >= 0; i--) {
-				System.out.println(path.get(i).point.x + "|" + path.get(i).point.y);
-			} // TODO
 		}
 	}
 
 	private void findnNextPos(PathObject p) {
-		// System.out.println("searching at:" + p.point.x + "|" + p.point.y);
-		try {
-			br.write("Searching at: " + p.point.x + "|" + p.point.y);
-			br.newLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		Pos[] ps = new Pos[4];
 		ps[0] = translatePos(p.point, 1, 0);
 		ps[1] = translatePos(p.point, -1, 0);
@@ -82,7 +60,6 @@ public class Path2 {
 					points.add(new PathObject(0, h++, h++, p, ps[i]));
 					return;
 				} else if ((!isObstrated(ps[i])) && possiblePointsInGrid[ps[i].x][ps[i].y] == null) {
-					// System.out.println("Found " + ps[i].x + "|" + ps[i].y);
 					int h = p.real;
 					PathObject obj = new PathObject(esteem(ps[i]), h++, esteem(ps[i]) + h++, p, ps[i]);
 					shorten(obj);
@@ -91,11 +68,6 @@ public class Path2 {
 				}
 			}
 		}
-		// System.out.println("We now know: ");
-		// for (int i = 0; i < possiblePoints.size(); i++) {
-		// System.out.println(possiblePoints.get(i).point.x + "|" +
-		// possiblePoints.get(i).point.y);
-		// }
 		int minSum = Integer.MAX_VALUE;
 		for (int i = 0; i < possiblePoints.size(); i++) {
 			minSum = Math.min(minSum, possiblePoints.get(i).sum);
