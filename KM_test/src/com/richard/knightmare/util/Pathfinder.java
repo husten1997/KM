@@ -1,29 +1,51 @@
 package com.richard.knightmare.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
 
 public class Pathfinder {
 
 	private ArrayList<PathfinderObject> points = new ArrayList<>();
-	private HashMap<Pos, PathfinderObject> currentPoses = new HashMap<>();
+	private PathfinderObject[][] currentPoses;
 	private GraphicalObject[][] world;
 	private Pos ziel;
 
-	public Pathfinder(GraphicalObject[][] world, Pos start, Pos ziel) {
+	public static void main(String args[]) {
+		new Pathfinder(new GraphicalObject[513][513]);
+	}
+
+	public Pathfinder(GraphicalObject[][] world) {
+		Pos start = new Pos(0, 0), ziel = new Pos(512, 512);
+		System.out.println("Starting from " + start.x + "|" + start.y + ". Aiming for " + ziel.x + "|" + ziel.y);
+		currentPoses = new PathfinderObject[world.length][world[0].length];
+
 		this.world = world;
 		this.ziel = ziel;
 
-		PathfinderObject startObject = new PathfinderObject(esteem(start), 0, esteem(start), null);
-		currentPoses.put(start, startObject);
+		long t1 = System.currentTimeMillis();
+		PathfinderObject startObject = new PathfinderObject(esteem(start), 0, esteem(start), null, start);
+		currentPoses[start.x][start.y] = startObject;
 		points.add(startObject);
 		addCurrentPosses(start);
+		ArrayList<PathfinderObject> path = new ArrayList<>();
+		PathfinderObject currenObject = points.get(points.size() - 1);
+		path.add(currenObject);
+		while (currenObject.parent != null) {
+			currenObject = currenObject.parent;
+			path.add(currenObject);
+		}
+		System.out.println(System.currentTimeMillis() - t1);
+		if(path.size()-1==esteem(start)){
+			for (int i = path.size() - 1; i >= 0; i--) {
+				System.out.println(path.get(i).point.x + "|" + path.get(i).point.y);
+			}
+		}else{
+			System.out.println("Cannot reach");
+		}
 	}
 
 	private int esteem(Pos p1) {
-		return (int) Math.abs(ziel.getX() - p1.getX()) + (int) Math.abs(ziel.getY() - p1.getY());
+		return Math.abs(ziel.x - p1.x) + Math.abs(ziel.y - p1.y);
 	}
 
 	private void addCurrentPosses(Pos start) {
@@ -31,119 +53,115 @@ public class Pathfinder {
 		ps[0] = translatePos(start, 1, 0);
 		ps[1] = translatePos(start, -1, 0);
 		ps[2] = translatePos(start, 0, 1);
-		ps[2] = translatePos(start, 0, -1);
+		ps[3] = translatePos(start, 0, -1);
 		int[] ss = new int[4];
 		int[] es = new int[4];
-		
-		for(int i = 0; i<4; i++){
-			
-		}
-		if (p1.equals(ziel)) {
-			PathfinderObject endObject = new PathfinderObject(0, currentPoses.get(start).real++, currentPoses.get(start).real++, currentPoses.get(start));
-			currentPoses.put(p1, endObject);
-			points.add(endObject);
-			return;
-		}
-		if (p2.equals(ziel)) {
-			PathfinderObject endObject = new PathfinderObject(0, currentPoses.get(start).real++, currentPoses.get(start).real++, currentPoses.get(start));
-			currentPoses.put(p1, endObject);
-			points.add(endObject);
-			return;
-		}
-		if (p3.equals(ziel)) {
-			PathfinderObject endObject = new PathfinderObject(0, currentPoses.get(start).real++, currentPoses.get(start).real++, currentPoses.get(start));
-			currentPoses.put(p1, endObject);
-			points.add(endObject);
-			return;
-		}
-		if (p4.equals(ziel)) {
-			PathfinderObject endObject = new PathfinderObject(0, currentPoses.get(start).real++, currentPoses.get(start).real++, currentPoses.get(start));
-			currentPoses.put(p1, endObject);
-			points.add(endObject);
-			return;
-		}
-		if ((!isObstrated(p1)) && currentPoses.get(p1) == null) {
-			currentPoses.put(p1, new PathfinderObject(esteem(p1), currentPoses.get(start).real++, currentPoses.get(start).real++ + esteem(p1), currentPoses.get(start)));
-			getSmallestReal(p1);
-			s1 = currentPoses.get(p1).sum;
-			e1 = currentPoses.get(p1).estimate;
-		}
-		if ((!isObstrated(p2)) && currentPoses.get(p2) == null) {
-			currentPoses.put(p2, new PathfinderObject(esteem(p2), currentPoses.get(start).real++, currentPoses.get(start).real++ + esteem(p2), currentPoses.get(start)));
-			getSmallestReal(p2);
-			s2 = currentPoses.get(p2).sum;
-			e2 = currentPoses.get(p2).estimate;
 
+		for (int i = 0; i < 4; i++) {
+			ss[i] = Integer.MAX_VALUE;
+			es[i] = Integer.MAX_VALUE;
+			if (ps[i].x < world.length && ps[i].x >= 0 && ps[i].y < world[0].length && ps[i].y >= 0) {
+				if (compare(ps[i], ziel)) {
+					PathfinderObject endObject = new PathfinderObject(0, currentPoses[start.x][start.y].real++, currentPoses[start.x][start.y].real++,
+							currentPoses[start.x][start.y], ps[i]);
+					currentPoses[ps[i].x][ps[i].y] = endObject;
+					points.add(endObject);
+					return;
+				}
+				if ((!isObstrated(ps[i])) && currentPoses[ps[i].x][ps[i].y] == null) {
+					int real = currentPoses[start.x][start.y].real;
+					currentPoses[ps[i].x][ps[i].y] = new PathfinderObject(esteem(ps[i]), real++, real++ + esteem(ps[i]), currentPoses[start.x][start.y], ps[i]);
+					getSmallestReal(ps[i]);
+					ss[i] = currentPoses[ps[i].x][ps[i].y].sum;
+					es[i] = currentPoses[ps[i].x][ps[i].y].estimate;
+				}
+			}
 		}
-		if ((!isObstrated(p3)) && currentPoses.get(p3) == null) {
-			currentPoses.put(p3, new PathfinderObject(esteem(p3), currentPoses.get(start).real++, currentPoses.get(start).real++ + esteem(p3), currentPoses.get(start)));
-			getSmallestReal(p3);
-			s3 = currentPoses.get(p3).sum;
-			e3 = currentPoses.get(p3).estimate;
 
+		int minS = Math.min(Math.min(ss[0], ss[1]), Math.min(ss[2], ss[3]));
+		if(minS==Integer.MAX_VALUE){
+			return;
 		}
-		if ((!isObstrated(p4)) && currentPoses.get(p4) == null) {
-			currentPoses.put(p4, new PathfinderObject(esteem(p4), currentPoses.get(start).real++, currentPoses.get(start).real++ + esteem(p4), currentPoses.get(start)));
-			getSmallestReal(p4);
-			s4 = currentPoses.get(p4).sum;
-			e4 = currentPoses.get(p4).estimate;
+		ArrayList<Integer> minSs = new ArrayList<>();
+		for (int i = 0; i < 4; i++) {
+			if (minS == ss[i]) {
+				minSs.add(i);
+			}
 		}
-		//TODO next step
+		if (minSs.size() != 1) {
+			int minE = es[0];
+			for (int i = 1; i < minSs.size(); i++) {
+				minE = Math.min(minE, es[i]);
+			}
+			for (int i = 0; i < minSs.size(); i++) {
+				if (es[i] == minE) {
+					minSs.clear();
+					minSs.add(i);
+				}
+			}
+		}
+		points.add(currentPoses[ps[minSs.get(0)].x][ps[minSs.get(0)].y]);
+		addCurrentPosses(ps[minSs.get(0)]);
 	}
 
 	private boolean isObstrated(Pos p) {
 		// TODO
+		if(compare(p, new Pos(2, 0))||compare(p, new Pos(2, 1))||compare(p, new Pos(1, 2))||compare(p, new Pos(0, 2))){
+			return true;
+		}
 		return false;
 	}
 
 	private Pos translatePos(Pos p, int x, int y) {
-		return new Pos(p.getX() + x, p.getY() + y);
+		return new Pos(p.x + x, p.y + y);
 	}
 
-	private int getSmallestReal(Pos p) {
+	private boolean compare(Pos p1, Pos p2) {
+		return (p1.x == p2.x) && (p1.y == p2.y);
+	}
+
+	private void getSmallestReal(Pos p) {
 		int real = Integer.MAX_VALUE;
-		Pos p1 = translatePos(p, 1, 0), p2 = translatePos(p, -1, 0), p3 = translatePos(p, 0, 1), p4 = translatePos(p, 0, -1);
-		if (currentPoses.get(p1) != null) {
-			if (real >= currentPoses.get(p1).real) {
-				real = currentPoses.get(p1).real;
-				currentPoses.get(p).real = real;
-				currentPoses.get(p).parent = currentPoses.get(p1);
+		Pos[] ps = new Pos[4];
+		ps[0] = translatePos(p, 1, 0);
+		ps[1] = translatePos(p, -1, 0);
+		ps[2] = translatePos(p, 0, 1);
+		ps[3] = translatePos(p, 0, -1);
+		for (int i = 0; i < 4; i++) {
+			if (ps[i].x < world.length && ps[i].x >= 0 && ps[i].y < world[0].length && ps[i].y >= 0) {
+				if (currentPoses[ps[i].x][ps[i].y] != null) {
+					if (real >= currentPoses[ps[i].x][ps[i].y].real) {
+						real = currentPoses[ps[i].x][ps[i].y].real;
+						currentPoses[p.x][p.y].real = real;
+						currentPoses[p.x][p.y].parent = currentPoses[ps[i].x][ps[i].y];
+					}
+				}
 			}
 		}
-		if (currentPoses.get(p2) != null) {
-			if (real >= currentPoses.get(p2).real) {
-				real = currentPoses.get(p2).real;
-				currentPoses.get(p).real = real;
-				currentPoses.get(p).parent = currentPoses.get(p2);
-			}
+	}
+
+	private class Pos {
+
+		private int x, y;
+
+		private Pos(int x, int y) {
+			this.x = x;
+			this.y = y;
 		}
-		if (currentPoses.get(p3) != null) {
-			if (real >= currentPoses.get(p3).real) {
-				real = currentPoses.get(p3).real;
-				currentPoses.get(p).real = real;
-				currentPoses.get(p).parent = currentPoses.get(p3);
-			}
-		}
-		if (currentPoses.get(p4) != null) {
-			if (real >= currentPoses.get(p4).real) {
-				real = currentPoses.get(p4).real;
-				currentPoses.get(p).real = real;
-				currentPoses.get(p).parent = currentPoses.get(p4);
-			}
-		}
-		return real;
 	}
 
 	private class PathfinderObject {
 
 		private int estimate, real, sum;
 		private PathfinderObject parent;
+		private Pos point;
 
-		private PathfinderObject(int estimate, int real, int sum, PathfinderObject parent) {
+		private PathfinderObject(int estimate, int real, int sum, PathfinderObject parent, Pos point) {
 			this.estimate = estimate;
 			this.real = real;
 			this.sum = sum;
 			this.parent = parent;
+			this.point = point;
 		}
 	}
 }
