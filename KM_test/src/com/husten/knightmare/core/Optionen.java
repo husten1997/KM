@@ -4,14 +4,18 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.Loader;
 
 public class Optionen extends JFrame implements ChangeListener, ActionListener{
 
@@ -19,6 +23,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 	private MainMenueJFrame mm;
 	private JButton optionen[];
 	private String[] text = {"a", "b", "c", "Zurück"};
+//	private JLabel t;
 	
 	public Optionen(int w, int h, boolean u, MainMenueJFrame a){
 		setUndecorated(u);
@@ -26,11 +31,19 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 		setVisible(true);
 		setLayout(new GridLayout(5,1));
 		
+//		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
+//		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, w,
+//				h, null);
+//		t = new JLabel(new ImageIcon(img));
+//		setContentPane(t);
+		
+		
 		optionen = new JButton[4];
 		
 		volume = new JSlider();
-		volume.setMinimum(-70);
-		volume.setMaximum(20);
+		volume.setMinimum(-80);
+		volume.setMaximum(10);
 		volume.setMajorTickSpacing(5);
 		volume.setMinorTickSpacing(1);
 		volume.setValue(0);
@@ -44,6 +57,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 			optionen[i].addActionListener(this);
 			add(optionen[i]);
 		}
+		
 		mm = a;
 	}
 
