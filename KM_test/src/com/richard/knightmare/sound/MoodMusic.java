@@ -31,7 +31,7 @@ public class MoodMusic {
 		}
 	}
 
-	public static void setMood(String mood) {
+	private static void setMood(String mood) {
 		ArrayList<String> names = moodMusic.get(mood);
 		editListLenght(names.size());
 		int index = (int) (Math.random() * names.size());
@@ -58,11 +58,13 @@ public class MoodMusic {
 		}, 0);
 	}
 
-	public static void init() {
+	public static void init(String startinMood) {
 		String[] list = Loader.getMusicList();
 		for (int i = 0; i < list.length; i++) {
 			addClipToMood("Default", list[i]);
 		}
+		mood = startinMood;
+		setMood(mood);
 	}
 
 	public static void setMoodToDefault() {
