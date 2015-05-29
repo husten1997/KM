@@ -31,7 +31,7 @@ public class MoodMusic {
 		}
 	}
 
-	private static void setMood(String mood) {
+	public static void setMood(String mood) {
 		ArrayList<String> names = moodMusic.get(mood);
 		editListLenght(names.size());
 		int index = (int) (Math.random() * names.size());
