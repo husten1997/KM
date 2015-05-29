@@ -43,6 +43,8 @@ public class Laden extends JFrame implements ListSelectionListener {
 			b[i] = data[i];
 		}
 		
+		setLocationRelativeTo(null);
+		
 		b[data.length] = zurück;
 		
 		list = new JList(b); // data has type Object[]
@@ -54,6 +56,7 @@ public class Laden extends JFrame implements ListSelectionListener {
 		list.setVisibleRowCount(data.length+1);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.setSize(new Dimension(w, h));
+		list.setOpaque(false);
 		
 		setLayout(new FlowLayout());
 		add(list);

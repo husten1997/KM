@@ -41,6 +41,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 				h, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		
+		setLocationRelativeTo(null);
 		
 		optionen = new JButton[text.length];
 		
