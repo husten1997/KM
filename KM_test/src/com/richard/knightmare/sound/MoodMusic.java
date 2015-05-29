@@ -133,4 +133,8 @@ public class MoodMusic {
 		volume += change;
 		player.setVolume(volume);
 	}
+	
+	public static void setVolume(Float set) {
+		player.setVolume(set);
+	}
 }

@@ -3,13 +3,20 @@ package com.husten.knightmare.core;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;
@@ -19,6 +26,8 @@ import com.richard.knightmare.util.Pos;
 public class MainMenueJFrame extends JFrame {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
+	private int w, h;
+	private MainMenueJFrame mm;
 	
 	public MainMenueJFrame() {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
@@ -50,6 +59,11 @@ public class MainMenueJFrame extends JFrame {
 		setAlwaysOnTop(true);
 		setVisible(true);
 		
+		mm = this;
+		
+		w = width;
+		h = height;
+		
 		//Spiel Starten
 		buttons.add(new Button(new Pos(w(848)*width, h(465)*height), new Pos(width, h(586)*height)) {
 			@Override
@@ -63,7 +77,8 @@ public class MainMenueJFrame extends JFrame {
 		buttons.add(new Button(new Pos(w(848)*width, h(608)*height), new Pos(width, h(729)*height)) {
 			@Override
 			public void onClick() {
-				dispose();
+				new Optionen(w, h, isUndecorated(), mm);
+				setVisible(false);
 			}
 		});
 		
@@ -81,6 +96,30 @@ public class MainMenueJFrame extends JFrame {
 			@Override
 			public void onClick() {
 				dispose();
+			}
+		});
+		
+		addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Ignore
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// Ignore
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getExtendedKeyCode() == 112){
+					MoodMusic.changeVolume(-0.5f);
+				}
+				
+				if (e.getKeyCode() == 113){
+					MoodMusic.changeVolume(+0.5f);
+				}				
 			}
 		});
 		
@@ -112,6 +151,7 @@ public class MainMenueJFrame extends JFrame {
 			}
 		});
 	}
+	
 	
 	public double w(double x){
 		return (double) x / (double) 1920;

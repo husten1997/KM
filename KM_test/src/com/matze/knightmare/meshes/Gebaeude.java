@@ -11,6 +11,7 @@ public class Gebaeude {
 	private Waren produziert;
 	private int amountProduzierteWare;
 	private Ausruestung[] verbesserungen;
+	private int maxLagerKapazität;
 
 	public Gebaeude() {
 		verbesserungen = new Ausruestung[6];
@@ -18,7 +19,7 @@ public class Gebaeude {
 
 	public void init(int health, int ProduktionproMinute, int angriff,
 			int reichweite, String name, Waren[] benötigt,
-			int[] amountBenötigt, Waren produziert) {
+			int[] amountBenötigt, Waren produziert, int maxLagerKap) {
 		this.health = health;
 		this.ProduktionproMinute = ProduktionproMinute;
 		this.angriff = angriff;
@@ -33,6 +34,7 @@ public class Gebaeude {
 			this.amountBenötigt[i] = amountBenötigt[i];
 		}
 		this.produziert = produziert;
+		this.maxLagerKapazität = maxLagerKap;
 	}
 
 	public void WareFertigstellen() {
