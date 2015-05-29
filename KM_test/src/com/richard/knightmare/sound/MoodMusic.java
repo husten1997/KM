@@ -63,7 +63,6 @@ public class MoodMusic {
 		for (int i = 0; i < list.length; i++) {
 			addClipToMood("Default", list[i]);
 		}
-		setMoodToDefault();
 	}
 
 	public static void setMoodToDefault() {
