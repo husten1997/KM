@@ -1,7 +1,11 @@
 package com.husten.knightmare.core;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -17,47 +21,61 @@ import javax.swing.event.ChangeListener;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 
+//M
 public class Optionen extends JFrame implements ChangeListener, ActionListener{
 
 	private JSlider volume;
 	private MainMenueJFrame mm;
 	private JButton optionen[];
-	private String[] text = {"a", "b", "c", "Zurück"};
-//	private JLabel t;
+	private String[] text = {"Fenstermodus", "Grafikeinstellungen", "Texturepacks", "Zurück"};
 	
 	public Optionen(int w, int h, boolean u, MainMenueJFrame a){
 		setUndecorated(u);
 		setSize(w, h);
 		setVisible(true);
-		setLayout(new GridLayout(5,1));
+		//setLayout(new GridLayout(5,1));
 		
-//		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-//		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-//		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, w,
-//				h, null);
-//		t = new JLabel(new ImageIcon(img));
-//		setContentPane(t);
+		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
+		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, w,
+				h, null);
+		setContentPane(new JLabel(new ImageIcon(img)));
 		
 		
-		optionen = new JButton[4];
+		optionen = new JButton[text.length];
 		
 		volume = new JSlider();
-		volume.setMinimum(-80);
-		volume.setMaximum(10);
+		volume.setMinimum(0);
+		volume.setMaximum(100);
 		volume.setMajorTickSpacing(5);
 		volume.setMinorTickSpacing(1);
-		volume.setValue(0);
+		volume.setValue(50);
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
 		volume.addChangeListener(this);
-		add(volume);
+		volume.setPreferredSize(new Dimension(w/2, h/(optionen.length+1)));
+		volume.setBackground(Color.black);
+		volume.setForeground(Color.white);
+		volume.setToolTipText("Volume");
+		volume.setOpaque(false);
 		
 		for (int i = 0; i < optionen.length; i++){
 			optionen[i] = new JButton(text[i]);
 			optionen[i].addActionListener(this);
-			add(optionen[i]);
+			optionen[i].setPreferredSize(new Dimension(w/2,h/(optionen.length+1)));
+			optionen[i].setForeground(Color.WHITE);
+			optionen[i].setBackground(Color.black);
+			optionen[i].setOpaque(false);
+			optionen[i].setContentAreaFilled(true);
+			optionen[i].setBorderPainted(true);
+			optionen[i].setFont(new Font("Arial", Font.BOLD, 48));
+			if (i > 0)
+			add(optionen[i-1]);
 		}
 		
+		add(volume);
+		add(optionen[optionen.length-1]);
+		setLayout(new FlowLayout());
 		mm = a;
 	}
 
@@ -67,7 +85,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 		
 		if (q == volume){
 			System.out.println(volume.getValue());
-			MoodMusic.setVolume((float)volume.getValue());
+			MoodMusic.setVolume((float)volume.getValue()-80);
 		}
 		
 	}
@@ -76,7 +94,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		Object q = arg0.getSource();
 		
-		if (q == optionen[3]){
+		if (q == optionen[optionen.length-1]){
 			mm.setVisible(true);
 			dispose();
 		}

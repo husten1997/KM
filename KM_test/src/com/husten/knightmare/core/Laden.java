@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.richard.knightmare.util.Loader;
 
+//M
 public class Laden extends JFrame implements ListSelectionListener {
 
 	private JList list;
