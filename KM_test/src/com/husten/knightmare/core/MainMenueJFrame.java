@@ -68,6 +68,7 @@ public class MainMenueJFrame extends JFrame {
 		buttons.add(new Button(new Pos(w(848)*width, h(465)*height), new Pos(width, h(586)*height)) {
 			@Override
 			public void onClick() {
+				dispose();
 				new Knightmare();
 			}
 		});
