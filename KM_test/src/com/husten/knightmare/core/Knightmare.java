@@ -48,8 +48,8 @@ public class Knightmare implements StringConstants {
 	public Knightmare() {
 		start();
 	}
-	
-	public static void preload(){
+
+	private void start() {
 		try {
 			Display.create();
 		} catch (LWJGLException e) {
@@ -57,9 +57,6 @@ public class Knightmare implements StringConstants {
 			System.exit(0);
 		}
 		Loader.load();
-	}
-
-	private void start() {
 		objectinit();
 	}
 	
