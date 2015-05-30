@@ -7,7 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -57,23 +57,23 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		optionen = new JButton[text.length];
 
-		position = (int) ((MoodMusic.getVolume()/0.84)+94)-1;
-		
+		position = (int) ((MoodMusic.getVolume() / 0.84) + 94) - 1;
+
 		volume = new JSlider();
 		volume.setMinimum(0);
 		volume.setMaximum(100);
 		volume.setMajorTickSpacing(5);
 		volume.setMinorTickSpacing(1);
 		volume.setValue(position);
+		volume.setBorder(BorderFactory.createLineBorder(Color.lightGray,1));
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
 		volume.addChangeListener(this);
+		volume.setFocusable(false);
 		volume.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2 + (optionen.length - 1) * height / (optionen.length + 1), width / 2,
 				height / (optionen.length + 1));
-		volume.setBackground(Color.black);
+		volume.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		volume.setForeground(Color.white);
-		volume.setToolTipText("Volume");
-		volume.setOpaque(false);
 
 		for (int i = 0; i < optionen.length; i++) {
 			optionen[i] = new JButton(text[i]);
@@ -81,10 +81,11 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 			optionen[i].setBounds((screen.width - width) / 2 + width / 4,
 					(screen.height - height) / 2 + (i < optionen.length - 1 ? i : i + 1) * height / (optionen.length + 1), width / 2, height / (optionen.length + 1));
 			optionen[i].setForeground(Color.WHITE);
-			optionen[i].setBackground(Color.black);
-			optionen[i].setOpaque(false);
+			optionen[i].setBackground(new Color(0, 0, 0.25f, 0.25f));
+			optionen[i].setRolloverEnabled(false);
+			optionen[i].setFocusable(false);
 			optionen[i].setContentAreaFilled(true);
-			optionen[i].setBorderPainted(true);
+			optionen[i].setBorder(BorderFactory.createLineBorder(Color.lightGray,1));
 			optionen[i].setFont(new Font("Arial", Font.BOLD, 48));
 			if (i > 0)
 				add(optionen[i - 1]);
@@ -100,8 +101,9 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 		Object q = e.getSource();
 
 		if (q == volume) {
+			repaint();
 			System.out.println(volume.getValue());
-			MoodMusic.setVolume((float) (int)((6-((100-volume.getValue())*0.84))));
+			MoodMusic.setVolume((float) (int) ((6 - ((100 - volume.getValue()) * 0.84))));
 			position = volume.getValue();
 		}
 
@@ -110,6 +112,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object q = arg0.getSource();
+		repaint();
 
 		if (q == optionen[optionen.length - 1]) {
 			mm.setVisible(true);
