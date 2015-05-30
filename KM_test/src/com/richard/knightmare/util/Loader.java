@@ -77,6 +77,8 @@ public class Loader {
 		
 		defaultConfigValues.put("Button: Schliessen (posx2)", "1920");
 		defaultConfigValues.put("Button: Schliessen (posy2)", "967");
+		
+		defaultConfigValues.put("Fullscreen", "true");
 
 		glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT,
 				DataBuffer.TYPE_BYTE);
