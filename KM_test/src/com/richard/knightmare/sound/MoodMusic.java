@@ -50,7 +50,7 @@ public class MoodMusic {
 			public void run() {
 				setMood(mood);
 			}
-		}, duration * 10000);
+		}, duration * 1000);
 	}
 
 	public static void init(String startinMood) {
