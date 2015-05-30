@@ -60,7 +60,6 @@ public class MoodMusic {
 
 	public static void init(String startinMood) {
 		volume = Loader.getVolume();
-		System.out.println(volume);
 		String[] list = Loader.getMusicList();
 		for (int i = 0; i < list.length; i++) {
 			addClipToMood("Default", list[i]);
@@ -111,7 +110,6 @@ public class MoodMusic {
 	}
 	
 	public static float getVolume(){
-		System.out.println("m"+volume);
 		return volume;
 	}
 	
