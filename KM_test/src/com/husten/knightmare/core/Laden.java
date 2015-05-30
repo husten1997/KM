@@ -72,7 +72,7 @@ public class Laden extends JFrame implements ListSelectionListener {
 				mm.setVisible(true);
 				dispose();
 			} else {
-				//TODO load(list.getSelectedIndex());ü
+				//TODO load(list.getSelectedIndex());
 			}
 		}
 
