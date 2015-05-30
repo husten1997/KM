@@ -30,6 +30,7 @@ public class MainMenueJFrame extends JFrame {
 		MoodMusic.addMood("MainMenue");
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
 		MoodMusic.init("MainMenue");
+		MoodMusic.setVolume(-30f);
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -62,7 +63,6 @@ public class MainMenueJFrame extends JFrame {
 		buttons.add(new Button(new Pos(w(848) * width, h(465) * height), new Pos(width, h(586) * height)) {
 			@Override
 			public void onClick() {
-				dispose();
 				MoodMusic.changeMood("Default");
 				new Knightmare();
 			}
