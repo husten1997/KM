@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -14,11 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import com.richard.knightmare.util.Loader;
 
 //M
 @SuppressWarnings("serial")
-public class Laden extends JFrame implements KeyListener {
+public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 
 	private JList<String> list;
 	private String[] data = { "getSpeicherStand1", "getSpeicherstand2",
@@ -27,6 +32,7 @@ public class Laden extends JFrame implements KeyListener {
 	private MainMenue mm;
 
 	public Laden(boolean undecorated, MainMenue a) {
+		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -84,13 +90,13 @@ public class Laden extends JFrame implements KeyListener {
 		mm = a;
 
 		list.addKeyListener(this);
+		list.addListSelectionListener(this);
 
 	}
 
 	private void performAction(int x) {
 		if (x == data.length){
 			mm.setVisible(true);
-			mm.setAlwaysOnTop(true);
 			dispose();
 		} else {
 			//load(x);
@@ -116,7 +122,50 @@ public class Laden extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		Object q = arg0.getSource();
+		
+		if (q == list){
+			list.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					if (e.getButton() == MouseEvent.BUTTON1){
+						performAction(list.getSelectedIndex());
+					}
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
+		
 	}
 
 }
