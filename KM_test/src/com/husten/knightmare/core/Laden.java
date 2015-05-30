@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,12 +27,12 @@ import com.richard.knightmare.util.Loader;
 
 //M
 @SuppressWarnings("serial")
-public class Laden extends JFrame implements KeyListener, ListSelectionListener{
+public class Laden extends JFrame implements KeyListener, ListSelectionListener, ActionListener{
 
 	private JList<String> list;
+	private JButton zurück;
 	private String[] data = { "getSpeicherStand1", "getSpeicherstand2",
 			"getSpeicherstandX" };
-	private String zurück = "Zurück";
 	private MainMenue mm;
 
 	public Laden(boolean undecorated, MainMenue a) {
@@ -60,18 +63,10 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 		setUndecorated(undecorated);
 		setSize(screen);
 		setVisible(true);
-
-		String[] b = new String[data.length + 1];
-
-		for (int i = 0; i < data.length; i++) {
-			b[i] = data[i];
-		}
-
+		
 		setLocationRelativeTo(null);
 
-		b[data.length] = zurück;
-
-		list = new JList<String>(b); // data has type Object[]
+		list = new JList<String>(data); // data has type Object[]
 		list.setSize(new Dimension(width, height));
 		list.setBounds((screen.width-width)/2 + width/4,
 				(screen.height - height) / 2, width/2, height);
@@ -86,10 +81,11 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 		add(list);
 		((DefaultListCellRenderer)list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);  
 		
-		JButton zurück = new JButton("Zurück");
+		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f,0.5f,0.5f,0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width/48));
 		zurück.setBounds(screen.width/2+3*width/8,(screen.height-height)/2+height-width/24,width/8,width/24);
+		zurück.addActionListener(this);
 		add(zurück);
 		
 		mm = a;
@@ -100,13 +96,8 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 	}
 
 	private void performAction(int x) {
-		if (x == data.length){
-			mm.setVisible(true);
-			mm.setAutoRequestFocus(true);
-			dispose();
-		} else {
-			//load(x);
-		}
+		//load(x);
+		System.out.println("Doppelklick");
 	}
 
 	@Override
@@ -140,7 +131,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 				
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if (e.getButton() == MouseEvent.BUTTON1){
+					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount()==2){
 						performAction(list.getSelectedIndex());
 					}
 					
@@ -172,6 +163,14 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 			});
 		}
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == zurück)	{
+			mm.setVisible(true);
+			dispose();
+		}
 	}
 
 }
