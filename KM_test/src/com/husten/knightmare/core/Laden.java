@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.List;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -19,46 +18,67 @@ import javax.swing.event.ListSelectionListener;
 import com.richard.knightmare.util.Loader;
 
 //M
+@SuppressWarnings("serial")
 public class Laden extends JFrame implements ListSelectionListener {
 
-	private JList list;
-	private String[] data = { "getSpeicherStand1", "getSpeicherstand2", "getSpeicherstandX"};
+	private JList<String> list;
+	private String[] data = { "getSpeicherStand1", "getSpeicherstand2", "getSpeicherstandX" };
 	private String zurück = "Zurück";
 	private MainMenueJFrame mm;
 
-	public Laden(int w, int h, boolean u, MainMenueJFrame a) {
-		setSize(w, h);
-		setUndecorated(u);
-		setVisible(true);
-		
+	public Laden(boolean undecorated, MainMenueJFrame a) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, w,
-				h, null);
+		double resolution = (double) 16 / (double) 9;
+		int width, height;
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		if (screen.getWidth() / screen.getHeight() == resolution) {
+			width = screen.width;
+			height = screen.height;
+		} else if (screen.getWidth() / screen.getHeight() > resolution) {
+			width = (int) (screen.getHeight() * resolution);
+			height = screen.height;
+		} else {
+			width = screen.width;
+			height = (int) (screen.getWidth() / resolution);
+		}
+		setBackground(Color.BLACK);
+		// Set your Image Here.
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width, height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
-		
-		String[] b = new String[data.length+1];
-		
-		for (int i = 0; i < data.length; i++){
+		setIconImage(Loader.getImage("Ritter.png"));
+		setTitle("Knightmare");
+
+		setUndecorated(undecorated);
+		setSize(screen);
+		setVisible(true);
+
+		String[] b = new String[data.length + 1];
+
+		for (int i = 0; i < data.length; i++) {
 			b[i] = data[i];
 		}
-		
+
 		setLocationRelativeTo(null);
-		
+
 		b[data.length] = zurück;
-		
-		list = new JList(b); // data has type Object[]
+
+		setLayout(new FlowLayout());
+
+		list = new JList<String>(b); // data has type Object[]
+		list.setSize(new Dimension(width, height));
+		list.setBounds((int) list.getBounds().getX(), (screen.height - height) / 2, width, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBackground(Color.black);
+		list.setBackground(new Color(0, 0, 0, 1));
 		list.setForeground(Color.white);
+		list.setSelectionBackground(Color.black);
+		list.setSelectionForeground(Color.cyan);
 		list.addListSelectionListener(this);
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		list.setVisibleRowCount(data.length+1);
+		list.setVisibleRowCount(data.length + 1);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
-		list.setSize(new Dimension(w, h));
 		list.setOpaque(false);
-		
-		setLayout(new FlowLayout());
+
 		add(list);
 		mm = a;
 	}
@@ -72,7 +92,7 @@ public class Laden extends JFrame implements ListSelectionListener {
 				mm.setVisible(true);
 				dispose();
 			} else {
-				//TODO load(list.getSelectedIndex());
+				// TODO load(list.getSelectedIndex());
 			}
 		}
 
