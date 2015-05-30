@@ -49,8 +49,34 @@ public class Loader {
 
 	public static void initLoaderWithoutLoad(String firmenname, String spielname) {
 		// Config Values
+		//defaultConfigValues.put("Ein Texturepack darf nicht Default heißen", "Gib unten die Koordinaten der Buttons deiner Full-HD Menü Textur an");
+		
 		defaultConfigValues.put("Resourcepack", "Default");
 		defaultConfigValues.put("Volume", "-27.6");
+		
+		defaultConfigValues.put("Button: Spielstarten (posx1)", "848");
+		defaultConfigValues.put("Button: Spielstarten (posy1)", "465");
+		
+		defaultConfigValues.put("Button: Spielstarten (posx2)", "1920");
+		defaultConfigValues.put("Button: Spielstarten (posy2)", "586");
+		
+		defaultConfigValues.put("Button: Optionen (posx1)", "848");
+		defaultConfigValues.put("Button: Optionen (posy1)", "608");
+		
+		defaultConfigValues.put("Button: Optionen (posx2)", "1920");
+		defaultConfigValues.put("Button: Optionen (posy2)", "729");
+		
+		defaultConfigValues.put("Button: Laden (posx1)", "848");
+		defaultConfigValues.put("Button: Laden (posy1)", "751");
+		
+		defaultConfigValues.put("Button: Laden (posx2)", "1920");
+		defaultConfigValues.put("Button: Laden (posy2)", "838");
+		
+		defaultConfigValues.put("Button: Schliessen (posx1)", "848");
+		defaultConfigValues.put("Button: Schliessen (posy1)", "894");
+		
+		defaultConfigValues.put("Button: Schliessen (posx2)", "1920");
+		defaultConfigValues.put("Button: Schliessen (posy2)", "967");
 
 		glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT,
 				DataBuffer.TYPE_BYTE);
@@ -109,7 +135,7 @@ public class Loader {
 			texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
 		}
 		if(!(Float.parseFloat(configValues.get("Volume"))<=6 && -80>= Float.parseFloat(configValues.get("Volume")))){
-			configValues.put("Volume", String.valueOf(-27.6f));
+			configValues.put("Volume", "-27.6");
 			writeValues();
 		}
 	}

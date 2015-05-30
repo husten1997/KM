@@ -60,7 +60,7 @@ public class MainMenue extends JFrame {
 		mm = this;
 
 		// Spiel Starten
-		buttons.add(new Button(new Pos(w(848) * width, h(465) * height), new Pos(width, h(586) * height)) {
+		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx1)")) * width, h(Loader.getCfgValue("Button: Spielstarten (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx2)"))*width, h(Loader.getCfgValue("Button: Spielstarten (posy2)")) * height)) {
 			@Override
 			public void onClick() {
 				dispose();
@@ -82,9 +82,9 @@ public class MainMenue extends JFrame {
 				}, 0);
 			}
 		});
-
+		
 		// Optionen
-		buttons.add(new Button(new Pos(w(848) * width, h(608) * height), new Pos(width, h(729) * height)) {
+		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Optionen (posx1)")) * width, h(Loader.getCfgValue("Button: Optionen (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Optionen (posx2)"))*width, h(Loader.getCfgValue("Button: Optionen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
 				new Optionen(isUndecorated(), mm).setAlwaysOnTop(true);;
@@ -93,7 +93,7 @@ public class MainMenue extends JFrame {
 		});
 
 		// Laden
-		buttons.add(new Button(new Pos(w(848) * width, h(751) * height), new Pos(width, h(838) * height)) {
+		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Laden (posx1)")) * width, h(Loader.getCfgValue("Button: Laden (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Laden (posx2)"))*width, h(Loader.getCfgValue("Button: Laden (posy2)")) * height)) {
 			@Override
 			public void onClick() {
 				new Laden(isUndecorated(), mm).setAlwaysOnTop(true);;
@@ -102,7 +102,7 @@ public class MainMenue extends JFrame {
 		});
 
 		// Schliessen
-		buttons.add(new Button(new Pos(w(848) * width, h(894) * height), new Pos(width, h(967) * height)) {
+		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Schliessen (posx1)")) * width, h(Loader.getCfgValue("Button: Schliessen (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Schliessen (posx2)"))*width, h(Loader.getCfgValue("Button: Schliessen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
 				dispose();
@@ -164,11 +164,13 @@ public class MainMenue extends JFrame {
 		});
 	}
 
-	private double w(double x) {
+	private double w(String s) {
+		double x = Double.parseDouble(s);
 		return (double) x / (double) 1920;
 	}
 
-	private double h(double x) {
+	private double h(String s) {
+		double x = Double.parseDouble(s);
 		return (double) x / (double) 1080;
 	}
 
