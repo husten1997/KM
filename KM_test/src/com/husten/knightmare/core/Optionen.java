@@ -69,7 +69,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 		volume.setPaintLabels(true);
 		volume.addChangeListener(this);
 //		volume.setPreferredSize(new Dimension(width/2, height/(optionen.length+1)));
-		volume.setBounds((screen.width-width)/2+width/4, (optionen.length-1)*height/(optionen.length+1), width/2, height/(optionen.length+1));
+		volume.setBounds((screen.width-width)/2+width/4, (screen.height-height)/2+(optionen.length-1)*height/(optionen.length+1), width/2, height/(optionen.length+1));
 		volume.setBackground(Color.black);
 		volume.setForeground(Color.white);
 		volume.setToolTipText("Volume");
@@ -79,7 +79,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 			optionen[i] = new JButton(text[i]);
 			optionen[i].addActionListener(this);
 //			optionen[i].setPreferredSize(new Dimension(width/2,height/(optionen.length+1)));
-			optionen[i].setBounds((screen.width-width)/2+width/4, (i<optionen.length-1?i:i+1)*height/(optionen.length+1), width/2, height/(optionen.length+1));
+			optionen[i].setBounds((screen.width-width)/2+width/4, (screen.height-height)/2+(i<optionen.length-1?i:i+1)*height/(optionen.length+1), width/2, height/(optionen.length+1));
 			optionen[i].setForeground(Color.WHITE);
 			optionen[i].setBackground(Color.black);
 			optionen[i].setOpaque(false);
