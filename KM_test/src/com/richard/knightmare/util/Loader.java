@@ -35,7 +35,6 @@ import com.husten.knightmare.graphicalObjects.Texture;
 public class Loader {
 
 	private static File saves, configs, resourcepacks, cfgFile, texturesRes, texturesDefault;
-//	private static String resourcepack = "Default";
 	private static HashMap<String, Texture> textures = new HashMap<>();
 	private static HashMap<String, Clip> sounds = new HashMap<>();
 	private static ColorModel glAlphaColorModel, glColorModel;
@@ -102,7 +101,7 @@ public class Loader {
 			writeValues();
 		}
 		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
-		texturesDefault = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\Default\\Textures").toString());
+		texturesDefault = new File("src\\resources\\textures");
 	}
 	
 	private static void writeValues(){
@@ -138,8 +137,7 @@ public class Loader {
 	}
 
 	private static void loadSounds() {
-		String path = "\\Default\\Sounds";
-		File sounds = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append(path).toString());
+		File sounds = new File("src\\resources\\sounds");
 		String[] names = sounds.list();
 		for (int i = 0; i < names.length; i++) {
 			try {
@@ -151,7 +149,7 @@ public class Loader {
 				// Didn't work, trying default
 				try {
 					Clip clip = AudioSystem.getClip();
-					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(sounds.getAbsolutePath()).append("\\").append(names[i]).toString())));
+					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder("src\\resources\\sounds").append("\\").append(names[i]).toString())));
 					Loader.sounds.put(names[i], clip);
 				} catch (Exception e1) {
 					// Just stop trying
@@ -161,8 +159,6 @@ public class Loader {
 	}
 
 	public static Clip getMusic(String name) {
-		String path = "\\Default\\Music";
-		File music = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append(path).toString());
 		try {
 			Clip clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(
@@ -172,7 +168,7 @@ public class Loader {
 			// Didn't work, trying default
 			try {
 				Clip clip = AudioSystem.getClip();
-				clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(music.getAbsolutePath()).append("\\").append(name).toString())));
+				clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder("src\\resources\\music").append("\\").append(name).toString())));
 				return clip;
 			} catch (Exception e1) {
 				// Just stop trying
@@ -224,8 +220,7 @@ public class Loader {
 	}
 
 	public static String[] getMusicList() {
-		//TODO wiso iaz ned aus default du depp?
-		return new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Music").toString()).list();
+		return new File("src\\resources\\music").list();
 	}
 
 	private static Texture createTexture(String textureName) {
@@ -240,7 +235,7 @@ public class Loader {
 			bufferedImage = ImageIO.read(new File(new StringBuilder(texturesRes.getAbsolutePath()).append("\\").append(textureName).toString()));
 		} catch (IOException e) {
 			try {
-				bufferedImage = ImageIO.read(new File(new StringBuilder(texturesDefault.getAbsolutePath()).append("\\").append(textureName).toString()));
+				bufferedImage = ImageIO.read(new File(new StringBuilder("src\\resources\\textures").append("\\").append(textureName).toString()));
 			} catch (IOException e1) {
 				// Ignore
 			}
@@ -334,7 +329,7 @@ public class Loader {
 					.toString()));
 		} catch (IOException e) {
 			try {
-				bufferedImage = ImageIO.read(new File(new StringBuilder(texturesDefault.getAbsolutePath()).append("\\").append(name).toString()));
+				bufferedImage = ImageIO.read(new File(new StringBuilder("src\\resources\\textures").append("\\").append(name).toString()));
 			} catch (IOException e1) {
 				// Ignore
 			}
