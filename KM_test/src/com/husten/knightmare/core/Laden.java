@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -23,6 +24,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 
 //M
@@ -31,8 +33,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 
 	private JList<String> list;
 	private JButton zurück;
-	private String[] data = { "getSpeicherStand1", "getSpeicherstand2",
-			"getSpeicherstandX" };
+	private String[] data = { "Keine Speicherstände vorhanden. Neues Spiel?"};
 	private MainMenue mm;
 
 	public Laden(boolean undecorated, MainMenue a) {
@@ -96,8 +97,10 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 	}
 
 	private void performAction(int x) {
-		//load(x);
-		System.out.println("Doppelklick");
+		if (data[0].equals("Keine Speicherstände vorhanden. Neues Spiel?")){
+			mm.setVisible(true);
+			dispose();
+		}
 	}
 
 	@Override
