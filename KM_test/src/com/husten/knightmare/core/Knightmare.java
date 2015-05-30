@@ -159,33 +159,37 @@ public class Knightmare implements StringConstants {
 		}
 	}
 
-	public void pollInput() {
+	public void tooggleFullscreen(){
+		if (fullscreen) {
+			WIDTH = 1600;
+			HEIGHT = 900;
+		} else {
+			initRes();
+		}
+		screenToSet = true;
+		if (scale < 0.1f) {
+			scale = 0.1f;
+		}
+		if (scale > terrain.getWidth() * 32 / WIDTH) {
+			scale = terrain.getWidth() * 32 / WIDTH;
+		}
+		if (CameraX < 0) {
+			CameraX = 0;
+		}
+		if (CameraY < 0) {
+			CameraY = 0;
+		}
+		if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+			CameraX = terrain.getWidth() * 32 - WIDTH * scale;
+		}
+		if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+			CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
+		}
+	}
+	
+	private void pollInput() {
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
-			if (fullscreen) {
-				WIDTH = 1600;
-				HEIGHT = 900;
-			} else {
-				initRes();
-			}
-			screenToSet = true;
-			if (scale < 0.1f) {
-				scale = 0.1f;
-			}
-			if (scale > terrain.getWidth() * 32 / WIDTH) {
-				scale = terrain.getWidth() * 32 / WIDTH;
-			}
-			if (CameraX < 0) {
-				CameraX = 0;
-			}
-			if (CameraY < 0) {
-				CameraY = 0;
-			}
-			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
-				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
-			}
-			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
-				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
-			}
+			tooggleFullscreen();
 		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
@@ -193,6 +197,7 @@ public class Knightmare implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 					MainMenue m = new MainMenue("menue.png");
+					m.setUndecorated(!fullscreen);
 					timer.cancel();
 					running = false;
 					m.toFront();

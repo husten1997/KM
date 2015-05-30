@@ -77,6 +77,9 @@ public class MainMenue extends JFrame {
 						Knightmare km = new Knightmare();
 						MoodMusic.changeMood("Default");
 						m.dispose();
+						if(isUndecorated()){
+							km.tooggleFullscreen();
+						}
 						km.loop();
 					}
 				}, 0);
