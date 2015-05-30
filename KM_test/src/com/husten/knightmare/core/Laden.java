@@ -11,20 +11,16 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 
 //M
@@ -87,6 +83,8 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 		zurück.setFont(new Font("Arial", Font.BOLD, width/48));
 		zurück.setBounds(screen.width/2+3*width/8,(screen.height-height)/2+height-width/24,width/8,width/24);
 		zurück.addActionListener(this);
+		zurück.setRolloverEnabled(false);
+		zurück.setFocusable(false);
 		add(zurück);
 		
 		mm = a;
@@ -99,6 +97,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 	private void performAction(int x) {
 		if (data[0].equals("Keine Speicherstände vorhanden. Neues Spiel?")){
 			mm.setVisible(true);
+			mm.setAutoRequestFocus(true);
 			dispose();
 		}
 	}
