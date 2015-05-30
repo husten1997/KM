@@ -9,6 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,12 +28,8 @@ public class MainMenue extends JFrame {
 	private ArrayList<Button> buttons = new ArrayList<>();
 	private MainMenue mm;
 
-	public MainMenue() {
-		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-		MoodMusic.addMood("MainMenue");
-		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
-		MoodMusic.init("MainMenue");
-		MoodMusic.setVolume(-30f);
+	public MainMenue(String Imagename) {
+		MoodMusic.changeMood("MainMenue");
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -48,13 +47,14 @@ public class MainMenue extends JFrame {
 		setBackground(Color.BLACK);
 		// Set your Image Here.
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(Loader.getImage("menue.png"), 0, 0, width, height, null);
+		img.getGraphics().drawImage(Loader.getImage(Imagename), 0, 0, width, height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		setIconImage(Loader.getImage("Ritter.png"));
 		setUndecorated(true);
 		setTitle("Knightmare");
 		setSize(screen);
 		setAlwaysOnTop(true);
+		setAutoRequestFocus(true);
 		setVisible(true);
 
 		mm = this;
@@ -63,10 +63,23 @@ public class MainMenue extends JFrame {
 		buttons.add(new Button(new Pos(w(848) * width, h(465) * height), new Pos(width, h(586) * height)) {
 			@Override
 			public void onClick() {
-				Knightmare km = new Knightmare();
 				dispose();
-				MoodMusic.changeMood("Default");
-				km.loop();
+				new Timer(false).schedule(new TimerTask() {
+					
+					@Override
+					public void run() {
+						MainMenue m = new MainMenue("loadscreen.png");
+						try {
+							TimeUnit.SECONDS.sleep(1);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						Knightmare km = new Knightmare();
+						MoodMusic.changeMood("Default");
+						m.dispose();
+						km.loop();
+					}
+				}, 0);
 			}
 		});
 
@@ -144,7 +157,9 @@ public class MainMenue extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				click(new Pos(e.getX() - (screen.getWidth() - width) / 2, e.getY() - (screen.getHeight() - height) / 2));
+				if(Imagename.equals("menue.png")){
+					click(new Pos(e.getX() - (screen.getWidth() - width) / 2, e.getY() - (screen.getHeight() - height) / 2));
+				}
 			}
 		});
 	}
@@ -158,7 +173,12 @@ public class MainMenue extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new MainMenue();
+		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
+		MoodMusic.addMood("MainMenue");
+		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
+		MoodMusic.init("MainMenue");
+		MoodMusic.setVolume(-30f);
+		new MainMenue("menue.png");
 	}
 
 	private void click(Pos point) {
