@@ -15,6 +15,7 @@ public class MoodMusic {
 	private static HashMap<String, ArrayList<String>> moodMusic = new HashMap<>();
 	private static float volume = -27.6f;
 	private static String mood;
+	private static Timer timer;
 
 	public static void addMood(String name) {
 		if (!moodMusic.containsKey(name)) {
@@ -42,20 +43,14 @@ public class MoodMusic {
 		player = new MusikPlayer(names.get(index));
 		player.setVolume(volume);
 		long duration = player.start();
-		new Timer(true).schedule(new TimerTask() {
+		timer = new Timer(true);
+		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				try {
-					TimeUnit.SECONDS.sleep(duration);
-				} catch (InterruptedException e) {
-					// Ignore
-				}
-				if (mood.equals(MoodMusic.mood)) {
-					changeMood(mood);
-				}
+				setMood(mood);
 			}
-		}, 0);
+		}, duration * 10000);
 	}
 
 	public static void init(String startinMood) {
@@ -79,6 +74,7 @@ public class MoodMusic {
 				@Override
 				public void run() {
 					ausblenden();
+					timer.cancel();
 					MoodMusic.mood = mood;
 					setMood(mood);
 				}
@@ -108,12 +104,12 @@ public class MoodMusic {
 		}
 		player.stop();
 	}
-	
-	public static float getVolume(){
+
+	public static float getVolume() {
 		return volume;
 	}
-	
-	public static void abwürgen(){
+
+	public static void abwürgen() {
 		player.stop();
 	}
 
@@ -138,7 +134,7 @@ public class MoodMusic {
 		volume += change;
 		player.setVolume(volume);
 	}
-	
+
 	public static void setVolume(Float set) {
 		volume = set;
 		player.setVolume(set);
