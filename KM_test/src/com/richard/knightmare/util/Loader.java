@@ -102,6 +102,12 @@ public class Loader {
 		}
 		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
 		texturesDefault = new File("src\\resources\\textures");
+		//Configs are valid?
+		if(!texturesRes.exists()){
+			configValues.put("Resourcepack", "Default");
+			writeValues();
+			texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
+		}
 	}
 
 	private static void writeValues() {
@@ -381,11 +387,7 @@ public class Loader {
 		writeValues();
 	}
 
-	private static String getCfgValue(String key) {
+	public static String getCfgValue(String key) {
 		return configValues.get(key);
-	}
-
-	public static float getVolume() {
-		return Float.parseFloat(getCfgValue("Volume"));
 	}
 }
