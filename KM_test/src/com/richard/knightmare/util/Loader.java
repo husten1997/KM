@@ -170,7 +170,7 @@ public class Loader {
 				// Didn't work, trying default
 				try {
 					Clip clip = AudioSystem.getClip();
-					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(path).append("\\").append(names[i]).toString())));
+					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(sounds.getAbsolutePath()).append("\\").append(names[i]).toString())));
 					Loader.sounds.put(names[i], clip);
 				} catch (Exception e1) {
 					// Just stop trying
@@ -243,6 +243,7 @@ public class Loader {
 	}
 
 	public static String[] getMusicList() {
+		//TODO wiso iaz ned aus default du depp?
 		return new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Music").toString()).list();
 	}
 
@@ -258,7 +259,7 @@ public class Loader {
 			bufferedImage = ImageIO.read(new File(new StringBuilder(texturesRes.getAbsolutePath()).append("\\").append(textureName).toString()));
 		} catch (IOException e) {
 			try {
-				bufferedImage = ImageIO.read(new File(new StringBuilder(texturesRes.getAbsolutePath()).append("\\").append(textureName).toString()));
+				bufferedImage = ImageIO.read(new File(new StringBuilder(texturesDefault.getAbsolutePath()).append("\\").append(textureName).toString()));
 			} catch (IOException e1) {
 				// Ignore
 			}

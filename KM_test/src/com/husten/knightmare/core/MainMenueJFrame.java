@@ -14,9 +14,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;
@@ -80,7 +77,7 @@ public class MainMenueJFrame extends JFrame {
 		buttons.add(new Button(new Pos(w(848)*width, h(608)*height), new Pos(width, h(729)*height)) {
 			@Override
 			public void onClick() {
-				new Optionen(w, h, isUndecorated(), mm);
+				new Optionen(isUndecorated(), mm);
 				setVisible(false);
 			}
 		});
@@ -156,11 +153,11 @@ public class MainMenueJFrame extends JFrame {
 	}
 	
 	
-	public double w(double x){
+	private double w(double x){
 		return (double) x / (double) 1920;
 	}
 	
-	public double h(double x){
+	private double h(double x){
 		return (double) x / (double) 1080;
 	}
 

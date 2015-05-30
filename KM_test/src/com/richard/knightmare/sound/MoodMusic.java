@@ -68,8 +68,7 @@ public class MoodMusic {
 	}
 
 	public static void setMoodToDefault() {
-		mood = "Default";
-		setMood(mood);
+		changeMood("Default");
 	}
 
 	public static void changeMood(String mood) {

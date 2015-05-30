@@ -2,10 +2,8 @@ package com.husten.knightmare.core;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -22,6 +20,7 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 
 //M
+@SuppressWarnings("serial")
 public class Optionen extends JFrame implements ChangeListener, ActionListener{
 
 	private JSlider volume;
@@ -29,19 +28,34 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 	private JButton optionen[];
 	private String[] text = {"Fenstermodus", "Grafikeinstellungen", "Texturepacks", "Zurück"};
 	
-	public Optionen(int w, int h, boolean u, MainMenueJFrame a){
-		setUndecorated(u);
-		setSize(w, h);
-		setVisible(true);
-		//setLayout(new GridLayout(5,1));
-		
+	public Optionen(boolean undecorated, MainMenueJFrame a){
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, w,
-				h, null);
-		setContentPane(new JLabel(new ImageIcon(img)));
 		
-		setLocationRelativeTo(null);
+		double resolution = (double) 16/ (double) 9;
+		int width, height;
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		if(screen.getWidth()/screen.getHeight()==resolution){
+			width = screen.width;
+			height = screen.height;
+		}else if(screen.getWidth()/screen.getHeight()>resolution){
+			width = (int) (screen.getHeight()*resolution);
+			height = screen.height;
+		}else{
+			width = screen.width;
+			height = (int) (screen.getWidth()/resolution);
+		}
+		setBackground(Color.BLACK);
+		// Set your Image Here.
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width,
+				height, null);
+		setContentPane(new JLabel(new ImageIcon(img)));
+		setIconImage(Loader.getImage("Ritter.png"));
+		setTitle("Knightmare");
+		
+		setUndecorated(undecorated);
+		setSize(screen);
+		setVisible(true);
 		
 		optionen = new JButton[text.length];
 		
@@ -54,7 +68,8 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
 		volume.addChangeListener(this);
-		volume.setPreferredSize(new Dimension(w/2, h/(optionen.length+1)));
+//		volume.setPreferredSize(new Dimension(width/2, height/(optionen.length+1)));
+		volume.setBounds((screen.width-width)/2+width/4, (optionen.length-1)*height/(optionen.length+1), width/2, height/(optionen.length+1));
 		volume.setBackground(Color.black);
 		volume.setForeground(Color.white);
 		volume.setToolTipText("Volume");
@@ -63,7 +78,8 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 		for (int i = 0; i < optionen.length; i++){
 			optionen[i] = new JButton(text[i]);
 			optionen[i].addActionListener(this);
-			optionen[i].setPreferredSize(new Dimension(w/2,h/(optionen.length+1)));
+//			optionen[i].setPreferredSize(new Dimension(width/2,height/(optionen.length+1)));
+			optionen[i].setBounds((screen.width-width)/2+width/4, (i<optionen.length-1?i:i+1)*height/(optionen.length+1), width/2, height/(optionen.length+1));
 			optionen[i].setForeground(Color.WHITE);
 			optionen[i].setBackground(Color.black);
 			optionen[i].setOpaque(false);
@@ -76,7 +92,9 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener{
 		
 		add(volume);
 		add(optionen[optionen.length-1]);
-		setLayout(new FlowLayout());
+//		setLayout(new FlowLayout());
+//		setLayout(new GridLayout(5, 1));
+		
 		mm = a;
 	}
 
