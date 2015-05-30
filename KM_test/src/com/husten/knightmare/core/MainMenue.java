@@ -177,7 +177,8 @@ public class MainMenue extends JFrame {
 	public static void main(String[] args) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		MoodMusic.addMood("MainMenue");
-		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
+		//TODO SPielt nur 1x ab
+		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_4.WAV");
 		MoodMusic.init("MainMenue");	
 		new MainMenue("menue.png");
 	}
