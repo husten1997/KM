@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -12,14 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import com.richard.knightmare.util.Loader;
 
 //M
 @SuppressWarnings("serial")
-public class Laden extends JFrame implements ListSelectionListener {
+public class Laden extends JFrame {
 
 	private JList<String> list;
 	private String[] data = { "getSpeicherStand1", "getSpeicherstand2", "getSpeicherstandX" };
@@ -73,7 +72,6 @@ public class Laden extends JFrame implements ListSelectionListener {
 		list.setForeground(Color.white);
 		list.setSelectionBackground(Color.black);
 		list.setSelectionForeground(Color.cyan);
-		list.addListSelectionListener(this);
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(data.length + 1);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
@@ -81,21 +79,40 @@ public class Laden extends JFrame implements ListSelectionListener {
 
 		add(list);
 		mm = a;
-	}
 
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		Object q = e.getSource();
+		list.addKeyListener(new KeyListener() {
 
-		if (q == list) {
-			if (list.getSelectedIndex() == data.length) {
-				mm.setVisible(true);
-				dispose();
-			} else {
-				// TODO load(list.getSelectedIndex());
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// Ignore
 			}
-		}
 
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getExtendedKeyCode() == 10) {
+					performAction();
+				} else if (arg0.getExtendedKeyCode() == 27) {
+					mm.setVisible(true);
+					dispose();
+				}
+			}
+		});
+	}
+	
+	private void performAction(){
+		switch (list.getSelectedIndex()) {
+		case 3:
+			mm.setVisible(true);
+			dispose();
+			break;
+		default:
+			break;
+		}
 	}
 
 }
