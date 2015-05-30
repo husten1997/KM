@@ -113,7 +113,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		if (q == optionen[optionen.length - 1]) {
 			mm.setVisible(true);
-			mm.setAlwaysOnTop(true);
+			mm.setAutoRequestFocus(true);
 			dispose();
 		}
 

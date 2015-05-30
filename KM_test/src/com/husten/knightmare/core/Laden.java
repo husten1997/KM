@@ -2,7 +2,6 @@ package com.husten.knightmare.core;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -11,7 +10,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -70,23 +71,27 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 
 		b[data.length] = zurück;
 
-		setLayout(new FlowLayout());
-
 		list = new JList<String>(b); // data has type Object[]
 		list.setSize(new Dimension(width, height));
-		list.setBounds((int) list.getBounds().getX(),
-				(screen.height - height) / 2, width, height);
+		list.setBounds((screen.width-width)/2 + width/4,
+				(screen.height - height) / 2, width/2, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBackground(new Color(0, 0, 0, 1));
+		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		list.setForeground(Color.white);
 		list.setSelectionBackground(Color.black);
 		list.setSelectionForeground(Color.cyan);
-		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(data.length + 1);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.setOpaque(false);
-
 		add(list);
+		((DefaultListCellRenderer)list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);  
+		
+		JButton zurück = new JButton("Zurück");
+		zurück.setBackground(new Color(0.5f,0.5f,0.5f,0.5f));
+		zurück.setFont(new Font("Arial", Font.BOLD, width/48));
+		zurück.setBounds(screen.width/2+3*width/8,(screen.height-height)/2+height-width/24,width/8,width/24);
+		add(zurück);
+		
 		mm = a;
 
 		list.addKeyListener(this);
@@ -97,6 +102,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener{
 	private void performAction(int x) {
 		if (x == data.length){
 			mm.setVisible(true);
+			mm.setAutoRequestFocus(true);
 			dispose();
 		} else {
 			//load(x);
