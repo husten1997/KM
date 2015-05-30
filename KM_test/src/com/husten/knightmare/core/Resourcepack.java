@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -11,6 +15,7 @@ import java.io.File;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,23 +26,21 @@ import javax.swing.event.ListSelectionListener;
 import com.richard.knightmare.util.Loader;
 
 @SuppressWarnings("serial")
-public class Texturepack extends JFrame implements ListSelectionListener {
+public class Resourcepack extends JFrame implements ListSelectionListener, KeyListener, ActionListener {
 
-	@SuppressWarnings("rawtypes")
-	private JList list;
+	private JList<String> list;
 	private File path;
 	private String[] text;
 	private Optionen op;
+	private JButton zurück;
 
-	public Texturepack(boolean undecorated, Optionen o) {
+	public Resourcepack(boolean undecorated, Optionen o) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 
 		op = o;
 
-		path = new File(new StringBuilder("C:\\Users\\")
-				.append(System.getProperty("user.name"))
-				.append("\\Appdata\\Roaming\\ares\\Knightmare\\resourcepacks")
-				.toString());
+		path = new File(
+				new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\Appdata\\Roaming\\ares\\Knightmare\\resourcepacks").toString());
 		text = path.list();
 
 		double resolution = (double) 16 / (double) 9;
@@ -53,6 +56,7 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 			width = screen.width;
 			height = (int) (screen.getWidth() / resolution);
 		}
+		setBackground(Color.BLACK);
 
 		String gewahlt = Loader.getCfgValue("Resourcepack");
 
@@ -64,21 +68,18 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 			}
 		}
 
-		setSize(width, height);
+		setSize(screen);
 		setAutoRequestFocus(true);
 		setUndecorated(undecorated);
 		setVisible(true);
 
-		BufferedImage img = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width,
-				height, null);
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width, height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 
 		list = new JList<String>(text); // data has type Object[]
 		list.setSize(new Dimension(width, height));
-		list.setBounds((screen.width - width) / 2 + width / 4,
-				(screen.height - height) / 2, width / 2, height);
+		list.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		list.setForeground(Color.white);
@@ -94,9 +95,16 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 		}
 
 		add(list);
-		((DefaultListCellRenderer) list.getCellRenderer())
-				.setHorizontalAlignment(JLabel.CENTER);
+		((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
+		zurück = new JButton("Zurück");
+		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
+		zurück.setBounds(screen.width / 2 + 3 * width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
+		zurück.addActionListener(this);
+		zurück.setRolloverEnabled(false);
+		zurück.setFocusable(false);
+		add(zurück);
 	}
 
 	@Override
@@ -108,10 +116,8 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if (e.getButton() == MouseEvent.BUTTON1
-							&& e.getClickCount() == 2) {
-						Loader.changeCfgValue("Resourcepack",
-								text[list.getSelectedIndex()]);
+					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+						Loader.changeCfgValue("Resourcepack", text[list.getSelectedIndex()]);
 						op.setVisible(true);
 						op.setAutoRequestFocus(true);
 						dispose();
@@ -144,6 +150,30 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 				}
 			});
 		}
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 
 	}
 
