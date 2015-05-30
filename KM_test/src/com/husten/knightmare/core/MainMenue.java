@@ -28,7 +28,7 @@ public class MainMenue extends JFrame {
 	private ArrayList<Button> buttons = new ArrayList<>();
 	private MainMenue mm;
 
-	public MainMenue(String Imagename) {
+	public MainMenue(String Imagename, boolean undecorated) {
 		MoodMusic.changeMood("MainMenue");
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
@@ -50,7 +50,7 @@ public class MainMenue extends JFrame {
 		img.getGraphics().drawImage(Loader.getImage(Imagename), 0, 0, width, height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		setIconImage(Loader.getImage("Ritter.png"));
-		setUndecorated(true);
+		setUndecorated(undecorated);
 		setTitle("Knightmare");
 		setSize(screen);
 		setAlwaysOnTop(true);
@@ -68,7 +68,7 @@ public class MainMenue extends JFrame {
 					
 					@Override
 					public void run() {
-						MainMenue m = new MainMenue("loadscreen.png");
+						MainMenue m = new MainMenue("loadscreen.png", isUndecorated());
 						try {
 							TimeUnit.SECONDS.sleep(1);
 						} catch (InterruptedException e) {
@@ -181,8 +181,8 @@ public class MainMenue extends JFrame {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		MoodMusic.addMood("MainMenue");
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
-		MoodMusic.init("MainMenue");
-		new MainMenue("menue.png");
+		MoodMusic.init("MainMenue");	
+		new MainMenue("menue.png", (Loader.getCfgValue("Fullscreen").equals("true")?false:true));
 	}
 
 	private void click(Pos point) {

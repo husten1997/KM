@@ -196,8 +196,7 @@ public class Knightmare implements StringConstants {
 			if (Keyboard.getEventKeyState()) {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-					MainMenue m = new MainMenue("menue.png");
-					m.setUndecorated(!fullscreen);
+					MainMenue m = new MainMenue("menue.png", fullscreen);
 					timer.cancel();
 					running = false;
 					m.toFront();
