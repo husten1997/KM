@@ -108,6 +108,10 @@ public class MoodMusic {
 		player.stop();
 	}
 	
+	public static float getVolume(){
+		return volume;
+	}
+	
 	public static void abwürgen(){
 		player.stop();
 	}
@@ -135,6 +139,7 @@ public class MoodMusic {
 	}
 	
 	public static void setVolume(Float set) {
+		volume = set;
 		player.setVolume(set);
 	}
 }
