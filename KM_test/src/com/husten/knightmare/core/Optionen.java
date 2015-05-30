@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +24,7 @@ import com.richard.knightmare.util.Loader;
 
 //M
 @SuppressWarnings("serial")
-public class Optionen extends JFrame implements ChangeListener, ActionListener {
+public class Optionen extends JFrame implements ChangeListener, ActionListener, KeyListener {
 
 	private JSlider volume;
 	private MainMenue mm;
@@ -54,6 +57,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
 		setSize(screen);
 		setVisible(true);
+		addKeyListener(this);
 
 		optionen = new JButton[text.length];
 
@@ -136,6 +140,37 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 			setVisible(false);
 			new Resourcepack(this);
 		}
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getExtendedKeyCode() == 27) {
+			mm.setVisible(true);
+			mm.setAutoRequestFocus(true);
+			dispose();
+		}
+		if (e.getExtendedKeyCode() == 122){
+			dispose();
+			mm.dispose();
+			mm.setUndecorated(!isUndecorated());
+			mm.setVisible(true);
+			mm.setAutoRequestFocus(true);
+			mm.setLocationRelativeTo(null);
+			setUndecorated(!isUndecorated());
+			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+			setVisible(true);
+		}		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
 
 	}
 

@@ -23,7 +23,7 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 
 @SuppressWarnings("serial")
-public class MainMenue extends JFrame {
+public class MainMenue extends JFrame implements KeyListener {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
 	private MainMenue mm;
@@ -46,8 +46,10 @@ public class MainMenue extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBackground(Color.BLACK);
 		// Set your Image Here.
-		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(Loader.getImage(Imagename), 0, 0, width, height, null);
+		BufferedImage img = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage(Imagename), 0, 0, width,
+				height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		setIconImage(Loader.getImage("Ritter.png"));
 		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
@@ -57,15 +59,22 @@ public class MainMenue extends JFrame {
 		setAutoRequestFocus(true);
 		setVisible(true);
 
+		addKeyListener(this);
+
 		mm = this;
 
 		// Spiel Starten
-		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx1)")) * width, h(Loader.getCfgValue("Button: Spielstarten (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx2)"))*width, h(Loader.getCfgValue("Button: Spielstarten (posy2)")) * height)) {
+		buttons.add(new Button(new Pos(w(Loader
+				.getCfgValue("Button: Spielstarten (posx1)")) * width, h(Loader
+				.getCfgValue("Button: Spielstarten (posy1)")) * height),
+				new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx2)"))
+						* width, h(Loader
+						.getCfgValue("Button: Spielstarten (posy2)")) * height)) {
 			@Override
 			public void onClick() {
 				dispose();
 				new Timer(false).schedule(new TimerTask() {
-					
+
 					@Override
 					public void run() {
 						MainMenue m = new MainMenue("loadscreen.png");
@@ -82,27 +91,41 @@ public class MainMenue extends JFrame {
 				}, 0);
 			}
 		});
-		
+
 		// Optionen
-		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Optionen (posx1)")) * width, h(Loader.getCfgValue("Button: Optionen (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Optionen (posx2)"))*width, h(Loader.getCfgValue("Button: Optionen (posy2)")) * height)) {
+		buttons.add(new Button(new Pos(w(Loader
+				.getCfgValue("Button: Optionen (posx1)")) * width, h(Loader
+				.getCfgValue("Button: Optionen (posy1)")) * height), new Pos(
+				w(Loader.getCfgValue("Button: Optionen (posx2)")) * width,
+				h(Loader.getCfgValue("Button: Optionen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new Optionen(mm).setAlwaysOnTop(true);;
+				new Optionen(mm).setAlwaysOnTop(true);
+				;
 				setVisible(false);
 			}
 		});
 
 		// Laden
-		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Laden (posx1)")) * width, h(Loader.getCfgValue("Button: Laden (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Laden (posx2)"))*width, h(Loader.getCfgValue("Button: Laden (posy2)")) * height)) {
+		buttons.add(new Button(new Pos(w(Loader
+				.getCfgValue("Button: Laden (posx1)")) * width, h(Loader
+				.getCfgValue("Button: Laden (posy1)")) * height), new Pos(
+				w(Loader.getCfgValue("Button: Laden (posx2)")) * width,
+				h(Loader.getCfgValue("Button: Laden (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new Laden(mm).setAlwaysOnTop(true);;
+				new Laden(mm).setAlwaysOnTop(true);
+				;
 				setVisible(false);
 			}
 		});
 
 		// Schliessen
-		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Schliessen (posx1)")) * width, h(Loader.getCfgValue("Button: Schliessen (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Schliessen (posx2)"))*width, h(Loader.getCfgValue("Button: Schliessen (posy2)")) * height)) {
+		buttons.add(new Button(new Pos(w(Loader
+				.getCfgValue("Button: Schliessen (posx1)")) * width, h(Loader
+				.getCfgValue("Button: Schliessen (posy1)")) * height), new Pos(
+				w(Loader.getCfgValue("Button: Schliessen (posx2)")) * width,
+				h(Loader.getCfgValue("Button: Schliessen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
 				dispose();
@@ -157,8 +180,9 @@ public class MainMenue extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(Imagename.equals("menue.png")){
-					click(new Pos(e.getX() - (screen.getWidth() - width) / 2, e.getY() - (screen.getHeight() - height) / 2));
+				if (Imagename.equals("menue.png")) {
+					click(new Pos(e.getX() - (screen.getWidth() - width) / 2,
+							e.getY() - (screen.getHeight() - height) / 2));
 				}
 			}
 		});
@@ -177,9 +201,9 @@ public class MainMenue extends JFrame {
 	public static void main(String[] args) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		MoodMusic.addMood("MainMenue");
-		//TODO SPielt nur 1x ab
+		// TODO SPielt nur 1x ab
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_4.WAV");
-		MoodMusic.init("MainMenue");	
+		MoodMusic.init("MainMenue");
 		new MainMenue("menue.png");
 	}
 
@@ -202,6 +226,32 @@ public class MainMenue extends JFrame {
 	}
 
 	private boolean isOn(Pos p1, Pos p2, Pos p) {
-		return isBetween(p1.getX(), p2.getX(), p.getX()) && isBetween(p1.getY(), p2.getY(), p.getY());
+		return isBetween(p1.getX(), p2.getX(), p.getX())
+				&& isBetween(p1.getY(), p2.getY(), p.getY());
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getExtendedKeyCode() == 122) {
+			mm.dispose();
+			mm.setUndecorated(!isUndecorated());
+			mm.setVisible(true);
+			mm.setAutoRequestFocus(true);
+			mm.setLocationRelativeTo(null);
+			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+		}
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

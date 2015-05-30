@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -106,6 +107,18 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 			mm.setVisible(true);
 			mm.setAutoRequestFocus(true);
 			dispose();
+		} else {
+			if (arg0.getExtendedKeyCode() == 122){
+				dispose();
+				mm.dispose();
+				mm.setUndecorated(!isUndecorated());
+				mm.setVisible(true);
+				mm.setAutoRequestFocus(true);
+				mm.setLocationRelativeTo(null);
+				setUndecorated(!isUndecorated());
+				setVisible(true);
+				Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+			}
 		}
 	}
 
