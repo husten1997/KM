@@ -27,7 +27,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 	private MainMenue mm;
 	private int position;
 	private JButton optionen[];
-	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Texturepacks", "Zurück" };
+	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Resourcepacks", "Zurück" };
 
 	public Optionen(boolean undecorated, MainMenue a) {
 		double resolution = (double) 16 / (double) 9;
