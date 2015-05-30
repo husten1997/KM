@@ -13,7 +13,7 @@ public class MoodMusic {
 	private static ArrayList<String> lastPlayed = new ArrayList<>();
 	private static MusikPlayer player;
 	private static HashMap<String, ArrayList<String>> moodMusic = new HashMap<>();
-	private static float volume;
+	private static float volume = -27.6f;
 	private static String mood;
 
 	public static void addMood(String name) {

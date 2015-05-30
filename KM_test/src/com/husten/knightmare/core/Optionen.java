@@ -25,6 +25,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 	private JSlider volume;
 	private MainMenue mm;
+	private int position;
 	private JButton optionen[];
 	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Texturepacks", "Zurück" };
 
@@ -56,12 +57,14 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		optionen = new JButton[text.length];
 
+		position = (int) ((MoodMusic.getVolume()/0.84)+94)-1;
+		
 		volume = new JSlider();
 		volume.setMinimum(0);
 		volume.setMaximum(100);
 		volume.setMajorTickSpacing(5);
 		volume.setMinorTickSpacing(1);
-		volume.setValue((int) MoodMusic.getVolume() + 80);
+		volume.setValue(position);
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
 		volume.addChangeListener(this);
@@ -89,7 +92,6 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		add(volume);
 		add(optionen[optionen.length - 1]);
-
 		mm = a;
 	}
 
@@ -99,7 +101,8 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		if (q == volume) {
 			System.out.println(volume.getValue());
-			MoodMusic.setVolume((float) volume.getValue() - 80);
+			MoodMusic.setVolume((float) (int)((6-((100-volume.getValue())*0.84))));
+			position = volume.getValue();
 		}
 
 	}
