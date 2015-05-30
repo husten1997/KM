@@ -102,7 +102,6 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		if (q == volume) {
 			repaint();
-			System.out.println(volume.getValue());
 			MoodMusic.setVolume((float) (int) ((6 - ((100 - volume.getValue()) * 0.84))));
 			position = volume.getValue();
 		}
