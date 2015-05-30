@@ -48,12 +48,23 @@ public class Knightmare implements StringConstants {
 	public Knightmare() {
 		start();
 	}
+	
+	public static void preload(){
+		try {
+			Display.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+		Loader.load();
+	}
 
 	private void start() {
-		init();
 		objectinit();
-		Loader.load();
-		initMenues();
+	}
+	
+	public void loop(){
+		init();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -82,16 +93,10 @@ public class Knightmare implements StringConstants {
 		Display.destroy();
 	}
 
-	private void initMenues() {
-		RectangleGraphicalObject kopfzeile = new RectangleGraphicalObject(new Pos(0,0), WIDTH, 100, "kopfzeile.png", false);
-		initRender(kopfzeile, 2);
-	}
-
 	private void init() {
 		initRes();
 
 		try {
-			Display.create();
 			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
 			glViewport(0, 0, WIDTH, HEIGHT);
 
