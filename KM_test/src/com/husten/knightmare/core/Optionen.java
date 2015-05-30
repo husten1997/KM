@@ -29,7 +29,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 	private JButton optionen[];
 	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Resourcepacks", "Zurück" };
 
-	public Optionen(boolean undecorated, MainMenue a) {
+	public Optionen(MainMenue a) {
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -51,7 +51,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 		setIconImage(Loader.getImage("Ritter.png"));
 		setTitle("Knightmare");
 
-		setUndecorated(undecorated);
+		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
 		setSize(screen);
 		setVisible(true);
 
@@ -127,12 +127,13 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 			mm.setVisible(true);
 			mm.setLocationRelativeTo(null);
 			setUndecorated(!isUndecorated());
+			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
 			setVisible(true);
 		}
 
 		if (q == optionen[2]) {
 			setVisible(false);
-			new Resourcepack(isUndecorated(), this);
+			new Resourcepack(this);
 		}
 
 	}

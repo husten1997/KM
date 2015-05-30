@@ -28,7 +28,7 @@ public class MainMenue extends JFrame {
 	private ArrayList<Button> buttons = new ArrayList<>();
 	private MainMenue mm;
 
-	public MainMenue(String Imagename, boolean undecorated) {
+	public MainMenue(String Imagename) {
 		MoodMusic.changeMood("MainMenue");
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
@@ -50,7 +50,7 @@ public class MainMenue extends JFrame {
 		img.getGraphics().drawImage(Loader.getImage(Imagename), 0, 0, width, height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		setIconImage(Loader.getImage("Ritter.png"));
-		setUndecorated(undecorated);
+		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
 		setTitle("Knightmare");
 		setSize(screen);
 		setAlwaysOnTop(true);
@@ -68,7 +68,7 @@ public class MainMenue extends JFrame {
 					
 					@Override
 					public void run() {
-						MainMenue m = new MainMenue("loadscreen.png", isUndecorated());
+						MainMenue m = new MainMenue("loadscreen.png");
 						try {
 							TimeUnit.SECONDS.sleep(1);
 						} catch (InterruptedException e) {
@@ -77,9 +77,6 @@ public class MainMenue extends JFrame {
 						Knightmare km = new Knightmare();
 						MoodMusic.changeMood("Default");
 						m.dispose();
-						if(isUndecorated()){
-							km.tooggleFullscreen();
-						}
 						km.loop();
 					}
 				}, 0);
@@ -90,7 +87,7 @@ public class MainMenue extends JFrame {
 		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Optionen (posx1)")) * width, h(Loader.getCfgValue("Button: Optionen (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Optionen (posx2)"))*width, h(Loader.getCfgValue("Button: Optionen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new Optionen(isUndecorated(), mm).setAlwaysOnTop(true);;
+				new Optionen(mm).setAlwaysOnTop(true);;
 				setVisible(false);
 			}
 		});
@@ -99,7 +96,7 @@ public class MainMenue extends JFrame {
 		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Laden (posx1)")) * width, h(Loader.getCfgValue("Button: Laden (posy1)")) * height), new Pos(w(Loader.getCfgValue("Button: Laden (posx2)"))*width, h(Loader.getCfgValue("Button: Laden (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new Laden(isUndecorated(), mm).setAlwaysOnTop(true);;
+				new Laden(mm).setAlwaysOnTop(true);;
 				setVisible(false);
 			}
 		});
@@ -182,7 +179,7 @@ public class MainMenue extends JFrame {
 		MoodMusic.addMood("MainMenue");
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
 		MoodMusic.init("MainMenue");	
-		new MainMenue("menue.png", (Loader.getCfgValue("Fullscreen").equals("true")?false:true));
+		new MainMenue("menue.png");
 	}
 
 	private void click(Pos point) {

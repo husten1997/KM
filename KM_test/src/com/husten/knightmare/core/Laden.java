@@ -32,7 +32,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 	private String[] data = { "Keine Speicherstände vorhanden. Neues Spiel?" };
 	private MainMenue mm;
 
-	public Laden(boolean undecorated, MainMenue a) {
+	public Laden(MainMenue a) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
@@ -55,7 +55,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 		setIconImage(Loader.getImage("Ritter.png"));
 		setTitle("Knightmare");
 
-		setUndecorated(undecorated);
+		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
 		setSize(screen);
 		setVisible(true);
 

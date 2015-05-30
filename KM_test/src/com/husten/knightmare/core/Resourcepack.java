@@ -34,7 +34,7 @@ public class Resourcepack extends JFrame implements ListSelectionListener, KeyLi
 	private Optionen op;
 	private JButton zurück;
 
-	public Resourcepack(boolean undecorated, Optionen o) {
+	public Resourcepack(Optionen o) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 
 		op = o;
@@ -70,7 +70,7 @@ public class Resourcepack extends JFrame implements ListSelectionListener, KeyLi
 
 		setSize(screen);
 		setAutoRequestFocus(true);
-		setUndecorated(undecorated);
+		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
 		setVisible(true);
 
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
