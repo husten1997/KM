@@ -125,6 +125,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 			mm.dispose();
 			mm.setUndecorated(!isUndecorated());
 			mm.setVisible(true);
+			mm.setAutoRequestFocus(true);
 			mm.setLocationRelativeTo(null);
 			setUndecorated(!isUndecorated());
 			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));

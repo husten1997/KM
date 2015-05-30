@@ -33,7 +33,6 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 	private MainMenue mm;
 
 	public Laden(MainMenue a) {
-		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();

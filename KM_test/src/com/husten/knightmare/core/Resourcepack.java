@@ -19,7 +19,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -38,8 +37,6 @@ public class Resourcepack extends JFrame implements ListSelectionListener,
 	private String fehler;
 
 	public Resourcepack(Optionen o) {
-		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-
 		op = o;
 		fehler = "Resourcepack kann nicht 'Default' heiﬂen";
 
@@ -87,6 +84,7 @@ public class Resourcepack extends JFrame implements ListSelectionListener,
 		}
 
 		setSize(screen);
+		setAlwaysOnTop(true);
 		setAutoRequestFocus(true);
 		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
 		setVisible(true);
