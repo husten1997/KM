@@ -52,7 +52,7 @@ public class Knightmare implements StringConstants {
 	private void start() {
 		init();
 		objectinit();
-		Loader.initLoader("Ares", "Knightmare");
+		Loader.load();
 		initMenues();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -193,7 +193,7 @@ public class Knightmare implements StringConstants {
 					timer.cancel();
 					running = false;
 					MoodMusic.abwürgen();
-					new MainMenueJFrame();
+					new MainMenue();
 					return;
 				}
 

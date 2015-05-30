@@ -1,265 +1,184 @@
-//package com.husten.knightmare.core;
-//
-//import static org.lwjgl.opengl.GL11.*;
-//
-//import java.awt.Color;
-//import java.awt.Font;
-//import java.awt.GraphicsEnvironment;
-//import java.util.ArrayList;
-//import java.util.Comparator;
-//
-//import org.lwjgl.LWJGLException;
-//import org.lwjgl.Sys;
-//import org.lwjgl.input.Keyboard;
-//import org.lwjgl.opengl.Display;
-//import org.lwjgl.opengl.DisplayMode;
-//import org.lwjgl.opengl.GL11;
-//
-//import com.husten.knightmare.constants.StringConstants.Material;
-//import com.husten.knightmare.graphicalObjects.GraphicalObject;
-//import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
-//import com.husten.knightmare.graphicalObjects.TextObject;
-//import com.richard.knightmare.sound.MoodMusic;
-//import com.richard.knightmare.util.Loader;
-//import com.richard.knightmare.util.Pos;
-//
-//public class MainMenue {
-//
-//	/** time at last frame */
-//	/** last fps time */
-//	private long lastFrame, lastFPS;
-//	/** frames per second */
-//	private int fps, ebenen = 3, VsyncF = 120, s = 5;
-//	@SuppressWarnings("unused")
-//	private double FPS = 60;
-//
-//	public static int WIDTH = 1600, HEIGHT = 900;
-//	private boolean fullscreen = false, Vsync = false;
-//
-//	private ArrayList<GraphicalObject>[] renderList = new ArrayList[ebenen];
-//
-//	// private TextureLoader textureLoader;
-//	// TODO
-////	private RectangleGraphicalObject m;
-//
-//	public static void main(String[] args) {
-//		new MainMenue().spielStarten();
-//	}
-//
-//	private void spielStarten() {
-//		start();
-//		// new Knightmare();
-//	}
-//
-//	private void start() {
-//
-//		init();
-//		objectinit();
-//
-//		while (!Display.isCloseRequested()) {
-//			// GL11.glClear(GL11.GL_COLOR_BUFFER_BIT |
-//			// GL11.GL_DEPTH_BUFFER_BIT);
-//			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-//			render();
-//			pollinput();
-//			updateDisplay();
-//			updateFPS();
-//		}
-//		Display.destroy();
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	public void objectinit() {
-//
-//		for (int i = 0; i < ebenen; i++) {
-//			renderList[i] = new ArrayList<>();
-//		}
-//
-//		// Sorting
-//		for (int i = 0; i < ebenen; i++) {
-//			renderList[i].sort(new Comparator<GraphicalObject>() {
-//				@Override
-//				public int compare(GraphicalObject i1, GraphicalObject i2) {
-//					return (i1.getSort() < i2.getSort() ? -1 : 1);
-//				}
-//			});
-//		}
-//
-//		// QUAD Background = new QUAD(new Pos(0, 0),WIDTH, HEIGHT, "menue.png");
-//		// Background.setTCX(1);
-//		// Background.setTCY(1);
-//		// TODO
-////		m = new RectangleGraphicalObject(new Pos(0, 0), WIDTH, HEIGHT, "menue.png", false);
-//		// m = new RectangleGraphicalObject(new Pos(100,100), 64, 32, "Start",
-//		// Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 20)); //TODO funzt
-//		// na ned so ganz
-//
-//		// Text Start = new Text((double) 1000,(double) 1000,(double)
-//		// 100,(double) 100, "Start", java.awt.Color.blue, awtFont);
-//		TextObject Start = new TextObject(new Pos(1000, 1000), 100, 100, "Sart", Color.YELLOW, new Font(Font.SANS_SERIF, Font.BOLD, 32));
-//
-//		// initRender(Background, 0, 0);
-//		initRender(Start, 1, 0);
-//	}
-//
-//	private void init() {
-//		// Environment.setUpEnvironment("Ares", "Knightmare");
-//		// verwendet eure aktuelle desktopauflösung als gameauflösung
-//		initRes();
-//
-//		// load a default java font
-//
-//		try {
-//			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-//			// DisplayMode DM = new DisplayMode(WIDTH, HEIGHT);
-//			// DM.
-//			Display.create();
-//
-//		} catch (LWJGLException e) {
-//			e.printStackTrace();
-//			System.exit(0);
-//		}
-//		// enable textures since we're going to use these for our sprites
-//		GL11.glEnable(GL11.GL_TEXTURE_2D);
-//		GL11.glShadeModel(GL11.GL_SMOOTH);
-//		GL11.glDisable(GL11.GL_DEPTH_TEST);
-//		GL11.glDisable(GL11.GL_LIGHTING);
-//
-//		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-//		GL11.glClearDepth(1);
-//
-//		GL11.glEnable(GL11.GL_BLEND);
-//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//
-//		GL11.glViewport(WIDTH, HEIGHT, -WIDTH, -HEIGHT);
-//
-//		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-//
-//		GL11.glMatrixMode(GL11.GL_PROJECTION);
-//		GL11.glLoadIdentity();
-//		glOrtho(0, WIDTH, 0, HEIGHT, 1, -1);
-//		// glTranslatef(0, 0, 0f);
-//		glMatrixMode(GL_MODELVIEW);
-//		glLoadIdentity();
-//
-//		// textureLoader = new TextureLoader();
-//		Loader.initLoader("Ares", "Knightmare");
-//		MoodMusic.init();
-//
-//		lastFPS = getTime(); // call before loop to initialise fps timer
-//		initDisplay();
-//
-//	}
-//
-//	public void updateDisplay() {
-//		if (Vsync)
-//			Display.sync(VsyncF);
-//
-//		Display.update();
-//	}
-//
-//	public void initRes() {
-//		HEIGHT = Display.getDesktopDisplayMode().getHeight();
-//		WIDTH = Display.getDesktopDisplayMode().getWidth();
-//	}
-//
-//	public void initDisplay() {
-//		setDisplayMode(WIDTH, HEIGHT, fullscreen);
-//		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
-//	}
-//
-//	public void setDisplayMode(int width, int height, boolean fullscreen) {
-//
-//		// return if requested DisplayMode is already set
-//		if ((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
-//			return;
-//		}
-//
-//		try {
-//			DisplayMode targetDisplayMode = null;
-//
-//			if (fullscreen) {
-//				DisplayMode[] modes = Display.getAvailableDisplayModes();
-//				int freq = 0;
-//
-//				for (int i = 0; i < modes.length; i++) {
-//					DisplayMode current = modes[i];
-//
-//					if ((current.getWidth() == width) && (current.getHeight() == height)) {
-//						if ((targetDisplayMode == null) || (current.getFrequency() >= freq)) {
-//							if ((targetDisplayMode == null) || (current.getBitsPerPixel() > targetDisplayMode.getBitsPerPixel())) {
-//								targetDisplayMode = current;
-//								freq = targetDisplayMode.getFrequency();
-//							}
-//						}
-//
-//						// if we've found a match for bpp and frequence against
-//						// the
-//						// original display mode then it's probably best to go
-//						// for this one
-//						// since it's most likely compatible with the monitor
-//						if ((current.getBitsPerPixel() == Display.getDesktopDisplayMode().getBitsPerPixel())
-//								&& (current.getFrequency() == Display.getDesktopDisplayMode().getFrequency())) {
-//							targetDisplayMode = current;
-//							break;
-//						}
-//					}
-//				}
-//			} else {
-//				targetDisplayMode = new DisplayMode(width, height);
-//			}
-//
-//			if (targetDisplayMode == null) {
-//				System.out.println("Failed to find value mode: " + width + "x" + height + " fs=" + fullscreen);
-//				return;
-//			}
-//
-//			Display.setDisplayMode(targetDisplayMode);
-//			Display.setFullscreen(fullscreen);
-//			this.fullscreen = fullscreen;
-//			// VsyncF = Display.getDisplayMode().getFrequency();
-//
-//		} catch (LWJGLException e) {
-//			System.out.println("Unable to setup mode " + width + "x" + height + " fullscreen=" + fullscreen + e);
-//		}
-//	}
-//
-//	public void updateFPS() {
-//		if (getTime() - lastFPS > 1000) {
-//			Display.setTitle("FPS: " + fps);
-//			FPS = fps;
-//			fps = 0;
-//			lastFPS += 1000;
-//		}
-//		fps++;
-//
-//	}
-//
-//	public long getTime() {
-//		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
-//	}
-//
-//	public void initRender(GraphicalObject input, int e, int se) {
-//		input.setSort(se);
-//		renderList[e].add(input);
-//	}
-//
-//	public void render() {
-//
-//		for (int e = 0; e < ebenen; e++) {
-//			for (int i = 0; i < renderList[e].size(); i++) {
-//				((GraphicalObject) renderList[e].get(i)).draw();
-//			}
-//		}
-//		// TODO
-////		m.draw();
-//
-//	}
-//
-//	public void pollinput() {
-//		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-//			System.exit(1);
-//		}
-//	}
-//
-//}
+package com.husten.knightmare.core;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.Button;
+import com.richard.knightmare.util.Loader;
+import com.richard.knightmare.util.Pos;
+
+@SuppressWarnings("serial")
+public class MainMenue extends JFrame {
+
+	private ArrayList<Button> buttons = new ArrayList<>();
+	private MainMenue mm;
+
+	public MainMenue() {
+		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
+		MoodMusic.addMood("MainMenue");
+		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
+		MoodMusic.init("MainMenue");
+		MoodMusic.setVolume(-30f);
+		double resolution = (double) 16 / (double) 9;
+		int width, height;
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		if (screen.getWidth() / screen.getHeight() == resolution) {
+			width = screen.width;
+			height = screen.height;
+		} else if (screen.getWidth() / screen.getHeight() > resolution) {
+			width = (int) (screen.getHeight() * resolution);
+			height = screen.height;
+		} else {
+			width = screen.width;
+			height = (int) (screen.getWidth() / resolution);
+		}
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setBackground(Color.BLACK);
+		// Set your Image Here.
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage("menue.png"), 0, 0, width, height, null);
+		setContentPane(new JLabel(new ImageIcon(img)));
+		setIconImage(Loader.getImage("Ritter.png"));
+		setUndecorated(true);
+		setTitle("Knightmare");
+		setSize(screen);
+		setAlwaysOnTop(true);
+		setVisible(true);
+
+		mm = this;
+
+		// Spiel Starten
+		buttons.add(new Button(new Pos(w(848) * width, h(465) * height), new Pos(width, h(586) * height)) {
+			@Override
+			public void onClick() {
+				dispose();
+				MoodMusic.changeMood("Default");
+				new Knightmare();
+			}
+		});
+
+		// Optionen
+		buttons.add(new Button(new Pos(w(848) * width, h(608) * height), new Pos(width, h(729) * height)) {
+			@Override
+			public void onClick() {
+				new Optionen(isUndecorated(), mm).setAlwaysOnTop(true);;
+				setVisible(false);
+			}
+		});
+
+		// Laden
+		buttons.add(new Button(new Pos(w(848) * width, h(751) * height), new Pos(width, h(838) * height)) {
+			@Override
+			public void onClick() {
+				new Laden(isUndecorated(), mm).setAlwaysOnTop(true);;
+				setVisible(false);
+			}
+		});
+
+		// Schliessen
+		buttons.add(new Button(new Pos(w(848) * width, h(894) * height), new Pos(width, h(967) * height)) {
+			@Override
+			public void onClick() {
+				dispose();
+			}
+		});
+
+		addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Ignore
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// Ignore
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getExtendedKeyCode() == 112) {
+					MoodMusic.changeVolume(-0.5f);
+				} else if (e.getKeyCode() == 113) {
+					MoodMusic.changeVolume(+0.5f);
+				} else if (e.getExtendedKeyCode() == 27) {
+					dispose();
+				}
+			}
+		});
+
+		addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// Ignore
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				click(new Pos(e.getX() - (screen.getWidth() - width) / 2, e.getY() - (screen.getHeight() - height) / 2));
+			}
+		});
+	}
+
+	private double w(double x) {
+		return (double) x / (double) 1920;
+	}
+
+	private double h(double x) {
+		return (double) x / (double) 1080;
+	}
+
+	public static void main(String[] args) {
+		new MainMenue();
+	}
+
+	private void click(Pos point) {
+		for (int i = 0; i < buttons.size(); i++) {
+			if (isOn(buttons.get(i).getP1(), buttons.get(i).getP2(), point)) {
+				buttons.get(i).onClick();
+				return;
+			}
+		}
+	}
+
+	private boolean isBetween(double p1, double p2, double sp) {
+		if (sp >= p1 && sp <= p2) {
+			return true;
+		} else if (sp >= p2 && sp <= p1) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isOn(Pos p1, Pos p2, Pos p) {
+		return isBetween(p1.getX(), p2.getX(), p.getX()) && isBetween(p1.getY(), p2.getY(), p.getY());
+	}
+}

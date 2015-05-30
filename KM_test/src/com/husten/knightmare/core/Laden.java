@@ -24,10 +24,9 @@ public class Laden extends JFrame implements KeyListener {
 	private String[] data = { "getSpeicherStand1", "getSpeicherstand2",
 			"getSpeicherstandX" };
 	private String zurück = "Zurück";
-	private MainMenueJFrame mm;
+	private MainMenue mm;
 
-	public Laden(boolean undecorated, MainMenueJFrame a) {
-		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
+	public Laden(boolean undecorated, MainMenue a) {
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -91,6 +90,7 @@ public class Laden extends JFrame implements KeyListener {
 	private void performAction(int x) {
 		if (x == data.length){
 			mm.setVisible(true);
+			mm.setAlwaysOnTop(true);
 			dispose();
 		} else {
 			//load(x);

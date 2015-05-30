@@ -24,13 +24,11 @@ import com.richard.knightmare.util.Loader;
 public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 	private JSlider volume;
-	private MainMenueJFrame mm;
+	private MainMenue mm;
 	private JButton optionen[];
 	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Texturepacks", "Zurück" };
 
-	public Optionen(boolean undecorated, MainMenueJFrame a) {
-		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-
+	public Optionen(boolean undecorated, MainMenue a) {
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -112,6 +110,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		if (q == optionen[optionen.length - 1]) {
 			mm.setVisible(true);
+			mm.setAlwaysOnTop(true);
 			dispose();
 		}
 
