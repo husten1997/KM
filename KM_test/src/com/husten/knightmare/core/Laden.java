@@ -18,10 +18,11 @@ import com.richard.knightmare.util.Loader;
 
 //M
 @SuppressWarnings("serial")
-public class Laden extends JFrame {
+public class Laden extends JFrame implements KeyListener {
 
 	private JList<String> list;
-	private String[] data = { "getSpeicherStand1", "getSpeicherstand2", "getSpeicherstandX" };
+	private String[] data = { "getSpeicherStand1", "getSpeicherstand2",
+			"getSpeicherstandX" };
 	private String zurück = "Zurück";
 	private MainMenueJFrame mm;
 
@@ -42,8 +43,10 @@ public class Laden extends JFrame {
 		}
 		setBackground(Color.BLACK);
 		// Set your Image Here.
-		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width, height, null);
+		BufferedImage img = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
+		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width,
+				height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		setIconImage(Loader.getImage("Ritter.png"));
 		setTitle("Knightmare");
@@ -66,7 +69,8 @@ public class Laden extends JFrame {
 
 		list = new JList<String>(b); // data has type Object[]
 		list.setSize(new Dimension(width, height));
-		list.setBounds((int) list.getBounds().getX(), (screen.height - height) / 2, width, height);
+		list.setBounds((int) list.getBounds().getX(),
+				(screen.height - height) / 2, width, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBackground(new Color(0, 0, 0, 1));
 		list.setForeground(Color.white);
@@ -80,39 +84,39 @@ public class Laden extends JFrame {
 		add(list);
 		mm = a;
 
-		list.addKeyListener(new KeyListener() {
+		list.addKeyListener(this);
 
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// Ignore
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				// Ignore
-			}
-
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getExtendedKeyCode() == 10) {
-					performAction();
-				} else if (arg0.getExtendedKeyCode() == 27) {
-					mm.setVisible(true);
-					dispose();
-				}
-			}
-		});
 	}
-	
-	private void performAction(){
-		switch (list.getSelectedIndex()) {
-		case 3:
+
+	private void performAction(int x) {
+		if (x == data.length){
 			mm.setVisible(true);
 			dispose();
-			break;
-		default:
-			break;
+		} else {
+			//load(x);
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		if (arg0.getExtendedKeyCode() == 10) {
+			performAction(list.getSelectedIndex());
+		} else if (arg0.getExtendedKeyCode() == 27) {
+			mm.setVisible(true);
+			dispose();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
