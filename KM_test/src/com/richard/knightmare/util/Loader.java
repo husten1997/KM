@@ -108,7 +108,7 @@ public class Loader {
 			writeValues();
 			texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
 		}
-		if(!(Float.parseFloat(configValues.get("Volum"))<=6 && -80>= Float.parseFloat(configValues.get("Volume")))){
+		if(!(Float.parseFloat(configValues.get("Volume"))<=6 && -80>= Float.parseFloat(configValues.get("Volume")))){
 			configValues.put("Volume", String.valueOf(-27.6f));
 			writeValues();
 		}

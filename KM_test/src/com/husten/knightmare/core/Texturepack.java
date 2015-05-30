@@ -20,11 +20,12 @@ import javax.swing.event.ListSelectionListener;
 
 import com.richard.knightmare.util.Loader;
 
+@SuppressWarnings("serial")
 public class Texturepack extends JFrame implements ListSelectionListener {
 
+	@SuppressWarnings("rawtypes")
 	private JList list;
 	private File path;
-	private File[] ordner;
 	private String[] text;
 	private Optionen op;
 
@@ -37,7 +38,6 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 				.append(System.getProperty("user.name"))
 				.append("\\Appdata\\Roaming\\ares\\Knightmare\\resourcepacks")
 				.toString());
-		ordner = path.listFiles();
 		text = path.list();
 
 		double resolution = (double) 16 / (double) 9;
@@ -121,25 +121,25 @@ public class Texturepack extends JFrame implements ListSelectionListener {
 
 				@Override
 				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
+					// Ignore
 
 				}
 
 				@Override
 				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
+					// Ignore
 
 				}
 
 				@Override
 				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
+					// Ignore
 
 				}
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
+					// Ignore
 
 				}
 			});
