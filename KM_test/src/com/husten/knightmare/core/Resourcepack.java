@@ -89,6 +89,7 @@ public class Resourcepack extends JFrame implements ListSelectionListener, KeyLi
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.addListSelectionListener(this);
 		list.setOpaque(false);
+		list.addKeyListener(this);
 
 		if (Autoselect > -1) {
 			list.setSelectedIndex(Autoselect);
@@ -155,14 +156,25 @@ public class Resourcepack extends JFrame implements ListSelectionListener, KeyLi
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getSource() == zurück){
+			op.setVisible(true);
+			op.setAutoRequestFocus(true);
+			dispose();
+		}
 
 	}
 
-	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+		if (arg0.getExtendedKeyCode() == 10) {
+			Loader.changeCfgValue("Resourcepack", text[list.getSelectedIndex()]);
+			op.setVisible(true);
+			op.setAutoRequestFocus(true);
+			dispose();
+		} else if (arg0.getExtendedKeyCode() == 27) {
+			op.setVisible(true);
+			op.setAutoRequestFocus(true);
+			dispose();
+		}
 	}
 
 	@Override
