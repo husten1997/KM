@@ -111,10 +111,10 @@ public class MainMenueJFrame extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if (e.getExtendedKeyCode() == 112) {
 					MoodMusic.changeVolume(-0.5f);
-				}
-
-				if (e.getKeyCode() == 113) {
+				} else if (e.getKeyCode() == 113) {
 					MoodMusic.changeVolume(+0.5f);
+				} else if (e.getExtendedKeyCode() == 27) {
+					dispose();
 				}
 			}
 		});
