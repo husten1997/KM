@@ -24,7 +24,6 @@ import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Hashtable;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -35,64 +34,25 @@ import com.husten.knightmare.graphicalObjects.Texture;
 
 public class Loader {
 
-	private static File saves, configs, resourcepacks, resourcepackCfg, texturesRes, texturesDefault;
-	private static String resourcepack = "Default";
+	private static File saves, configs, resourcepacks, cfgFile, texturesRes, texturesDefault;
+//	private static String resourcepack = "Default";
 	private static HashMap<String, Texture> textures = new HashMap<>();
 	private static HashMap<String, Clip> sounds = new HashMap<>();
 	private static ColorModel glAlphaColorModel, glColorModel;
 	private static IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
+	
+	private static HashMap<String, String> defaultConfigValues = new HashMap<>(), configValues = new HashMap<>();
 
 	public static void initLoader(String firmenname, String spielname) {
-		glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT,
-				DataBuffer.TYPE_BYTE);
-
-		glColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 0 }, false, false, Transparency.OPAQUE,
-				DataBuffer.TYPE_BYTE);
-		String path = new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\AppData\\Roaming\\").append(firmenname).append("\\")
-				.append(spielname).toString();
-		saves = new File(new StringBuffer(path).append("\\").append("saves").toString());
-		configs = new File(new StringBuffer(path).append("\\").append("configs").toString());
-		resourcepacks = new File(new StringBuffer(path).append("\\").append("resourcepacks").toString());
-
-		if (!saves.exists()) {
-			saves.mkdirs();
-		}
-		if (!configs.exists()) {
-			configs.mkdirs();
-		}
-		if (!resourcepacks.exists()) {
-			resourcepacks.mkdirs();
-		}
-
-		// Config Files
-		resourcepackCfg = new File(new StringBuilder(configs.getAbsolutePath()).append("\\Resourcepack.cfg").toString());
-
-		if (resourcepackCfg.exists()) {
-			try {
-				BufferedReader reader = new BufferedReader(new FileReader(resourcepackCfg));
-				resourcepack = reader.readLine();
-				reader.close();
-			} catch (IOException e) {
-				// File seems to be broken
-			}
-		} else {
-			try {
-				resourcepackCfg.createNewFile();
-				BufferedWriter writer = new BufferedWriter(new FileWriter(resourcepackCfg));
-				writer.write(resourcepack);
-				writer.close();
-			} catch (IOException e) {
-				// File seems to be broken
-			}
-		}
-		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Textures").toString());
-		texturesDefault = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\Default\\Textures").toString());
-
-		// Preload Textures
+		initLoaderWithoutLoad(firmenname, spielname);
 		load();
 	}
 	
 	public static void initLoaderWithoutLoad(String firmenname, String spielname) {
+		//Config Values
+		defaultConfigValues.put("Resourcepack", "Default");
+		defaultConfigValues.put("Volume", "-27.6");
+		
 		glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT,
 				DataBuffer.TYPE_BYTE);
 
@@ -114,31 +74,52 @@ public class Loader {
 			resourcepacks.mkdirs();
 		}
 
-		// Config Files
-		resourcepackCfg = new File(new StringBuilder(configs.getAbsolutePath()).append("\\Resourcepack.cfg").toString());
+		// Config File
+		cfgFile = new File(new StringBuilder(configs.getAbsolutePath()).append("\\Configs.cfg").toString());
 
-		if (resourcepackCfg.exists()) {
+		if (cfgFile.exists()) {
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(resourcepackCfg));
-				resourcepack = reader.readLine();
+				//Read configs
+				BufferedReader reader = new BufferedReader(new FileReader(cfgFile));
+				
+				Object[] keys = defaultConfigValues.keySet().toArray();
+				for(int i = 0; i<keys.length; i++){
+					String line = reader.readLine();
+					configValues.put((String) keys[i], line.substring(line.lastIndexOf("=")+2));
+				}
 				reader.close();
 			} catch (IOException e) {
 				// File seems to be broken
 			}
 		} else {
 			try {
-				resourcepackCfg.createNewFile();
-				BufferedWriter writer = new BufferedWriter(new FileWriter(resourcepackCfg));
-				writer.write(resourcepack);
-				writer.close();
+				//Write configs
+				configValues = defaultConfigValues;
+				cfgFile.createNewFile();
 			} catch (IOException e) {
 				// File seems to be broken
 			}
+			writeValues();
 		}
-		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Textures").toString());
+		texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
 		texturesDefault = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\Default\\Textures").toString());
 	}
-
+	
+	private static void writeValues(){
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(cfgFile));
+			
+			Object[] keys = configValues.keySet().toArray();
+			for(int i = 0; i<keys.length; i++){
+				writer.write(new StringBuilder((String) keys[i]).append(" = ").append(configValues.get((String) keys[i])).toString());
+				writer.newLine();
+			}
+			writer.close();
+		} catch (IOException e) {
+			// File seems to be broken
+		}
+	}
+	
 	public static void load() {
 		loadTextures();
 		loadSounds();
@@ -164,7 +145,7 @@ public class Loader {
 			try {
 				Clip clip = AudioSystem.getClip();
 				clip.open(AudioSystem.getAudioInputStream(
-						new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Sounds\\").append(names[i]).toString())));
+						new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Sounds\\").append(names[i]).toString())));
 				Loader.sounds.put(names[i], clip);
 			} catch (Exception e) {
 				// Didn't work, trying default
@@ -185,7 +166,7 @@ public class Loader {
 		try {
 			Clip clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(
-					new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Music\\").append(name).toString())));
+					new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Music\\").append(name).toString())));
 			return clip;
 		} catch (Exception e) {
 			// Didn't work, trying default
@@ -244,7 +225,7 @@ public class Loader {
 
 	public static String[] getMusicList() {
 		//TODO wiso iaz ned aus default du depp?
-		return new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(resourcepack).append("\\Music").toString()).list();
+		return new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Music").toString()).list();
 	}
 
 	private static Texture createTexture(String textureName) {
@@ -366,5 +347,18 @@ public class Loader {
 			graphics.dispose();
 		}
 		return bufferedImage;
+	}
+	
+	public static void changeCfgValue(String key, String value){
+		configValues.put(key, value);
+		writeValues();
+	}
+	
+	private static String getCfgValue(String key){
+		return configValues.get(key);
+	}
+	
+	public static float getVolume(){
+		return Float.parseFloat(getCfgValue("Volume"));
 	}
 }

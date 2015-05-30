@@ -177,7 +177,6 @@ public class MainMenue extends JFrame {
 		MoodMusic.addMood("MainMenue");
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_2.WAV");
 		MoodMusic.init("MainMenue");
-		MoodMusic.setVolume(-30f);
 		new MainMenue("menue.png");
 	}
 

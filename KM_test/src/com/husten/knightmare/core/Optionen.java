@@ -57,7 +57,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 
 		optionen = new JButton[text.length];
 
-		position = (int) ((MoodMusic.getVolume() / 0.84) + 94) - 1;
+		position = (int) ((MoodMusic.getVolume() / 0.84) + 94);
 
 		volume = new JSlider();
 		volume.setMinimum(0);
@@ -65,7 +65,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 		volume.setMajorTickSpacing(5);
 		volume.setMinorTickSpacing(1);
 		volume.setValue(position);
-		volume.setBorder(BorderFactory.createLineBorder(Color.lightGray,1));
+		volume.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
 		volume.addChangeListener(this);
@@ -85,7 +85,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 			optionen[i].setRolloverEnabled(false);
 			optionen[i].setFocusable(false);
 			optionen[i].setContentAreaFilled(true);
-			optionen[i].setBorder(BorderFactory.createLineBorder(Color.lightGray,1));
+			optionen[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 			optionen[i].setFont(new Font("Arial", Font.BOLD, 48));
 			if (i > 0)
 				add(optionen[i - 1]);
@@ -103,6 +103,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 		if (q == volume) {
 			repaint();
 			MoodMusic.setVolume((float) (int) ((6 - ((100 - volume.getValue()) * 0.84))));
+			Loader.changeCfgValue("Volume", String.valueOf(((6 - ((100 - volume.getValue()) * 0.84)))));
 			position = volume.getValue();
 		}
 
