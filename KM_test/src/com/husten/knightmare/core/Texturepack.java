@@ -20,23 +20,26 @@ import javax.swing.event.ListSelectionListener;
 
 import com.richard.knightmare.util.Loader;
 
-public class Texturepack extends JFrame implements ListSelectionListener{
+public class Texturepack extends JFrame implements ListSelectionListener {
 
 	private JList list;
 	private File path;
 	private File[] ordner;
 	private String[] text;
 	private Optionen op;
-	
-	public Texturepack(boolean undecorated, Optionen o){		
+
+	public Texturepack(boolean undecorated, Optionen o) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
-		
+
 		op = o;
-		
-		path = new File(new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\Appdata\\Roaming\\ares\\Knightmare\\resourcepacks").toString());
+
+		path = new File(new StringBuilder("C:\\Users\\")
+				.append(System.getProperty("user.name"))
+				.append("\\Appdata\\Roaming\\ares\\Knightmare\\resourcepacks")
+				.toString());
 		ordner = path.listFiles();
 		text = path.list();
-		
+
 		double resolution = (double) 16 / (double) 9;
 		int width, height;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -50,23 +53,32 @@ public class Texturepack extends JFrame implements ListSelectionListener{
 			width = screen.width;
 			height = (int) (screen.getWidth() / resolution);
 		}
-		
+
+		String gewahlt = Loader.getCfgValue("Resourcepack");
+
+		int Autoselect = -1;
+
+		for (int i = 0; i < text.length; i++) {
+			if (gewahlt.equals(text[i])) {
+				Autoselect = i;
+			}
+		}
+
 		setSize(width, height);
 		setAutoRequestFocus(true);
 		setUndecorated(undecorated);
 		setVisible(true);
-		
+
 		BufferedImage img = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_ARGB);
 		img.getGraphics().drawImage(Loader.getImage("back.png"), 0, 0, width,
 				height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
-		
-		
+
 		list = new JList<String>(text); // data has type Object[]
 		list.setSize(new Dimension(width, height));
-		list.setBounds((screen.width-width)/2 + width/4,
-				(screen.height - height) / 2, width/2, height);
+		list.setBounds((screen.width - width) / 2 + width / 4,
+				(screen.height - height) / 2, width / 2, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		list.setForeground(Color.white);
@@ -76,55 +88,63 @@ public class Texturepack extends JFrame implements ListSelectionListener{
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.addListSelectionListener(this);
 		list.setOpaque(false);
+
+		if (Autoselect > -1) {
+			list.setSelectedIndex(Autoselect);
+		}
+
 		add(list);
-		((DefaultListCellRenderer)list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);  
+		((DefaultListCellRenderer) list.getCellRenderer())
+				.setHorizontalAlignment(JLabel.CENTER);
 
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		Object q = e.getSource();
-		
-		if (q == list){
+
+		if (q == list) {
 			list.addMouseListener(new MouseListener() {
-				
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount()==2){
-						Loader.changeCfgValue("Resourcepack", text[list.getSelectedIndex()]);
+					if (e.getButton() == MouseEvent.BUTTON1
+							&& e.getClickCount() == 2) {
+						Loader.changeCfgValue("Resourcepack",
+								text[list.getSelectedIndex()]);
 						op.setVisible(true);
 						op.setAutoRequestFocus(true);
 						dispose();
 					}
-					
+
 				}
-				
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mouseExited(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mouseEntered(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 		}
-		
+
 	}
-	
+
 }
