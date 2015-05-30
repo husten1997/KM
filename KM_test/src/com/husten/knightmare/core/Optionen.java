@@ -119,6 +119,11 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener {
 			mm.setAutoRequestFocus(true);
 			dispose();
 		}
+		
+		if (q == optionen[2]){
+			setVisible(false);
+			new Texturepack(isUndecorated(), this);
+		}
 
 	}
 
