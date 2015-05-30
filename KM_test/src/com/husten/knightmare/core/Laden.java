@@ -29,7 +29,7 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 
 	private JList<String> list;
 	private JButton zurück;
-	private String[] data = { "Keine Speicherstände vorhanden. Neues Spiel?" };
+	private String[] data = {"Keine Speicherstände vorhanden. Neues Spiel?" };
 	private MainMenue mm;
 
 	public Laden(MainMenue a) {
