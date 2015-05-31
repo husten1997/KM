@@ -21,8 +21,9 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 	
 	private JSlider volume;
 	private int position;
+	private JButton zurück;
 	private JButton optionen[];
-	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Tastenbelegung", "Resourcepacks", "Zurück" };
+	private String[] text = { "Grafikeinstellungen", "Resourcepacks", "Tastenbelegung", "Fenstermodus"};
 	public static Optionsframesuperklasse instance;
 
 	public Optionen() {
@@ -64,7 +65,15 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		}
 
 		add(volume);
-		add(optionen[optionen.length - 1]);
+		add(optionen[optionen.length-1]);
+		zurück = new JButton("Zurück");
+		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
+		zurück.setBounds(screen.width / 2 + 3 * width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
+		zurück.addActionListener(this);
+		zurück.setRolloverEnabled(false);
+		zurück.setFocusable(false);
+		add(zurück);
 		instance = this;
 	}
 	
@@ -86,13 +95,13 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		Object q = arg0.getSource();
 		repaint();
 
-		if (q == optionen[optionen.length - 1]) {
+		if (q == zurück) {
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 		
-		if (q == optionen[0]){
+		if (q == optionen[3]){
 			MainMenue.instance.dispose();
 			MainMenue.instance.setUndecorated(!isUndecorated());
 			dispose();
@@ -104,13 +113,13 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		}
 		
 		if (q == optionen[2]){
-			setVisible(false);
 			new Tastenbelegung();
+			setVisible(false);
 		}
 
-		if (q == optionen[3]) {
-			setVisible(false);
+		if (q == optionen[1]) {
 			new Resourcepack();
+			setVisible(false);
 		}
 
 	}
