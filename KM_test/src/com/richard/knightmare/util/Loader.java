@@ -42,26 +42,27 @@ public class Loader {
 	private static ColorModel glAlphaColorModel, glColorModel;
 	private static IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
 
-//	private static HashMap<String, String> defaultConfigValues = new HashMap<>(), configValues = new HashMap<>();
+	// private static HashMap<String, String> defaultConfigValues = new
+	// HashMap<>(), configValues = new HashMap<>();
 
 	public static void initLoader(String firmenname, String spielname) {
 		initLoaderWithoutLoad(firmenname, spielname);
 		load();
 	}
 
-	private static class Cfg{
+	private static class Cfg {
 		private static HashMap<String, String> defaultConfigValues = new HashMap<>(), configValues = new HashMap<>();
 		private static ArrayList<String> sortedKeys = new ArrayList<>();
-		
-		private Cfg(){
+
+		private Cfg() {
 			defaultConfigValues.put("Resourcepack", "Default");
 			sortedKeys.add("Resourcepack");
 			defaultConfigValues.put("Volume", "-27.6");
 			sortedKeys.add("Volume");
 			defaultConfigValues.put("Fullscreen", "true");
 			sortedKeys.add("Fullscreen");
-			
-			//WASD
+
+			// WASD
 			defaultConfigValues.put("CONTROL_KEY: Vorwärts", "W");
 			sortedKeys.add("CONTROL_KEY: Vorwärts");
 			defaultConfigValues.put("CONTROL_KEY: Links", "A");
@@ -70,8 +71,8 @@ public class Loader {
 			sortedKeys.add("CONTROL_KEY: Rückwärts");
 			defaultConfigValues.put("CONTROL_KEY: Rechts", "D");
 			sortedKeys.add("CONTROL_KEY: Rechts");
-			
-			//-><-
+
+			// -><-
 			defaultConfigValues.put("CONTROL_KEY: Kamera oben", "Oben");
 			sortedKeys.add("CONTROL_KEY: Kamera oben");
 			defaultConfigValues.put("CONTROL_KEY: Kamera links", "Links");
@@ -80,22 +81,22 @@ public class Loader {
 			sortedKeys.add("CONTROL_KEY: Kamera unten");
 			defaultConfigValues.put("CONTROL_KEY: Kamera rechts", "Rechts");
 			sortedKeys.add("CONTROL_KEY: Kamera rechts");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Escape/Zurück", "ESC");
 			sortedKeys.add("CONTROL_KEY: Escape/Zurück");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Bestätigen", "Eingabe");
 			sortedKeys.add("CONTROL_KEY: Bestätigen");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Fenster- u. Vollbildmodus", "F11");
 			sortedKeys.add("CONTROL_KEY: Fenster- u. Vollbildmodus");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Volume +", "F2");
 			sortedKeys.add("CONTROL_KEY: Volume +");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Volume -", "F1");
 			sortedKeys.add("CONTROL_KEY: Volume -");
-			
+
 			sortedKeys.sort(new Comparator<String>() {
 
 				@Override
@@ -104,8 +105,8 @@ public class Loader {
 				}
 			});
 		}
-		
-		private static void loadConfigs(){
+
+		private static void loadConfigs() {
 			cfgFile = new File(new StringBuilder(configs.getAbsolutePath()).append("\\Configs.cfg").toString());
 
 			if (cfgFile.exists()) {
@@ -115,7 +116,19 @@ public class Loader {
 
 					for (int i = 0; i < sortedKeys.size(); i++) {
 						String line = reader.readLine();
-						configValues.put(sortedKeys.get(i), line.substring(line.lastIndexOf("=") + 2));
+						if (line != null) {
+							configValues.put(sortedKeys.get(i), line.substring(line.lastIndexOf("=") + 2));
+						} else {
+							try {
+								// Write configs
+								configValues = defaultConfigValues;
+								cfgFile.createNewFile();
+							} catch (IOException e) {
+								// File seems to be broken
+							}
+							writeValues();
+							break;
+						}
 					}
 					reader.close();
 				} catch (IOException e) {
@@ -131,20 +144,21 @@ public class Loader {
 				}
 				writeValues();
 			}
-			
-			//Validate
+
+			// Validate
 			texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
-			if(!texturesRes.exists()){
+			if (!texturesRes.exists()) {
 				configValues.put("Resourcepack", "Default");
 				writeValues();
-				texturesRes = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
+				texturesRes = new File(
+						new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack")).append("\\Textures").toString());
 			}
-			if(!(Float.parseFloat(configValues.get("Volume"))<=6 && -80>= Float.parseFloat(configValues.get("Volume")))){
+			if (!(Float.parseFloat(configValues.get("Volume")) <= 6 && -80 >= Float.parseFloat(configValues.get("Volume")))) {
 				configValues.put("Volume", "-27.6");
 				writeValues();
 			}
 		}
-		
+
 		private static void writeValues() {
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(cfgFile));
@@ -159,54 +173,52 @@ public class Loader {
 			}
 		}
 	}
-	
-	private static class ResCfg{
+
+	private static class ResCfg {
 		private static HashMap<String, String> defaultConfigValues = new HashMap<>(), configValues = new HashMap<>();
 		private static ArrayList<String> sortedKeys = new ArrayList<>();
-		
-		private ResCfg(){
+
+		private ResCfg() {
 			defaultConfigValues.put("Button: Spielstarten (posx1)", "848");
 			sortedKeys.add("Button: Spielstarten (posx1)");
 			defaultConfigValues.put("Button: Spielstarten (posy1)", "465");
 			sortedKeys.add("Button: Spielstarten (posy1)");
-			
-			
+
 			defaultConfigValues.put("Button: Spielstarten (posx2)", "1920");
 			sortedKeys.add("Button: Spielstarten (posx2)");
 			defaultConfigValues.put("Button: Spielstarten (posy2)", "586");
 			sortedKeys.add("Button: Spielstarten (posy2)");
-			
+
 			defaultConfigValues.put("Button: Optionen (posx1)", "848");
 			sortedKeys.add("Button: Optionen (posx1)");
 			defaultConfigValues.put("Button: Optionen (posy1)", "608");
 			sortedKeys.add("Button: Optionen (posy1)");
-			
+
 			defaultConfigValues.put("Button: Optionen (posx2)", "1920");
 			sortedKeys.add("Button: Optionen (posx2)");
 			defaultConfigValues.put("Button: Optionen (posy2)", "729");
 			sortedKeys.add("Button: Optionen (posy2)");
-			
+
 			defaultConfigValues.put("Button: Laden (posx1)", "848");
 			sortedKeys.add("Button: Laden (posx1)");
 			defaultConfigValues.put("Button: Laden (posy1)", "751");
 			sortedKeys.add("Button: Laden (posy1)");
-			
+
 			defaultConfigValues.put("Button: Laden (posx2)", "1920");
 			sortedKeys.add("Button: Laden (posx2)");
 			defaultConfigValues.put("Button: Laden (posy2)", "838");
 			sortedKeys.add("Button: Laden (posy2)");
-			
+
 			defaultConfigValues.put("Button: Schliessen (posx1)", "848");
 			sortedKeys.add("Button: Schliessen (posx1)");
 			defaultConfigValues.put("Button: Schliessen (posy1)", "894");
 			sortedKeys.add("Button: Schliessen (posy1)");
-			
+
 			defaultConfigValues.put("Button: Schliessen (posx2)", "1920");
 			sortedKeys.add("Button: Schliessen (posx2)");
 			defaultConfigValues.put("Button: Schliessen (posy2)", "967");
 			sortedKeys.add("Button: Schliessen (posy2)");
-				
-			
+
 			sortedKeys.sort(new Comparator<String>() {
 
 				@Override
@@ -215,12 +227,13 @@ public class Loader {
 				}
 			});
 		}
-		
-		private static void loadConfigs(){
-			if(Loader.getCfgValue("Resourcepack").equals("Default")){
+
+		private static void loadConfigs() {
+			if (Loader.getCfgValue("Resourcepack").equals("Default")) {
 				resCfgFile = new File("src\\resources\\Configs.cfg");
-			}else{
-				resCfgFile = new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(Loader.getCfgValue("Resourcepack")).append("\\Configs.cfg").toString());
+			} else {
+				resCfgFile = new File(
+						new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(Loader.getCfgValue("Resourcepack")).append("\\Configs.cfg").toString());
 			}
 
 			if (resCfgFile.exists()) {
@@ -230,7 +243,19 @@ public class Loader {
 
 					for (int i = 0; i < sortedKeys.size(); i++) {
 						String line = reader.readLine();
-						configValues.put(sortedKeys.get(i), line.substring(line.lastIndexOf("=") + 2));
+						if (line != null) {
+							configValues.put(sortedKeys.get(i), line.substring(line.lastIndexOf("=") + 2));
+						} else {
+							try {
+								// Write configs
+								configValues = defaultConfigValues;
+								cfgFile.createNewFile();
+							} catch (IOException e) {
+								// File seems to be broken
+							}
+							writeValues();
+							break;
+						}
 					}
 					reader.close();
 				} catch (IOException e) {
@@ -246,10 +271,10 @@ public class Loader {
 				}
 				writeValues();
 			}
-			
-			//Validate
+
+			// Validate
 		}
-		
+
 		private static void writeValues() {
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(resCfgFile));
@@ -264,7 +289,7 @@ public class Loader {
 			}
 		}
 	}
-	
+
 	public static void initLoaderWithoutLoad(String firmenname, String spielname) {
 
 		glAlphaColorModel = new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB), new int[] { 8, 8, 8, 8 }, true, false, Transparency.TRANSLUCENT,
@@ -289,10 +314,10 @@ public class Loader {
 		}
 
 		texturesDefault = new File("src\\resources\\textures");
-		
+
 		new Cfg();
 		new ResCfg();
-		
+
 		Cfg.loadConfigs();
 		ResCfg.loadConfigs();
 	}
@@ -555,21 +580,21 @@ public class Loader {
 	}
 
 	public static void changeCfgValue(String key, String value) {
-		if(Cfg.sortedKeys.contains(key)){
+		if (Cfg.sortedKeys.contains(key)) {
 			Cfg.configValues.put(key, value);
 			Cfg.writeValues();
 		}
-		if(ResCfg.sortedKeys.contains(key)){
+		if (ResCfg.sortedKeys.contains(key)) {
 			ResCfg.configValues.put(key, value);
 			ResCfg.writeValues();
 		}
 	}
 
 	public static String getCfgValue(String key) {
-		if(Cfg.sortedKeys.contains(key)){
+		if (Cfg.sortedKeys.contains(key)) {
 			return Cfg.configValues.get(key);
 		}
-		if(ResCfg.sortedKeys.contains(key)){
+		if (ResCfg.sortedKeys.contains(key)) {
 			return ResCfg.configValues.get(key);
 		}
 		return null;

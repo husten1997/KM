@@ -80,9 +80,9 @@ public class Tastenbelegung extends JFrame implements ActionListener,
 			tasten[i].addActionListener(this);
 			tasten[i].setBounds((screen.width - width) / 2 + width / 4,
 					(screen.height - height) / 2
-							+ (i < tasten.length - 1 ? i : i + 1) * height
-							/ (tasten.length + 1), width / 2, height
-							/ (tasten.length + 1));
+							+ i* height
+							/ (tasten.length), width / 2, height
+							/ (tasten.length));
 			tasten[i].setForeground(Color.WHITE);
 			tasten[i].setBackground(new Color(0, 0, 0.25f, 0.25f));
 			tasten[i].setRolloverEnabled(false);
@@ -132,7 +132,7 @@ public class Tastenbelegung extends JFrame implements ActionListener,
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (ButtonClicked > -1){
-			Loader.changeCfgValue("CONTROL_KEY: " + text[ButtonClicked], e.getKeyText(e.getExtendedKeyCode()));
+			Loader.changeCfgValue("CONTROL_KEY: " + text[ButtonClicked], KeyEvent.getKeyText(e.getExtendedKeyCode()));
 			tasten[ButtonClicked].setText(text[ButtonClicked] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]));
 			ButtonClicked = -1;
 		}
