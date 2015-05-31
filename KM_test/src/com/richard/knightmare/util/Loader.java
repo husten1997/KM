@@ -100,6 +100,9 @@ public class Loader {
 
 			defaultConfigValues.put("CONTROL_KEY: Volume -", "F1");
 			sortedKeys.add("CONTROL_KEY: Volume -");
+			
+			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
+			sortedKeys.add("SETTINGS: V-Sync");
 
 			sortedKeys.sort(new Comparator<String>() {
 

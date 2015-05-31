@@ -6,16 +6,43 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 public class Grafik extends Optionsframesuperklasse implements ActionListener {
 
 	private JButton zurück;
+	private JButton settings[];
+	private String[] text = {"V-Sync"};
 
 	protected Grafik(String imgName, String name) {
 		super(imgName, name);
+
+		settings = new JButton[text.length];
+
+		for (int i = 0; i < text.length; i++) {
+			settings[i] = new JButton(text[0] + ": "
+					+ Loader.getCfgValue("SETTINGS: " + text[0]));
+			settings[i].addActionListener(this);
+			settings[i].setBounds((screen.width - width) / 2 + width / 4,
+					(screen.height - height) / 2
+							+ (i < settings.length - 1 ? i : i + 1) * height
+							/ (settings.length + 1), width / 2, height
+							/ (settings.length + 1));
+			settings[i].setForeground(Color.WHITE);
+			settings[i].setBackground(new Color(0, 0, 0.25f, 0.25f));
+			settings[i].setRolloverEnabled(false);
+			settings[i].setFocusable(false);
+			settings[i].setContentAreaFilled(true);
+			settings[i].setBorder(BorderFactory.createLineBorder(
+					Color.lightGray, 1));
+			settings[i].setFont(new Font("Arial", Font.BOLD, 48));
+			add(settings[i]);
+		}
+
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
@@ -46,6 +73,15 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
+		}
+
+		if (q == settings[0]) {
+			Loader.changeCfgValue(
+					"SETTINGS: " + text[0],
+					Loader.getCfgValue("SETTINGS: " + text[0]).equals("On") ? "Off"
+							: "On");
+			settings[0].setText(text[0] + " = " + Loader.getCfgValue("SETTINGS: " + text[0]));
+			repaint();
 		}
 
 	}

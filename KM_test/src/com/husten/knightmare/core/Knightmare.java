@@ -51,7 +51,8 @@ public class Knightmare implements StringConstants {
 	private GraphicalObject[][] world;
 	private Timer timer = new Timer(true);
 
-	public Knightmare() {
+	public Knightmare(boolean vs) {
+		Vsync = vs;
 		start();
 	}
 
