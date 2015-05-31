@@ -352,13 +352,55 @@ public class Loader {
 
 		texturesDefault = new File("src\\resources\\textures");
 
-		DicAddEntry("Eingabe", "RETURN");
+		
+		
+		//1 Zeile
 		DicAddEntry("ESC", "ESCAPE");
-		DicAddEntry("STRG", "CTRL");
-		DicAddEntry("Alt", "LMENU");
-		DicAddEntry("Leertaste", "SPACE");
-		DicAddEntry("Umschalt", "LSHIFT");
+		
+		//2 Zeile
+		DicAddEntry("Zirkumflex (Dead)", "BACKSLASH");
+		DicAddEntry("ß", "LBRACKET");
+		DicAddEntry("Akut (Dead)", "RBRACKET");
+		
+		//3 Zeile (Tab geht nicht)
+		DicAddEntry("Plus", "EQUALS");
+		DicAddEntry("Eingabe", "RETURN");
+		
+		//NumPad
+		DicAddEntry("NumPad +", "ADD");
+		DicAddEntry("NumPad -", "SUBTRACT");
+		DicAddEntry("NumPad *", "MULTIPLY");
+		DicAddEntry("NumPad /", "DIVIDE");
+		DicAddEntry("Num", "NUMLOCK");
+		DicAddEntry("Löschen", "NONE"); //=5
+		
+		//4 Zeile
+		DicAddEntry("Nummernzeichen", "SLASH");
 		DicAddEntry("Feststelltaste", "CAPITAL");
+		
+		//5 Zeile
+		DicAddEntry("Umschalt", "LSHIFT");
+		DicAddEntry("Kleiner als", "NONE");
+		DicAddEntry("Komma", "COMMA");
+		DicAddEntry("Punkt", "PERIOD");
+		DicAddEntry("Minus", "MINUS");
+		DicAddEntry("Umschalt", "RSHIFT");
+		
+		//6 Zeile
+		DicAddEntry("Strg", "CTRL");
+		DicAddEntry("Alt", "LMENU");
+		DicAddEntry("Windows", "LMETA");
+		DicAddEntry("Leertaste", "SPACE");
+		DicAddEntry("Kontextmenü", "APPS");
+		
+		
+		//Druck Block
+		DicAddEntry("Einfg", "INSERT");
+		DicAddEntry("Pos 1", "HOME");
+		DicAddEntry("Bild auf", "PRIOR");
+		DicAddEntry("Entf", "DELETE");
+		DicAddEntry("Ende", "END");
+		DicAddEntry("Bild ab", "NEXT");
 
 		// Pfeiltasten
 		DicAddEntry("Oben", "UP");
