@@ -19,6 +19,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.ImageListRenderer;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
@@ -53,6 +54,7 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 			}
 		}
 		list = new JList<String>(text); // data has type Object[]
+		list.setCellRenderer(new ImageListRenderer());
 		list.setSize(new Dimension(width, height));
 		list.setBounds((screen.width - width) / 2 + width / 4,
 				(screen.height - height) / 2, width / 2, height);
