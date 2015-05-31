@@ -16,7 +16,7 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class OptionenTest extends Optionsframesuperklasse implements ChangeListener, ActionListener{
+public class Optionen extends Optionsframesuperklasse implements ChangeListener, ActionListener{
 	
 	private JSlider volume;
 	private int position;
@@ -24,7 +24,7 @@ public class OptionenTest extends Optionsframesuperklasse implements ChangeListe
 	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Tastenbelegung", "Resourcepacks", "Zurück" };
 	public static Optionsframesuperklasse instance;
 
-	public OptionenTest() {
+	public Optionen() {
 		super("back.png", "Knightmare: Optionen");
 		optionen = new JButton[text.length];
 
@@ -86,8 +86,8 @@ public class OptionenTest extends Optionsframesuperklasse implements ChangeListe
 		repaint();
 
 		if (q == optionen[optionen.length - 1]) {
-			MainMenueTest.instance.setVisible(true);
-			MainMenueTest.instance.setAutoRequestFocus(true);
+			MainMenue.instance.setVisible(true);
+			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 		
@@ -102,12 +102,12 @@ public class OptionenTest extends Optionsframesuperklasse implements ChangeListe
 		
 		if (q == optionen[2]){
 			setVisible(false);
-			new TastenbelegungTest();
+			new Tastenbelegung();
 		}
 
 		if (q == optionen[3]) {
 			setVisible(false);
-			new ResourcepackTest();
+			new Resourcepack();
 		}
 
 	}

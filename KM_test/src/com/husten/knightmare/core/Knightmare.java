@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -20,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
+import com.matze.knightmare.menues.MainMenue;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
@@ -201,11 +200,12 @@ public class Knightmare implements StringConstants {
 				System.out.println(Keyboard.getEventKey() +  " " + Keyboard.getKeyName(Keyboard.getEventKey()));
 				
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-					MainMenue m = new MainMenue("menue.png");
+					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
 					m.toFront();
-					m.isAutoRequestFocus();
+					m.setAlwaysOnTop(true);
+					m.setAutoRequestFocus(true);
 					return;
 				}
 

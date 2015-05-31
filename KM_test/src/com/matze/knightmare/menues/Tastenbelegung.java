@@ -14,7 +14,7 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class TastenbelegungTest extends Optionsframesuperklasse implements ActionListener {
+public class Tastenbelegung extends Optionsframesuperklasse implements ActionListener {
 
 	private int ButtonClicked = -1;
 	private JButton zurück;
@@ -22,7 +22,7 @@ public class TastenbelegungTest extends Optionsframesuperklasse implements Actio
 	private String text[] = { "Vorwärts", "Rückwärts", "Links", "Rechts", "Kamera oben", "Kamera unten", "Kamera links", "Kamera rechts", "Escape/Zurück", "Bestätigen",
 			"Fenster- u. Vollbildmodus", "Volume +", "Volume -" };
 
-	public TastenbelegungTest() {
+	public Tastenbelegung() {
 		super("back.png", "Knightmare: Tastenbelegung");
 		tasten = new JButton[text.length];
 		zurück = new JButton("Zurück");
@@ -69,8 +69,8 @@ public class TastenbelegungTest extends Optionsframesuperklasse implements Actio
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
-				OptionenTest.instance.setVisible(true);
-				OptionenTest.instance.setAutoRequestFocus(true);
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
 				dispose();
 			}
 		}
@@ -89,8 +89,8 @@ public class TastenbelegungTest extends Optionsframesuperklasse implements Actio
 		}
 
 		if (q == zurück) {
-			OptionenTest.instance.setVisible(true);
-			OptionenTest.instance.setAutoRequestFocus(true);
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 

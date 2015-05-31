@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.matze.knightmare.menues.MainMenueTest;
+import com.matze.knightmare.menues.MainMenue;
 import com.richard.knightmare.sound.MoodMusic;
 
 @SuppressWarnings("serial")
@@ -63,8 +63,8 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
 			MoodMusic.changeVolume(+0.5f);
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
-			MainMenueTest.instance.setVisible(true);
-			MainMenueTest.instance.setAutoRequestFocus(true);
+			MainMenue.instance.setVisible(true);
+			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 	}

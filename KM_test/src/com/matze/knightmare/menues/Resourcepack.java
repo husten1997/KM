@@ -23,7 +23,7 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class ResourcepackTest extends Optionsframesuperklasse implements ListSelectionListener, ActionListener{
+public class Resourcepack extends Optionsframesuperklasse implements ListSelectionListener, ActionListener{
 
 	private JList<String> list;
 	private File path;
@@ -31,7 +31,7 @@ public class ResourcepackTest extends Optionsframesuperklasse implements ListSel
 	private JButton zurück;
 	private String fehler;
 	
-	public ResourcepackTest(){
+	public Resourcepack(){
 		super("back.png", "Knightmare: Resourcepack");
 		fehler = "Resourcepack kann nicht 'Default' heißen";
 
@@ -110,8 +110,8 @@ public class ResourcepackTest extends Optionsframesuperklasse implements ListSel
 						if (!text[list.getSelectedIndex()].equals(fehler)) {
 							Loader.changeCfgValue("Resourcepack",
 									text[list.getSelectedIndex()]);
-							OptionenTest.instance.setVisible(true);
-							OptionenTest.instance.setAutoRequestFocus(true);
+							Optionen.instance.setVisible(true);
+							Optionen.instance.setAutoRequestFocus(true);
 							dispose();
 						}
 					}
@@ -144,8 +144,8 @@ public class ResourcepackTest extends Optionsframesuperklasse implements ListSel
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == zurück) {
-			OptionenTest.instance.setVisible(true);
-			OptionenTest.instance.setAutoRequestFocus(true);
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 
@@ -165,8 +165,8 @@ public class ResourcepackTest extends Optionsframesuperklasse implements ListSel
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
 			MoodMusic.changeVolume(+0.5f);
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
-			OptionenTest.instance.setVisible(true);
-			OptionenTest.instance.setAutoRequestFocus(true);
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 	}

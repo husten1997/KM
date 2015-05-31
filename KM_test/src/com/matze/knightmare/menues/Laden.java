@@ -19,13 +19,13 @@ import javax.swing.event.ListSelectionListener;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class LadenTest extends Optionsframesuperklasse implements ActionListener, ListSelectionListener {
+public class Laden extends Optionsframesuperklasse implements ActionListener, ListSelectionListener {
 	
 	private JList<String> list;
 	private JButton zurück;
 	private String[] data = { "Keine Speicherstände vorhanden. Neues Spiel?" };
 
-	public LadenTest() {
+	public Laden() {
 		super("back.png", "Knightmare: Laden");
 		setLocationRelativeTo(null);
 
@@ -58,8 +58,8 @@ public class LadenTest extends Optionsframesuperklasse implements ActionListener
 
 	private void performAction(int x) {
 		if (data[0].equals("Keine Speicherstände vorhanden. Neues Spiel?")) {
-			MainMenueTest.instance.setVisible(true);
-			MainMenueTest.instance.setAutoRequestFocus(true);
+			MainMenue.instance.setVisible(true);
+			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 	}
@@ -105,8 +105,8 @@ public class LadenTest extends Optionsframesuperklasse implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == zurück) {
-			MainMenueTest.instance.setVisible(true);
-			MainMenueTest.instance.setAutoRequestFocus(true);
+			MainMenue.instance.setVisible(true);
+			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 	}

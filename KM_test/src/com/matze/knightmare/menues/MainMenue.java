@@ -17,7 +17,7 @@ import com.richard.knightmare.util.Optionsframesuperklasse;
 import com.richard.knightmare.util.Pos;
 
 @SuppressWarnings("serial")
-public class MainMenueTest extends Optionsframesuperklasse {
+public class MainMenue extends Optionsframesuperklasse {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
 	public static Optionsframesuperklasse instance;
@@ -28,10 +28,10 @@ public class MainMenueTest extends Optionsframesuperklasse {
 		MoodMusic.addMood("MainMenue");
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_4.WAV");
 		MoodMusic.init("MainMenue");
-		new MainMenueTest();
+		new MainMenue();
 	}
 
-	public MainMenueTest() {
+	public MainMenue() {
 		super("menue.png", "Knightmare: MainMenue");
 		// Spiel Starten
 		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx1)")) * width, h(Loader.getCfgValue("Button: Spielstarten (posy1)")) * height),
@@ -63,7 +63,7 @@ public class MainMenueTest extends Optionsframesuperklasse {
 				new Pos(w(Loader.getCfgValue("Button: Optionen (posx2)")) * width, h(Loader.getCfgValue("Button: Optionen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new OptionenTest().setAlwaysOnTop(true);
+				new Optionen().setAlwaysOnTop(true);
 				setVisible(false);
 			}
 		});
@@ -73,7 +73,7 @@ public class MainMenueTest extends Optionsframesuperklasse {
 				new Pos(w(Loader.getCfgValue("Button: Laden (posx2)")) * width, h(Loader.getCfgValue("Button: Laden (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new LadenTest().setAlwaysOnTop(true);
+				new Laden().setAlwaysOnTop(true);
 				setVisible(false);
 			}
 		});
