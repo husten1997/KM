@@ -198,7 +198,7 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				System.out.println(Keyboard.getEventKey() +  "ESC");
+				System.out.println(Keyboard.getEventKey() +  " " + Keyboard.getKeyName(Keyboard.getEventKey()));
 				
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 					MainMenue m = new MainMenue("menue.png");

@@ -61,7 +61,7 @@ public class Loader {
 			sortedKeys.add("Volume");
 			defaultConfigValues.put("Fullscreen", "true");
 			sortedKeys.add("Fullscreen");
-
+			
 			// WASD
 			defaultConfigValues.put("CONTROL_KEY: Vorwärts", "W");
 			sortedKeys.add("CONTROL_KEY: Vorwärts");
@@ -315,6 +315,12 @@ public class Loader {
 
 		texturesDefault = new File("src\\resources\\textures");
 
+		DicAddEntry("Eingabe", "RETURN");
+		DicAddEntry("ESC", "ESCAPE");
+		DicAddEntry("STRG", "CTRL");
+		DicAddEntry("Alt", "LMENU");
+		
+		
 		new Cfg();
 		new ResCfg();
 
@@ -325,6 +331,11 @@ public class Loader {
 	public static void load() {
 		loadTextures();
 		loadSounds();
+	}
+	
+	private static void DicAddEntry(String deutsch, String englisch){
+		Dictionary.addEntry(englisch, deutsch);
+		Dictionary.addEntry(deutsch, deutsch);
 	}
 
 	private static void loadTextures() {
