@@ -101,14 +101,14 @@ public class Laden extends JFrame implements KeyListener, ListSelectionListener,
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if (arg0.getExtendedKeyCode() == 10) {
+		if (arg0.getKeyText(arg0.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Bestätigen"))) {
 			performAction(list.getSelectedIndex());
-		} else if (arg0.getExtendedKeyCode() == 27) {
+		} else if (arg0.getKeyText(arg0.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
 			mm.setVisible(true);
 			mm.setAutoRequestFocus(true);
 			dispose();
 		} else {
-			if (arg0.getExtendedKeyCode() == 122){
+			if (arg0.getKeyText(arg0.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))){
 				dispose();
 				mm.dispose();
 				mm.setUndecorated(!isUndecorated());

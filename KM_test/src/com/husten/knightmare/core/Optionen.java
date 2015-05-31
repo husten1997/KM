@@ -30,7 +30,7 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener, 
 	private MainMenue mm;
 	private int position;
 	private JButton optionen[];
-	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Resourcepacks", "Zurück" };
+	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Tastenbelegung", "Resourcepacks", "Zurück" };
 
 	public Optionen(MainMenue a) {
 		double resolution = (double) 16 / (double) 9;
@@ -135,8 +135,13 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener, 
 			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
 			setVisible(true);
 		}
+		
+		if (q == optionen[2]){
+			setVisible(false);
+			new Tastenbelegung(this);
+		}
 
-		if (q == optionen[2]) {
+		if (q == optionen[3]) {
 			setVisible(false);
 			new Resourcepack(this);
 		}
@@ -145,12 +150,12 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener, 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getExtendedKeyCode() == 27) {
+		if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
 			mm.setVisible(true);
 			mm.setAutoRequestFocus(true);
 			dispose();
 		}
-		if (e.getExtendedKeyCode() == 122){
+		if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))){
 			dispose();
 			mm.dispose();
 			mm.setUndecorated(!isUndecorated());

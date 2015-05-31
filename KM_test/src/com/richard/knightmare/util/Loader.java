@@ -61,6 +61,41 @@ public class Loader {
 			defaultConfigValues.put("Fullscreen", "true");
 			sortedKeys.add("Fullscreen");
 			
+			//WASD
+			defaultConfigValues.put("CONTROL_KEY: Vorwärts", "W");
+			sortedKeys.add("CONTROL_KEY: Vorwärts");
+			defaultConfigValues.put("CONTROL_KEY: Links", "A");
+			sortedKeys.add("CONTROL_KEY: Links");
+			defaultConfigValues.put("CONTROL_KEY: Rückwärts", "S");
+			sortedKeys.add("CONTROL_KEY: Rückwärts");
+			defaultConfigValues.put("CONTROL_KEY: Rechts", "D");
+			sortedKeys.add("CONTROL_KEY: Rechts");
+			
+			//-><-
+			defaultConfigValues.put("CONTROL_KEY: Kamera oben", "Oben");
+			sortedKeys.add("CONTROL_KEY: Kamera oben");
+			defaultConfigValues.put("CONTROL_KEY: Kamera links", "Links");
+			sortedKeys.add("CONTROL_KEY: Kamera links");
+			defaultConfigValues.put("CONTROL_KEY: Kamera unten", "Unten");
+			sortedKeys.add("CONTROL_KEY: Kamera unten");
+			defaultConfigValues.put("CONTROL_KEY: Kamera rechts", "Rechts");
+			sortedKeys.add("CONTROL_KEY: Kamera rechts");
+			
+			defaultConfigValues.put("CONTROL_KEY: Escape/Zurück", "ESC");
+			sortedKeys.add("CONTROL_KEY: Escape/Zurück");
+			
+			defaultConfigValues.put("CONTROL_KEY: Bestätigen", "Eingabe");
+			sortedKeys.add("CONTROL_KEY: Bestätigen");
+			
+			defaultConfigValues.put("CONTROL_KEY: Fenster- u. Vollbildmodus", "F11");
+			sortedKeys.add("CONTROL_KEY: Fenster- u. Vollbildmodus");
+			
+			defaultConfigValues.put("CONTROL_KEY: Volume +", "F2");
+			sortedKeys.add("CONTROL_KEY: Volume +");
+			
+			defaultConfigValues.put("CONTROL_KEY: Volume -", "F1");
+			sortedKeys.add("CONTROL_KEY: Volume -");
+			
 			sortedKeys.sort(new Comparator<String>() {
 
 				@Override
@@ -170,8 +205,7 @@ public class Loader {
 			sortedKeys.add("Button: Schliessen (posx2)");
 			defaultConfigValues.put("Button: Schliessen (posy2)", "967");
 			sortedKeys.add("Button: Schliessen (posy2)");
-			
-			
+				
 			
 			sortedKeys.sort(new Comparator<String>() {
 

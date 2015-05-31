@@ -146,11 +146,11 @@ public class MainMenue extends JFrame implements KeyListener {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getExtendedKeyCode() == 112) {
+				if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume -"))) {
 					MoodMusic.changeVolume(-0.5f);
-				} else if (e.getKeyCode() == 113) {
+				} else if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
 					MoodMusic.changeVolume(+0.5f);
-				} else if (e.getExtendedKeyCode() == 27) {
+				} else if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
 					dispose();
 				}
 			}
@@ -232,7 +232,7 @@ public class MainMenue extends JFrame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getExtendedKeyCode() == 122) {
+		if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
 			mm.dispose();
 			mm.setUndecorated(!isUndecorated());
 			mm.setVisible(true);
