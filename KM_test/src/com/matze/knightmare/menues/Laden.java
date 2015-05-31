@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import com.husten.knightmare.core.MainMenue;
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
@@ -26,13 +28,42 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 	private JList<String> list;
 	private JButton zurück;
-	private String[] data = {"d","d"};
+	private String[] data;
 	private String defaultText[] = {"Keine Speicherstände vorhanden. Neues Spiel?"};
 	private boolean speichVorhanden;
+	private File path;
 
 	public Laden() {
 		super("back.png", "Knightmare: Laden");
 		setLocationRelativeTo(null);
+		
+		String a[] = Loader.getSavesDir().list();
+		int länge = 0;
+		for (int i = 0; i < a.length; i++){
+			if (a[i].contains(".") || !a[i].contains("save")){
+				System.out.println(a[i]);
+				a[i] = "";
+			} else {
+				länge++;
+			}
+		}
+		
+		for (int i = 0; i < a.length-1; i++){
+			if (a[i].equals("")){
+				a[i] = a[i+1];
+				a[i+1] = "";
+			}
+		}
+		
+		data = new String[länge];
+		int la = 0;
+		for (int i = 0; i < länge; i++){
+			while (a[la].equals("")){
+				la++;
+			}
+			data[i] = a[la];
+			a[la] = "";
+		}
 		
 		speichVorhanden = !(data.length == 0);
 		
