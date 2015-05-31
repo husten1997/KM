@@ -13,7 +13,7 @@ public class MoodMusic {
 	private static ArrayList<String> lastPlayed = new ArrayList<>();
 	private static MusikPlayer player;
 	private static HashMap<String, ArrayList<String>> moodMusic = new HashMap<>();
-	private static float volume = -27.6f;
+	private static float volume;
 	private static String mood;
 	private static Timer timer;
 
@@ -132,6 +132,7 @@ public class MoodMusic {
 
 	public static void changeVolume(Float change) {
 		volume += change;
+		Loader.changeCfgValue("Volume", String.valueOf(volume));
 		player.setVolume(volume);
 	}
 

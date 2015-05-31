@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -30,7 +31,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		super("back.png", "Knightmare: Optionen");
 		optionen = new JButton[text.length];
 
-		position = (int) ((MoodMusic.getVolume() / 0.84) + 94);
+		position = (int) ((Float.parseFloat(Loader.getCfgValue("Volume")) / 0.84) + 94);
 
 		volume = new JSlider();
 		volume.setMinimum(0);
@@ -83,11 +84,37 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 
 		if (q == volume) {
 			repaint();
-			MoodMusic.setVolume((float) (int) ((6 - ((100 - volume.getValue()) * 0.84))));
+			MoodMusic.setVolume((float) ((6 - ((100 - volume.getValue()) * 0.84))));
 			Loader.changeCfgValue("Volume", String.valueOf(((6 - ((100 - ((double) volume.getValue())) * 0.84)))));
 			position = volume.getValue();
 		}
 
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
+			dispose();
+			setUndecorated(!isUndecorated());
+			setVisible(true);
+			setAutoRequestFocus(true);
+			setLocationRelativeTo(null);
+			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
+			MoodMusic.changeVolume(-0.5f);
+			position = (int) Math.round((Double.parseDouble(Loader.getCfgValue("Volume")) / 0.84) + 94)-2;
+			volume.setValue(position);
+			repaint();
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
+			MoodMusic.changeVolume(+0.5f);
+			position = (int) Math.round((Double.parseDouble(Loader.getCfgValue("Volume")) / 0.84) + 94)-1;
+			volume.setValue(position);
+			repaint();
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+			MainMenue.instance.setVisible(true);
+			MainMenue.instance.setAutoRequestFocus(true);
+			dispose();
+		}
 	}
 
 	@Override
