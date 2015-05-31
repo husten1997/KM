@@ -51,7 +51,7 @@ public class MainMenue extends Optionsframesuperklasse {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-						Knightmare km = new Knightmare((Loader.getCfgValue("SETTINGS: V-Sync").equals("On")));
+						Knightmare km = new Knightmare();
 						MoodMusic.changeMood("Default");
 						l.dispose();
 						km.loop();

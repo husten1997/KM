@@ -51,8 +51,8 @@ public class Knightmare implements StringConstants {
 	private GraphicalObject[][] world;
 	private Timer timer = new Timer(true);
 
-	public Knightmare(boolean vs) {
-		Vsync = vs;
+	public Knightmare() {
+		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
 		start();
 	}
 
