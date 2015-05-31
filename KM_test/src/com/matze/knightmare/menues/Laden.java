@@ -26,18 +26,17 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 	private JList<String> list;
 	private JButton zurück;
-	private String[] data = { "Keine Speicherstände vorhanden. Neues Spiel?", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d",
-			"d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d",
-			"d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d",
-			"d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d",
-			"d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d",
-			"d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d" };
+	private String[] data = {"d","d"};
+	private String defaultText[] = {"Keine Speicherstände vorhanden. Neues Spiel?"};
+	private boolean speichVorhanden;
 
 	public Laden() {
 		super("back.png", "Knightmare: Laden");
 		setLocationRelativeTo(null);
-
-		list = new JList<String>(data); // data has type Object[]
+		
+		speichVorhanden = !(data.length == 0);
+		
+		list = new JList<String>((data.length == 0)?defaultText:data); // data has type Object[]
 		list.setSize(new Dimension(width, height));
 		list.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -173,7 +172,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	}
 
 	private void performAction(int x) {
-		if (data[0].equals("Keine Speicherstände vorhanden. Neues Spiel?")) {
+		if (!speichVorhanden) {
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
