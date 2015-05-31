@@ -1,13 +1,19 @@
 package com.matze.knightmare.menues;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
@@ -15,17 +21,27 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class Tastenbelegung extends Optionsframesuperklasse implements ActionListener {
+public class Tastenbelegung extends Optionsframesuperklasse implements ActionListener, ListSelectionListener {
 
 	private int ButtonClicked = -1;
 	private JButton zurück;
-	private JButton tasten[];
+	private JList<String> list;
+	private String hilfe[];
 	private String text[] = { "Vorwärts", "Rückwärts", "Links", "Rechts", "Kamera oben", "Kamera unten", "Kamera links", "Kamera rechts", "Escape/Zurück", "Bestätigen",
 			"Fenster- u. Vollbildmodus", "Volume +", "Volume -" };
 
 	public Tastenbelegung() {
 		super("back.png", "Knightmare: Tastenbelegung");
-		tasten = new JButton[text.length];
+		
+		hilfe = new String[text.length];
+		
+		for (int i = 0; i < text.length; i++){
+			hilfe[i] = text[i] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[i]);
+		}
+		
+		addKeyListener(this);
+		
+		list = new JList<String>(hilfe);
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
@@ -34,28 +50,30 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
 
-		for (int i = 0; i < tasten.length; i++) {
-			tasten[i] = new JButton(text[i] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[i]));
-			tasten[i].addActionListener(this);
-			tasten[i].setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2 + i * height / (tasten.length), width / 2, height / (tasten.length));
-			tasten[i].setForeground(Color.WHITE);
-			tasten[i].setBackground(new Color(0, 0, 0.25f, 0.25f));
-			tasten[i].setRolloverEnabled(false);
-			tasten[i].setFocusable(false);
-			tasten[i].setContentAreaFilled(true);
-			tasten[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
-			tasten[i].setFont(new Font("Arial", Font.BOLD, 48));
-			add(tasten[i]);
-		}
+		list.setSize(new Dimension(width, height));
+		list.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
+		list.setForeground(Color.white);
+		list.setSelectionBackground(Color.black);
+		list.setSelectionForeground(Color.cyan);
+		list.setVisibleRowCount(text.length);
+		list.setFont(new Font("Arial", Font.BOLD, 40));
+		list.setOpaque(false);
+		list.addListSelectionListener(this);
+		
+		add(list);
 		add(zurück);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (ButtonClicked > -1) {
+			System.out.println("HI");
 			Loader.changeCfgValue("CONTROL_KEY: " + text[ButtonClicked], KeyEvent.getKeyText(e.getExtendedKeyCode()));
-			tasten[ButtonClicked].setText(text[ButtonClicked] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]));
+			hilfe[ButtonClicked] = text[ButtonClicked] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]);
 			repaint();
+			validate();
 			ButtonClicked = -1;
 		}else{
 			if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
@@ -81,19 +99,21 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 	public void actionPerformed(ActionEvent e) {
 		Object q = e.getSource();
 
-		for (int i = 0; i < text.length; i++) {
-			if (q == tasten[i]) {
-				tasten[i].setText("Drücke die Taste die du zuweisen willst");
-				repaint();
-				ButtonClicked = i;
-			}
-		}
-
 		if (q == zurück) {
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
 
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		if (e.getSource() == list){
+			ButtonClicked=list.getSelectedIndex();
+			hilfe[ButtonClicked] = "Drücke eine Taste zum Zuweisen";
+			repaint();
+			validate();
+		}
 	}
 }
