@@ -201,6 +201,10 @@ public class Knightmare implements StringConstants {
 		return Dictionary.getFullName(Keyboard.getKeyName(a));
 	}
 	
+	private int getKeyCode(String k){
+		return Keyboard.getKeyIndex(Dictionary.getFullName(Loader.getCfgValue(k)));
+	}
+	
 	private void pollInput() {
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 			tooggleFullscreen();
@@ -429,42 +433,44 @@ public class Knightmare implements StringConstants {
 			}
 		}
 
+		//TODO JJDK
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
 			System.out.println("Space is down");
 		}
-
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Vorwärts"))) {
+		
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Vorwärts"))) {
 			figur.moveY(0.3f);
 		}
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Links"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Links"))) {
 			figur.moveX(-0.3f);
 		}
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Rückwärts"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rückwärts"))) {
 			figur.moveY(-0.3f);
 		}
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Rechts"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rechts"))) {
 			figur.moveX(0.3f);
 		}
-
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamera oben"))) {
+		
+		
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera oben"))) {
 			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamera links"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera links"))) {
 			CameraX -= scrollingSpeed * scale;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
 		}
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamer unten"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera unten"))) {
 			CameraY -= scrollingSpeed * scale;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
 		}
-		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamera rechts"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera rechts"))) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;

@@ -405,6 +405,61 @@ public class Loader {
 		DicAddEntry("Unten", "DOWN");
 		DicAddEntry("Links", "LEFT");
 		DicAddEntry("Rechts", "RIGHT");
+		
+		
+		//1 Zeile Englisch
+		DicAddEntryE("ESC", "ESCAPE");
+		
+		//2 Zeile
+		DicAddEntryE("Zirkumflex (Dead)", "BACKSLASH");
+		DicAddEntryE("ß", "LBRACKET");
+		DicAddEntryE("Akut (Dead)", "RBRACKET");
+		
+		//3 Zeile (Tab geht nicht)
+		DicAddEntryE("Plus", "EQUALS");
+		DicAddEntryE("Eingabe", "RETURN");
+		
+		//NumPad
+		DicAddEntryE("NumPad +", "ADD");
+		DicAddEntryE("NumPad -", "SUBTRACT");
+		DicAddEntryE("NumPad *", "MULTIPLY");
+		DicAddEntryE("NumPad /", "DIVIDE");
+		DicAddEntryE("Num", "NUMLOCK");
+		DicAddEntryE("Löschen", "NONE"); //=5
+		
+		//4 Zeile
+		DicAddEntryE("Nummernzeichen", "SLASH");
+		DicAddEntryE("Feststelltaste", "CAPITAL");
+		
+		//5 Zeile
+		DicAddEntryE("Umschalt", "LSHIFT");
+		DicAddEntryE("Kleiner als", "NONE");
+		DicAddEntryE("Komma", "COMMA");
+		DicAddEntryE("Punkt", "PERIOD");
+		DicAddEntryE("Minus", "MINUS");
+		DicAddEntryE("Umschalt", "RSHIFT");
+		
+		//6 Zeile
+		DicAddEntryE("Strg", "CTRL");
+		DicAddEntryE("Alt", "LMENU");
+		DicAddEntryE("Windows", "LMETA");
+		DicAddEntryE("Leertaste", "SPACE");
+		DicAddEntryE("Kontextmenü", "APPS");
+		
+		
+		//Druck Block
+		DicAddEntryE("Einfg", "INSERT");
+		DicAddEntryE("Pos 1", "HOME");
+		DicAddEntryE("Bild auf", "PRIOR");
+		DicAddEntryE("Entf", "DELETE");
+		DicAddEntryE("Ende", "END");
+		DicAddEntryE("Bild ab", "NEXT");
+
+		// Pfeiltasten
+		DicAddEntryE("Oben", "UP");
+		DicAddEntryE("Unten", "DOWN");
+		DicAddEntryE("Links", "LEFT");
+		DicAddEntryE("Rechts", "RIGHT");
 
 		String buchstabe = "QWERTZUIOPÜASDFGHJKLÖÄYXCVBNM";
 
@@ -412,16 +467,20 @@ public class Loader {
 		for (int i = 0; i < buchstabe.length(); i++) {
 			DicAddEntry(buchstabe.substring(i, i + 1),
 					buchstabe.substring(i, i + 1));
+			DicAddEntryE(buchstabe.substring(i, i + 1),
+					buchstabe.substring(i, i + 1));
 		}
 
 		// Zahlen
 		for (int i = 0; i < 10; i++) {
 			DicAddEntry("" + i, i + "");
+			DicAddEntryE(""+i, i+"");
 		}
 
 		// F-Tasten
 		for (int i = 1; i < 13; i++) {
 			DicAddEntry("F" + i, "F" + i);
+			DicAddEntryE("F" + i, "F" + i);
 		}
 
 		new Cfg();
@@ -439,6 +498,11 @@ public class Loader {
 	private static void DicAddEntry(String deutsch, String englisch) {
 		Dictionary.addEntry(englisch, deutsch);
 		Dictionary.addEntry(deutsch, deutsch);
+	}
+	
+	private static void DicAddEntryE(String deutsch, String englisch) {
+		Dictionary.addEntry(deutsch, englisch);
+		Dictionary.addEntry(englisch, englisch);
 	}
 
 	private static void loadTextures() {
