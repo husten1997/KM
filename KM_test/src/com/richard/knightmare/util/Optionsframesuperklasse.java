@@ -48,6 +48,10 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 
 		addKeyListener(this);
 	}
+	
+	public String getString(String a){
+		return Dictionary.getFullName(Loader.getCfgValue(a));
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -58,11 +62,11 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 			setAutoRequestFocus(true);
 			setLocationRelativeTo(null);
 			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume -"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 			MoodMusic.changeVolume(+0.5f);
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();

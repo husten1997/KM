@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
@@ -57,18 +58,18 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			repaint();
 			ButtonClicked = -1;
 		}else{
-			if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
+			if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
 				dispose();
 				setUndecorated(!isUndecorated());
 				setVisible(true);
 				setAutoRequestFocus(true);
 				setLocationRelativeTo(null);
 				Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
-			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume -"))) {
+			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
 				MoodMusic.changeVolume(-0.5f);
-			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
+			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
-			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
+			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
 				Optionen.instance.setVisible(true);
 				Optionen.instance.setAutoRequestFocus(true);
 				dispose();

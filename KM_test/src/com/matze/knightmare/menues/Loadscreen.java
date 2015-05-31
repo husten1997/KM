@@ -15,16 +15,16 @@ public class Loadscreen extends Optionsframesuperklasse{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
 			dispose();
 			setUndecorated(!isUndecorated());
 			setVisible(true);
 			setAutoRequestFocus(true);
 			setLocationRelativeTo(null);
 			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume -"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Volume +"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 			MoodMusic.changeVolume(+0.5f);
 		}
 	}

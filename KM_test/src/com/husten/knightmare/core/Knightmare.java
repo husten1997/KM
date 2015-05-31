@@ -2,6 +2,8 @@ package com.husten.knightmare.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -196,7 +198,10 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				System.out.println(Keyboard.getEventKey() +  " " + Keyboard.getKeyName(Keyboard.getEventKey()));
+				System.out.println(Keyboard.getKeyName(Keyboard.getEventKey()));
+				
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
+                        new StringSelection(Keyboard.getKeyName(Keyboard.getEventKey())), null);
 				
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 					MainMenue m = new MainMenue();
