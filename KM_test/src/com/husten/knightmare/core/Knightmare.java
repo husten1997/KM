@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import com.husten.knightmare.graphicalObjects.*;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
@@ -190,6 +192,15 @@ public class Knightmare implements StringConstants {
 		}
 	}
 	
+	private String getString(String a){
+		return Dictionary.getFullName(Loader.getCfgValue(a));
+	}
+	
+	//Könnte iwann mal zu problemen führen
+	private String gFN(int a){
+		return Dictionary.getFullName(Keyboard.getKeyName(a));
+	}
+	
 	private void pollInput() {
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 			tooggleFullscreen();
@@ -198,12 +209,12 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				System.out.println(Keyboard.getKeyName(Keyboard.getEventKey()));
+				System.out.println(Keyboard.getKeyName(Keyboard.getEventKey()) + " " + getString("CONTROL_KEY: Escape/Zurück") + " " +getString(Keyboard.getKeyName(Keyboard.getEventKey())));
 				
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
                         new StringSelection(Keyboard.getKeyName(Keyboard.getEventKey())), null);
 				
-				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
@@ -236,10 +247,10 @@ public class Knightmare implements StringConstants {
 					inGameStat = state.N_TRUPS;
 					System.out.println(inGameStat);
 				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_F1) {
+				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Volume -"))) {
 					MoodMusic.changeVolume(-0.5f);
 				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_F2) {
+				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Volume +"))) {
 					MoodMusic.changeVolume(0.5f);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
@@ -421,38 +432,38 @@ public class Knightmare implements StringConstants {
 			System.out.println("Space is down");
 		}
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Vorwärts"))) {
 			figur.moveY(0.3f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Links"))) {
 			figur.moveX(-0.3f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Rückwärts"))) {
 			figur.moveY(-0.3f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Rechts"))) {
 			figur.moveX(0.3f);
 		}
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamera oben"))) {
 			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamera links"))) {
 			CameraX -= scrollingSpeed * scale;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamer unten"))) {
 			CameraY -= scrollingSpeed * scale;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+		if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Kamera rechts"))) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
