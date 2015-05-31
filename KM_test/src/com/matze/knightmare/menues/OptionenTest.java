@@ -22,6 +22,7 @@ public class OptionenTest extends Optionsframesuperklasse implements ChangeListe
 	private int position;
 	private JButton optionen[];
 	private String[] text = { "Fenstermodus", "Grafikeinstellungen", "Tastenbelegung", "Resourcepacks", "Zurück" };
+	public static Optionsframesuperklasse instance;
 
 	public OptionenTest() {
 		super("back.png", "Knightmare: Optionen");
@@ -92,12 +93,9 @@ public class OptionenTest extends Optionsframesuperklasse implements ChangeListe
 		
 		if (q == optionen[0]){
 			dispose();
-			MainMenueTest.instance.dispose();
-			MainMenueTest.instance.setUndecorated(!isUndecorated());
-			MainMenueTest.instance.setVisible(true);
-			MainMenueTest.instance.setAutoRequestFocus(true);
-			MainMenueTest.instance.setLocationRelativeTo(null);
 			setUndecorated(!isUndecorated());
+			setVisible(true);
+			setAutoRequestFocus(true);
 			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
 			setVisible(true);
 		}

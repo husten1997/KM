@@ -20,6 +20,7 @@ import com.richard.knightmare.util.Pos;
 public class MainMenueTest extends Optionsframesuperklasse {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
+	public static Optionsframesuperklasse instance;
 
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.ENGLISH);

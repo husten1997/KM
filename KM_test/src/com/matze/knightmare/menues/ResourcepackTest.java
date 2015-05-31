@@ -94,7 +94,6 @@ public class ResourcepackTest extends Optionsframesuperklasse implements ListSel
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
 		add(zurück);
-		instance = this;
 	}
 	
 	@Override

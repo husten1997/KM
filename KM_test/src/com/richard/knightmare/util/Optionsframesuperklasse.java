@@ -19,7 +19,6 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 
 	protected int width, height;
 	protected Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-	public static Optionsframesuperklasse instance;
 
 	protected Optionsframesuperklasse(String imgName, String name) {
 		double resolution = (double) 16 / (double) 9;
