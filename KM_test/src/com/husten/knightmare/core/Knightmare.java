@@ -25,6 +25,7 @@ import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
+import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
@@ -202,7 +203,7 @@ public class Knightmare implements StringConstants {
 	}
 	
 	private int getKeyCode(String k){
-		return Keyboard.getKeyIndex(Dictionary.getFullName(Loader.getCfgValue(k)));
+		return Keyboard.getKeyIndex(DictionaryE.getFullName(Loader.getCfgValue(k)));
 	}
 	
 	private void pollInput() {

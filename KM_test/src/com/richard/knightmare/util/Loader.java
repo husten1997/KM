@@ -501,8 +501,8 @@ public class Loader {
 	}
 	
 	private static void DicAddEntryE(String deutsch, String englisch) {
-		Dictionary.addEntry(deutsch, englisch);
-		Dictionary.addEntry(englisch, englisch);
+		DictionaryE.addEntry(deutsch, englisch);
+		DictionaryE.addEntry(englisch, englisch);
 	}
 
 	private static void loadTextures() {
