@@ -218,6 +218,7 @@ public class Knightmare implements StringConstants {
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
+					MoodMusic.changeMood("MainMenue");
 					m.toFront();
 					m.setAlwaysOnTop(true);
 					m.setAutoRequestFocus(true);

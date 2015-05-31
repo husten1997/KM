@@ -31,8 +31,6 @@ import java.util.Hashtable;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.ImageIcon;
-
 import org.lwjgl.BufferUtils;
 
 import com.husten.knightmare.graphicalObjects.Texture;
@@ -761,7 +759,7 @@ public class Loader {
 		return null;
 	}
 	
-	public static ImageIcon getResourcepackIcon(String name) {
+	public static BufferedImage getResourcepackIcon(String name) {
 		BufferedImage bufferedImage = null;
 		if (name.equals("Default")) {
 			try {
@@ -793,6 +791,16 @@ public class Loader {
 			graphics.drawString(name, 0, 20);
 			graphics.dispose();
 		}
-		return new ImageIcon(bufferedImage);
+		return bufferedImage;
+	}
+	
+	public String getDefaultCfgValue(String key){
+		if (Cfg.sortedKeys.contains(key)) {
+			return Cfg.defaultConfigValues.get(key);
+		}
+		if (ResCfg.sortedKeys.contains(key)) {
+			return ResCfg.defaultConfigValues.get(key);
+		}
+		return null;
 	}
 }
