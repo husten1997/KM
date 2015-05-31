@@ -1,4 +1,4 @@
-package com.matze.knightmare.menues;
+package com.husten.knightmare.core;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -9,7 +9,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import com.husten.knightmare.core.Knightmare;
+import com.matze.knightmare.menues.Laden;
+import com.matze.knightmare.menues.Loadscreen;
+import com.matze.knightmare.menues.Optionen;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;

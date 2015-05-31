@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.matze.knightmare.menues.MainMenue;
+import com.husten.knightmare.core.MainMenue;
 import com.richard.knightmare.sound.MoodMusic;
 
 @SuppressWarnings("serial")

@@ -18,7 +18,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
-import com.matze.knightmare.menues.MainMenue;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;

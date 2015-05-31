@@ -11,6 +11,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.husten.knightmare.core.MainMenue;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
