@@ -794,7 +794,11 @@ public class Loader {
 		return bufferedImage;
 	}
 	
-	public String getDefaultCfgValue(String key){
+	public static void resetCfgValue(String key){
+		changeCfgValue(key, getDefaultCfgValue(key));
+	}
+	
+	private static String getDefaultCfgValue(String key){
 		if (Cfg.sortedKeys.contains(key)) {
 			return Cfg.defaultConfigValues.get(key);
 		}

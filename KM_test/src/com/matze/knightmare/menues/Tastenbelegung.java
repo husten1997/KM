@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.DefaultButtonRenderer;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
@@ -34,14 +35,15 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 
 	public Tastenbelegung() {
 		super("back.png", "Knightmare: Tastenbelegung");
-		
+
 		hilfe = new String[text.length];
-		
-		for (int i = 0; i < text.length; i++){
+		String[] leer = new String[text.length];
+
+		for (int i = 0; i < text.length; i++) {
 			hilfe[i] = text[i] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[i]);
+			leer[i] = " ";
 		}
-		
-		
+
 		list = new JList<String>(hilfe);
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
@@ -64,30 +66,30 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		list.addListSelectionListener(this);
 		list.addKeyListener(this);
 		list.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ButtonClicked=list.getSelectedIndex();
+				ButtonClicked = list.getSelectedIndex();
 				hilfe[ButtonClicked] = "Drücke eine Taste zum Zuweisen";
 				repaint();
 				changing = true;
@@ -100,110 +102,264 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		scroll.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
 		scroll.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
 		scroll.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
 			@Override
-	        protected JButton createDecreaseButton(int orientation) {
+			protected JButton createDecreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
+				return b;
+			}
 
-	        @Override    
-	        protected JButton createIncreaseButton(int orientation) {
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
-			
-			 @Override 
-		        protected void configureScrollBarColors(){
-		            this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
-		        }
+				return b;
+			}
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+			}
 		});
 		scroll.getHorizontalScrollBar().setFocusable(false);
-		scroll.getHorizontalScrollBar().setUI(new BasicScrollBarUI(){
+		scroll.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
 			@Override
-	        protected JButton createDecreaseButton(int orientation) {
+			protected JButton createDecreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
+				return b;
+			}
 
-	        @Override    
-	        protected JButton createIncreaseButton(int orientation) {
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
-			
-			 @Override 
-		        protected void configureScrollBarColors(){
-		            this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
-		        }
+				return b;
+			}
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+			}
 		});
 		scroll.getHorizontalScrollBar().setFocusable(false);
 		scroll.setOpaque(false);
 		scroll.getViewport().setOpaque(false);
 		add(scroll);
-		
+
 		scroll.getVerticalScrollBar().addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				repaint();
 			}
 		});
 		scroll.getHorizontalScrollBar().addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				repaint();
 			}
 		});
-		
-//		add(list);
+
+		// add(list);
 		add(scroll);
 		add(zurück);
+
+		JList<String> list = new JList<>(leer);
+		list.setCellRenderer(new DefaultButtonRenderer());
+		list.setSize(new Dimension(120, height));
+		list.setBounds((screen.width - width) / 2 + width / 4 - 120, (screen.height - height) / 2, 120, height);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
+		list.setForeground(Color.white);
+		list.setSelectionBackground(Color.black);
+		list.setSelectionForeground(Color.cyan);
+		list.setVisibleRowCount(text.length);
+		list.setFont(new Font("Arial", Font.BOLD, 40));
+		list.setOpaque(false);
+		list.addListSelectionListener(this);
+		list.addKeyListener(this);
+		list.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int index = list.getSelectedIndex();
+				Loader.resetCfgValue("CONTROL_KEY: " + text[index]);
+				hilfe[index] = text[index] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[index]);
+				repaint();
+			}
+		});
+		JScrollPane scrol = new JScrollPane(list);
+		scrol.setBounds((screen.width - width) / 2 + width / 4 - 120, (screen.height - height) / 2, 120, height);
+		scrol.setBorder(null);
+		scrol.getVerticalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
+		scrol.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
+		scrol.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
+		scrol.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
+		scrol.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
+			protected JButton createDecreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+				return b;
+			}
+
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+				return b;
+			}
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+				// TODO
+			}
+		});
+		scrol.getHorizontalScrollBar().setFocusable(false);
+		scrol.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
+			protected JButton createDecreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+				return b;
+			}
+
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+				return b;
+			}
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+				// TODO
+			}
+		});
+		scrol.getHorizontalScrollBar().setFocusable(false);
+		scrol.setOpaque(false);
+		scrol.getViewport().setOpaque(false);
+		add(scrol);
+
+		scrol.getVerticalScrollBar().addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				repaint();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				repaint();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				repaint();
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				repaint();
+			}
+		});
+		scrol.getHorizontalScrollBar().addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				repaint();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// Ignore
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				repaint();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				repaint();
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				repaint();
+			}
+		});
 	}
 
 	@Override
@@ -215,12 +371,12 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			validate();
 			ButtonClicked = -1;
 			changing = false;
-		}else if(KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Bestätigen"))){
-			ButtonClicked=list.getSelectedIndex();
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Bestätigen"))) {
+			ButtonClicked = list.getSelectedIndex();
 			hilfe[ButtonClicked] = "Drücke eine Taste zum Zuweisen";
 			repaint();
 			changing = true;
-		}else{
+		} else {
 			if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
 				dispose();
 				setUndecorated(!isUndecorated());
@@ -254,9 +410,9 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		if (e.getSource() == list){
-//			ButtonClicked=list.getSelectedIndex();
-//			hilfe[ButtonClicked] = "Drücke eine Taste zum Zuweisen";
+		if (e.getSource() == list) {
+			// ButtonClicked=list.getSelectedIndex();
+			// hilfe[ButtonClicked] = "Drücke eine Taste zum Zuweisen";
 			repaint();
 			validate();
 		}
