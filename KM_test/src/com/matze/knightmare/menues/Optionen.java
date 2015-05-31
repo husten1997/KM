@@ -93,6 +93,8 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		}
 		
 		if (q == optionen[0]){
+			MainMenue.instance.dispose();
+			MainMenue.instance.setUndecorated(!isUndecorated());
 			dispose();
 			setUndecorated(!isUndecorated());
 			setVisible(true);
