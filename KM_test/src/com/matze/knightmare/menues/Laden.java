@@ -37,10 +37,14 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		super("back.png", "Knightmare: Laden");
 		setLocationRelativeTo(null);
 		
+		
+		//SaveFilter
 		String a[] = Loader.getSavesDir().list();
 		int länge = 0;
+		
+			//alles .xxx dateien und ordner ohne save am anfang filtern
 		for (int i = 0; i < a.length; i++){
-			if (a[i].contains(".") || !a[i].contains("save")){
+			if (a[i].contains(".") || !a[i].startsWith("save")){
 				System.out.println(a[i]);
 				a[i] = "";
 			} else {
