@@ -7,6 +7,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -195,6 +198,8 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
+				System.out.println(Keyboard.getEventKey() +  "ESC");
+				
 				if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 					MainMenue m = new MainMenue("menue.png");
 					timer.cancel();

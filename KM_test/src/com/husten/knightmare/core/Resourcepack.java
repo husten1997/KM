@@ -191,12 +191,12 @@ public class Resourcepack extends JFrame implements ListSelectionListener,
 	}
 
 	public void keyPressed(KeyEvent arg0) {
-		if (arg0.getExtendedKeyCode() == 10) {
+		if (arg0.getKeyText(arg0.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Bestätigen"))) {
 			Loader.changeCfgValue("Resourcepack", text[list.getSelectedIndex()]);
 			op.setVisible(true);
 			op.setAutoRequestFocus(true);
 			dispose();
-		} else if (arg0.getExtendedKeyCode() == 27) {
+		} else if (arg0.getKeyText(arg0.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
 			op.setVisible(true);
 			op.setAutoRequestFocus(true);
 			dispose();
