@@ -203,7 +203,6 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			}
 		});
 
-		// add(list);
 		add(scroll);
 		add(zurück);
 

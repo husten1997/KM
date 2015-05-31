@@ -47,7 +47,6 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		list.setVisibleRowCount(data.length);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.setOpaque(false);
-		// add(list);
 		((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 		
 		JScrollPane scroll = new JScrollPane(list);

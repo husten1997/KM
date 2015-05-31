@@ -12,11 +12,12 @@ import javax.swing.JButton;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
+@SuppressWarnings("serial")
 public class Grafik extends Optionsframesuperklasse implements ActionListener {
 
 	private JButton zurück;
 	private JButton settings[];
-	private String[] text = {"V-Sync"};
+	private String[] text = { "V-Sync" };
 
 	protected Grafik(String imgName, String name) {
 		super(imgName, name);
@@ -24,21 +25,16 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		settings = new JButton[text.length];
 
 		for (int i = 0; i < text.length; i++) {
-			settings[i] = new JButton(text[0] + ": "
-					+ Loader.getCfgValue("SETTINGS: " + text[0]));
+			settings[i] = new JButton(text[0] + ": " + Loader.getCfgValue("SETTINGS: " + text[0]));
 			settings[i].addActionListener(this);
-			settings[i].setBounds((screen.width - width) / 2 + width / 4,
-					(screen.height - height) / 2
-							+ (i < settings.length - 1 ? i : i + 1) * height
-							/ (settings.length + 1), width / 2, height
-							/ (settings.length + 1));
+			settings[i].setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2 + i * height / settings.length, width / 2,
+					height / settings.length);
 			settings[i].setForeground(Color.WHITE);
 			settings[i].setBackground(new Color(0, 0, 0.25f, 0.25f));
 			settings[i].setRolloverEnabled(false);
 			settings[i].setFocusable(false);
 			settings[i].setContentAreaFilled(true);
-			settings[i].setBorder(BorderFactory.createLineBorder(
-					Color.lightGray, 1));
+			settings[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 			settings[i].setFont(new Font("Arial", Font.BOLD, 48));
 			add(settings[i]);
 		}
@@ -46,9 +42,7 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
-		zurück.setBounds(screen.width / 2 + 3 * width / 8,
-				(screen.height - height) / 2 + height - width / 24, width / 8,
-				width / 24);
+		zurück.setBounds(screen.width / 2 + 3 * width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
 		zurück.addActionListener(this);
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
@@ -57,8 +51,7 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
-				getString("CONTROL_KEY: Escape/Zurück"))) {
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
@@ -76,10 +69,7 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		}
 
 		if (q == settings[0]) {
-			Loader.changeCfgValue(
-					"SETTINGS: " + text[0],
-					Loader.getCfgValue("SETTINGS: " + text[0]).equals("On") ? "Off"
-							: "On");
+			Loader.changeCfgValue("SETTINGS: " + text[0], Loader.getCfgValue("SETTINGS: " + text[0]).equals("On") ? "Off" : "On");
 			settings[0].setText(text[0] + " = " + Loader.getCfgValue("SETTINGS: " + text[0]));
 			repaint();
 		}

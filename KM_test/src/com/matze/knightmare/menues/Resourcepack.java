@@ -10,9 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -191,10 +189,7 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 			list.setSelectedIndex(Autoselect);
 		}
 
-//		add(list);
 		add(scroll);
-		((DefaultListCellRenderer) list.getCellRenderer())
-				.setHorizontalAlignment(JLabel.CENTER);
 
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
