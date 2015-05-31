@@ -14,9 +14,11 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.ImageListRenderer;
@@ -68,6 +70,113 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 		list.addListSelectionListener(this);
 		list.setOpaque(false);
 		list.addKeyListener(this);
+		JScrollPane scroll = new JScrollPane(list);
+		scroll.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
+		scroll.setBorder(null);
+		scroll.getVerticalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+			@Override
+	        protected JButton createDecreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+	            return b;
+	        }
+
+	        @Override    
+	        protected JButton createIncreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+	            return b;
+	        }
+			
+			 @Override 
+		        protected void configureScrollBarColors(){
+		            this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+		        }
+		});
+		scroll.getHorizontalScrollBar().setFocusable(false);
+		scroll.getHorizontalScrollBar().setUI(new BasicScrollBarUI(){
+			@Override
+	        protected JButton createDecreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+	            return b;
+	        }
+
+	        @Override    
+	        protected JButton createIncreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+	            return b;
+	        }
+			
+			 @Override 
+		        protected void configureScrollBarColors(){
+		            this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+		        }
+		});
+		scroll.getHorizontalScrollBar().setFocusable(false);
+		scroll.setOpaque(false);
+		scroll.getViewport().setOpaque(false);
+		add(scroll);
+		
+		scroll.getVerticalScrollBar().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				repaint();
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// Ignore
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				repaint();
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				repaint();
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				repaint();
+			}
+		});
+		scroll.getHorizontalScrollBar().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				repaint();
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// Ignore
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				repaint();
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				repaint();
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				repaint();
+			}
+		});
 
 		String gewahlt = Loader.getCfgValue("Resourcepack");
 
@@ -82,7 +191,8 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 			list.setSelectedIndex(Autoselect);
 		}
 
-		add(list);
+//		add(list);
+		add(scroll);
 		((DefaultListCellRenderer) list.getCellRenderer())
 				.setHorizontalAlignment(JLabel.CENTER);
 

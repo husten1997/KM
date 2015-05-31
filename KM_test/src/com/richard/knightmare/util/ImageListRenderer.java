@@ -16,8 +16,8 @@ public class ImageListRenderer extends DefaultListCellRenderer {
 
 		JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		BufferedImage icon = Loader.getResourcepackIcon(String.valueOf(value));
-		BufferedImage img = new BufferedImage(64*icon.getWidth()/icon.getHeight(), 64, BufferedImage.TYPE_INT_ARGB);
-		img.createGraphics().drawImage(icon, img.getWidth(), img.getHeight(), null);
+		BufferedImage img = new BufferedImage(64 * icon.getWidth() / icon.getHeight(), 64, BufferedImage.TYPE_INT_ARGB);
+		img.createGraphics().drawImage(icon, 0, 0, img.getWidth(), img.getHeight(), null);
 		label.setIcon(new ImageIcon(img));
 		label.setHorizontalTextPosition(JLabel.RIGHT);
 		return label;
