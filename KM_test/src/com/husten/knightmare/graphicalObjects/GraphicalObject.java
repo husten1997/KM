@@ -40,4 +40,9 @@ public abstract class GraphicalObject implements StringConstants{
 	public String getType(){
 		return type;
 	}
+	
+	public String toString(){
+		//TODO unschön
+		return "a";
+	}
 }

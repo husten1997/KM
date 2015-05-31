@@ -27,6 +27,7 @@ import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.Speicher;
 import com.richard.knightmare.util.Vektor;
 
 public class Knightmare implements StringConstants {
@@ -47,7 +48,7 @@ public class Knightmare implements StringConstants {
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
-	private static GraphicalObject[][] world;
+	public static GraphicalObject[][] world;
 	private Timer timer = new Timer(true);
 
 	public Knightmare() {
@@ -214,8 +215,6 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				System.out.println(Keyboard.getKeyName(Keyboard.getEventKey()) + " " + getString("CONTROL_KEY: Escape/Zurück") + " " +getString(Keyboard.getKeyName(Keyboard.getEventKey())));
-				
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
                         new StringSelection(Keyboard.getKeyName(Keyboard.getEventKey())), null);
 				
@@ -232,6 +231,11 @@ public class Knightmare implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
+				}
+				
+				if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
+					//TODO delete
+					new Speicher().speichern("Tets");
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
