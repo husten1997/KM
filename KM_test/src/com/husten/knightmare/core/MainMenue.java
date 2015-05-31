@@ -201,7 +201,6 @@ public class MainMenue extends JFrame implements KeyListener {
 	public static void main(String[] args) {
 		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
 		MoodMusic.addMood("MainMenue");
-		// TODO SPielt nur 1x ab
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_4.WAV");
 		MoodMusic.init("MainMenue");
 		new MainMenue("menue.png");
