@@ -134,6 +134,7 @@ public class Tastenbelegung extends JFrame implements ActionListener,
 		if (ButtonClicked > -1){
 			Loader.changeCfgValue("CONTROL_KEY: " + text[ButtonClicked], KeyEvent.getKeyText(e.getExtendedKeyCode()));
 			tasten[ButtonClicked].setText(text[ButtonClicked] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]));
+			repaint();
 			ButtonClicked = -1;
 		}
 
@@ -158,6 +159,7 @@ public class Tastenbelegung extends JFrame implements ActionListener,
 		for (int i = 0; i < text.length; i++){
 			if (q == tasten[i]){
 				tasten[i].setText("Drücke die Taste die du zuweisen willst");
+				repaint();
 				ButtonClicked = i;
 			}
 		}
