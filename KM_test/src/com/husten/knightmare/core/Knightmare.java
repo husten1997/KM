@@ -4,7 +4,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public class Knightmare implements StringConstants {
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
-	private GraphicalObject[][] world;
+	private static GraphicalObject[][] world;
 	private Timer timer = new Timer(true);
 
 	public Knightmare() {

@@ -44,9 +44,6 @@ public class Loader {
 	private static ColorModel glAlphaColorModel, glColorModel;
 	private static IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
 
-	// private static HashMap<String, String> defaultConfigValues = new
-	// HashMap<>(), configValues = new HashMap<>();
-
 	public static void initLoader(String firmenname, String spielname) {
 		initLoaderWithoutLoad(firmenname, spielname);
 		load();
@@ -632,6 +629,10 @@ public class Loader {
 				get2Fold(bufferedImage.getHeight()), 0, srcPixelFormat,
 				GL_UNSIGNED_BYTE, textureBuffer);
 		return texture;
+	}
+
+	public static File getSavesDir(){
+		return saves;
 	}
 
 	public static Texture getTexture(String name) {
