@@ -150,12 +150,12 @@ public class Optionen extends JFrame implements ChangeListener, ActionListener, 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Escape/Zurück"))) {
 			mm.setVisible(true);
 			mm.setAutoRequestFocus(true);
 			dispose();
 		}
-		if (e.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))){
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))){
 			dispose();
 			mm.dispose();
 			mm.setUndecorated(!isUndecorated());
