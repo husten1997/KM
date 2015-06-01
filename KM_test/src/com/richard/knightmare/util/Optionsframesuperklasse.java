@@ -2,6 +2,7 @@ package com.richard.knightmare.util;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,6 +22,7 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 	protected Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
 	protected Optionsframesuperklasse(String imgName, String name) {
+		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Loader.getImage("Cursor.png"), new Point(), "Knightmare_Cursor"));
 		double resolution = (double) 16 / (double) 9;
 		if (screen.getWidth() / screen.getHeight() == resolution) {
 			width = screen.width;

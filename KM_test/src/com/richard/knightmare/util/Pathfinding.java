@@ -43,72 +43,147 @@ public class Pathfinding {
 
 	private void recursivVektorProduction(int index) {
 		if (index == 0) {
-			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 16), soldat));
+			vektoren.add(new Vektor(currentVektorStartPos, realZiel, soldat));
 			return;
 		}
 		if (index > 1) {
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, 1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 32, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() + 31, currentVektorStartPos.getY() + 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, -1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 32, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() + 31, currentVektorStartPos.getY() - 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, 1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() - 31, currentVektorStartPos.getY() + 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, -1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() - 31, currentVektorStartPos.getY() - 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
 			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
 					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, 1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(-16, 0), soldat));
-				currentVektorStartPos = path.get(index - 2).point.toPoint(-16, 0);
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 16, (int) (currentVektorStartPos.getY() / 32) * 32 + 32),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() + 31, currentVektorStartPos.getY() + 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
 				recursivVektorProduction(index - 2);
-			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
-					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, 1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(16, 0), soldat));
-				currentVektorStartPos = path.get(index - 2).point.toPoint(16, 0);
-				recursivVektorProduction(index - 2);
-			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))
-					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, -1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(-16, 0), soldat));
-				currentVektorStartPos = path.get(index - 2).point.toPoint(-16, 0);
-				recursivVektorProduction(index - 2);
-			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))
-					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, -1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(16, 0), soldat));
-				currentVektorStartPos = path.get(index - 2).point.toPoint(16, 0);
-				recursivVektorProduction(index - 2);
-			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
-					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
-				currentVektorStartPos = path.get(index).point.toPoint(0, 0);
-				recursivVektorProduction(index - 1);
-			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
-					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
-				currentVektorStartPos = path.get(index).point.toPoint(0, 0);
-				recursivVektorProduction(index - 1);
+				return;
 			}
-		} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
-				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
-			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
-			currentVektorStartPos = path.get(index).point.toPoint(0, 0);
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, 1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 16, (int) (currentVektorStartPos.getY() / 32) * 32 + 32),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() - 31, currentVektorStartPos.getY() + 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, -1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 16, (int) (currentVektorStartPos.getY() / 32) * 32),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() + 31, currentVektorStartPos.getY() - 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
+			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, -1))) {
+				vektoren.add(new Vektor(currentVektorStartPos,
+						new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 16, (int) (currentVektorStartPos.getY() / 32) * 32),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				vektoren.add(new Vektor(currentVektorStartPos, new com.richard.knightmare.util.Pos(currentVektorStartPos.getX() - 31, currentVektorStartPos.getY() - 31),
+						soldat));
+				currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+				recursivVektorProduction(index - 2);
+				return;
+			}
+		}
+		if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))) {
+			vektoren.add(new Vektor(currentVektorStartPos,
+					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 48, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+					soldat));
+			currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
 			recursivVektorProduction(index - 1);
-		} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
-				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
-			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
-			currentVektorStartPos = path.get(index).point.toPoint(0, 0);
+			return;
+		}
+		if (compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
+			vektoren.add(new Vektor(currentVektorStartPos,
+					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 - 16, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+					soldat));
+			currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
 			recursivVektorProduction(index - 1);
+			return;
+		}
+		if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))) {
+			vektoren.add(new Vektor(currentVektorStartPos,
+					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 16, (int) (currentVektorStartPos.getY() / 32) * 32 + 48),
+					soldat));
+			currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+			recursivVektorProduction(index - 1);
+			return;
+		}
+		if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
+			vektoren.add(new Vektor(currentVektorStartPos,
+					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 16, (int) (currentVektorStartPos.getY() / 32) * 32 - 16),
+					soldat));
+			currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
+			recursivVektorProduction(index - 1);
+			return;
 		}
 	}
 
 	public ArrayList<Vektor> pathfind() {
 		if (sucess) {
-			System.out.println(realZiel.getX() + "|" + realZiel.getY());
 			recursivVektorProduction(path.size() - 1);
-			if (vektoren.size() > 0) {
-				vektoren.get(vektoren.size() - 1).setEnde(realZiel);
-				if (compare(vektoren.get(0).getEnde(), start)) {
-					vektoren.remove(0);
-					vektoren.get(0).setStart(realStart);
-				}
-			}
 			return vektoren;
 		}
 		return new ArrayList<>();
-	}
-
-	private boolean compare(com.richard.knightmare.util.Pos ende, Pos start2) {
-		return compare(new Pos((int) ende.getX() / 32, (int) ende.getY() / 32), start2);
 	}
 
 	private void findnNextPos(PathObject p) {
@@ -276,10 +351,6 @@ public class Pathfinding {
 		private Pos(int x, int y) {
 			this.x = x;
 			this.y = y;
-		}
-
-		private com.richard.knightmare.util.Pos toPoint(int x, int y) {
-			return new com.richard.knightmare.util.Pos(this.x * 32 + x, this.y * 32 + y);
 		}
 	}
 }
