@@ -99,8 +99,20 @@ public class Loader {
 			defaultConfigValues.put("CONTROL_KEY: Volume -", "F1");
 			sortedKeys.add("CONTROL_KEY: Volume -");
 			
+			defaultConfigValues.put("CONTROL_KEY: Scrollen -", "NumPad -");
+			sortedKeys.add("CONTROL_KEY: Scrollen -");
+			
+			defaultConfigValues.put("CONTROL_KEY: Scrollen +", "NumPad +");
+			sortedKeys.add("CONTROL_KEY: Scrollen +");
+			
+			defaultConfigValues.put("CONTROL_KEY: Musik wechseln", "M");
+			sortedKeys.add("CONTROL_KEY: Musik wechseln");
+			
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
 			sortedKeys.add("SETTINGS: V-Sync");
+			
+			//"Musik wechseln", "Scrollen +", "Scrollen -"
+			
 
 			sortedKeys.sort(new Comparator<String>() {
 

@@ -217,8 +217,6 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Keyboard.getKeyName(Keyboard.getEventKey())), null);
-
 				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
 					MainMenue m = new MainMenue();
 					timer.cancel();
@@ -272,9 +270,55 @@ public class Knightmare implements StringConstants {
 					System.out.println(selection.size());
 				}
 
-				if (Keyboard.getEventKey() == Keyboard.KEY_M) {
+				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Musik wechseln"))) {
 					MoodMusic.nextClip();
 				}
+				
+				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Scrollen -"))) {
+					double width = WIDTH * scale;
+					double height = HEIGHT * scale;
+					scale += zomingSpeed;
+					if (scale > terrain.getWidth() * 32 / WIDTH) {
+						scale = terrain.getWidth() * 32 / WIDTH;
+					}
+					CameraX += (width - WIDTH * scale) / 2;
+					CameraY += (height - HEIGHT * scale) / 2;
+					if (CameraX < 0) {
+						CameraX = 0;
+					}
+					if (CameraY < 0) {
+						CameraY = 0;
+					}
+					if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+						CameraX = terrain.getWidth() * 32 - WIDTH * scale;
+					}
+					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
+					}
+				} else if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Scrollen +"))) {
+					double width = WIDTH * scale;
+					double height = HEIGHT * scale;
+					scale -= zomingSpeed;
+					if (scale < 0.1f) {
+						scale = 0.1f;
+					}
+					CameraX += (width - WIDTH * scale) / 2;
+					CameraY += (height - HEIGHT * scale) / 2;
+					if (CameraX < 0) {
+						CameraX = 0;
+					}
+					if (CameraY < 0) {
+						CameraY = 0;
+					}
+					if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
+						CameraX = terrain.getWidth() * 32 - WIDTH * scale;
+					}
+					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
+						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
+					}
+				}
+				
+				
 			}
 		}
 		// Mosue-------------------------------------------------------------------------------------------------------
@@ -486,6 +530,8 @@ public class Knightmare implements StringConstants {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
 		}
+		
+		
 
 		if (Mouse.getX() < 32) {
 			CameraX -= scrollingSpeed * scale;
