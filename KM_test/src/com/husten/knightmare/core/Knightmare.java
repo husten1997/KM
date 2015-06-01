@@ -82,7 +82,7 @@ public class Knightmare implements StringConstants {
 		while (!Display.isCloseRequested() && running) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			if (screenToSet) {
-				setDisplayMode(WIDTH, HEIGHT, !fullscreen);
+				setDisplayMode(WIDTH, HEIGHT, fullscreen);
 				screenToSet = false;
 			}
 			while (pending.size() > 0 && pendingEbenen.size() > 0) {
@@ -195,6 +195,7 @@ public class Knightmare implements StringConstants {
 		if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 			CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 		}
+		fullscreen = !fullscreen;
 	}
 
 	private String getString(String a) {
@@ -213,7 +214,7 @@ public class Knightmare implements StringConstants {
 	private void pollInput() {
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 			tooggleFullscreen();
-			Loader.changeCfgValue("Fullscreen", Loader.getCfgValue("Fullscreen").equals("true")?"false":"true");
+			Loader.changeCfgValue("Fullscreen", String.valueOf(fullscreen));
 		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
@@ -737,7 +738,6 @@ public class Knightmare implements StringConstants {
 
 			Display.setDisplayMode(targetDisplayMode);
 			Display.setFullscreen(fullscreen);
-			this.fullscreen = fullscreen;
 		} catch (LWJGLException e) {
 			System.out.println("Unable to setup mode " + width + "x" + height + " fullscreen=" + fullscreen + e);
 		}
