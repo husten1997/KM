@@ -41,23 +41,12 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		File dir[] = Loader.getSavesDir().listFiles();
 		int länge = 0;
 
-		// alles .xxx dateien und ordner ohne save am anfang filtern
+		// nur ordner mit save am anfang zeigen
 		for (int i = 0; i < a.length; i++) {
-			/*
-			 * if (a[i].contains(".") || !a[i].startsWith("save")){
-			 * System.out.println(a[i]); a[i] = ""; } else { länge++; }
-			 */
 			if (a[i].startsWith("save") && dir[i].isDirectory()) {
 				länge++;
 			} else {
 				a[i] = "";
-			}
-		}
-
-		for (int i = 0; i < a.length - 1; i++) {
-			if (a[i].equals("")) {
-				a[i] = a[i + 1];
-				a[i + 1] = "";
 			}
 		}
 
