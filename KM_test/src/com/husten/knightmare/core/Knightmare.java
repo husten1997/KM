@@ -26,6 +26,7 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
+import com.richard.knightmare.util.Path4;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 
@@ -39,10 +40,11 @@ public class Knightmare implements StringConstants {
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("Fullscreen").equals("true"), Vsync = false, screenToSet = false, running = true;
 	private Soldat figur, figuren[] = new Soldat[s];
-	private World terrain;
+	public static World terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
+	private ArrayList<Vektor> pathfindingVektoren = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
@@ -65,8 +67,8 @@ public class Knightmare implements StringConstants {
 		Loader.load();
 		objectinit();
 	}
-	
-	public void loop(){
+
+	public void loop() {
 		init();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -165,7 +167,7 @@ public class Knightmare implements StringConstants {
 		}
 	}
 
-	public void tooggleFullscreen(){
+	public void tooggleFullscreen() {
 		if (fullscreen) {
 			WIDTH = 1600;
 			HEIGHT = 900;
@@ -192,20 +194,20 @@ public class Knightmare implements StringConstants {
 			CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 		}
 	}
-	
-	private String getString(String a){
+
+	private String getString(String a) {
 		return Dictionary.getFullName(Loader.getCfgValue(a));
 	}
-	
-	//Könnte iwann mal zu problemen führen
-	private String gFN(int a){
+
+	// Könnte iwann mal zu problemen führen
+	private String gFN(int a) {
 		return Dictionary.getFullName(Keyboard.getKeyName(a));
 	}
-	
-	private int getKeyCode(String k){
+
+	private int getKeyCode(String k) {
 		return Keyboard.getKeyIndex(DictionaryE.getFullName(Loader.getCfgValue(k)));
 	}
-	
+
 	private void pollInput() {
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 			tooggleFullscreen();
@@ -214,9 +216,8 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-                        new StringSelection(Keyboard.getKeyName(Keyboard.getEventKey())), null);
-				
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Keyboard.getKeyName(Keyboard.getEventKey())), null);
+
 				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
 					MainMenue m = new MainMenue();
 					timer.cancel();
@@ -231,9 +232,9 @@ public class Knightmare implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
-				
+
 				if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
-					//TODO name
+					// TODO name
 					Loader.speichern("Tets");
 				}
 
@@ -310,7 +311,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						search(x, y);
-						figur = (Soldat) selection.get(selection.size() - 1);
+//						figur = (Soldat) selection.get(selection.size() - 1);//TODO des chrast mich andauernd
 						break;
 					case state.S_BUILDINGS:
 						search(x, y);
@@ -338,11 +339,16 @@ public class Knightmare implements StringConstants {
 								Soldat h = (Soldat) selection.get(i);
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
 										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
-									if (vektoren.get(h) == null) {
-										vektoren.put(h, new Vektor(p2, p1, h));
-									} else {
-										vektoren.get(h).setEnde(p1);
+									Path4 pathfinder = new Path4(h, p1);
+									ArrayList<Vektor> vektoren = pathfinder.pathfind();
+									for (int j = 0; j < vektoren.size(); j++) {
+										pathfindingVektoren.add(vektoren.get(j));
 									}
+									/*
+									 * if (vektoren.get(h) == null) {
+									 * vektoren.put(h, new Vektor(p2, p1, h)); }
+									 * else { vektoren.get(h).setEnde(p1); }
+									 */
 								}
 							}
 						}
@@ -437,11 +443,11 @@ public class Knightmare implements StringConstants {
 			}
 		}
 
-		//TODO JJDK
+		// TODO JJDK
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
 			System.out.println("Space is down");
 		}
-		
+
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Vorwärts"))) {
 			figur.moveY(0.3f);
 		}
@@ -454,8 +460,7 @@ public class Knightmare implements StringConstants {
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rechts"))) {
 			figur.moveX(0.3f);
 		}
-		
-		
+
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera oben"))) {
 			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
@@ -623,6 +628,12 @@ public class Knightmare implements StringConstants {
 		for (int i = 0; i < vekk.length; i++) {
 			if (vekk[i].move()) {
 				vektoren.remove(vekk[i].getSoldat());
+			}
+		}
+
+		if(pathfindingVektoren.size()>0){
+			if(pathfindingVektoren.get(0).move()){
+				pathfindingVektoren.remove(0);
 			}
 		}
 	}

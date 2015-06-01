@@ -133,5 +133,9 @@ public class Vektor {
 		}
 		return false;
 	}
+	
+	public Pos getEnde(){
+		return ende;
+	}
 
 }
