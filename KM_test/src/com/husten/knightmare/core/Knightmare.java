@@ -2,6 +2,8 @@ package com.husten.knightmare.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -15,6 +17,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.CursorLoader;
 
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
@@ -65,6 +68,18 @@ public class Knightmare implements StringConstants {
 		}
 		Loader.load();
 		objectinit();
+
+		BufferedImage image = Loader.getImage("CursorKM.png");
+		try {
+			Mouse.setNativeCursor(CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+					image.getWidth(), image.getHeight()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LWJGLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void loop() {
@@ -567,8 +582,7 @@ public class Knightmare implements StringConstants {
 		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
 			MoodMusic.changeVolume(0.5f);
 		}
-		
-		
+
 	}
 
 	public void render() {

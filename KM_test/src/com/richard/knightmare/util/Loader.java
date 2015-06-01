@@ -725,13 +725,13 @@ public class Loader {
 		return texture;
 	}
 
-	private static int createTextureID() {
+	public static int createTextureID() {
 		glGenTextures(textureIDBuffer);
 		return textureIDBuffer.get(0);
 	}
 
 	@SuppressWarnings("rawtypes")
-	private static ByteBuffer convertImageData(BufferedImage bufferedImage,
+	public static ByteBuffer convertImageData(BufferedImage bufferedImage,
 			Texture texture) {
 		ByteBuffer imageBuffer;
 		WritableRaster raster;
