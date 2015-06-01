@@ -104,8 +104,8 @@ public class Vektor {
 	}
 
 	public boolean move() {
-		double dx = soldat.getSpeed() / Math.sqrt((1.0 / (m * m)) + 1.0);
-		double dy = soldat.getSpeed() / Math.sqrt(m * m + 1.0);
+		double dx = soldat.getSpeed() / (100 * Math.sqrt((1.0 / (m * m)) + 1.0));
+		double dy = soldat.getSpeed() / (100 * Math.sqrt(m * m + 1.0));
 		Pos newStart;
 		if (ende.getX() > start.getX()) {
 			if (ende.getY() > start.getY()) {
@@ -132,8 +132,8 @@ public class Vektor {
 		}
 		return false;
 	}
-	
-	public Pos getEnde(){
+
+	public Pos getEnde() {
 		return ende;
 	}
 

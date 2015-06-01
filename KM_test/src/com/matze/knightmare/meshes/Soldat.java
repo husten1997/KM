@@ -123,6 +123,10 @@ public class Soldat extends RectangleGraphicalObject {
 	public void stop(){
 		
 	}
+	
+	public boolean isWaterproof(){
+		return wasser;
+	}
 
 	public void say() {
 		System.out.println("Ich bin da");

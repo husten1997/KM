@@ -3,7 +3,6 @@ package com.richard.knightmare.util;
 import java.util.ArrayList;
 
 import com.husten.knightmare.core.Knightmare;
-import com.husten.knightmare.graphicalObjects.GraphicalObject;
 import com.matze.knightmare.meshes.Soldat;
 
 public class Path4 {
@@ -11,7 +10,6 @@ public class Path4 {
 	private ArrayList<PathObject> points = new ArrayList<>(), possiblePoints = new ArrayList<>(), path = new ArrayList<>();
 	private ArrayList<Vektor> vektoren = new ArrayList<>();
 	private PathObject[][] pointsInGrid, possiblePointsInGrid;
-	private GraphicalObject[][] world;
 	private Pos ziel;
 	private com.richard.knightmare.util.Pos realStart, realZiel;
 	private com.richard.knightmare.util.Pos currentVektorStartPos;
@@ -19,15 +17,14 @@ public class Path4 {
 	private Soldat soldat;
 
 	public Path4(Soldat soldat, com.richard.knightmare.util.Pos ende) {
-		world = Knightmare.world;
 		this.soldat = soldat;
 		realStart = soldat.getPosition();
 		realZiel = ende;
 		Pos start = new Pos((int) soldat.getPosition().getX() / 32, (int) soldat.getPosition().getY() / 32);
 		ziel = new Pos((int) ende.getX() / 32, (int) ende.getY() / 32);
 
-		pointsInGrid = new PathObject[world.length][world[0].length];
-		possiblePointsInGrid = new PathObject[world.length][world[0].length];
+		pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+		possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
 		possiblePointsInGrid[start.x][start.y] = startObjt;
 		pointsInGrid[start.x][start.y] = startObjt;
@@ -198,12 +195,24 @@ public class Path4 {
 	}
 
 	private boolean isValid(Pos p) {
-		return p.x < world.length && p.x >= 0 && p.y < world[0].length && p.y >= 0;
+		return p.x < Knightmare.world.length && p.x >= 0 && p.y < Knightmare.world[0].length && p.y >= 0;
 	}
 
 	private boolean isObstrated(Pos p) {
 		// TODO
-		return Knightmare.world[p.x][p.y] != null;
+		if(soldat.isWaterproof()){
+			if(Knightmare.terrain.getMeterial(p.x, p.y)==null){
+				return Knightmare.world[p.x][p.y] != null;
+			}else{
+				return true;
+			}
+		}else{
+			if(Knightmare.terrain.getMeterial(p.x, p.y)==null){
+				return true;
+			}else{
+				return Knightmare.world[p.x][p.y] != null;
+			}
+		}
 	}
 
 	private Pos translatePos(Pos p, int x, int y) {

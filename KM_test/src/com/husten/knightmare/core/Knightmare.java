@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL11;
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
 import com.matze.knightmare.meshes.Building;
+import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
@@ -302,7 +303,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.N_TRUPS:
 						if (world[xR][yR] == null && terrain.getMeterial(xR, yR) != null) {
-							Soldat s = new Soldat(20, new Pos(xR * 32, yR * 32), 32, 32, "figure.png");
+							Soldat s = Rekrutieren.Hussar(xR*32, yR*32, 32, 32);
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);
@@ -334,7 +335,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
-							Pos p2 = selection.get(i).getPosition(); // Start
+//							Pos p2 = selection.get(i).getPosition(); // Start
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
