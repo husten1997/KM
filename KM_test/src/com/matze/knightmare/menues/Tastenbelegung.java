@@ -90,7 +90,7 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				ButtonClicked = list.getSelectedIndex();
-				hilfe[ButtonClicked] = "Drücke eine Taste zum Zuweisen";
+				hilfe[ButtonClicked] = text[ButtonClicked] + ": Taste drücken";
 				repaint();
 				changing = true;
 			}
