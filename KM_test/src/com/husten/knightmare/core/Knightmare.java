@@ -27,7 +27,7 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
-import com.richard.knightmare.util.Path4;
+import com.richard.knightmare.util.Pathfinding;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 
@@ -384,7 +384,7 @@ public class Knightmare implements StringConstants {
 								Soldat h = (Soldat) selection.get(i);
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
 										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
-									Path4 pathfinder = new Path4(h, p1);
+									Pathfinding pathfinder = new Pathfinding(h, p1);
 									ArrayList<Vektor> vektoren = pathfinder.pathfind();
 									for (int j = 0; j < vektoren.size(); j++) {
 										pathfindingVektoren.add(vektoren.get(j));
