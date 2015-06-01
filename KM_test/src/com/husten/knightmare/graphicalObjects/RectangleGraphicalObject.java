@@ -58,10 +58,13 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		}
 		this.material = material;
 	}
+	
+	public void initRender(){
+		texture = Loader.getTexture(textureName);
+	}
 
 	@Override
 	public void draw() {
-		texture = Loader.getTexture(textureName);
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite

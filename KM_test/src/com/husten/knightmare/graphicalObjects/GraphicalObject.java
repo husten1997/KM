@@ -8,7 +8,8 @@ public abstract class GraphicalObject implements StringConstants{
 	protected int sort = 1;
 	protected String type, toStringString;
 	protected Pos position;
-
+	
+	public abstract void initRender();
 	
 	public GraphicalObject(Pos position, String type){
 		this.position = position;

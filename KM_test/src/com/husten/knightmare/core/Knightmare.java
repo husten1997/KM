@@ -131,6 +131,7 @@ public class Knightmare implements StringConstants {
 	}
 
 	public void initRender(GraphicalObject input, int e) {
+		input.initRender();
 		renderList[e].add(input);
 	}
 
