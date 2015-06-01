@@ -18,23 +18,31 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import org.newdawn.slick.tests.TestUtils;
+
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.ImageListRenderer;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class Resourcepack extends Optionsframesuperklasse implements ListSelectionListener, ActionListener{
+public class Resourcepack extends Optionsframesuperklasse implements
+		ListSelectionListener, ActionListener {
 
 	private JList<String> list;
 	private File path;
 	private String[] text;
+	private File[] ordner;
+	private File[] deleteable;
 	private JButton zurück;
-	private String fehler;
-	
-	public Resourcepack(){
+	private JButton dele;
+	private String fehler[] = new String[3];
+
+	public Resourcepack() {
 		super("back.png", "Knightmare: Resourcepack");
-		fehler = "Resourcepack kann nicht 'Default' heißen";
+		fehler[0] = "Resourcepack kann nicht 'Default' heißen.";
+		fehler[1] = "Das ist kein Ordner: ";
+		fehler[2] = "Kein gültiges Resourcepack: ";
 
 		path = new File(new StringBuilder("C:\\Users\\")
 				.append(System.getProperty("user.name"))
@@ -42,17 +50,39 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 				.toString());
 		text = new String[path.list().length + 1];
 
+		ordner = path.listFiles();
+		File[] del = new File[ordner.length];
+		int delA = 0;
+
 		for (int i = 0; i < text.length; i++) {
 			if (i == 0) {
 				text[i] = "Default";
 			} else {
+				// Name = Default
 				if (path.list()[i - 1].equals("Default")) {
-					text[i] = fehler;
+					text[i] = fehler[0];
+					del[delA] = ordner[i - 1];
+					delA++;
 				} else {
-					text[i] = path.list()[i - 1];
+					// Kein Ordner
+					if (!ordner[i - 1].isDirectory()) {
+						text[i] = fehler[1] + path.list()[i - 1];
+						del[delA] = ordner[i - 1];
+						delA++;
+					} else {
+						// Kein gültiger Ordner
+						if (ordner[i - 1].listFiles().length < 3) {
+							text[i] = fehler[2] + ordner[i - 1].getName();
+							del[delA] = ordner[i - 1];
+							delA++;
+						} else {
+							text[i] = path.list()[i - 1];
+						}
+					}
 				}
 			}
 		}
+
 		list = new JList<String>(text); // data has type Object[]
 		list.setCellRenderer(new ImageListRenderer());
 		list.setSize(new Dimension(width, height));
@@ -69,107 +99,112 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 		list.setOpaque(false);
 		list.addKeyListener(this);
 		JScrollPane scroll = new JScrollPane(list);
-		scroll.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
+		scroll.setBounds((screen.width - width) / 2 + width / 4,
+				(screen.height - height) / 2, width / 2, height);
 		scroll.setBorder(null);
-		scroll.getVerticalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+		scroll.getVerticalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
 			@Override
-	        protected JButton createDecreaseButton(int orientation) {
+			protected JButton createDecreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
+				return b;
+			}
 
-	        @Override    
-	        protected JButton createIncreaseButton(int orientation) {
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
-			
-			 @Override 
-		        protected void configureScrollBarColors(){
-		            this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
-		        }
+				return b;
+			}
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+			}
 		});
 		scroll.getHorizontalScrollBar().setFocusable(false);
-		scroll.getHorizontalScrollBar().setUI(new BasicScrollBarUI(){
+		scroll.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
 			@Override
-	        protected JButton createDecreaseButton(int orientation) {
+			protected JButton createDecreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
+				return b;
+			}
 
-	        @Override    
-	        protected JButton createIncreaseButton(int orientation) {
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
 				JButton b = new JButton();
 				b.setPreferredSize(new Dimension(0, 0));
-	            return b;
-	        }
-			
-			 @Override 
-		        protected void configureScrollBarColors(){
-		            this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
-		        }
+				return b;
+			}
+
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+			}
 		});
 		scroll.getHorizontalScrollBar().setFocusable(false);
 		scroll.setOpaque(false);
 		scroll.getViewport().setOpaque(false);
 		add(scroll);
-		
+
 		scroll.getVerticalScrollBar().addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				repaint();
 			}
 		});
 		scroll.getHorizontalScrollBar().addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// Ignore
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				repaint();
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				repaint();
@@ -190,6 +225,26 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 		}
 
 		add(scroll);
+		
+		if (delA > 0) {
+			deleteable = new File[delA];
+
+			for (int i = 0; i < delA; i++) {
+				deleteable[i] = del[i];
+			}
+			dele = new JButton("Remove bad Files");
+			dele.addActionListener(this);
+			dele.setBounds(0, 0, 100, 300);
+			dele.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+			dele.setFont(new Font("Arial", Font.BOLD, width / 96));
+			dele.setBounds((screen.width / 2 + 3 * width / 8) - (width / 8),
+					(screen.height - height) / 2 + height - width / 24, width / 8,
+					width / 24);
+			dele.addActionListener(this);
+			dele.setRolloverEnabled(false);
+			dele.setFocusable(false);
+			add(dele);
+		}
 
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
@@ -202,7 +257,7 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 		zurück.setFocusable(false);
 		add(zurück);
 	}
-	
+
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		Object q = e.getSource();
@@ -214,9 +269,14 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 				public void mouseReleased(MouseEvent e) {
 					if (e.getButton() == MouseEvent.BUTTON1
 							&& e.getClickCount() == 2) {
-						if (!text[list.getSelectedIndex()].equals(fehler)) {
+						if (!text[list.getSelectedIndex()].equals(fehler[0])
+								&& (!text[list.getSelectedIndex()]
+										.startsWith(fehler[1]))
+								&& !text[list.getSelectedIndex()]
+										.startsWith(fehler[2])) {
 							Loader.changeCfgValue("Resourcepack",
 									text[list.getSelectedIndex()]);
+							Optionen.instance.dispose();
 							Optionen.instance.setUndecorated(isUndecorated());
 							Optionen.instance.setVisible(true);
 							Optionen.instance.setAutoRequestFocus(true);
@@ -257,29 +317,45 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
+		if (e.getSource() == dele){
+			for (int i =0; i < deleteable.length; i++){
+				deleteable[i].delete();
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
+				dispose();
+			}
+		}
 
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
+				getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
 			dispose();
 			setUndecorated(!isUndecorated());
 			setVisible(true);
 			setAutoRequestFocus(true);
 			setLocationRelativeTo(null);
 			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
+				getString("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
+				getString("CONTROL_KEY: Volume +"))) {
 			MoodMusic.changeVolume(+0.5f);
-		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
+				getString("CONTROL_KEY: Escape/Zurück"))) {
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
-		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
-			Loader.changeCfgValue("SETTINGS: V-Sync", Loader.getCfgValue("SETTINGS: V-Sync").equals("On")?"Off":"On");
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
+				Loader.getCfgValue("CONTROL_KEY: V-Sync"))) {
+			Loader.changeCfgValue("SETTINGS: V-Sync",
+					Loader.getCfgValue("SETTINGS: V-Sync").equals("On") ? "Off"
+							: "On");
 		}
 	}
 }
