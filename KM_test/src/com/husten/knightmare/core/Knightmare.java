@@ -215,7 +215,7 @@ public class Knightmare implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
