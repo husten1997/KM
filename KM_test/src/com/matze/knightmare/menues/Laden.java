@@ -201,6 +201,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 	private void performAction(int x) {
 		if (!speichVorhanden) {
+			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
@@ -248,6 +249,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == zurück) {
+			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();

@@ -66,7 +66,7 @@ public class MainMenue extends Optionsframesuperklasse {
 			@Override
 			public void onClick() {
 				new Optionen().setAlwaysOnTop(true);
-				setVisible(false);
+				dispose();
 			}
 		});
 
@@ -76,7 +76,7 @@ public class MainMenue extends Optionsframesuperklasse {
 			@Override
 			public void onClick() {
 				new Laden().setAlwaysOnTop(true);
-				setVisible(false);
+				dispose();
 			}
 		});
 

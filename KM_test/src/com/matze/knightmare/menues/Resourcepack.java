@@ -217,6 +217,7 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 						if (!text[list.getSelectedIndex()].equals(fehler)) {
 							Loader.changeCfgValue("Resourcepack",
 									text[list.getSelectedIndex()]);
+							Optionen.instance.setUndecorated(isUndecorated());
 							Optionen.instance.setVisible(true);
 							Optionen.instance.setAutoRequestFocus(true);
 							dispose();
@@ -251,6 +252,7 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == zurück) {
+			Optionen.instance.setUndecorated(isUndecorated());
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();

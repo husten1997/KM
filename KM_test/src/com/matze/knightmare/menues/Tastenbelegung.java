@@ -388,6 +388,7 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+				Optionen.instance.setUndecorated(isUndecorated());
 				Optionen.instance.setVisible(true);
 				Optionen.instance.setAutoRequestFocus(true);
 				dispose();
@@ -400,6 +401,7 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		Object q = e.getSource();
 
 		if (q == zurück) {
+			Optionen.instance.setUndecorated(isUndecorated());
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();

@@ -132,12 +132,12 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		
 		if (q == optionen[2]){
 			new Tastenbelegung();
-			setVisible(false);
+			dispose();
 		}
 
 		if (q == optionen[1]) {
 			new Resourcepack();
-			setVisible(false);
+			dispose();
 		}
 		
 		if (q == optionen[0]){

@@ -68,7 +68,6 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		Object q = e.getSource();
 
 		if (q == zurück) {
-			Optionen.instance.dispose();
 			Optionen.instance.setUndecorated(isUndecorated());
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
@@ -82,7 +81,6 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		}
 		
 		if (q == settings[1]) {
-			MainMenue.instance.dispose();
 			MainMenue.instance.setUndecorated(!isUndecorated());
 			dispose();
 			setUndecorated(!isUndecorated());
