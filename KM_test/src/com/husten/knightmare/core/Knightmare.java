@@ -296,7 +296,8 @@ public class Knightmare implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-				} else if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
+				} 
+				if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
 					scale -= zomingSpeed;
