@@ -18,8 +18,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-import org.newdawn.slick.tests.TestUtils;
-
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.ImageListRenderer;
 import com.richard.knightmare.util.Loader;
@@ -237,7 +235,7 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			dele.setBounds(0, 0, 100, 300);
 			dele.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 			dele.setFont(new Font("Arial", Font.BOLD, width / 96));
-			dele.setBounds((screen.width / 2 + 3 * width / 8) - (width / 8),
+			dele.setBounds((screen.width-width)/2,
 					(screen.height - height) / 2 + height - width / 24, width / 8,
 					width / 24);
 			dele.addActionListener(this);
@@ -306,7 +304,18 @@ public class Resourcepack extends Optionsframesuperklasse implements
 				}
 			});
 		}
-
+	}
+	
+	private void recursicDelete(File file){
+		if(file.isDirectory()){
+			String[] names = file.list();
+			for(int i = 0; i<names.length; i++){
+				recursicDelete(new File(new StringBuilder(file.getAbsolutePath()).append("\\").append(names[i]).toString()));
+			}
+			file.delete();
+		}else{
+			file.delete();
+		}
 	}
 
 	@Override
@@ -319,12 +328,13 @@ public class Resourcepack extends Optionsframesuperklasse implements
 		}
 		if (e.getSource() == dele){
 			for (int i =0; i < deleteable.length; i++){
-				deleteable[i].delete();
-				Optionen.instance.setUndecorated(isUndecorated());
-				Optionen.instance.setVisible(true);
-				Optionen.instance.setAutoRequestFocus(true);
-				dispose();
+				recursicDelete(deleteable[i]);
 			}
+			Optionen.instance.dispose();
+			Optionen.instance.setUndecorated(isUndecorated());
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
+			dispose();
 		}
 
 	}
