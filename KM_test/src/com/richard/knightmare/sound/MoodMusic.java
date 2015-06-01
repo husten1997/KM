@@ -41,6 +41,7 @@ public class MoodMusic {
 		}
 		setPlayed(names.get(index), names.size());
 		player = new MusikPlayer(names.get(index));
+		volume = Float.parseFloat(Loader.getCfgValue("Volume"));
 		player.setVolume(volume);
 		long duration = player.start();
 		timer = new Timer(true);
@@ -138,6 +139,7 @@ public class MoodMusic {
 
 	public static void setVolume(Float set) {
 		volume = set;
+		Loader.changeCfgValue("Volume", String.valueOf(volume));
 		player.setVolume(set);
 	}
 }
