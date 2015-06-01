@@ -4,12 +4,12 @@ import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.richard.knightmare.util.Pos;
 
-public class World extends GraphicalObject{
+public class Terrain extends GraphicalObject{
 
 	private RectangleGraphicalObject waterPlane, elements[][];
 	private int width, height;
 	
-	public World(int width, int height) {
+	public Terrain(int width, int height) {
 		super(new Pos(0,0), MeshType.GROUND);
 		this.width = width;
 		this.height = height;
@@ -25,10 +25,8 @@ public class World extends GraphicalObject{
 		waterPlane.draw();
 		for (int x1 = (int) (Knightmare.CameraX / 32); x1 < (int) ((Knightmare.CameraX + Knightmare.WIDTH * Knightmare.scale) / 32 + 4); x1++) {
 			for (int y1 = (int) (Knightmare.CameraY / 32); y1 < (int) ((Knightmare.CameraY + Knightmare.HEIGHT * Knightmare.scale) / 32 + 4); y1++) {
-				try {
+				if(elements[x1][y1]!=null){
 					elements[x1][y1].draw();
-				} catch (Exception e) {
-
 				}
 			}
 		}
@@ -62,7 +60,9 @@ public class World extends GraphicalObject{
 		waterPlane.initRender();
 		for(int i = 0; i<elements.length; i++){
 			for(int j = 0; j<elements[i].length; j++){
-				elements[i][j].initRender();
+				if(elements[i][j]!=null){
+					elements[i][j].initRender();
+				}
 			}
 		}
 	}

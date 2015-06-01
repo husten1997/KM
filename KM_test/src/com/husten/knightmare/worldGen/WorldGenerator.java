@@ -6,12 +6,12 @@ import com.husten.knightmare.constants.StringConstants;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
-import com.husten.knightmare.graphicalObjects.World;
+import com.husten.knightmare.graphicalObjects.Terrain;
 
 public class WorldGenerator implements StringConstants {
 
 	private RectangleGraphicalObject World[][];
-	private World Terrain;
+	private Terrain Terrain;
 
 	private int x, y, smoothS = 71;
 
@@ -27,7 +27,7 @@ public class WorldGenerator implements StringConstants {
 	private Random rand;
 	private Generator generator;
 
-	public WorldGenerator(RectangleGraphicalObject world[][], World terrain) {
+	public WorldGenerator(RectangleGraphicalObject world[][], Terrain terrain) {
 		World = world;
 		Terrain = terrain;
 		x = Terrain.getWidth();

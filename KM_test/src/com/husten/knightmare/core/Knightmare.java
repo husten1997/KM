@@ -39,7 +39,7 @@ public class Knightmare implements StringConstants {
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("Fullscreen").equals("true"), Vsync = false, screenToSet = false, running = true;
 	private Soldat figur, figuren[] = new Soldat[s];
-	public static World terrain;
+	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
@@ -146,7 +146,8 @@ public class Knightmare implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
-		terrain = new World((512) + 1, (512) + 1);
+		terrain = new Terrain((512) + 1, (512) + 1);
+		terrain.initRender();
 		world = new RectangleGraphicalObject[513][513];
 		for (int i = 0; i < s; i++) {
 			double x = Math.random() * 1200;
@@ -156,6 +157,7 @@ public class Knightmare implements StringConstants {
 			initRender(figuren[i], 1);
 		}
 		figur = new Soldat(20, new Pos(0, 0), 32, 32, "figure.png");
+		figur.initRender();
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -255,10 +257,10 @@ public class Knightmare implements StringConstants {
 					inGameStat = state.N_TRUPS;
 					System.out.println(inGameStat);
 				}
-				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Volume -"))) {
+				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(-0.5f);
 				}
-				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Volume +"))) {
+				if (getString("CONTROL_KEY: Volume +").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(0.5f);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
@@ -269,11 +271,11 @@ public class Knightmare implements StringConstants {
 					System.out.println(selection.size());
 				}
 
-				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Musik wechseln"))) {
+				if (getString("CONTROL_KEY: Musik wechseln").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.nextClip();
 				}
 				
-				if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Scrollen -"))) {
+				if (getString("CONTROL_KEY: Scrollen -").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
 					scale += zomingSpeed;
@@ -294,7 +296,7 @@ public class Knightmare implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-				} else if (gFN(Keyboard.getEventKey()).equals(getString("CONTROL_KEY: Scrollen +"))) {
+				} else if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
 					scale -= zomingSpeed;
@@ -355,7 +357,9 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						search(x, y);
-//						figur = (Soldat) selection.get(selection.size() - 1);//TODO des chrast mich andauernd
+						if(selection.get(selection.size()-1) instanceof Soldat){
+							figur = (Soldat) selection.get(selection.size() - 1);
+						}
 						break;
 					case state.S_BUILDINGS:
 						search(x, y);
@@ -388,6 +392,7 @@ public class Knightmare implements StringConstants {
 									for (int j = 0; j < vektoren.size(); j++) {
 										pathfindingVektoren.add(vektoren.get(j));
 									}
+									//TODO
 									/*
 									 * if (vektoren.get(h) == null) {
 									 * vektoren.put(h, new Vektor(p2, p1, h)); }
