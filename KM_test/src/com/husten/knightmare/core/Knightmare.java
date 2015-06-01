@@ -213,6 +213,7 @@ public class Knightmare implements StringConstants {
 	private void pollInput() {
 		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
 			tooggleFullscreen();
+			Loader.changeCfgValue("Fullscreen", String.valueOf(fullscreen));
 		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
