@@ -13,6 +13,7 @@ public class Path4 {
 	private PathObject[][] pointsInGrid, possiblePointsInGrid;
 	private GraphicalObject[][] world;
 	private Pos ziel;
+	private com.richard.knightmare.util.Pos realStart, realZiel;
 	private com.richard.knightmare.util.Pos currentVektorStartPos;
 	private boolean alternate = false, sucess = false;
 	private Soldat soldat;
@@ -20,6 +21,8 @@ public class Path4 {
 	public Path4(Soldat soldat, com.richard.knightmare.util.Pos ende) {
 		world = Knightmare.world;
 		this.soldat = soldat;
+		realStart = soldat.getPosition();
+		realZiel = ende;
 		Pos start = new Pos((int) soldat.getPosition().getX() / 32, (int) soldat.getPosition().getY() / 32);
 		ziel = new Pos((int) ende.getX() / 32, (int) ende.getY() / 32);
 
@@ -86,8 +89,9 @@ public class Path4 {
 	}
 
 	public ArrayList<Vektor> pathfind() {
-		currentVektorStartPos = path.get(path.size() - 1).point.toPoint(16, 16);
+		currentVektorStartPos = realStart;
 		recursivVektorProduction(path.size() - 1);
+		vektoren.get(vektoren.size()-1).setEnde(realZiel);
 		System.out.println("pathfinding");
 		for (int i = 0; i < vektoren.size(); i++) {
 			System.out.println(vektoren.get(i).getEnde().getX() + "|" + vektoren.get(i).getEnde().getY());
