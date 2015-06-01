@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+import com.husten.knightmare.core.MainMenue;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
@@ -17,15 +18,17 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 
 	private JButton zurück;
 	private JButton settings[];
-	private String[] text = { "V-Sync" };
+	private String[] text = { "V-Sync", "Fenstermodus" };
 
 	protected Grafik(String imgName, String name) {
 		super(imgName, name);
 
 		settings = new JButton[text.length];
 
+		Loader.changeCfgValue("SETTINGS: Fenstermodus", (Loader.getCfgValue("Fullscreen").equals("true")?"false":"true"));
+		
 		for (int i = 0; i < text.length; i++) {
-			settings[i] = new JButton(text[0] + ": " + Loader.getCfgValue("SETTINGS: " + text[0]));
+			settings[i] = new JButton(text[i] + ": " + Loader.getCfgValue("SETTINGS: " + text[i]));
 			settings[i].addActionListener(this);
 			settings[i].setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2 + i * height / settings.length, width / 2,
 					height / settings.length);
@@ -52,6 +55,8 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+			Optionen.instance.dispose();
+			Optionen.instance.setUndecorated(isUndecorated());
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
@@ -63,6 +68,8 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		Object q = e.getSource();
 
 		if (q == zurück) {
+			Optionen.instance.dispose();
+			Optionen.instance.setUndecorated(isUndecorated());
 			Optionen.instance.setVisible(true);
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
@@ -72,6 +79,18 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 			Loader.changeCfgValue("SETTINGS: " + text[0], Loader.getCfgValue("SETTINGS: " + text[0]).equals("On") ? "Off" : "On");
 			settings[0].setText(text[0] + " = " + Loader.getCfgValue("SETTINGS: " + text[0]));
 			repaint();
+		}
+		
+		if (q == settings[1]) {
+			MainMenue.instance.dispose();
+			MainMenue.instance.setUndecorated(!isUndecorated());
+			dispose();
+			setUndecorated(!isUndecorated());
+			setVisible(true);
+			setAutoRequestFocus(true);
+			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+			settings[1].setText("Fenstermodus: " + (Loader.getCfgValue("Fullscreen").equals("true")?"false":"true"));
+			setVisible(true);
 		}
 
 	}

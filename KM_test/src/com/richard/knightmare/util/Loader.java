@@ -110,6 +110,8 @@ public class Loader {
 			
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
 			sortedKeys.add("SETTINGS: V-Sync");
+			defaultConfigValues.put("SETTINGS: Fenstermodus", (Loader.getCfgValue("Fullscreen")== null)?"true":Loader.getCfgValue("Fullscreen"));
+			sortedKeys.add("SETTINGS: Fenstermodus");
 			
 			//"Musik wechseln", "Scrollen +", "Scrollen -"
 			

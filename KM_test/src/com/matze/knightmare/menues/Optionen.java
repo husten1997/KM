@@ -24,7 +24,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 	private int position;
 	private JButton zurück;
 	private JButton optionen[];
-	private String[] text = { "Grafikeinstellungen", "Resourcepacks", "Tastenbelegung", "Fenstermodus"};
+	private String[] text = { "Grafikeinstellungen", "Resourcepacks", "Tastenbelegung"};
 	public static Optionsframesuperklasse instance;
 
 	public Optionen() {
@@ -126,17 +126,6 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
-		}
-		
-		if (q == optionen[3]){
-			MainMenue.instance.dispose();
-			MainMenue.instance.setUndecorated(!isUndecorated());
-			dispose();
-			setUndecorated(!isUndecorated());
-			setVisible(true);
-			setAutoRequestFocus(true);
-			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
-			setVisible(true);
 		}
 		
 		if (q == optionen[2]){

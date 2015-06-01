@@ -565,6 +565,8 @@ public class Knightmare implements StringConstants {
 		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
 			MoodMusic.changeVolume(0.5f);
 		}
+		
+		
 	}
 
 	public void render() {
