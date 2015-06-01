@@ -121,6 +121,7 @@ public class Vektor {
 				newStart = new Pos(start.getX() - dx, start.getY() - dy);
 			}
 		}
+		System.out.println("New Start would be: "+newStart.getX()+"|"+newStart.getY());
 		if (distance(newStart, ende) < distance(start, ende)) {
 			soldat.setPosition(newStart);
 			start = newStart;
