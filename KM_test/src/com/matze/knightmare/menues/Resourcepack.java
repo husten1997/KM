@@ -279,7 +279,7 @@ public class Resourcepack extends Optionsframesuperklasse implements ListSelecti
 			dispose();
 		}
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
-			Loader.changeCfgValue("CONTROL_KEY: V-Sync", Loader.getCfgValue("CONTROL_KEY: V-Sync").equals("On")?"Off":"On");
+			Loader.changeCfgValue("SETTINGS: V-Sync", Loader.getCfgValue("SETTINGS: V-Sync").equals("On")?"Off":"On");
 		}
 	}
 }

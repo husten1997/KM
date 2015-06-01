@@ -23,15 +23,19 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class Tastenbelegung extends Optionsframesuperklasse implements ActionListener, ListSelectionListener {
+public class Tastenbelegung extends Optionsframesuperklasse implements
+		ActionListener, ListSelectionListener {
 
 	private int ButtonClicked = -1;
 	private boolean changing = false;
 	private JButton zurück;
 	private JList<String> list;
 	private String hilfe[];
-	private String text[] = { "Vorwärts", "Rückwärts", "Links", "Rechts", "Kamera oben", "Kamera unten", "Kamera links", "Kamera rechts", "Escape/Zurück", "Bestätigen",
-			"Fenster- u. Vollbildmodus", "Volume +", "Volume -", "Musik wechseln", "Scrollen +", "Scrollen -", "V-Sync" };
+	private String text[] = { "Vorwärts", "Rückwärts", "Links", "Rechts",
+			"Kamera oben", "Kamera unten", "Kamera links", "Kamera rechts",
+			"Escape/Zurück", "Bestätigen", "Fenster- u. Vollbildmodus",
+			"Volume +", "Volume -", "Musik wechseln", "Scrollen +",
+			"Scrollen -", "V-Sync" };
 
 	public Tastenbelegung() {
 		super("back.png", "Knightmare: Tastenbelegung");
@@ -40,7 +44,8 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		String[] leer = new String[text.length];
 
 		for (int i = 0; i < text.length; i++) {
-			hilfe[i] = text[i] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[i]);
+			hilfe[i] = text[i] + ": "
+					+ Loader.getCfgValue("CONTROL_KEY: " + text[i]);
 			leer[i] = " ";
 		}
 
@@ -48,13 +53,16 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
-		zurück.setBounds(screen.width / 2 + 3 * width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
+		zurück.setBounds(screen.width / 2 + 3 * width / 8,
+				(screen.height - height) / 2 + height - width / 24, width / 8,
+				width / 24);
 		zurück.addActionListener(this);
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
 
 		list.setSize(new Dimension(width, height));
-		list.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
+		list.setBounds((screen.width - width) / 2 + width / 4,
+				(screen.height - height) / 2, width / 2, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		list.setForeground(Color.white);
@@ -96,12 +104,17 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			}
 		});
 		JScrollPane scroll = new JScrollPane(list);
-		scroll.setBounds((screen.width - width) / 2 + width / 4, (screen.height - height) / 2, width / 2, height);
+		scroll.setBounds((screen.width - width) / 2 + width / 4,
+				(screen.height - height) / 2, width / 2, height);
 		scroll.setBorder(null);
-		scroll.getVerticalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
 		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
 			@Override
 			protected JButton createDecreaseButton(int orientation) {
@@ -209,7 +222,8 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		JList<String> list = new JList<>(leer);
 		list.setCellRenderer(new DefaultButtonRenderer());
 		list.setSize(new Dimension(120, height));
-		list.setBounds((screen.width - width) / 2 + width / 4 - 120, (screen.height - height) / 2, 120, height);
+		list.setBounds((screen.width - width) / 2 + width / 4 - 120,
+				(screen.height - height) / 2, 120, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		list.setForeground(Color.white);
@@ -246,17 +260,23 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			public void mouseClicked(MouseEvent arg0) {
 				int index = list.getSelectedIndex();
 				Loader.resetCfgValue("CONTROL_KEY: " + text[index]);
-				hilfe[index] = text[index] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[index]);
+				hilfe[index] = text[index] + ": "
+						+ Loader.getCfgValue("CONTROL_KEY: " + text[index]);
 				repaint();
 			}
 		});
 		JScrollPane scrol = new JScrollPane(list);
-		scrol.setBounds((screen.width - width) / 2 + width / 4 - 120, (screen.height - height) / 2, 120, height);
+		scrol.setBounds((screen.width - width) / 2 + width / 4 - 120,
+				(screen.height - height) / 2, 120, height);
 		scrol.setBorder(null);
-		scrol.getVerticalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scrol.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scrol.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scrol.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
+		scrol.getVerticalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scrol.getVerticalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scrol.getHorizontalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scrol.getHorizontalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
 		scrol.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
 			@Override
 			protected JButton createDecreaseButton(int orientation) {
@@ -363,11 +383,22 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
+		int a = 0;
+		
+		for (int i = 0; i < text.length; i++){
+			if (Loader.getCfgValue("CONTROL_KEY: " + text[i]).equals(KeyEvent.getKeyText(e.getExtendedKeyCode()))){
+				a++;
+			}
+		}
+		
 		if (ButtonClicked > -1 && changing) {
-			Loader.changeCfgValue("CONTROL_KEY: " + text[ButtonClicked], KeyEvent.getKeyText(e.getExtendedKeyCode()));
-			hilfe[ButtonClicked] = text[ButtonClicked] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]);
-			repaint();
-			validate();
+			if (a == 0){
+				Loader.changeCfgValue("CONTROL_KEY: " + text[ButtonClicked], KeyEvent.getKeyText(e.getExtendedKeyCode()));
+				[ButtonClicked] = text[ButtonClicked] + ": " + Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]);
+				repaint();
+				validate();
+			} 
 			ButtonClicked = -1;
 			changing = false;
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Bestätigen"))) {
@@ -393,6 +424,9 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 				Optionen.instance.setAutoRequestFocus(true);
 				dispose();
 			}
+		}
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
+			Loader.changeCfgValue("SETTINGS: V-Sync", Loader.getCfgValue("SETTINGS: V-Sync").equals("On")?"Off":"On");
 		}
 	}
 

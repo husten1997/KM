@@ -82,6 +82,10 @@ public class Loader {
 			sortedKeys.add("CONTROL_KEY: Kamera unten");
 			defaultConfigValues.put("CONTROL_KEY: Kamera rechts", "Rechts");
 			sortedKeys.add("CONTROL_KEY: Kamera rechts");
+			
+			//Rest
+			defaultConfigValues.put("CONTROL_KEY: V-Sync", "F12");
+			sortedKeys.add("CONTROL_KEY: V-Sync");
 
 			defaultConfigValues.put("CONTROL_KEY: Escape/Zurück", "ESC");
 			sortedKeys.add("CONTROL_KEY: Escape/Zurück");
@@ -108,13 +112,12 @@ public class Loader {
 			defaultConfigValues.put("CONTROL_KEY: Musik wechseln", "M");
 			sortedKeys.add("CONTROL_KEY: Musik wechseln");
 			
+			//Settuings
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
 			sortedKeys.add("SETTINGS: V-Sync");
+			
 			defaultConfigValues.put("SETTINGS: Fenstermodus", (Loader.getCfgValue("Fullscreen")== null)?"true":Loader.getCfgValue("Fullscreen"));
-			sortedKeys.add("SETTINGS: Fenstermodus");
-			
-			//"Musik wechseln", "Scrollen +", "Scrollen -"
-			
+			sortedKeys.add("SETTINGS: Fenstermodus");			
 
 			sortedKeys.sort(new Comparator<String>() {
 
