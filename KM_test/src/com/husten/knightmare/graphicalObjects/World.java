@@ -57,4 +57,14 @@ public class World extends GraphicalObject{
 		this.height = height;
 	}
 
+	@Override
+	public void initRender() {
+		waterPlane.initRender();
+		for(int i = 0; i<elements.length; i++){
+			for(int j = 0; j<elements[i].length; j++){
+				elements[i][j].initRender();
+			}
+		}
+	}
+
 }
