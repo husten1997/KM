@@ -25,12 +25,12 @@ public class Terrain extends GraphicalObject{
 		waterPlane.draw();
 		for (int x1 = (int) (Knightmare.CameraX / 32); x1 < (int) ((Knightmare.CameraX + Knightmare.WIDTH * Knightmare.scale) / 32 + 4); x1++) {
 			for (int y1 = (int) (Knightmare.CameraY / 32); y1 < (int) ((Knightmare.CameraY + Knightmare.HEIGHT * Knightmare.scale) / 32 + 4); y1++) {
-				if(x1<elements.length){
-					if(y1<elements[x1].length){
-						if(elements[x1][y1]!=null){
-							elements[x1][y1].draw();
-						}
+				try{
+					if(elements[x1][y1]!=null){
+						elements[x1][y1].draw();
 					}
+				}catch(Exception e){
+					//Scheiß doch draf i schreib koe 100 Ifs des is a nimma performant
 				}
 			}
 		}
