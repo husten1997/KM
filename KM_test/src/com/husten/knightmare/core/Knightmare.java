@@ -85,7 +85,7 @@ public class Knightmare implements StringConstants {
 				setDisplayMode(WIDTH, HEIGHT, !fullscreen);
 				screenToSet = false;
 			}
-			while (pending.size() > 0) {
+			while (pending.size() > 0 && pendingEbenen.size() > 0) {
 				initRender(pending.get(0), pendingEbenen.get(0));
 				pending.remove(0);
 				pendingEbenen.remove(0);
@@ -274,7 +274,7 @@ public class Knightmare implements StringConstants {
 				if (getString("CONTROL_KEY: Musik wechseln").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.nextClip();
 				}
-				
+
 				if (getString("CONTROL_KEY: Scrollen -").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
@@ -296,7 +296,7 @@ public class Knightmare implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-				} 
+				}
 				if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
@@ -319,8 +319,7 @@ public class Knightmare implements StringConstants {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
 				}
-				
-				
+
 			}
 		}
 		// Mosue-------------------------------------------------------------------------------------------------------
@@ -349,7 +348,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.N_TRUPS:
 						if (world[xR][yR] == null && terrain.getMeterial(xR, yR) != null) {
-							Soldat s = Rekrutieren.Hussar(xR*32, yR*32, 32, 32);
+							Soldat s = Rekrutieren.Hussar(x, y, 32, 32);
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);
@@ -358,7 +357,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						search(x, y);
-						if(selection.get(selection.size()-1) instanceof Soldat){
+						if (selection.get(selection.size() - 1) instanceof Soldat) {
 							figur = (Soldat) selection.get(selection.size() - 1);
 						}
 						break;
@@ -383,7 +382,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
-//							Pos p2 = selection.get(i).getPosition(); // Start
+							// Pos p2 = selection.get(i).getPosition(); // Start
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
@@ -393,7 +392,7 @@ public class Knightmare implements StringConstants {
 									for (int j = 0; j < vektoren.size(); j++) {
 										pathfindingVektoren.add(vektoren.get(j));
 									}
-									//TODO
+									// TODO
 									/*
 									 * if (vektoren.get(h) == null) {
 									 * vektoren.put(h, new Vektor(p2, p1, h)); }
@@ -535,8 +534,6 @@ public class Knightmare implements StringConstants {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
 		}
-		
-		
 
 		if (Mouse.getX() < 32) {
 			CameraX -= scrollingSpeed * scale;
@@ -683,8 +680,8 @@ public class Knightmare implements StringConstants {
 			}
 		}
 
-		if(pathfindingVektoren.size()>0){
-			if(pathfindingVektoren.get(0).move()){
+		if (pathfindingVektoren.size() > 0) {
+			if (pathfindingVektoren.get(0).move()) {
 				pathfindingVektoren.remove(0);
 			}
 		}

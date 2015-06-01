@@ -33,8 +33,11 @@ public class Vektor {
 	}
 
 	public void setEnde(Pos ende) {
-		ende = new Pos(ende.getX() - 16, ende.getY() - 16);
 		this.ende = ende;
+	}
+	
+	public void setStart(Pos start) {
+		this.start = start;
 	}
 
 	public double getLenght() {
@@ -135,6 +138,10 @@ public class Vektor {
 
 	public Pos getEnde() {
 		return ende;
+	}
+	
+	public Pos getStart(){
+		return start;
 	}
 
 }

@@ -10,7 +10,7 @@ public class Pathfinding {
 	private ArrayList<PathObject> points = new ArrayList<>(), possiblePoints = new ArrayList<>(), path = new ArrayList<>();
 	private ArrayList<Vektor> vektoren = new ArrayList<>();
 	private PathObject[][] pointsInGrid, possiblePointsInGrid;
-	private Pos ziel;
+	private Pos ziel, start;
 	private com.richard.knightmare.util.Pos realStart, realZiel;
 	private com.richard.knightmare.util.Pos currentVektorStartPos;
 	private boolean alternate = false, sucess = false;
@@ -20,22 +20,24 @@ public class Pathfinding {
 		this.soldat = soldat;
 		realStart = soldat.getPosition();
 		realZiel = ende;
-		Pos start = new Pos((int) soldat.getPosition().getX() / 32, (int) soldat.getPosition().getY() / 32);
-		ziel = new Pos((int) ende.getX() / 32, (int) ende.getY() / 32);
-		currentVektorStartPos = new com.richard.knightmare.util.Pos(start.x*32, start.y*32);
-		pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-		possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
-		possiblePointsInGrid[start.x][start.y] = startObjt;
-		pointsInGrid[start.x][start.y] = startObjt;
-		points.add(startObjt);
-		findnNextPos(startObjt);
-		path = new ArrayList<>();
-		PathObject currenObject = points.get(points.size() - 1);
-		path.add(currenObject);
-		while (currenObject.parent != null) {
-			currenObject = currenObject.parent;
+		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
+		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
+		if (!isObstrated(ziel)) {
+			currentVektorStartPos = realStart;
+			pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+			possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+			PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
+			possiblePointsInGrid[start.x][start.y] = startObjt;
+			pointsInGrid[start.x][start.y] = startObjt;
+			points.add(startObjt);
+			findnNextPos(startObjt);
+			path = new ArrayList<>();
+			PathObject currenObject = points.get(points.size() - 2);
 			path.add(currenObject);
+			while (currenObject.parent != null) {
+				currenObject = currenObject.parent;
+				path.add(currenObject);
+			}
 		}
 	}
 
@@ -70,7 +72,7 @@ public class Pathfinding {
 				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
 				currentVektorStartPos = path.get(index).point.toPoint(0, 0);
 				recursivVektorProduction(index - 1);
-			}else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
+			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
 					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
 				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
 				currentVektorStartPos = path.get(index).point.toPoint(0, 0);
@@ -81,7 +83,7 @@ public class Pathfinding {
 			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
 			currentVektorStartPos = path.get(index).point.toPoint(0, 0);
 			recursivVektorProduction(index - 1);
-		}else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
+		} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
 				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
 			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
 			currentVektorStartPos = path.get(index).point.toPoint(0, 0);
@@ -90,10 +92,23 @@ public class Pathfinding {
 	}
 
 	public ArrayList<Vektor> pathfind() {
-		vektoren.add(new Vektor(realStart, currentVektorStartPos, soldat));
-		recursivVektorProduction(path.size() - 1);
-		vektoren.get(vektoren.size()-1).setEnde(realZiel);
-		return (sucess? vektoren: new ArrayList<>());
+		if (sucess) {
+			System.out.println(realZiel.getX() + "|" + realZiel.getY());
+			recursivVektorProduction(path.size() - 1);
+			if (vektoren.size() > 0) {
+				vektoren.get(vektoren.size() - 1).setEnde(realZiel);
+				if (compare(vektoren.get(0).getEnde(), start)) {
+					vektoren.remove(0);
+					vektoren.get(0).setStart(realStart);
+				}
+			}
+			return vektoren;
+		}
+		return new ArrayList<>();
+	}
+
+	private boolean compare(com.richard.knightmare.util.Pos ende, Pos start2) {
+		return compare(new Pos((int) ende.getX() / 32, (int) ende.getY() / 32), start2);
 	}
 
 	private void findnNextPos(PathObject p) {
@@ -213,16 +228,16 @@ public class Pathfinding {
 	}
 
 	private boolean isObstrated(Pos p) {
-		if(soldat.isWaterproof()){
-			if(Knightmare.terrain.getMeterial(p.x, p.y)==null){
+		if (soldat.isWaterproof()) {
+			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return Knightmare.world[p.x][p.y] != null;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
-			if(Knightmare.terrain.getMeterial(p.x, p.y)==null){
+		} else {
+			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
-			}else{
+			} else {
 				return Knightmare.world[p.x][p.y] != null;
 			}
 		}
