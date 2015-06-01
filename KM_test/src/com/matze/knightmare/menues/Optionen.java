@@ -145,6 +145,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		
 		if (q == optionen[0]){
 			new Grafik("back.png", "Knightmare: Grafikeinstellungen");
+			dispose();
 		}
 
 	}
