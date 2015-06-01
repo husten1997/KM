@@ -111,6 +111,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 			volume.setValue(position);
 			repaint();
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
@@ -123,6 +124,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		repaint();
 
 		if (q == zurück) {
+			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();

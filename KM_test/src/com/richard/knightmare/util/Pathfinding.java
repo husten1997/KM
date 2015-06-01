@@ -22,23 +22,6 @@ public class Pathfinding {
 		realZiel = ende;
 		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
 		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
-		if (!isObstrated(ziel)) {
-			currentVektorStartPos = realStart;
-			pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-			possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-			PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
-			possiblePointsInGrid[start.x][start.y] = startObjt;
-			pointsInGrid[start.x][start.y] = startObjt;
-			points.add(startObjt);
-			findnNextPos(startObjt);
-			path = new ArrayList<>();
-			PathObject currenObject = points.get(points.size() - 2);
-			path.add(currenObject);
-			while (currenObject.parent != null) {
-				currenObject = currenObject.parent;
-				path.add(currenObject);
-			}
-		}
 	}
 
 	private void recursivVektorProduction(int index) {
@@ -179,6 +162,23 @@ public class Pathfinding {
 	}
 
 	public ArrayList<Vektor> pathfind() {
+		if (!isObstrated(ziel)) {
+			currentVektorStartPos = realStart;
+			pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+			possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+			PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
+			possiblePointsInGrid[start.x][start.y] = startObjt;
+			pointsInGrid[start.x][start.y] = startObjt;
+			points.add(startObjt);
+			findnNextPos(startObjt);
+			path = new ArrayList<>();
+			PathObject currenObject = points.get(points.size() - 2);
+			path.add(currenObject);
+			while (currenObject.parent != null) {
+				currenObject = currenObject.parent;
+				path.add(currenObject);
+			}
+		}
 		if (sucess) {
 			recursivVektorProduction(path.size() - 1);
 			return vektoren;
