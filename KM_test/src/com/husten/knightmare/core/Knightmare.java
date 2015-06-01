@@ -46,6 +46,7 @@ public class Knightmare implements StringConstants {
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	private HashMap<Soldat, ArrayList<Vektor>> pathfinding = new HashMap<>();
+	private HashMap<Soldat,Pos> ziele = new HashMap<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
@@ -435,10 +436,12 @@ public class Knightmare implements StringConstants {
 									Pathfinding pathfinder = new Pathfinding(h, p1);
 									if (pathfinding.get(h) == null) {
 										pathfinding.put(h, pathfinder.pathfind());
+										ziele.put(h, p1);
 									} else {
 										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size() - 1).getEnde();
 										if (!((int) (ende.getX() / 32) == (int) (p1.getX() / 32) && (int) (ende.getY() / 32) == (int) (p1.getY() / 32))) {
 											pathfinding.put(h, pathfinder.pathfind());
+											ziele.put(h, p1);
 										}
 									}
 								}
@@ -725,13 +728,27 @@ public class Knightmare implements StringConstants {
 		for (int i = 0; i < vek.length; i++) {
 			vekk[i] = (ArrayList<Vektor>) vek[i];
 		}
-
+		//TODO fix
 		for (int i = 0; i < vekk.length; i++) {
-			if (vekk[i].get(0).move()) {
-				if (vekk[i].size() > 1) {
-					vekk[i].remove(0);
-				} else {
-					pathfinding.remove(vekk[i].get(0).getSoldat());
+			if(vekk[i].size()>0){
+				Pos ende = vekk[i].get(0).getEnde();
+				if(world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]==null){
+					if(!vekk[i].get(0).isAlreadyMoved()){
+						world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]=vekk[i].get(0).getSoldat();
+						Pos start = vekk[i].get(0).getStart();
+						world[(int) (start.getX()/32)][(int) (start.getY()/32)]=null;
+					}
+					if (vekk[i].get(0).move()) {
+						if (vekk[i].size() > 1) {
+							vekk[i].remove(0);
+						} else {
+							ziele.remove(vekk[i].get(0).getSoldat());
+							pathfinding.remove(vekk[i].get(0).getSoldat());
+						}
+					}
+				}else{
+					Pathfinding pathfinder = new Pathfinding(vekk[i].get(0).getSoldat(), ziele.get(vekk[i].get(0).getSoldat()));
+					pathfinding.put(vekk[i].get(0).getSoldat(), pathfinder.pathfind());
 				}
 			}
 		}
