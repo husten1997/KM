@@ -1,21 +1,23 @@
 package com.matze.knightmare.meshes;
 
-public class Vehicle extends Truppen {
+import com.richard.knightmare.util.Pos;
+
+public class Vehicle extends Soldat {
 
 	private int slots;
-	private Truppen[] beladen;
+	private Soldat[] beladen;
 	private int[] anzahl;
 	private int slotGrösse;
 	private boolean warenTransport = false, truppenTransport = false;
 
-	public Vehicle(int h) {
-		super(h);
+	public Vehicle(int h, int posx, int posy, int width, int height, String textur) {
+		super(h, new Pos(posx, posy), width, height,  textur);
 		typ = 3;
 	}
 
 	public void setSlots(int slot, int slotGröße, boolean warenT, boolean truppenT) {
 		slots = slot;
-		beladen = new Truppen[slots];
+		beladen = new Soldat[slots];
 		anzahl = new int[slots];
 
 		for (int i = 0; i < slots; i++) {
@@ -28,7 +30,7 @@ public class Vehicle extends Truppen {
 		truppenTransport = truppenT;
 	}
 
-	public boolean addTruppe(Truppen truppe) {
+	public boolean addTruppe(Soldat truppe) {
 		
 		for (int i = 0; i < slots; i++){
 			if (truppe.name.equals(beladen[i].name) && anzahl[i] < slotGrösse){

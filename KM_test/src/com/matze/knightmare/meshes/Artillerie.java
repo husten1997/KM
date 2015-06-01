@@ -1,12 +1,14 @@
 package com.matze.knightmare.meshes;
 
-public class Artillerie extends Truppen {
+import com.richard.knightmare.util.Pos;
+
+public class Artillerie extends Soldat {
 
 	private int benötigteMann;
 	private int mann;
 	
-	public Artillerie(int h){
-		super(h);
+	public Artillerie(int h, int posx, int posy, int w, int he, String tex) {
+		super(h, new Pos(posx, posy), w, he, tex);
 		typ = 2;
 	}
 	
@@ -14,7 +16,7 @@ public class Artillerie extends Truppen {
 		benötigteMann = ma;
 	}
 	
-	public boolean Mann_Beordern(Truppen t){
+	public boolean Mann_Beordern(Soldat t){
 		
 		if (mann == benötigteMann){
 			t.stop();

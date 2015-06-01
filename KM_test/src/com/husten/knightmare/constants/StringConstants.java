@@ -12,7 +12,7 @@ public interface StringConstants {
 	}
 
 	public interface MeshType {
-		public static String EINEHEIT = "EINHEIT";
+		public static String EINHEIT = "EINHEIT";
 		public static String GEBÄUDE = "GEBÄUDE";
 		public static String GROUND = "GROUND";
 	}
