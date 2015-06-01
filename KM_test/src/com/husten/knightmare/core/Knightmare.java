@@ -47,7 +47,7 @@ public class Knightmare implements StringConstants {
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
-	public static GraphicalObject[][] world;
+	public static RectangleGraphicalObject[][] world;
 	private Timer timer = new Timer(true);
 
 	public Knightmare() {
@@ -145,7 +145,7 @@ public class Knightmare implements StringConstants {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
 		terrain = new World((512) + 1, (512) + 1);
-		world = new GraphicalObject[513][513];
+		world = new RectangleGraphicalObject[513][513];
 		for (int i = 0; i < s; i++) {
 			double x = Math.random() * 1200;
 			double y = Math.random() * 800;
