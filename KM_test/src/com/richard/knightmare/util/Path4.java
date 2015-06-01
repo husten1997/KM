@@ -26,14 +26,12 @@ public class Path4 {
 		Pos start = new Pos((int) soldat.getPosition().getX() / 32, (int) soldat.getPosition().getY() / 32);
 		ziel = new Pos((int) ende.getX() / 32, (int) ende.getY() / 32);
 
-		System.out.println("Starting from " + start.x + "|" + start.y + ". Aiming for " + ziel.x + "|" + ziel.y);
 		pointsInGrid = new PathObject[world.length][world[0].length];
 		possiblePointsInGrid = new PathObject[world.length][world[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
 		possiblePointsInGrid[start.x][start.y] = startObjt;
 		pointsInGrid[start.x][start.y] = startObjt;
 		points.add(startObjt);
-		long t1 = System.currentTimeMillis();
 		findnNextPos(startObjt);
 		path = new ArrayList<>();
 		PathObject currenObject = points.get(points.size() - 1);
@@ -41,14 +39,6 @@ public class Path4 {
 		while (currenObject.parent != null) {
 			currenObject = currenObject.parent;
 			path.add(currenObject);
-		}
-		System.out.println("Time passed: " + (System.currentTimeMillis() - t1));
-		if (sucess) {
-			for (int i = path.size() - 1; i >= 0; i--) {
-				System.out.println(path.get(i).point.x + "|" + path.get(i).point.y);
-			}
-		} else {
-			System.out.println("Cannot reach");
 		}
 	}
 
@@ -66,24 +56,24 @@ public class Path4 {
 				recursivVektorProduction(index - 2);
 			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
 					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 0), soldat));
-				currentVektorStartPos = path.get(index).point.toPoint(16, 0);
+				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 16), soldat));
+				currentVektorStartPos = path.get(index).point.toPoint(0, 16);
 				recursivVektorProduction(index - 1);
 			}else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
 					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
 				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 0), soldat));
-				currentVektorStartPos = path.get(index).point.toPoint(0, 16);
+				currentVektorStartPos = path.get(index).point.toPoint(16, 0);
 				recursivVektorProduction(index - 1);
 			}
 		} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
 				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
-			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 0), soldat));
-			currentVektorStartPos = path.get(index).point.toPoint(16, 0);
+			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 16), soldat));
+			currentVektorStartPos = path.get(index).point.toPoint(0, 16);
 			recursivVektorProduction(index - 1);
 		}else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
 				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
 			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 0), soldat));
-			currentVektorStartPos = path.get(index).point.toPoint(0, 16);
+			currentVektorStartPos = path.get(index).point.toPoint(16, 0);
 			recursivVektorProduction(index - 1);
 		}
 	}
@@ -92,12 +82,7 @@ public class Path4 {
 		currentVektorStartPos = realStart;
 		recursivVektorProduction(path.size() - 1);
 		vektoren.get(vektoren.size()-1).setEnde(realZiel);
-		System.out.println("pathfinding");
-		for (int i = 0; i < vektoren.size(); i++) {
-			System.out.println(vektoren.get(i).getEnde().getX() + "|" + vektoren.get(i).getEnde().getY());
-		}
-		System.out.println("pathfound");
-		return vektoren;
+		return (sucess? vektoren: new ArrayList<>());
 	}
 
 	private void findnNextPos(PathObject p) {
