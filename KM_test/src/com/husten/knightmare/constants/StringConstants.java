@@ -23,6 +23,7 @@ public interface StringConstants {
 		public static String S_TRUPS = "S_TRUPS";
 		public static String N_BUILDINGS = "N_BUILDINGS";
 		public static String N_TRUPS = "N_TRUPS";
+		public static String ABREIﬂEN = "Abreiﬂen";
 	}
 
 }

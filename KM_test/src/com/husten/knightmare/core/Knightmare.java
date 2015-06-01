@@ -45,8 +45,9 @@ public class Knightmare implements StringConstants {
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
-	private ArrayList<Vektor> pathfindingVektoren = new ArrayList<>();
+//	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
+	private HashMap<Soldat, ArrayList<Vektor>> pathfinding = new HashMap<>();
+//	private ArrayList<Vektor> pathfindingVektoren = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
@@ -246,6 +247,10 @@ public class Knightmare implements StringConstants {
 					return;
 				}
 
+				if (getString("CONTROL_KEY: Abreiﬂen").equals(gFN(Keyboard.getEventKey()))){
+					inGameStat = state.ABREIﬂEN;
+				}
+				
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
@@ -381,6 +386,12 @@ public class Knightmare implements StringConstants {
 					case state.S_BUILDINGS:
 						search(x, y);
 						break;
+					case state.ABREIﬂEN:
+						if(world[xR][yR]!=null){
+							renderList[1].remove(renderList[1].lastIndexOf(world[xR][yR]));
+							world[xR][yR] = null;
+						}
+						break;
 					}
 				}
 
@@ -405,16 +416,14 @@ public class Knightmare implements StringConstants {
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
 										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
 									Pathfinding pathfinder = new Pathfinding(h, p1);
-									ArrayList<Vektor> vektoren = pathfinder.pathfind();
-									for (int j = 0; j < vektoren.size(); j++) {
-										pathfindingVektoren.add(vektoren.get(j));
+									if(pathfinding.get(h)==null){
+										pathfinding.put(h, pathfinder.pathfind());
+									}else{
+										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size()-1).getEnde();
+										if(!((int) (ende.getX()/32) == (int) (p1.getX()/32) && (int) (ende.getY()/32)==(int)(p1.getY()/32))){
+											pathfinding.put(h, pathfinder.pathfind());
+										}
 									}
-									// TODO
-									/*
-									 * if (vektoren.get(h) == null) {
-									 * vektoren.put(h, new Vektor(p2, p1, h)); }
-									 * else { vektoren.get(h).setEnde(p1); }
-									 */
 								}
 							}
 						}
@@ -685,22 +694,21 @@ public class Knightmare implements StringConstants {
 		selection.add(xy);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void calc() {
-		Object[] vek = vektoren.values().toArray();
-		Vektor[] vekk = new Vektor[vek.length];
+		Object[] vek = pathfinding.values().toArray();
+		ArrayList<Vektor>[] vekk = new ArrayList[vek.length];
 		for (int i = 0; i < vek.length; i++) {
-			vekk[i] = (Vektor) vek[i];
+			vekk[i] = (ArrayList<Vektor>) vek[i];
 		}
 
 		for (int i = 0; i < vekk.length; i++) {
-			if (vekk[i].move()) {
-				vektoren.remove(vekk[i].getSoldat());
-			}
-		}
-
-		if (pathfindingVektoren.size() > 0) {
-			if (pathfindingVektoren.get(0).move()) {
-				pathfindingVektoren.remove(0);
+			if (vekk[i].get(0).move()) {
+				if(vekk[i].size()>1){
+					vekk[i].remove(0);
+				}else{
+					pathfinding.remove(vekk[i].get(0).getSoldat());
+				}
 			}
 		}
 	}

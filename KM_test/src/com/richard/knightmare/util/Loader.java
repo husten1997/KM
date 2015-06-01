@@ -112,6 +112,9 @@ public class Loader {
 			defaultConfigValues.put("CONTROL_KEY: Musik wechseln", "M");
 			sortedKeys.add("CONTROL_KEY: Musik wechseln");
 			
+			defaultConfigValues.put("CONTROL_KEY: Abreiﬂen", "Entf");
+			sortedKeys.add("CONTROL_KEY: Abreiﬂen");
+			
 			//Settuings
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
 			sortedKeys.add("SETTINGS: V-Sync");
