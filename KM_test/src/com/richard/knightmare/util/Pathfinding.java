@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.husten.knightmare.core.Knightmare;
 import com.matze.knightmare.meshes.Soldat;
 
-public class Path4 {
+public class Pathfinding {
 
 	private ArrayList<PathObject> points = new ArrayList<>(), possiblePoints = new ArrayList<>(), path = new ArrayList<>();
 	private ArrayList<Vektor> vektoren = new ArrayList<>();
@@ -16,13 +16,13 @@ public class Path4 {
 	private boolean alternate = false, sucess = false;
 	private Soldat soldat;
 
-	public Path4(Soldat soldat, com.richard.knightmare.util.Pos ende) {
+	public Pathfinding(Soldat soldat, com.richard.knightmare.util.Pos ende) {
 		this.soldat = soldat;
 		realStart = soldat.getPosition();
 		realZiel = ende;
 		Pos start = new Pos((int) soldat.getPosition().getX() / 32, (int) soldat.getPosition().getY() / 32);
 		ziel = new Pos((int) ende.getX() / 32, (int) ende.getY() / 32);
-
+		currentVektorStartPos = new com.richard.knightmare.util.Pos(start.x*32, start.y*32);
 		pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
 		possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
@@ -45,38 +45,52 @@ public class Path4 {
 			return;
 		}
 		if (index > 1) {
-			// TODO other steps
 			if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
 					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, 1))) {
+				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(-16, 0), soldat));
+				currentVektorStartPos = path.get(index - 2).point.toPoint(-16, 0);
+				recursivVektorProduction(index - 2);
+			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, 1))) {
+				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(16, 0), soldat));
+				currentVektorStartPos = path.get(index - 2).point.toPoint(16, 0);
+				recursivVektorProduction(index - 2);
+			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, 1, -1))) {
+				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(-16, 0), soldat));
+				currentVektorStartPos = path.get(index - 2).point.toPoint(-16, 0);
+				recursivVektorProduction(index - 2);
+			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))
+					&& compare(path.get(index - 2).point, translatePos(path.get(index).point, -1, -1))) {
 				vektoren.add(new Vektor(currentVektorStartPos, path.get(index - 2).point.toPoint(16, 0), soldat));
 				currentVektorStartPos = path.get(index - 2).point.toPoint(16, 0);
 				recursivVektorProduction(index - 2);
 			} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
 					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 16), soldat));
-				currentVektorStartPos = path.get(index).point.toPoint(0, 16);
+				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
+				currentVektorStartPos = path.get(index).point.toPoint(0, 0);
 				recursivVektorProduction(index - 1);
 			}else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
 					|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
-				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 0), soldat));
-				currentVektorStartPos = path.get(index).point.toPoint(16, 0);
+				vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
+				currentVektorStartPos = path.get(index).point.toPoint(0, 0);
 				recursivVektorProduction(index - 1);
 			}
 		} else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, 1))
 				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, 0, -1))) {
-			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 16), soldat));
-			currentVektorStartPos = path.get(index).point.toPoint(0, 16);
+			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
+			currentVektorStartPos = path.get(index).point.toPoint(0, 0);
 			recursivVektorProduction(index - 1);
 		}else if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))
 				|| compare(path.get(index - 1).point, translatePos(path.get(index).point, -1, 0))) {
-			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(16, 0), soldat));
-			currentVektorStartPos = path.get(index).point.toPoint(16, 0);
+			vektoren.add(new Vektor(currentVektorStartPos, path.get(index).point.toPoint(0, 0), soldat));
+			currentVektorStartPos = path.get(index).point.toPoint(0, 0);
 			recursivVektorProduction(index - 1);
 		}
 	}
 
 	public ArrayList<Vektor> pathfind() {
-		currentVektorStartPos = realStart;
+		//TODO real start
 		recursivVektorProduction(path.size() - 1);
 		vektoren.get(vektoren.size()-1).setEnde(realZiel);
 		return (sucess? vektoren: new ArrayList<>());
@@ -199,7 +213,6 @@ public class Path4 {
 	}
 
 	private boolean isObstrated(Pos p) {
-		// TODO
 		if(soldat.isWaterproof()){
 			if(Knightmare.terrain.getMeterial(p.x, p.y)==null){
 				return Knightmare.world[p.x][p.y] != null;
