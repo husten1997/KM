@@ -3,7 +3,6 @@ package com.husten.knightmare.core;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import java.util.TimerTask;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -35,24 +35,23 @@ import com.richard.knightmare.util.Vektor;
 public class Knightmare implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, s = 5, gameSpeed = 10; // inverted
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10; // inverted
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
 	private String inGameStat = state.NOTHING;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("Fullscreen").equals("true"), Vsync = false, screenToSet = false, running = true;
-	private Soldat figur, figuren[] = new Soldat[s];
+	private Soldat figur;
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-//	private HashMap<Soldat, Vektor> vektoren = new HashMap<>();
 	private HashMap<Soldat, ArrayList<Vektor>> pathfinding = new HashMap<>();
-//	private ArrayList<Vektor> pathfindingVektoren = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 	public static RectangleGraphicalObject[][] world;
+	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
 
 	public Knightmare() {
@@ -72,14 +71,16 @@ public class Knightmare implements StringConstants {
 
 		BufferedImage image = Loader.getImage("CursorKM.png");
 		try {
-			Mouse.setNativeCursor(CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
-					image.getWidth(), image.getHeight()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			normal = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+					image.getWidth(), image.getHeight());
+			image = Loader.getImage("delete.png");
+			delete = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+					image.getWidth(), image.getHeight());
+			image = Loader.getImage("haus.png");
+			haus = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 16, 16,
+					image.getWidth(), image.getHeight());
+		} catch (Exception e) {
+			//Ignore
 		}
 	}
 
@@ -105,6 +106,31 @@ public class Knightmare implements StringConstants {
 				initRender(pending.get(0), pendingEbenen.get(0));
 				pending.remove(0);
 				pendingEbenen.remove(0);
+			}
+			if(inGameStat.equals(state.ABREIßEN)){
+				if(!delete.equals(Mouse.getNativeCursor())){
+					try {
+						Mouse.setNativeCursor(delete);
+					} catch (LWJGLException e) {
+						e.printStackTrace();
+					}
+				}
+			}else if(inGameStat.equals(state.N_BUILDINGS)){
+				if(!haus.equals(Mouse.getNativeCursor())){
+					try {
+						Mouse.setNativeCursor(haus);
+					} catch (LWJGLException e) {
+						e.printStackTrace();
+					}
+				}
+			}else{
+				if(!normal.equals(Mouse.getNativeCursor())){
+					try {
+						Mouse.setNativeCursor(normal);
+					} catch (LWJGLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			grafikCycl();
 			updateDisplay();
@@ -165,15 +191,6 @@ public class Knightmare implements StringConstants {
 		terrain = new Terrain((512) + 1, (512) + 1);
 		terrain.initRender();
 		world = new RectangleGraphicalObject[513][513];
-		for (int i = 0; i < s; i++) {
-			double x = Math.random() * 1200;
-			double y = Math.random() * 800;
-			figuren[i] = new Soldat(20, new Pos(x, y), 32, 32, "figure.png");
-			figuren[i].setSort(1);
-			initRender(figuren[i], 1);
-		}
-		figur = new Soldat(20, new Pos(0, 0), 32, 32, "figure.png");
-		figur.initRender();
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -247,10 +264,10 @@ public class Knightmare implements StringConstants {
 					return;
 				}
 
-				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))){
+				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIßEN;
 				}
-				
+
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
@@ -387,7 +404,7 @@ public class Knightmare implements StringConstants {
 						search(x, y);
 						break;
 					case state.ABREIßEN:
-						if(world[xR][yR]!=null){
+						if (world[xR][yR] != null) {
 							renderList[1].remove(renderList[1].lastIndexOf(world[xR][yR]));
 							world[xR][yR] = null;
 						}
@@ -416,11 +433,11 @@ public class Knightmare implements StringConstants {
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
 										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
 									Pathfinding pathfinder = new Pathfinding(h, p1);
-									if(pathfinding.get(h)==null){
+									if (pathfinding.get(h) == null) {
 										pathfinding.put(h, pathfinder.pathfind());
-									}else{
-										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size()-1).getEnde();
-										if(!((int) (ende.getX()/32) == (int) (p1.getX()/32) && (int) (ende.getY()/32)==(int)(p1.getY()/32))){
+									} else {
+										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size() - 1).getEnde();
+										if (!((int) (ende.getX() / 32) == (int) (p1.getX() / 32) && (int) (ende.getY() / 32) == (int) (p1.getY() / 32))) {
 											pathfinding.put(h, pathfinder.pathfind());
 										}
 									}
@@ -524,16 +541,24 @@ public class Knightmare implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Vorwärts"))) {
-			figur.moveY(0.3f);
+			if (figur != null) {
+				figur.moveY(0.3f);
+			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Links"))) {
-			figur.moveX(-0.3f);
+			if (figur != null) {
+				figur.moveX(-0.3f);
+			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rückwärts"))) {
-			figur.moveY(-0.3f);
+			if (figur != null) {
+				figur.moveY(-0.3f);
+			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rechts"))) {
-			figur.moveX(0.3f);
+			if (figur != null) {
+				figur.moveX(0.3f);
+			}
 		}
 
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera oben"))) {
@@ -596,7 +621,6 @@ public class Knightmare implements StringConstants {
 
 	public void render() {
 		terrain.draw();
-		figur.draw();
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
 				renderList[e].get(i).draw();
@@ -704,9 +728,9 @@ public class Knightmare implements StringConstants {
 
 		for (int i = 0; i < vekk.length; i++) {
 			if (vekk[i].get(0).move()) {
-				if(vekk[i].size()>1){
+				if (vekk[i].size() > 1) {
 					vekk[i].remove(0);
-				}else{
+				} else {
 					pathfinding.remove(vekk[i].get(0).getSoldat());
 				}
 			}
