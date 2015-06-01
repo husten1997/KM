@@ -18,7 +18,7 @@ public class Path3 {
 
 	public static void main(String[] args) {
 		Path3 p = new Path3(new GraphicalObject[513][513]);
-		ArrayList<Vektor> v = p.pathfind(new Soldat(new com.richard.knightmare.util.Pos(1.0, 1.0), 32, 32, "Mensch.png"));
+		ArrayList<Vektor> v = p.pathfind(new Soldat(30, new com.richard.knightmare.util.Pos(1.0, 1.0), 32, 32, "Mensch.png"));
 		System.out.println("Going");
 		for(int i = 0; i<v.size(); i++){
 			System.out.println(v.get(i).getEnde().getX()+"|"+v.get(i).getEnde().getY());

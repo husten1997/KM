@@ -151,11 +151,11 @@ public class Knightmare implements StringConstants {
 		for (int i = 0; i < s; i++) {
 			double x = Math.random() * 1200;
 			double y = Math.random() * 800;
-			figuren[i] = new Soldat(new Pos(x, y), 32, 32, "figure.png");
+			figuren[i] = new Soldat(20, new Pos(x, y), 32, 32, "figure.png");
 			figuren[i].setSort(1);
 			initRender(figuren[i], 1);
 		}
-		figur = new Soldat(new Pos(0, 0), 32, 32, "figure.png");
+		figur = new Soldat(20, new Pos(0, 0), 32, 32, "figure.png");
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -302,7 +302,7 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.N_TRUPS:
 						if (world[xR][yR] == null && terrain.getMeterial(xR, yR) != null) {
-							Soldat s = new Soldat(new Pos(xR * 32, yR * 32), 32, 32, "figure.png");
+							Soldat s = new Soldat(20, new Pos(xR * 32, yR * 32), 32, 32, "figure.png");
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);
@@ -335,7 +335,7 @@ public class Knightmare implements StringConstants {
 					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
 							Pos p2 = selection.get(i).getPosition(); // Start
-							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
+							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
 								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
 										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
@@ -370,7 +370,7 @@ public class Knightmare implements StringConstants {
 					case state.S_TRUPS:
 						search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
 						for (int i = 0; i < selection.size(); i++) {
-							if (selection.get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
+							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								((Soldat) selection.get(i)).say();
 							}
 						}
@@ -584,7 +584,7 @@ public class Knightmare implements StringConstants {
 						if (renderList[e].get(i).getPosition().getX() <= Px1 && renderList[e].get(i).getPosition().getX() >= Px2
 								&& renderList[e].get(i).getPosition().getY() <= Py1 && renderList[e].get(i).getPosition().getY() >= Py2) {
 
-							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINEHEIT)) {
+							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								selection.add(renderList[e].get(i));
 							}
 						}
