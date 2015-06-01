@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,6 +38,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 		// SaveFilter
 		String a[] = Loader.getSavesDir().list();
+		File dir[] = Loader.getSavesDir().listFiles();
 		int länge = 0;
 
 		// alles .xxx dateien und ordner ohne save am anfang filtern
@@ -44,7 +47,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 			 * if (a[i].contains(".") || !a[i].startsWith("save")){
 			 * System.out.println(a[i]); a[i] = ""; } else { länge++; }
 			 */
-			if (a[i].startsWith("save")) {
+			if (a[i].startsWith("save") && dir[i].isDirectory()) {
 				länge++;
 			} else {
 				a[i] = "";
