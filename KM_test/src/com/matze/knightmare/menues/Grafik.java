@@ -61,6 +61,9 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
+			Loader.changeCfgValue("CONTROL_KEY: V-Sync", Loader.getCfgValue("CONTROL_KEY: V-Sync").equals("On")?"Off":"On");
+		}
 	}
 
 	@Override
