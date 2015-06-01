@@ -35,12 +35,13 @@ public class Resourcepack extends Optionsframesuperklasse implements
 	private JButton zurück;
 	private JButton dele;
 	private String fehler[] = new String[3];
+	private boolean first = true;
 
 	public Resourcepack() {
 		super("back.png", "Knightmare: Resourcepack");
-		fehler[0] = "Resourcepack kann nicht 'Default' heißen.";
-		fehler[1] = "Das ist kein Ordner: ";
-		fehler[2] = "Kein gültiges Resourcepack: ";
+		fehler[0] = "(bF) Resourcepack kann nicht 'Default' heißen.";
+		fehler[1] = "(bF) Das ist kein Ordner: ";
+		fehler[2] = "(bF) Kein gültiges Resourcepack: ";
 
 		path = new File(new StringBuilder("C:\\Users\\")
 				.append(System.getProperty("user.name"))
@@ -230,11 +231,11 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			for (int i = 0; i < delA; i++) {
 				deleteable[i] = del[i];
 			}
-			dele = new JButton("Remove bad Files");
+			dele = new JButton("Remove bad Files (bF)");
 			dele.addActionListener(this);
 			dele.setBounds(0, 0, 100, 300);
 			dele.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
-			dele.setFont(new Font("Arial", Font.BOLD, width / 96));
+			dele.setFont(new Font("Arial", Font.BOLD, width / 100));
 			dele.setBounds((screen.width-width)/2,
 					(screen.height - height) / 2 + height - width / 24, width / 8,
 					width / 24);
@@ -327,14 +328,21 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			dispose();
 		}
 		if (e.getSource() == dele){
-			for (int i =0; i < deleteable.length; i++){
-				recursicDelete(deleteable[i]);
+			if (first) {
+				dele.setText("press again");
+				first = false;
+				System.out.println("Hier");
+			} else {
+				for (int i = 0; i < deleteable.length; i++) {
+					recursicDelete(deleteable[i]);
+				}
+				first = true;
+				Optionen.instance.dispose();
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
+				dispose();
 			}
-			Optionen.instance.dispose();
-			Optionen.instance.setUndecorated(isUndecorated());
-			Optionen.instance.setVisible(true);
-			Optionen.instance.setAutoRequestFocus(true);
-			dispose();
 		}
 
 	}
