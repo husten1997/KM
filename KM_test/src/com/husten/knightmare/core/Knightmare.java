@@ -27,7 +27,6 @@ import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
-import com.richard.knightmare.util.Speicher;
 import com.richard.knightmare.util.Vektor;
 
 public class Knightmare implements StringConstants {
@@ -234,8 +233,8 @@ public class Knightmare implements StringConstants {
 				}
 				
 				if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
-					//TODO delete
-					new Speicher().speichern("Tets");
+					//TODO name
+					Loader.speichern("Tets");
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {

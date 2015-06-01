@@ -43,6 +43,7 @@ public class Loader {
 	private static HashMap<String, Clip> sounds = new HashMap<>();
 	private static ColorModel glAlphaColorModel, glColorModel;
 	private static IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
+	private static Speicher speicher = new Speicher();
 
 	public static void initLoader(String firmenname, String spielname) {
 		initLoaderWithoutLoad(firmenname, spielname);
@@ -864,6 +865,10 @@ public class Loader {
 	
 	public static void resetCfgValue(String key){
 		changeCfgValue(key, getDefaultCfgValue(key));
+	}
+	
+	public static void speichern(String name){
+		speicher.speichern(name);
 	}
 	
 	private static String getDefaultCfgValue(String key){
