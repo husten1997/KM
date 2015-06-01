@@ -2,8 +2,6 @@ package com.husten.knightmare.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;

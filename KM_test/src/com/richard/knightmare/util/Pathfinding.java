@@ -90,7 +90,7 @@ public class Pathfinding {
 	}
 
 	public ArrayList<Vektor> pathfind() {
-		//TODO real start
+		vektoren.add(new Vektor(realStart, currentVektorStartPos, soldat));
 		recursivVektorProduction(path.size() - 1);
 		vektoren.get(vektoren.size()-1).setEnde(realZiel);
 		return (sucess? vektoren: new ArrayList<>());
