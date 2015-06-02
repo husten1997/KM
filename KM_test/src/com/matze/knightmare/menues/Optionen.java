@@ -99,7 +99,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 			setVisible(true);
 			setAutoRequestFocus(true);
 			setLocationRelativeTo(null);
-			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
 			position = (int) Math.round((Double.parseDouble(Loader.getCfgValue("Volume")) / 0.84) + 94)-2;

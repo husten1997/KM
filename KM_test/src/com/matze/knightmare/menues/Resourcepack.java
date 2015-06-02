@@ -359,7 +359,7 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			setVisible(true);
 			setAutoRequestFocus(true);
 			setLocationRelativeTo(null);
-			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
 				getString("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);

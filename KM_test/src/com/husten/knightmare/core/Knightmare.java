@@ -41,7 +41,7 @@ public class Knightmare implements StringConstants {
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
 	private String inGameStat = state.NOTHING;
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = Loader.getCfgValue("Fullscreen").equals("true"), Vsync = false, screenToSet = false, running = true;
+	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, screenToSet = false, running = true;
 	private Soldat figur;
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;

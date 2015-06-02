@@ -18,14 +18,12 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 
 	private JButton zurück;
 	private JButton settings[];
-	private String[] text = { "V-Sync", "Fenstermodus" };
+	private String[] text = { "V-Sync", "Fenstermodus"};
 
 	protected Grafik(String imgName, String name) {
 		super(imgName, name);
 
 		settings = new JButton[text.length];
-
-		Loader.changeCfgValue("SETTINGS: Fenstermodus", (Loader.getCfgValue("Fullscreen").equals("true")?"false":"true"));
 		
 		for (int i = 0; i < text.length; i++) {
 			settings[i] = new JButton(text[i] + ": " + Loader.getCfgValue("SETTINGS: " + text[i]));
@@ -91,8 +89,9 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 			setUndecorated(!isUndecorated());
 			setVisible(true);
 			setAutoRequestFocus(true);
-			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
-			settings[1].setText("Fenstermodus: " + (Loader.getCfgValue("Fullscreen").equals("true")?"false":"true"));
+			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));
+			settings[1].setText("Fenstermodus: " + (Loader.getCfgValue("SETTINGS: " + text[1])));
+			repaint();
 			setVisible(true);
 		}
 

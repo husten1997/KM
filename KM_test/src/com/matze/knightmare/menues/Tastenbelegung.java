@@ -31,7 +31,7 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 	private JList<String> list;
 	private String hilfe[];
 	private String text[] = { "Vorwärts", "Rückwärts", "Links", "Rechts", "Kamera oben", "Kamera unten", "Kamera links", "Kamera rechts", "Escape/Zurück", "Bestätigen",
-			"Fenster- u. Vollbildmodus", "Volume +", "Volume -", "Musik wechseln", "Scrollen +", "Scrollen -", "V-Sync" };
+			"Fenster- u. Vollbildmodus", "Volume +", "Volume -", "Musik wechseln", "Scrollen +", "Scrollen -", "V-Sync", "Abreißen" };
 
 	public Tastenbelegung() {
 		super("back.png", "Knightmare: Tastenbelegung");
@@ -395,7 +395,7 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 				setVisible(true);
 				setAutoRequestFocus(true);
 				setLocationRelativeTo(null);
-				Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+				Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
 				MoodMusic.changeVolume(-0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {

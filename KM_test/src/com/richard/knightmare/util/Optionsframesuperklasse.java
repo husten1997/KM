@@ -41,7 +41,7 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 		img.getGraphics().drawImage(Loader.getImage(imgName), 0, 0, width, height, null);
 		setContentPane(new JLabel(new ImageIcon(img)));
 		setIconImage(Loader.getImage("Icon.png"));
-		setUndecorated(Loader.getCfgValue("Fullscreen").equals("true"));
+		setUndecorated(Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"));
 		setTitle(name);
 		setSize(screen);
 		setAlwaysOnTop(true);

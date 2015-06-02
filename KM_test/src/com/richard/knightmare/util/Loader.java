@@ -182,8 +182,6 @@ public class Loader {
 			sortedKeys.add("Resourcepack");
 			defaultConfigValues.put("Volume", "-27.6");
 			sortedKeys.add("Volume");
-			defaultConfigValues.put("Fullscreen", "true");
-			sortedKeys.add("Fullscreen");
 
 			// WASD
 			defaultConfigValues.put("CONTROL_KEY: Vorw‰rts", "W");
@@ -236,11 +234,11 @@ public class Loader {
 			defaultConfigValues.put("CONTROL_KEY: Abreiﬂen", "Entf");
 			sortedKeys.add("CONTROL_KEY: Abreiﬂen");
 
-			// Settuings
+			// Settings
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
 			sortedKeys.add("SETTINGS: V-Sync");
 
-			defaultConfigValues.put("SETTINGS: Fenstermodus", (Loader.getCfgValue("Fullscreen") == null) ? "true" : Loader.getCfgValue("Fullscreen"));
+			defaultConfigValues.put("SETTINGS: Fenstermodus", "false");
 			sortedKeys.add("SETTINGS: Fenstermodus");
 
 			sortedKeys.sort(new Comparator<String>() {
