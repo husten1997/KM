@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -20,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import com.husten.knightmare.core.MainMenue;
+import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
@@ -29,40 +31,50 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	private JList<String> list;
 	private JButton zurück;
 	private String[] data;
+	private File[] removeAble;
 	private String defaultText[] = { "Keine Speicherstände vorhanden. Neues Spiel?" };
+	private JButton löschen;
 	private boolean speichVorhanden;
 
 	public Laden() {
 		super("back.png", "Knightmare: Laden");
 		setLocationRelativeTo(null);
-
-		// SaveFilter
+		
+		File[] remove = Loader.getSavesDir().listFiles();
 		String a[] = Loader.getSavesDir().list();
-		File dir[] = Loader.getSavesDir().listFiles();
-		int länge = 0;
-
-		// nur ordner mit save am anfang zeigen
-		for (int i = 0; i < a.length; i++) {
-			if (a[i].startsWith("save") && dir[i].isDirectory()) {
-				länge++;
-			} else {
+		
+		for (int i = 0; i < a.length; i++){
+			if (!(a[i].startsWith("save") && remove[i].isDirectory() && remove[i].listFiles().length > 1)) {
 				a[i] = "";
+				remove[i] = null;
+				for (int f = i; f < a.length-1; f++){
+					remove[f] = remove[f+1]; 
+					a[f] = a[f+1];
+				}
+			}		
+		}
+		
+		int durch = 0;
+		if (a.length != 0) {
+			while (a[durch] != "") {
+				durch++;
+				if (durch >= a.length) {
+					break;
+				}
 			}
 		}
-
-		data = new String[länge];
-		int la = 0;
-		for (int i = 0; i < länge; i++) {
-			while (a[la].equals("")) {
-				la++;
-			}
-			data[i] = a[la];
-			a[la] = "";
+		
+		data = new String[durch];
+		removeAble = new File[durch];
+		
+		for (int i = 0; i < durch; i++){
+			data[i] = a[i];
+			removeAble[i] = remove[i];
 		}
 
 		speichVorhanden = !(data.length == 0);
 
-		list = new JList<String>((data.length == 0) ? defaultText : data); // data
+		list = new JList<String>(!speichVorhanden? defaultText : data); // data
 																			// has
 																			// type
 																			// Object[]
@@ -76,6 +88,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		list.setVisibleRowCount(data.length);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.setOpaque(false);
+		list.setSelectedIndex(0);
 		((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
 		JScrollPane scroll = new JScrollPane(list);
@@ -186,10 +199,25 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 			}
 		});
 
+		if (data.length > 0) {
+			löschen = new JButton("Spielstand löschen");
+			löschen.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+			löschen.setFont(new Font("Arial", Font.BOLD, width / 100));
+			löschen.setBounds((screen.width - width) / 2,
+					(screen.height - height) / 2 + height - width / 24,
+					width / 8, width / 24);
+			löschen.addActionListener(this);
+			löschen.setRolloverEnabled(false);
+			löschen.setFocusable(false);
+			add(löschen);
+		}
+
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
-		zurück.setBounds(screen.width / 2 + 3 * width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
+		zurück.setBounds(screen.width / 2 + 3 * width / 8,
+				(screen.height - height) / 2 + height - width / 24, width / 8,
+				width / 24);
 		zurück.addActionListener(this);
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
@@ -201,10 +229,23 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 	private void performAction(int x) {
 		if (!speichVorhanden) {
+			MainMenue.instance.dispose();
 			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
+		}
+	}
+	
+	private void recursicDelete(File file){
+		if(file.isDirectory()){
+			String[] names = file.list();
+			for(int i = 0; i<names.length; i++){
+				recursicDelete(new File(new StringBuilder(file.getAbsolutePath()).append("\\").append(names[i]).toString()));
+			}
+			file.delete();
+		}else{
+			file.delete();
 		}
 	}
 
@@ -245,13 +286,47 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		}
 
 	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
+			dispose();
+			setUndecorated(!isUndecorated());
+			setVisible(true);
+			setAutoRequestFocus(true);
+			setLocationRelativeTo(null);
+			Loader.changeCfgValue("Fullscreen", String.valueOf(isUndecorated()));
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
+			MoodMusic.changeVolume(-0.5f);
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
+			MoodMusic.changeVolume(+0.5f);
+		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+			MainMenue.instance.setVisible(true);
+			MainMenue.instance.setAutoRequestFocus(true);
+			dispose();
+		}
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
+			Loader.changeCfgValue("CONTROL_KEY: V-Sync", Loader.getCfgValue("CONTROL_KEY: V-Sync").equals("On")?"Off":"On");
+		}
+		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Abreißen"))){
+			recursicDelete(removeAble[list.getSelectedIndex()]);
+			new Laden();
+			dispose();
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == zurück) {
+			MainMenue.instance.dispose();
 			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
+			dispose();
+		}
+		if (arg0.getSource() == löschen) {
+			recursicDelete(removeAble[list.getSelectedIndex()]);
+			new Laden();
 			dispose();
 		}
 	}
