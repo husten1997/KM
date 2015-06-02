@@ -171,6 +171,8 @@ public class Pathfinding {
 			pointsInGrid[start.x][start.y] = startObjt;
 			points.add(startObjt);
 			findnNextPos(startObjt);
+		}
+		if (sucess) {
 			path = new ArrayList<>();
 			PathObject currenObject = points.get(points.size() - 2);
 			path.add(currenObject);
@@ -178,12 +180,10 @@ public class Pathfinding {
 				currenObject = currenObject.parent;
 				path.add(currenObject);
 			}
-		}
-		if (sucess) {
 			recursivVektorProduction(path.size() - 1);
 			return vektoren;
 		}
-		return new ArrayList<>();
+		return null;
 	}
 
 	private void findnNextPos(PathObject p) {

@@ -47,6 +47,7 @@ public class Knightmare implements StringConstants {
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	private HashMap<Soldat, ArrayList<Vektor>> pathfinding = new HashMap<>();
 	private HashMap<Soldat,Pos> ziele = new HashMap<>();
+	private ArrayList<Soldat> currentSoldaten = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
@@ -437,11 +438,17 @@ public class Knightmare implements StringConstants {
 									if (pathfinding.get(h) == null) {
 										pathfinding.put(h, pathfinder.pathfind());
 										ziele.put(h, p1);
+										if(!currentSoldaten.contains(h)){
+											currentSoldaten.add(h);
+										}
 									} else {
 										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size() - 1).getEnde();
 										if (!((int) (ende.getX() / 32) == (int) (p1.getX() / 32) && (int) (ende.getY() / 32) == (int) (p1.getY() / 32))) {
 											pathfinding.put(h, pathfinder.pathfind());
 											ziele.put(h, p1);
+											if(!currentSoldaten.contains(h)){
+												currentSoldaten.add(h);
+											}
 										}
 									}
 								}
@@ -721,37 +728,77 @@ public class Knightmare implements StringConstants {
 		selection.add(xy);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void calc() {
-		Object[] vek = pathfinding.values().toArray();
+		for(int i = 0; i<currentSoldaten.size(); i++){
+			if(pathfinding.get(currentSoldaten.get(i))==null){
+				//TODO no path
+				System.out.println("No path");
+			}else{
+				Pos ende = pathfinding.get(currentSoldaten.get(i)).get(0).getEnde();
+				if(world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]==null || world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]==currentSoldaten.get(i)){
+					if(!pathfinding.get(currentSoldaten.get(i)).get(0).isAlreadyMoved()){
+						world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]=currentSoldaten.get(i);
+						Pos start = pathfinding.get(currentSoldaten.get(i)).get(0).getStart();
+						world[(int) (start.getX()/32)][(int) (start.getY()/32)]=null;
+					}
+					if(pathfinding.get(currentSoldaten.get(i)).get(0).move()){
+						if(pathfinding.get(currentSoldaten.get(i)).size()>1){
+							pathfinding.get(currentSoldaten.get(i)).remove(0);
+						}else{
+							ziele.remove(currentSoldaten.get(i));
+							pathfinding.remove(currentSoldaten.get(i));
+							currentSoldaten.remove(currentSoldaten.get(i));
+						}
+					}
+				}
+			}
+			
+			
+		}
+		/*Object[] vek = pathfinding.values().toArray();
 		ArrayList<Vektor>[] vekk = new ArrayList[vek.length];
 		for (int i = 0; i < vek.length; i++) {
 			vekk[i] = (ArrayList<Vektor>) vek[i];
 		}
 		//TODO fix
 		for (int i = 0; i < vekk.length; i++) {
-			if(vekk[i].size()>0){
-				Pos ende = vekk[i].get(0).getEnde();
-				if(world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]==null){
-					if(!vekk[i].get(0).isAlreadyMoved()){
-						world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]=vekk[i].get(0).getSoldat();
-						Pos start = vekk[i].get(0).getStart();
-						world[(int) (start.getX()/32)][(int) (start.getY()/32)]=null;
-					}
-					if (vekk[i].get(0).move()) {
-						if (vekk[i].size() > 1) {
-							vekk[i].remove(0);
-						} else {
-							ziele.remove(vekk[i].get(0).getSoldat());
-							pathfinding.remove(vekk[i].get(0).getSoldat());
+			if(vekk[i]!=null){
+				if(vekk[i].size()>0){
+					Pos ende = vekk[i].get(0).getEnde();
+					if(world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]==null){
+						if(!vekk[i].get(0).isAlreadyMoved()){
+							world[(int) (ende.getX()/32)][(int) (ende.getY()/32)]=vekk[i].get(0).getSoldat();
+							Pos start = vekk[i].get(0).getStart();
+							world[(int) (start.getX()/32)][(int) (start.getY()/32)]=null;
 						}
+						if (vekk[i].get(0).move()) {
+							if (vekk[i].size() > 1) {
+								vekk[i].remove(0);
+							} else {
+								ziele.remove(vekk[i].get(0).getSoldat());
+								pathfinding.remove(vekk[i].get(0).getSoldat());
+							}
+						}
+					}else{
+						Pathfinding pathfinder = new Pathfinding(vekk[i].get(0).getSoldat(), ziele.get(vekk[i].get(0).getSoldat()));
+						pathfinding.put(vekk[i].get(0).getSoldat(), pathfinder.pathfind());
 					}
-				}else{
-					Pathfinding pathfinder = new Pathfinding(vekk[i].get(0).getSoldat(), ziele.get(vekk[i].get(0).getSoldat()));
-					pathfinding.put(vekk[i].get(0).getSoldat(), pathfinder.pathfind());
+				}
+			}else{
+				Object[] soldaten = ziele.keySet().toArray();
+				Soldat[] sold = new Soldat[soldaten.length];
+				for(int j = 0; j<soldaten.length; j++){
+					sold[j] =(Soldat) soldaten[j];
+				}
+				
+				for(int j = 0; j<sold.length; j++){
+					if(pathfinding.get(sold[j])==null){
+						Pathfinding pathfinder = new Pathfinding(sold[j], ziele.get(sold[j]));
+						pathfinding.put(sold[j], pathfinder.pathfind());
+					}
 				}
 			}
-		}
+		}*/
 	}
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {
