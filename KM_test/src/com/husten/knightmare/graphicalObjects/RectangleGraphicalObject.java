@@ -15,8 +15,8 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
-import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
@@ -60,7 +60,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 	
 	public void initRender(){
-		texture = Loader.getTexture(textureName);
+		texture = Texturloader.getTexture(textureName);
 	}
 
 	@Override

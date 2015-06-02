@@ -30,6 +30,7 @@ import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pathfinding;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.Texturloader;
 import com.richard.knightmare.util.Vektor;
 
 public class Knightmare implements StringConstants {
@@ -68,18 +69,18 @@ public class Knightmare implements StringConstants {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		Loader.load();
+		Texturloader.initLoader();
 		objectinit();
 
 		BufferedImage image = Loader.getImage("CursorKM.png");
 		try {
-			normal = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+			normal = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 0, 0,
 					image.getWidth(), image.getHeight());
 			image = Loader.getImage("delete.png");
-			delete = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+			delete = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 0, 0,
 					image.getWidth(), image.getHeight());
 			image = Loader.getImage("haus.png");
-			haus = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 16, 16,
+			haus = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 16, 16,
 					image.getWidth(), image.getHeight());
 		} catch (Exception e) {
 			//Ignore
