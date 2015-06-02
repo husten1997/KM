@@ -309,9 +309,11 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 			Loader.changeCfgValue("CONTROL_KEY: V-Sync", Loader.getCfgValue("CONTROL_KEY: V-Sync").equals("On")?"Off":"On");
 		}
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: Abreißen"))){
-			recursicDelete(removeAble[list.getSelectedIndex()]);
-			new Laden();
-			dispose();
+			if (data.length > 0) {
+				recursicDelete(removeAble[list.getSelectedIndex()]);
+				new Laden();
+				dispose();
+			}
 		}
 	}
 

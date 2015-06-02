@@ -39,6 +39,8 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 			settings[i].setFont(new Font("Arial", Font.BOLD, 48));
 			add(settings[i]);
 		}
+		
+		settings[1].setText("Fenstermodus: " + (Loader.getCfgValue("SETTINGS: " + text[1]).equals("true")?"Aktiv":"Deaktiviert"));
 
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
@@ -90,7 +92,7 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 			setVisible(true);
 			setAutoRequestFocus(true);
 			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));
-			settings[1].setText("Fenstermodus: " + (Loader.getCfgValue("SETTINGS: " + text[1])));
+			settings[1].setText("Fenstermodus: " + (Loader.getCfgValue("SETTINGS: " + text[1]).equals("true")?"Aktiv":"Deaktiviert"));
 			repaint();
 			setVisible(true);
 		}

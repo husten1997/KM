@@ -367,7 +367,7 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		int a = 0;
 		
 		for (int i = 0; i < text.length; i++){
-			if (Loader.getCfgValue("CONTROL_KEY: " + text[i]).equals(KeyEvent.getKeyText(e.getExtendedKeyCode()))){
+			if (Loader.getCfgValue("CONTROL_KEY: " + text[i]).equals(KeyEvent.getKeyText(e.getExtendedKeyCode())) && !Loader.getCfgValue("CONTROL_KEY: " + text[ButtonClicked]).equals(KeyEvent.getKeyText(e.getExtendedKeyCode()))){
 				a++;
 			}
 		}
