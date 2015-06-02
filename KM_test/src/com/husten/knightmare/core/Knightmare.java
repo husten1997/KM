@@ -733,7 +733,6 @@ public class Knightmare implements StringConstants {
 		for (int i = 0; i < currentSoldaten.size(); i++) {
 			if (pathfinding.get(currentSoldaten.get(i)) == null) {
 				// TODO no path
-				System.out.println("No path");
 			} else {
 				Pos ende = pathfinding.get(currentSoldaten.get(i)).get(0).getEnde();
 				if (world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] == null
