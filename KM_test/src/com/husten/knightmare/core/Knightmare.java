@@ -408,8 +408,16 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.ABREIßEN:
 						if (world[xR][yR] != null) {
-							renderList[1].remove(renderList[1].lastIndexOf(world[xR][yR]));
-							world[xR][yR] = null;
+							RectangleGraphicalObject obj = (RectangleGraphicalObject) renderList[1].get(renderList[1].lastIndexOf(world[xR][yR]));
+							int w = obj.getWidth();
+							int x1 = (int) (obj.getPosition().getX()/32);
+							int y1 = (int) (obj.getPosition().getY()/32);
+							// int h = obj.getHeight();
+							renderList[1].remove(renderList[1].lastIndexOf(obj));
+							world[x1][y1] = null;
+							if (w > 32) {
+								world[x1 + 1][y1] = null;
+							}
 						}
 						break;
 					}

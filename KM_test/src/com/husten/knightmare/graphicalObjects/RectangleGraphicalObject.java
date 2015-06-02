@@ -21,6 +21,22 @@ import com.richard.knightmare.util.Texturloader;
 public class RectangleGraphicalObject extends GraphicalObject {
 
 	protected int width, height, rotation = 2;
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	protected String textureName, material;
 	protected boolean randomRotation, stratched = true;
 	protected Texture texture;
