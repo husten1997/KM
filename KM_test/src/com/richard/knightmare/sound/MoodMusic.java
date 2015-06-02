@@ -41,6 +41,7 @@ public class MoodMusic {
 		}
 		setPlayed(names.get(index), names.size());
 		player = new MusikPlayer(names.get(index));
+		System.out.println(names.get(index));
 		volume = Float.parseFloat(Loader.getCfgValue("Volume"));
 		player.setVolume(volume);
 		long duration = player.start();
