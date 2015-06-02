@@ -35,7 +35,7 @@ public class Resourcepack extends Optionsframesuperklasse implements
 	private JButton zurück;
 	private JButton dele;
 	private String fehler[] = new String[3];
-	private boolean first = true;
+	private int first;
 
 	public Resourcepack() {
 		super("back.png", "Knightmare: Resourcepack");
@@ -43,6 +43,8 @@ public class Resourcepack extends Optionsframesuperklasse implements
 		fehler[1] = "(bF) Das ist kein Ordner: ";
 		fehler[2] = "(bF) Kein gültiges Resourcepack: ";
 
+		first = 0;
+		
 		path = new File(new StringBuilder("C:\\Users\\")
 				.append(System.getProperty("user.name"))
 				.append("\\Appdata\\Roaming\\ares\\Knightmare\\resourcepacks")
@@ -327,24 +329,25 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			Optionen.instance.setAutoRequestFocus(true);
 			dispose();
 		}
-		if (e.getSource() == dele){
-			if (first) {
-				dele.setText("press again");
-				first = false;
-				System.out.println("Hier");
-			} else {
-				for (int i = 0; i < deleteable.length; i++) {
-					recursicDelete(deleteable[i]);
-				}
-				first = true;
-				Optionen.instance.dispose();
-				Optionen.instance.setUndecorated(isUndecorated());
-				Optionen.instance.setVisible(true);
-				Optionen.instance.setAutoRequestFocus(true);
-				dispose();
-			}
+		
+		
+		if (e.getSource() == dele && first < 2) {
+			dele.setText("Drücke erneut");
+			repaint();
 		}
 
+		
+		if (e.getSource() == dele && first == 2) {
+			for (int i = 0; i < deleteable.length; i++) {
+				recursicDelete(deleteable[i]);
+			}
+			Optionen.instance.dispose();
+			Optionen.instance.setUndecorated(isUndecorated());
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
+			dispose();
+		}
+		first++;
 	}
 
 	@Override
