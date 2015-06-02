@@ -18,8 +18,8 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import java.awt.Color;
 import java.awt.Font;
 
-import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.Texturloader;
 
 public class TextObject extends RectangleGraphicalObject{
 
@@ -32,9 +32,12 @@ public class TextObject extends RectangleGraphicalObject{
 		this.font = font;
 	}
 	
+	public void initRender(){
+		texture = Texturloader.createStringTexture(textureName, width, height, color, font);
+	}
+	
 	@Override
 	public void draw() {
-		texture = Loader.createStringTexture(textureName, width, height, color, font);
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite

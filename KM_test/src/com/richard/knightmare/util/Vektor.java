@@ -7,6 +7,7 @@ public class Vektor {
 	private Pos start, ende;
 	private Soldat soldat;
 	private double x, y, m;
+	private boolean alreadyMoved = false;
 
 	public Vektor(Pos pos1, Pos pos2, Soldat soldat) {
 		start = pos1;
@@ -107,6 +108,7 @@ public class Vektor {
 	}
 
 	public boolean move() {
+		alreadyMoved = true;
 		double dx = soldat.getSpeed() / (20 * Math.sqrt((1.0 / (m * m)) + 1.0));
 		double dy = soldat.getSpeed() / (20 * Math.sqrt(m * m + 1.0));
 		Pos newStart;
@@ -142,6 +144,10 @@ public class Vektor {
 	
 	public Pos getStart(){
 		return start;
+	}
+	
+	public boolean isAlreadyMoved(){
+		return alreadyMoved;
 	}
 
 }

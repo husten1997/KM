@@ -30,6 +30,7 @@ import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pathfinding;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.Texturloader;
 import com.richard.knightmare.util.Vektor;
 
 public class Knightmare implements StringConstants {
@@ -46,6 +47,8 @@ public class Knightmare implements StringConstants {
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	private HashMap<Soldat, ArrayList<Vektor>> pathfinding = new HashMap<>();
+	private HashMap<Soldat, Pos> ziele = new HashMap<>();
+	private ArrayList<Soldat> currentSoldaten = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
@@ -66,21 +69,21 @@ public class Knightmare implements StringConstants {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		Loader.load();
+		Texturloader.initLoader();
 		objectinit();
 
 		BufferedImage image = Loader.getImage("CursorKM.png");
 		try {
-			normal = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+			normal = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 0, 0,
 					image.getWidth(), image.getHeight());
 			image = Loader.getImage("delete.png");
-			delete = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 0, 0,
+			delete = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 0, 0,
 					image.getWidth(), image.getHeight());
 			image = Loader.getImage("haus.png");
-			haus = CursorLoader.get().getCursor(Loader.convertImageData(image, new Texture(GL_TEXTURE_2D, Loader.createTextureID())), 16, 16,
+			haus = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 16, 16,
 					image.getWidth(), image.getHeight());
 		} catch (Exception e) {
-			//Ignore
+			// Ignore
 		}
 	}
 
@@ -107,24 +110,24 @@ public class Knightmare implements StringConstants {
 				pending.remove(0);
 				pendingEbenen.remove(0);
 			}
-			if(inGameStat.equals(state.ABREIßEN)){
-				if(!delete.equals(Mouse.getNativeCursor())){
+			if (inGameStat.equals(state.ABREIßEN)) {
+				if (!delete.equals(Mouse.getNativeCursor())) {
 					try {
 						Mouse.setNativeCursor(delete);
 					} catch (LWJGLException e) {
 						e.printStackTrace();
 					}
 				}
-			}else if(inGameStat.equals(state.N_BUILDINGS)){
-				if(!haus.equals(Mouse.getNativeCursor())){
+			} else if (inGameStat.equals(state.N_BUILDINGS)) {
+				if (!haus.equals(Mouse.getNativeCursor())) {
 					try {
 						Mouse.setNativeCursor(haus);
 					} catch (LWJGLException e) {
 						e.printStackTrace();
 					}
 				}
-			}else{
-				if(!normal.equals(Mouse.getNativeCursor())){
+			} else {
+				if (!normal.equals(Mouse.getNativeCursor())) {
 					try {
 						Mouse.setNativeCursor(normal);
 					} catch (LWJGLException e) {
@@ -435,10 +438,18 @@ public class Knightmare implements StringConstants {
 									Pathfinding pathfinder = new Pathfinding(h, p1);
 									if (pathfinding.get(h) == null) {
 										pathfinding.put(h, pathfinder.pathfind());
+										ziele.put(h, p1);
+										if (!currentSoldaten.contains(h)) {
+											currentSoldaten.add(h);
+										}
 									} else {
 										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size() - 1).getEnde();
 										if (!((int) (ende.getX() / 32) == (int) (p1.getX() / 32) && (int) (ende.getY() / 32) == (int) (p1.getY() / 32))) {
 											pathfinding.put(h, pathfinder.pathfind());
+											ziele.put(h, p1);
+											if (!currentSoldaten.contains(h)) {
+												currentSoldaten.add(h);
+											}
 										}
 									}
 								}
@@ -718,20 +729,28 @@ public class Knightmare implements StringConstants {
 		selection.add(xy);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void calc() {
-		Object[] vek = pathfinding.values().toArray();
-		ArrayList<Vektor>[] vekk = new ArrayList[vek.length];
-		for (int i = 0; i < vek.length; i++) {
-			vekk[i] = (ArrayList<Vektor>) vek[i];
-		}
-
-		for (int i = 0; i < vekk.length; i++) {
-			if (vekk[i].get(0).move()) {
-				if (vekk[i].size() > 1) {
-					vekk[i].remove(0);
-				} else {
-					pathfinding.remove(vekk[i].get(0).getSoldat());
+		for (int i = 0; i < currentSoldaten.size(); i++) {
+			if (pathfinding.get(currentSoldaten.get(i)) == null) {
+				// TODO no path
+			} else {
+				Pos ende = pathfinding.get(currentSoldaten.get(i)).get(0).getEnde();
+				if (world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] == null
+						|| world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] == currentSoldaten.get(i)) {
+					if (!pathfinding.get(currentSoldaten.get(i)).get(0).isAlreadyMoved()) {
+						world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] = currentSoldaten.get(i);
+						Pos start = pathfinding.get(currentSoldaten.get(i)).get(0).getStart();
+						world[(int) (start.getX() / 32)][(int) (start.getY() / 32)] = null;
+					}
+					if (pathfinding.get(currentSoldaten.get(i)).get(0).move()) {
+						if (pathfinding.get(currentSoldaten.get(i)).size() > 1) {
+							pathfinding.get(currentSoldaten.get(i)).remove(0);
+						} else {
+							ziele.remove(currentSoldaten.get(i));
+							pathfinding.remove(currentSoldaten.get(i));
+							currentSoldaten.remove(currentSoldaten.get(i));
+						}
+					}
 				}
 			}
 		}

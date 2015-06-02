@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
 import com.matze.knightmare.menues.Laden;
 import com.matze.knightmare.menues.Loadscreen;
 import com.matze.knightmare.menues.Optionen;
@@ -26,7 +24,7 @@ public class MainMenue extends Optionsframesuperklasse {
 
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.ENGLISH);
-		Loader.initLoaderWithoutLoad("Ares", "Knightmare");
+		Loader.initLoader("Ares", "Knightmare");
 		MoodMusic.addMood("MainMenue");
 		MoodMusic.addClipToMood("MainMenue", "Knightmare_Soundtrack_4.WAV");
 		MoodMusic.init("MainMenue");
@@ -46,11 +44,6 @@ public class MainMenue extends Optionsframesuperklasse {
 					@Override
 					public void run() {
 						Loadscreen l = new Loadscreen();
-						try {
-							TimeUnit.SECONDS.sleep(1);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
 						Knightmare km = new Knightmare();
 						MoodMusic.changeMood("Default");
 						l.dispose();
