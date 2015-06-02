@@ -20,11 +20,19 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width, height, rotation = 2;
+	protected int width, height, rotation = 2, id;
 	public int getWidth() {
 		return width;
 	}
 
+	public void register(int id){
+		this.id = id;
+	}
+	
+	public int getID(){
+		return id;
+	}
+	
 	public void setWidth(int width) {
 		this.width = width;
 	}

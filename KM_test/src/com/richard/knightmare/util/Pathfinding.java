@@ -10,11 +10,16 @@ public class Pathfinding {
 	private ArrayList<PathObject> points = new ArrayList<>(), possiblePoints = new ArrayList<>(), path = new ArrayList<>();
 	private ArrayList<Vektor> vektoren = new ArrayList<>();
 	private PathObject[][] pointsInGrid, possiblePointsInGrid;
-	private Pos ziel, start;
+	private Pos ziel, start, ersatzziel;
 	private com.richard.knightmare.util.Pos realStart, realZiel;
 	private com.richard.knightmare.util.Pos currentVektorStartPos;
-	private boolean alternate = false, sucess = false;
+	private boolean alternate = false, sucess = false, moveable = false, finishedmoving = false, continueing = true;
 	private Soldat soldat;
+	// private int starthartnäckigkeit, hartnäckigkeit;
+
+	public com.richard.knightmare.util.Pos getZiel() {
+		return new com.richard.knightmare.util.Pos(ziel.x, ziel.y);
+	}
 
 	public Pathfinding(Soldat soldat, com.richard.knightmare.util.Pos ende) {
 		this.soldat = soldat;
@@ -22,11 +27,57 @@ public class Pathfinding {
 		realZiel = ende;
 		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
 		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
+		System.out.println("constuktor");
+	}
+
+	public void setContinuing() {
+		continueing = false;
+	}
+	
+	public boolean getContinuing(){
+		return continueing;
+	}
+
+	public Soldat getSoldat() {
+		return soldat;
+	}
+
+	public boolean move() {
+		if (moveable) {
+			System.out.println("movingtest");
+			System.out.println(isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32))));
+			if (!vektoren.get(0).isAlreadyMoved()) {
+				if (!finishedmoving && continueing
+						&& !isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32)))) {
+					Knightmare.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
+					Knightmare.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
+				} else {
+					return false;
+				}
+			}
+			System.out.println("moving");
+			if (vektoren.get(0).move()) {
+				if (vektoren.size() > 1) {
+					vektoren.remove(0);
+					return true;
+				} else {
+					finishedmoving = true;
+					return false;
+				}
+			}
+			System.out.println("moved");
+		}
+		return true;
+	}
+
+	public boolean getFinished() {
+		return finishedmoving;
 	}
 
 	private void recursivVektorProduction(int index) {
 		if (index == 0) {
-			vektoren.add(new Vektor(currentVektorStartPos, realZiel, soldat));
+			vektoren.add(new Vektor(currentVektorStartPos,
+					(ersatzziel == null ? realZiel : new com.richard.knightmare.util.Pos(ersatzziel.x * 32 + 16, ersatzziel.y * 32 + 16)), soldat));
 			return;
 		}
 		if (index > 1) {
@@ -161,29 +212,52 @@ public class Pathfinding {
 		}
 	}
 
-	public ArrayList<Vektor> pathfind() {
-		if (!isObstrated(ziel)) {
-			currentVektorStartPos = realStart;
-			pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-			possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-			PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
-			possiblePointsInGrid[start.x][start.y] = startObjt;
-			pointsInGrid[start.x][start.y] = startObjt;
-			points.add(startObjt);
-			poses(startObjt);
-		}
-		if (sucess) {
-			path = new ArrayList<>();
-			PathObject currenObject = points.get(points.size() - 2);
-			path.add(currenObject);
-			while (currenObject.parent != null) {
-				currenObject = currenObject.parent;
-				path.add(currenObject);
+	public Pos pathfind() {
+		currentVektorStartPos = realStart;
+		pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+		possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
+		possiblePointsInGrid[start.x][start.y] = startObjt;
+		pointsInGrid[start.x][start.y] = startObjt;
+		points.add(startObjt);
+		poses(startObjt);
+		if (isObstracted(ziel)) {
+			int eMin = Integer.MAX_VALUE;
+			for (int i = 0; i < points.size(); i++) {
+				eMin = Math.min(eMin, points.get(i).estimate);
 			}
-			recursivVektorProduction(path.size() - 1);
-			return vektoren;
+			for (int i = 0; i < points.size(); i++) {
+				if (eMin == points.get(i).estimate) {
+					ersatzziel = points.get(i).point;
+					break;
+				}
+			}
+			return ersatzziel;
 		}
-		return null;
+		if (!sucess) {
+			int eMin = Integer.MAX_VALUE;
+			for (int i = 0; i < points.size(); i++) {
+				eMin = Math.min(eMin, points.get(i).estimate);
+			}
+			for (int i = 0; i < points.size(); i++) {
+				if (eMin == points.get(i).estimate) {
+					ersatzziel = points.get(i).point;
+					break;
+				}
+			}
+			return ersatzziel;
+		}
+		path = new ArrayList<>();
+		PathObject currenObject = points.get(points.size() - 2);
+		path.add(currenObject);
+		while (currenObject.parent != null) {
+			currenObject = currenObject.parent;
+			path.add(currenObject);
+		}
+		recursivVektorProduction(path.size() - 1);
+		System.out.println("finished pathfinding");
+		moveable = true;
+		return ersatzziel;
 	}
 
 	private void poses(PathObject startPos) {
@@ -196,12 +270,12 @@ public class Pathfinding {
 
 			for (int i = 0; i < 4; i++) {
 				if (isValid(ps[i])) {
-					if (compare(ps[i], ziel)) {
+					if (compare(ps[i], ziel) && !isObstracted(ziel)) {
 						int h = startPos.real;
 						points.add(new PathObject(0, h++, h++, startPos, ps[i]));
 						sucess = true;
 						return;
-					} else if ((!isObstrated(ps[i])) && possiblePointsInGrid[ps[i].x][ps[i].y] == null) {
+					} else if ((!isObstracted(ps[i])) && possiblePointsInGrid[ps[i].x][ps[i].y] == null) {
 						int h = startPos.real;
 						PathObject obj = new PathObject(esteem(ps[i]), h++, esteem(ps[i]) + h++, startPos, ps[i]);
 						shorten(obj);
@@ -257,7 +331,6 @@ public class Pathfinding {
 			possiblePoints.remove((int) minSumIndexes.get(0));
 			if (!points.get(points.size() - 1).equals(startPos)) {
 				startPos = points.get(points.size() - 1);
-				// findnNextPos(points.get(points.size() - 1));
 			} else {
 				break;
 			}
@@ -307,10 +380,14 @@ public class Pathfinding {
 		return p.x < Knightmare.world.length && p.x >= 0 && p.y < Knightmare.world[0].length && p.y >= 0;
 	}
 
-	private boolean isObstrated(Pos p) {
+	private boolean isObstracted(Pos p) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
-				return Knightmare.world[p.x][p.y] != null;
+				if (Knightmare.world[p.x][p.y] != null) {
+					return Knightmare.world[p.x][p.y].getID() != soldat.getID();
+				} else {
+					return false;
+				}
 			} else {
 				return true;
 			}
@@ -318,7 +395,11 @@ public class Pathfinding {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
 			} else {
-				return Knightmare.world[p.x][p.y] != null;
+				if (Knightmare.world[p.x][p.y] != null) {
+					return Knightmare.world[p.x][p.y].getID() != soldat.getID();
+				} else {
+					return false;
+				}
 			}
 		}
 	}
@@ -349,9 +430,10 @@ public class Pathfinding {
 		}
 	}
 
-	private class Pos {
+	class Pos {
 
-		private int x, y;
+		int x;
+		int y;
 
 		private Pos(int x, int y) {
 			this.x = x;

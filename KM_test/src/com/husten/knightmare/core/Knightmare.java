@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL11.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,10 +27,9 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.Loader;
-import com.richard.knightmare.util.Pathfinding;
+import com.richard.knightmare.util.Pathhandler;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
-import com.richard.knightmare.util.Vektor;
 
 public class Knightmare implements StringConstants {
 
@@ -46,9 +44,8 @@ public class Knightmare implements StringConstants {
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-	private HashMap<Soldat, ArrayList<Vektor>> pathfinding = new HashMap<>();
-	private HashMap<Soldat, Pos> ziele = new HashMap<>();
-	private ArrayList<Soldat> currentSoldaten = new ArrayList<>();
+//	private HashMap<Soldat, Pathfinding> pathes = new HashMap<>();
+	private Pathhandler handler = new Pathhandler();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
@@ -248,9 +245,9 @@ public class Knightmare implements StringConstants {
 	}
 
 	private void pollInput() {
-		if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
+		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
+			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
 			tooggleFullscreen();
-			Loader.changeCfgValue("Fullscreen", String.valueOf(fullscreen));
 		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
@@ -410,8 +407,8 @@ public class Knightmare implements StringConstants {
 						if (world[xR][yR] != null) {
 							RectangleGraphicalObject obj = (RectangleGraphicalObject) renderList[1].get(renderList[1].lastIndexOf(world[xR][yR]));
 							int w = obj.getWidth();
-							int x1 = (int) (obj.getPosition().getX()/32);
-							int y1 = (int) (obj.getPosition().getY()/32);
+							int x1 = (int) (obj.getPosition().getX() / 32);
+							int y1 = (int) (obj.getPosition().getY() / 32);
 							// int h = obj.getHeight();
 							renderList[1].remove(renderList[1].lastIndexOf(obj));
 							world[x1][y1] = null;
@@ -438,29 +435,9 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.S_TRUPS:
 						for (int i = 0; i < selection.size(); i++) {
-							// Pos p2 = selection.get(i).getPosition(); // Start
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
-								if ((world[(int) (p1.getX() / 32)][(int) (p1.getY() / 32)] == null)
-										&& terrain.getMeterial((int) (p1.getX() / 32), (int) (p1.getY() / 32)) != null) {
-									Pathfinding pathfinder = new Pathfinding(h, p1);
-									if (pathfinding.get(h) == null) {
-										pathfinding.put(h, pathfinder.pathfind());
-										ziele.put(h, p1);
-										if (!currentSoldaten.contains(h)) {
-											currentSoldaten.add(h);
-										}
-									} else {
-										Pos ende = pathfinding.get(h).get(pathfinding.get(h).size() - 1).getEnde();
-										if (!((int) (ende.getX() / 32) == (int) (p1.getX() / 32) && (int) (ende.getY() / 32) == (int) (p1.getY() / 32))) {
-											pathfinding.put(h, pathfinder.pathfind());
-											ziele.put(h, p1);
-											if (!currentSoldaten.contains(h)) {
-												currentSoldaten.add(h);
-											}
-										}
-									}
-								}
+								handler.handle(h, p1, selection.size()+2);
 							}
 						}
 						break;
@@ -738,27 +715,15 @@ public class Knightmare implements StringConstants {
 	}
 
 	public void calc() {
-		for (int i = 0; i < currentSoldaten.size(); i++) {
-			if (pathfinding.get(currentSoldaten.get(i)) == null) {
-				// TODO no path
-			} else {
-				Pos ende = pathfinding.get(currentSoldaten.get(i)).get(0).getEnde();
-				if (world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] == null
-						|| world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] == currentSoldaten.get(i)) {
-					if (!pathfinding.get(currentSoldaten.get(i)).get(0).isAlreadyMoved()) {
-						world[(int) (ende.getX() / 32)][(int) (ende.getY() / 32)] = currentSoldaten.get(i);
-						Pos start = pathfinding.get(currentSoldaten.get(i)).get(0).getStart();
-						world[(int) (start.getX() / 32)][(int) (start.getY() / 32)] = null;
-					}
-					if (pathfinding.get(currentSoldaten.get(i)).get(0).move()) {
-						if (pathfinding.get(currentSoldaten.get(i)).size() > 1) {
-							pathfinding.get(currentSoldaten.get(i)).remove(0);
-						} else {
-							ziele.remove(currentSoldaten.get(i));
-							pathfinding.remove(currentSoldaten.get(i));
-							currentSoldaten.remove(currentSoldaten.get(i));
-						}
-					}
+		handler.move();
+		// Smothening
+		for (int i = 0; i < renderList[1].size(); i++) {
+			if (renderList[1].get(i) instanceof Soldat) {
+				Soldat s = ((Soldat) renderList[1].get(i));
+				if (!handler.isCurrentlyPathfinding(s.getID())) {
+					Pos start = s.getPosition();
+					Pos ziel = new Pos((int) (s.getPosition().getX() / 32) * 32 + 16, (int) (s.getPosition().getY() / 32) * 32 + 16);
+					s.setPosition(new Pos(start.getX() + (ziel.getX() - start.getX()) / 100, start.getY() + (ziel.getY() - start.getY()) / 100));
 				}
 			}
 		}

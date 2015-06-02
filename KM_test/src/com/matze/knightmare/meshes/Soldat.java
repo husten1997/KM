@@ -39,6 +39,7 @@ public class Soldat extends RectangleGraphicalObject {
 		verteidigung = new int[3];
 		ausruestung = new Ausruestung[8];
 		health = h;
+		toStringString = "Soldat";
 	}
 
 	public void verbesserung(int[] ang, int[] ver, int b, int reichw, int geschw, int mor, int aus) {
