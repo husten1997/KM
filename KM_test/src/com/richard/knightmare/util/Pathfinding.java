@@ -170,7 +170,7 @@ public class Pathfinding {
 			possiblePointsInGrid[start.x][start.y] = startObjt;
 			pointsInGrid[start.x][start.y] = startObjt;
 			points.add(startObjt);
-			findnNextPos(startObjt);
+			poses(startObjt);
 		}
 		if (sucess) {
 			path = new ArrayList<>();
@@ -186,76 +186,81 @@ public class Pathfinding {
 		return null;
 	}
 
-	private void findnNextPos(PathObject p) {
-		Pos[] ps = new Pos[4];
-		ps[0] = translatePos(p.point, 1, 0);
-		ps[1] = translatePos(p.point, -1, 0);
-		ps[2] = translatePos(p.point, 0, 1);
-		ps[3] = translatePos(p.point, 0, -1);
+	private void poses(PathObject startPos) {
+		while (true) {
+			Pos[] ps = new Pos[4];
+			ps[0] = translatePos(startPos.point, 1, 0);
+			ps[1] = translatePos(startPos.point, -1, 0);
+			ps[2] = translatePos(startPos.point, 0, 1);
+			ps[3] = translatePos(startPos.point, 0, -1);
 
-		for (int i = 0; i < 4; i++) {
-			if (isValid(ps[i])) {
-				if (compare(ps[i], ziel)) {
-					int h = p.real;
-					points.add(new PathObject(0, h++, h++, p, ps[i]));
-					sucess = true;
-					return;
-				} else if ((!isObstrated(ps[i])) && possiblePointsInGrid[ps[i].x][ps[i].y] == null) {
-					int h = p.real;
-					PathObject obj = new PathObject(esteem(ps[i]), h++, esteem(ps[i]) + h++, p, ps[i]);
-					shorten(obj);
-					possiblePointsInGrid[obj.point.x][obj.point.y] = obj;
-					possiblePoints.add(obj);
+			for (int i = 0; i < 4; i++) {
+				if (isValid(ps[i])) {
+					if (compare(ps[i], ziel)) {
+						int h = startPos.real;
+						points.add(new PathObject(0, h++, h++, startPos, ps[i]));
+						sucess = true;
+						return;
+					} else if ((!isObstrated(ps[i])) && possiblePointsInGrid[ps[i].x][ps[i].y] == null) {
+						int h = startPos.real;
+						PathObject obj = new PathObject(esteem(ps[i]), h++, esteem(ps[i]) + h++, startPos, ps[i]);
+						shorten(obj);
+						possiblePointsInGrid[obj.point.x][obj.point.y] = obj;
+						possiblePoints.add(obj);
+					}
 				}
 			}
-		}
-		int minSum = Integer.MAX_VALUE;
-		for (int i = 0; i < possiblePoints.size(); i++) {
-			minSum = Math.min(minSum, possiblePoints.get(i).sum);
-		}
-		if (minSum == Integer.MAX_VALUE) {
-			return;
-		}
-		ArrayList<Integer> minSumIndexes = new ArrayList<>();
-		for (int i = 0; i < possiblePoints.size(); i++) {
-			if (minSum == possiblePoints.get(i).sum) {
-				minSumIndexes.add(i);
+			int minSum = Integer.MAX_VALUE;
+			for (int i = 0; i < possiblePoints.size(); i++) {
+				minSum = Math.min(minSum, possiblePoints.get(i).sum);
 			}
-		}
-		if (minSumIndexes.size() != 1) {
-			int minEs = Integer.MAX_VALUE;
-			for (int i = 0; i < minSumIndexes.size(); i++) {
-				minEs = Math.min(minEs, possiblePoints.get(minSumIndexes.get(i)).estimate);
-			}
-			if (minEs == Integer.MAX_VALUE) {
+			if (minSum == Integer.MAX_VALUE) {
 				return;
 			}
-			if (alternate) {
-				for (int i = minSumIndexes.size() - 1; i > -1; i--) {
-					if (minEs == possiblePoints.get(minSumIndexes.get(i)).estimate) {
-						int index = minSumIndexes.get(i);
-						minSumIndexes.clear();
-						minSumIndexes.add(index);
-						break;
-					}
-				}
-			} else {
-				for (int i = 0; i < minSumIndexes.size(); i++) {
-					if (minEs == possiblePoints.get(minSumIndexes.get(i)).estimate) {
-						int index = minSumIndexes.get(i);
-						minSumIndexes.clear();
-						minSumIndexes.add(index);
-						break;
-					}
+			ArrayList<Integer> minSumIndexes = new ArrayList<>();
+			for (int i = 0; i < possiblePoints.size(); i++) {
+				if (minSum == possiblePoints.get(i).sum) {
+					minSumIndexes.add(i);
 				}
 			}
-			alternate = !alternate;
-		}
-		points.add(possiblePoints.get(minSumIndexes.get(0)));
-		pointsInGrid[possiblePoints.get(minSumIndexes.get(0)).point.x][possiblePoints.get(minSumIndexes.get(0)).point.y] = possiblePoints.get(minSumIndexes.get(0));
-		possiblePoints.remove((int) minSumIndexes.get(0));
-		if (!points.get(points.size() - 1).equals(p)) {
-			findnNextPos(points.get(points.size() - 1));
+			if (minSumIndexes.size() != 1) {
+				int minEs = Integer.MAX_VALUE;
+				for (int i = 0; i < minSumIndexes.size(); i++) {
+					minEs = Math.min(minEs, possiblePoints.get(minSumIndexes.get(i)).estimate);
+				}
+				if (minEs == Integer.MAX_VALUE) {
+					return;
+				}
+				if (alternate) {
+					for (int i = minSumIndexes.size() - 1; i > -1; i--) {
+						if (minEs == possiblePoints.get(minSumIndexes.get(i)).estimate) {
+							int index = minSumIndexes.get(i);
+							minSumIndexes.clear();
+							minSumIndexes.add(index);
+							break;
+						}
+					}
+				} else {
+					for (int i = 0; i < minSumIndexes.size(); i++) {
+						if (minEs == possiblePoints.get(minSumIndexes.get(i)).estimate) {
+							int index = minSumIndexes.get(i);
+							minSumIndexes.clear();
+							minSumIndexes.add(index);
+							break;
+						}
+					}
+				}
+				alternate = !alternate;
+			}
+			points.add(possiblePoints.get(minSumIndexes.get(0)));
+			pointsInGrid[possiblePoints.get(minSumIndexes.get(0)).point.x][possiblePoints.get(minSumIndexes.get(0)).point.y] = possiblePoints.get(minSumIndexes.get(0));
+			possiblePoints.remove((int) minSumIndexes.get(0));
+			if (!points.get(points.size() - 1).equals(startPos)) {
+				startPos = points.get(points.size() - 1);
+				// findnNextPos(points.get(points.size() - 1));
+			} else {
+				break;
+			}
 		}
 	}
 
