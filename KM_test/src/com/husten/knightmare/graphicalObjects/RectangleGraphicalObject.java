@@ -22,6 +22,15 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	protected int width, height, rotation = 2, id;
 	protected boolean wasser = false;
+	private Pos hudpos;
+	public Pos getHudpos() {
+		return hudpos;
+	}
+
+	public void setHudpos(Pos hudpos) {
+		this.hudpos = hudpos;
+	}
+
 	public int getWidth() {
 		return width;
 	}

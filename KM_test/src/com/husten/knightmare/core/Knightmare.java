@@ -43,7 +43,6 @@ public class Knightmare implements StringConstants {
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-	// private HashMap<Soldat, Pathfinding> pathes = new HashMap<>();
 	private Pathhandler handler = new Pathhandler();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
@@ -51,6 +50,8 @@ public class Knightmare implements StringConstants {
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
+	private RectangleGraphicalObject[][] menue = new RectangleGraphicalObject[15][3];
+	private RectangleGraphicalObject bm;
 
 	public Knightmare() {
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
@@ -84,6 +85,50 @@ public class Knightmare implements StringConstants {
 
 	public void loop() {
 		init();
+
+		bm = new RectangleGraphicalObject(new Pos(0,0), WIDTH, HEIGHT/4, "url.png", false);
+		bm.initRender();
+		for (int x = 0; x < 15; x++) {
+			if (x != 14) {
+				menue[x][2] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH)-1), 0), (int) (256 * ((double) 1920 / WIDTH)),
+						(int) (176 * ((double) 1080 / HEIGHT)), new StringBuilder("m2").append(x).append(".png").toString(), false);
+				menue[x][2].setHudpos(menue[x][2].getPosition());
+				menue[x][2].initRender();
+			} else {
+				menue[x][2] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH)-1), 0), (int) (64 * ((double) 1920 / WIDTH)),
+						(int) (176 * ((double) 1080 / HEIGHT)), new StringBuilder("m2").append(x).append(".png").toString(), false);
+				menue[x][2].setHudpos(menue[x][2].getPosition());
+				menue[x][2].initRender();
+			}
+		}
+		for (int x = 0; x < 15; x++) {
+			if (x != 14) {
+				menue[x][1] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH)-1), 176 * ((double) 1080 / HEIGHT)),
+						(int) (256 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m1").append(x).append(".png").toString(),
+						false);
+				menue[x][1].setHudpos(menue[x][1].getPosition());
+				menue[x][1].initRender();
+			} else {
+				menue[x][1] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH)-1), 176 * ((double) 1080 / HEIGHT)),
+						(int) (64 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m1").append(x).append(".png").toString(), false);
+				menue[x][1].setHudpos(menue[x][1].getPosition());
+				menue[x][1].initRender();
+			}
+		}
+		for (int x = 0; x < 15; x++) {
+			if (x != 14) {
+				menue[x][0] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH)-1), 176 * ((double) 1080 / HEIGHT) + 256 * ((double) 1080 / HEIGHT)),
+						(int) (256 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m0").append(x).append(".png").toString(),
+						false);
+				menue[x][0].setHudpos(menue[x][0].getPosition());
+				menue[x][0].initRender();
+			} else {
+				menue[x][0] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH)-1), 176 * ((double) 1080 / HEIGHT) + 256 * ((double) 1080 / HEIGHT)),
+						(int) (64 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m0").append(x).append(".png").toString(), false);
+				menue[x][0].setHudpos(menue[x][0].getPosition());
+				menue[x][0].initRender();
+			}
+		}
 
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -286,7 +331,11 @@ public class Knightmare implements StringConstants {
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_B) {
-					inGameStat = state.N_BUILDINGS;
+					if(inGameStat.equals(state.N_BUILDINGS)){
+						inGameStat = state.NOTHING;
+					}else{
+						inGameStat = state.N_BUILDINGS;
+					}
 					System.out.println(inGameStat);
 				}
 
@@ -333,6 +382,11 @@ public class Knightmare implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
+					for (int x = 0; x < menue.length; x++) {
+						for (int y = 0; y < menue[x].length; y++) {
+							menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+						}
+					}
 				}
 				if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
@@ -354,6 +408,11 @@ public class Knightmare implements StringConstants {
 					}
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
+					}
+					for (int x = 0; x < menue.length; x++) {
+						for (int y = 0; y < menue[x].length; y++) {
+							menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+						}
 					}
 				}
 
@@ -479,6 +538,11 @@ public class Knightmare implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
+			}
 		} else if (dWheel > 0) {
 			double width = WIDTH * scale;
 			double height = HEIGHT * scale;
@@ -500,6 +564,11 @@ public class Knightmare implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
+			}
 		}
 
 		if (Mouse.isButtonDown(2)) {
@@ -516,6 +585,11 @@ public class Knightmare implements StringConstants {
 			}
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
+			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
 			}
 		}
 
@@ -550,11 +624,21 @@ public class Knightmare implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
+			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera links"))) {
 			CameraX -= scrollingSpeed * scale;
 			if (CameraX < 0) {
 				CameraX = 0;
+			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
 			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera unten"))) {
@@ -562,11 +646,21 @@ public class Knightmare implements StringConstants {
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
+			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera rechts"))) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
+			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
 			}
 		}
 
@@ -575,11 +669,21 @@ public class Knightmare implements StringConstants {
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
+			}
 		}
 		if (Mouse.getX() > WIDTH - 32) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
+			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
 			}
 		}
 		if (Mouse.getY() < 32) {
@@ -587,11 +691,21 @@ public class Knightmare implements StringConstants {
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
+			}
 		}
 		if (Mouse.getY() > HEIGHT - 32) {
 			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
+			}
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX()+CameraX, menue[x][y].getHudpos().getY()+CameraY));
+				}
 			}
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Volume -"))) {
@@ -610,6 +724,14 @@ public class Knightmare implements StringConstants {
 				renderList[e].get(i).draw();
 			}
 		}
+		bm.draw();
+		/*if(inGameStat.equals(state.N_BUILDINGS)){
+			for (int x = 0; x < menue.length; x++) {
+				for (int y = 0; y < menue[x].length; y++) {
+					menue[x][y].draw();
+				}
+			}
+		}*/
 	}
 
 	public long getTime() {

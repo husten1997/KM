@@ -31,8 +31,14 @@ public class Pathhandler {
 			// System.out.println("del request"+h.getID());
 			if (!isCurrentlyPathfinding(h.getID())) {
 				// System.out.println("del"+h.getID());
-				world[x][y] = null;
-				return h;
+				if (h.getWidth() > 32) {
+					world[(int) (h.getPosition().getX() / 32)][(int) (h.getPosition().getY() / 32)] = null;
+					world[(int) (h.getPosition().getX() / 32) + 1][(int) (h.getPosition().getY() / 32)] = null;
+					return h;
+				} else {
+					world[x][y] = null;
+					return h;
+				}
 			}
 		}
 		return null;
@@ -108,7 +114,7 @@ public class Pathhandler {
 		} else {
 			Pathfinding p = new Pathfinding(s, ziel);
 			com.richard.knightmare.util.Pathfinding.Pos pos = p.pathfind();
-//			System.out.println("Moving to " + pos);
+			// System.out.println("Moving to " + pos);
 			if (pos == null) {
 				pathfinding.put(s.getID(), p);
 			} else {
