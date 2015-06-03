@@ -64,12 +64,12 @@ public class Pathhandler {
 				pathfinding.put(s.getID(), p);
 				toDo.remove(keysToDo[i]);
 			}else{
-				if(trys.get(s.getID())<1 && trys.get(s.getID())>-maxTrys.get(s.getID())){
+				/*if(trys.get(s.getID())<1 && trys.get(s.getID())>-maxTrys.get(s.getID())){
 					toDo.put((Integer) keysToDo[i], new Pathfinding(s, new Pos(pos.x*32+16, pos.y*32 +16)));
 				}
 				if(trys.get(s.getID())<=-maxTrys.get(s.getID())){
 					toDo.remove(s.getID());
-				}
+				}*/
 			}
 			trys.put(s.getID(), trys.get(s.getID())-1);
 		}
