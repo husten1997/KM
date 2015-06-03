@@ -25,11 +25,11 @@ public class Speicher {
 
 	//TODO static
 	public boolean speichern(String name) {
-		BufferedImage img = new BufferedImage(Knightmare.world.length, Knightmare.world[0].length, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage(Pathhandler.world.length, Pathhandler.world[0].length, BufferedImage.TYPE_INT_ARGB);
 
 		for (int i = 0; i < img.getWidth(); i++) {
 			for (int j = 0; j < img.getHeight(); j++) {
-				GraphicalObject helpobject = Knightmare.world[i][j];
+				GraphicalObject helpobject = Pathhandler.world[i][j];
 				RG_Code rg;
 				// TODO eigene to String methode -> Am MAtze schoffa
 				if(helpobject!=null){
@@ -77,7 +77,7 @@ public class Speicher {
 		private static HashMap<String, HashMap<BA_Code, Items>> baToItem = new HashMap<>();
 
 		private Converter() {
-			objectToRg.put("a", Speicher.instance.new RG_Code(255, 255));
+			objectToRg.put("Soldat", Speicher.instance.new RG_Code(255, 255));
 			// TODO write Dic
 		}
 	}

@@ -28,7 +28,6 @@ public class Soldat extends RectangleGraphicalObject {
 	protected String name;
 	protected int effektiv, typ;
 	protected Ausruestung ausruestung[];
-	protected boolean wasser;
 	protected int health;
 
 	// TODO Inventory
@@ -132,10 +131,6 @@ public class Soldat extends RectangleGraphicalObject {
 	// TODO Methode schreiben
 	public void stop() {
 
-	}
-
-	public boolean isWaterproof() {
-		return wasser;
 	}
 
 	public void say() {

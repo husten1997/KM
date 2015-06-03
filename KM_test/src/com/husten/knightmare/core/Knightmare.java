@@ -17,7 +17,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.CursorLoader;
-
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
 import com.matze.knightmare.meshes.Building;
@@ -50,7 +49,6 @@ public class Knightmare implements StringConstants {
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
 			pending = new ArrayList<>();
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
-	public static RectangleGraphicalObject[][] world;
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
 
@@ -190,7 +188,7 @@ public class Knightmare implements StringConstants {
 		}
 		terrain = new Terrain((512) + 1, (512) + 1);
 		terrain.initRender();
-		world = new RectangleGraphicalObject[513][513];
+		Pathhandler.world = new RectangleGraphicalObject[513][513];
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -376,22 +374,20 @@ public class Knightmare implements StringConstants {
 
 					switch (inGameStat) {
 					case state.N_BUILDINGS:
-						if (world[xR][yR] == null && world[xR + 1][yR] == null && terrain.getMeterial(xR, yR) != null && terrain.getMeterial(xR + 1, yR) != null) {
-							Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, "haus.png");
+						Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, "haus.png");
+						if (handler.place(b)) {
 							b.setSort(2);
 							pending.add(b);
 							pendingEbenen.add(1);
-							world[xR][yR] = b;
-							world[xR + 1][yR] = b;
 						}
 						break;
 					case state.N_TRUPS:
-						if (world[xR][yR] == null && terrain.getMeterial(xR, yR) != null) {
-							Soldat s = Rekrutieren.Hussar(x, y, 32, 32);
+						Soldat s = Rekrutieren.Hussar(x, y, 32, 32);
+						if (handler.place(s)) {
+							System.out.println("placed");
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);
-							world[xR][yR] = s;
 						}
 						break;
 					case state.S_TRUPS:
@@ -404,16 +400,11 @@ public class Knightmare implements StringConstants {
 						search(x, y);
 						break;
 					case state.ABREIﬂEN:
-						if (world[xR][yR] != null) {
-							RectangleGraphicalObject obj = (RectangleGraphicalObject) renderList[1].get(renderList[1].lastIndexOf(world[xR][yR]));
-							int w = obj.getWidth();
-							int x1 = (int) (obj.getPosition().getX() / 32);
-							int y1 = (int) (obj.getPosition().getY() / 32);
-							// int h = obj.getHeight();
-							renderList[1].remove(renderList[1].lastIndexOf(world[xR][yR]));
-							world[x1][y1] = null;
-							if (w > 32) {
-								world[x1 + 1][y1] = null;
+						RectangleGraphicalObject h = handler.abreiﬂen(xR, yR);
+						if(h!=null){
+							System.out.println("nicht null");
+							while(renderList[1].remove(h)){
+								System.out.println("removed");
 							}
 						}
 						break;
@@ -725,17 +716,6 @@ public class Knightmare implements StringConstants {
 
 	public void calc() {
 		handler.move();
-		// Smothening
-		/*for (int i = 0; i < renderList[1].size(); i++) {
-			if (renderList[1].get(i) instanceof Soldat) {
-				Soldat s = ((Soldat) renderList[1].get(i));
-				if (!handler.isCurrentlyPathfinding(s.getID())) {
-					Pos start = s.getPosition();
-					Pos ziel = new Pos((int) (s.getPosition().getX() / 32) * 32 + 16, (int) (s.getPosition().getY() / 32) * 32 + 16);
-					s.setPosition(new Pos(start.getX() + (ziel.getX() - start.getX()) / 100, start.getY() + (ziel.getY() - start.getY()) / 100));
-				}
-			}
-		}*/
 	}
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {

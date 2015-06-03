@@ -21,6 +21,7 @@ import com.richard.knightmare.util.Texturloader;
 public class RectangleGraphicalObject extends GraphicalObject {
 
 	protected int width, height, rotation = 2, id;
+	protected boolean wasser = false;
 	public int getWidth() {
 		return width;
 	}
@@ -31,6 +32,10 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	
 	public int getID(){
 		return id;
+	}
+
+	public boolean isWaterproof() {
+		return wasser;
 	}
 	
 	public void setWidth(int width) {

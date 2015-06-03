@@ -44,18 +44,18 @@ public class Pathfinding {
 
 	public boolean move() {
 		if (moveable) {
-			System.out.println("movingtest");
-			System.out.println(isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32))));
+//			System.out.println("movingtest"+ (int) (vektoren.get(0).getEnde().getX() / 32));
+//			System.out.println(isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32))));
 			if (!vektoren.get(0).isAlreadyMoved()) {
 				if (!finishedmoving && continueing
 						&& !isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32)))) {
-					Knightmare.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
-					Knightmare.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
+					Pathhandler.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
+					Pathhandler.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
 				} else {
 					return false;
 				}
 			}
-			System.out.println("moving");
+//			System.out.println("moving");
 			if (vektoren.get(0).move()) {
 				if (vektoren.size() > 1) {
 					vektoren.remove(0);
@@ -214,8 +214,8 @@ public class Pathfinding {
 
 	public Pos pathfind() {
 		currentVektorStartPos = realStart;
-		pointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
-		possiblePointsInGrid = new PathObject[Knightmare.world.length][Knightmare.world[0].length];
+		pointsInGrid = new PathObject[Pathhandler.world.length][Pathhandler.world[0].length];
+		possiblePointsInGrid = new PathObject[Pathhandler.world.length][Pathhandler.world[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
 		possiblePointsInGrid[start.x][start.y] = startObjt;
 		pointsInGrid[start.x][start.y] = startObjt;
@@ -377,14 +377,14 @@ public class Pathfinding {
 	}
 
 	private boolean isValid(Pos p) {
-		return p.x < Knightmare.world.length && p.x >= 0 && p.y < Knightmare.world[0].length && p.y >= 0;
+		return p.x < Pathhandler.world.length && p.x >= 0 && p.y < Pathhandler.world[0].length && p.y >= 0;
 	}
 
 	private boolean isObstracted(Pos p) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
-				if (Knightmare.world[p.x][p.y] != null) {
-					return Knightmare.world[p.x][p.y].getID() != soldat.getID();
+				if (Pathhandler.world[p.x][p.y] != null) {
+					return Pathhandler.world[p.x][p.y].getID() != soldat.getID();
 				} else {
 					return false;
 				}
@@ -395,8 +395,8 @@ public class Pathfinding {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
 			} else {
-				if (Knightmare.world[p.x][p.y] != null) {
-					return Knightmare.world[p.x][p.y].getID() != soldat.getID();
+				if (Pathhandler.world[p.x][p.y] != null) {
+					return Pathhandler.world[p.x][p.y].getID() != soldat.getID();
 				} else {
 					return false;
 				}
