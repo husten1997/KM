@@ -76,7 +76,6 @@ public class MoodMusic {
 				@Override
 				public void run() {
 					ausblenden();
-					timer.cancel();
 					MoodMusic.mood = mood;
 					setMood(mood);
 				}
@@ -105,6 +104,7 @@ public class MoodMusic {
 			}
 		}
 		player.stop();
+		timer.cancel();
 	}
 
 	public static float getVolume() {
