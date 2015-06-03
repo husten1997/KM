@@ -410,7 +410,7 @@ public class Knightmare implements StringConstants {
 							int x1 = (int) (obj.getPosition().getX() / 32);
 							int y1 = (int) (obj.getPosition().getY() / 32);
 							// int h = obj.getHeight();
-							renderList[1].remove(renderList[1].lastIndexOf(obj));
+							renderList[1].remove(renderList[1].lastIndexOf(world[xR][yR]));
 							world[x1][y1] = null;
 							if (w > 32) {
 								world[x1 + 1][y1] = null;
@@ -619,9 +619,18 @@ public class Knightmare implements StringConstants {
 		terrain.draw();
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
-				renderList[e].get(i).draw();
+//				if(e!=1){
+					renderList[e].get(i).draw();
+//				}
 			}
 		}
+		/*for(int x = 0; x<world.length; x++){
+			for(int y = 0; y<world[x].length;y++){
+				if(world[x][y]!=null){
+					world[x][y].draw();
+				}
+			}
+		}*/
 	}
 
 	public long getTime() {
@@ -717,7 +726,7 @@ public class Knightmare implements StringConstants {
 	public void calc() {
 		handler.move();
 		// Smothening
-		for (int i = 0; i < renderList[1].size(); i++) {
+		/*for (int i = 0; i < renderList[1].size(); i++) {
 			if (renderList[1].get(i) instanceof Soldat) {
 				Soldat s = ((Soldat) renderList[1].get(i));
 				if (!handler.isCurrentlyPathfinding(s.getID())) {
@@ -726,7 +735,7 @@ public class Knightmare implements StringConstants {
 					s.setPosition(new Pos(start.getX() + (ziel.getX() - start.getX()) / 100, start.getY() + (ziel.getY() - start.getY()) / 100));
 				}
 			}
-		}
+		}*/
 	}
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {
