@@ -15,7 +15,6 @@ public class Pathfinding {
 	private com.richard.knightmare.util.Pos currentVektorStartPos;
 	private boolean alternate = false, sucess = false, moveable = false, finishedmoving = false, continueing = true;
 	private Soldat soldat;
-	// private int starthartnäckigkeit, hartnäckigkeit;
 
 	public com.richard.knightmare.util.Pos getZiel() {
 		return new com.richard.knightmare.util.Pos(ziel.x, ziel.y);
@@ -27,14 +26,14 @@ public class Pathfinding {
 		realZiel = ende;
 		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
 		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
-		System.out.println("constuktor");
+//		System.out.println("constuktor");
 	}
 
 	public void setContinuing() {
 		continueing = false;
 	}
-	
-	public boolean getContinuing(){
+
+	public boolean getContinuing() {
 		return continueing;
 	}
 
@@ -44,18 +43,24 @@ public class Pathfinding {
 
 	public boolean move() {
 		if (moveable) {
-//			System.out.println("movingtest"+ (int) (vektoren.get(0).getEnde().getX() / 32));
-//			System.out.println(isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32))));
 			if (!vektoren.get(0).isAlreadyMoved()) {
+//				System.out.println("Soldat" + vektoren.get(0).getSoldat().getID());
+//				System.out.println("movingtest" + (int) (vektoren.get(0).getEnde().getX() / 32) + "|" + (int) (vektoren.get(0).getEnde().getY() / 32));
+//				System.out.println(isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32))));
 				if (!finishedmoving && continueing
 						&& !isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32)))) {
-					Pathhandler.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
 					Pathhandler.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
+					Pathhandler.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
+//					System.out.println("belgen");
+//					if (!((int) (vektoren.get(0).getEnde().getX() / 32) == (int) (vektoren.get(0).getStart().getX() / 32)
+//							&& (int) (vektoren.get(0).getEnde().getY() / 32) == (int) (vektoren.get(0).getStart().getY() / 32))) {
+//					}
 				} else {
+//					System.out.println("Schon belegt");
 					return false;
 				}
 			}
-//			System.out.println("moving");
+			// System.out.println("moving");
 			if (vektoren.get(0).move()) {
 				if (vektoren.size() > 1) {
 					vektoren.remove(0);
@@ -65,7 +70,7 @@ public class Pathfinding {
 					return false;
 				}
 			}
-			System.out.println("moved");
+			// System.out.println("moved");
 		}
 		return true;
 	}
@@ -255,7 +260,7 @@ public class Pathfinding {
 			path.add(currenObject);
 		}
 		recursivVektorProduction(path.size() - 1);
-		System.out.println("finished pathfinding");
+//		System.out.println("finished pathfinding");
 		moveable = true;
 		return ersatzziel;
 	}

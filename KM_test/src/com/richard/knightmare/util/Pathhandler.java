@@ -25,17 +25,19 @@ public class Pathhandler {
 		}
 	}
 
-	public RectangleGraphicalObject abreißen(int x, int y){
+	public RectangleGraphicalObject abreißen(int x, int y) {
 		RectangleGraphicalObject h = world[x][y];
-		if(h!=null){
-			if(!isCurrentlyPathfinding(h.getID())){
+		if (h != null) {
+			// System.out.println("del request"+h.getID());
+			if (!isCurrentlyPathfinding(h.getID())) {
+				// System.out.println("del"+h.getID());
 				world[x][y] = null;
 				return h;
 			}
 		}
 		return null;
 	}
-	
+
 	public boolean place(RectangleGraphicalObject toPlace) {
 		if (toPlace.getWidth() > 32) {
 			if (!isObstracted((int) (toPlace.getPosition().getX() / 32), (int) (toPlace.getPosition().getY() / 32), toPlace)
@@ -106,7 +108,7 @@ public class Pathhandler {
 		} else {
 			Pathfinding p = new Pathfinding(s, ziel);
 			com.richard.knightmare.util.Pathfinding.Pos pos = p.pathfind();
-			System.out.println("Moving to " + pos);
+//			System.out.println("Moving to " + pos);
 			if (pos == null) {
 				pathfinding.put(s.getID(), p);
 			} else {
@@ -127,12 +129,10 @@ public class Pathhandler {
 				toDo.remove(keysToDo[i]);
 				trys.put(s.getID(), maxTrys.get(s.getID()));
 			} else {
-				/*
-				 * if(trys.get(s.getID())<1 &&
-				 * trys.get(s.getID())>-maxTrys.get(s.getID())){
-				 * toDo.put((Integer) keysToDo[i], new Pathfinding(s, new
-				 * Pos(pos.x*32+16, pos.y*32 +16))); }
-				 */
+				if (trys.get(s.getID()) == 0) {
+					toDo.put((Integer) keysToDo[i], new Pathfinding(s, new Pos(pos.x * 32 + 16, pos.y * 32 + 16)));
+				}
+
 				if (trys.get(s.getID()) <= -maxTrys.get(s.getID())) {
 					toDo.remove(s.getID());
 				}
@@ -157,10 +157,8 @@ public class Pathhandler {
 							pathfinding.remove(keys[i]);
 						}
 					} else {
-						/*Soldat s = pathfinding.get(keys[i]).getSoldat();
-						Pathfinding p = new Pathfinding(s, pathfinding.get(keys[i]).getZiel());*/
-						Pathfinding p =pathfinding.get(keys[i]);
-						
+						Pathfinding p = pathfinding.get(keys[i]);
+
 						com.richard.knightmare.util.Pathfinding.Pos pos = pathfinding.get(keys[i]).pathfind();
 						if (pos != null) {
 							this.trys.put((Integer) keys[i], this.trys.get(keys[i]) - 1);

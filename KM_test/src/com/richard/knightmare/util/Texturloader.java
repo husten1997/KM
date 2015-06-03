@@ -47,6 +47,7 @@ public class Texturloader {
 	private static File texturesDefault = new File("src\\resources\\textures"), texturesRes;
 	
 	public static void initLoader() {
+		textures.clear();
 		Default = Loader.getCfgValue("Resourcepack").equals("Default");
 		texturesRes = Loader.getTexturesRes();
 		glAlphaColorModel = new ComponentColorModel(

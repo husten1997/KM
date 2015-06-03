@@ -384,7 +384,7 @@ public class Knightmare implements StringConstants {
 					case state.N_TRUPS:
 						Soldat s = Rekrutieren.Hussar(x, y, 32, 32);
 						if (handler.place(s)) {
-							System.out.println("placed");
+//							System.out.println("placed");
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);
@@ -402,7 +402,7 @@ public class Knightmare implements StringConstants {
 					case state.ABREIﬂEN:
 						RectangleGraphicalObject h = handler.abreiﬂen(xR, yR);
 						if(h!=null){
-							System.out.println("nicht null");
+//							System.out.println("nicht null");
 							while(renderList[1].remove(h)){
 								System.out.println("removed");
 							}
@@ -428,7 +428,7 @@ public class Knightmare implements StringConstants {
 						for (int i = 0; i < selection.size(); i++) {
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
-								handler.handle(h, p1, selection.size()+2);
+								handler.handle(h, p1, selection.size()+2);//TODO rework
 							}
 						}
 						break;
