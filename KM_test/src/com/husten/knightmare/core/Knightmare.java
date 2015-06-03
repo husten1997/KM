@@ -43,7 +43,7 @@ public class Knightmare implements StringConstants {
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-//	private HashMap<Soldat, Pathfinding> pathes = new HashMap<>();
+	// private HashMap<Soldat, Pathfinding> pathes = new HashMap<>();
 	private Pathhandler handler = new Pathhandler();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
@@ -300,7 +300,7 @@ public class Knightmare implements StringConstants {
 				if (getString("CONTROL_KEY: Volume +").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(0.5f);
 				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_F12) {
+				if (getString("CONTROL_KEY: V-Sync").equals(gFN(Keyboard.getEventKey()))) {
 					Vsync = !Vsync;
 				}
 
@@ -384,7 +384,6 @@ public class Knightmare implements StringConstants {
 					case state.N_TRUPS:
 						Soldat s = Rekrutieren.Hussar(x, y, 32, 32);
 						if (handler.place(s)) {
-//							System.out.println("placed");
 							s.setSort(1);
 							pending.add(s);
 							pendingEbenen.add(1);
@@ -401,11 +400,8 @@ public class Knightmare implements StringConstants {
 						break;
 					case state.ABREIﬂEN:
 						RectangleGraphicalObject h = handler.abreiﬂen(xR, yR);
-						if(h!=null){
-//							System.out.println("nicht null");
-							while(renderList[1].remove(h)){
-								System.out.println("removed");
-							}
+						if (h != null) {
+							renderList[1].remove(h);
 						}
 						break;
 					}
@@ -428,7 +424,8 @@ public class Knightmare implements StringConstants {
 						for (int i = 0; i < selection.size(); i++) {
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
-								handler.handle(h, p1, selection.size()+2);//TODO rework
+								handler.handle(h, p1, selection.size() + 2);// TODO
+																			// rework
 							}
 						}
 						break;
@@ -597,10 +594,10 @@ public class Knightmare implements StringConstants {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Volume +"))) {
 			MoodMusic.changeVolume(0.5f);
 		}
 
@@ -610,18 +607,9 @@ public class Knightmare implements StringConstants {
 		terrain.draw();
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
-//				if(e!=1){
-					renderList[e].get(i).draw();
-//				}
+				renderList[e].get(i).draw();
 			}
 		}
-		/*for(int x = 0; x<world.length; x++){
-			for(int y = 0; y<world[x].length;y++){
-				if(world[x][y]!=null){
-					world[x][y].draw();
-				}
-			}
-		}*/
 	}
 
 	public long getTime() {
