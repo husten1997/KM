@@ -44,7 +44,7 @@ public class Pathhandler {
 					&& !isObstracted((int) (toPlace.getPosition().getX() / 32) + 1, (int) (toPlace.getPosition().getY() / 32), toPlace)) {
 				register(toPlace);
 				world[(int) (toPlace.getPosition().getX() / 32)][(int) (toPlace.getPosition().getY() / 32)] = toPlace;
-				world[(int) (toPlace.getPosition().getX() / 32) + 1][(int) (toPlace.getPosition().getY() / 32) + 1] = toPlace;
+				world[(int) (toPlace.getPosition().getX() / 32) + 1][(int) (toPlace.getPosition().getY() / 32)] = toPlace;
 				return true;
 			}
 
