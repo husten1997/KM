@@ -7,16 +7,16 @@ import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.matze.knightmare.meshes.Soldat;
 
-public class Pathhandler {
+public class Pathhandler2 {
 
 	private int i = 1;
 	private HashMap<Integer, Pathfinding> pathfinding = new HashMap<>(), toDo = new HashMap<>();
 	private HashMap<Integer, com.richard.knightmare.util.Pos> toChange = new HashMap<>();
 	private HashMap<Integer, Integer> maxTrys = new HashMap<>(), trys = new HashMap<>();
-	private static RectangleGraphicalObject[][] world;
+	public static RectangleGraphicalObject[][] world;
 
-	public Pathhandler(int width, int height) {
-		world = new RectangleGraphicalObject[width][height];
+	public Pathhandler2() {
+
 	}
 
 	private void register(RectangleGraphicalObject s) {
@@ -83,6 +83,22 @@ public class Pathhandler {
 				} else {
 					return false;
 				}
+			}
+		}
+	}
+	
+	private boolean isObstractedAll(int x, int y, RectangleGraphicalObject soldat){
+		if (soldat.isWaterproof()) {
+			if (Knightmare.terrain.getMeterial(x, y) == null) {
+				return world[x][y] != null;
+			} else {
+				return true;
+			}
+		} else {
+			if (Knightmare.terrain.getMeterial(x, y) == null) {
+				return true;
+			} else {
+				return world[x][y] != null;
 			}
 		}
 	}
