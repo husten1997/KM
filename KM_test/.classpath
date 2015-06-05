@@ -25,5 +25,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/KM_test/lib/log4j-core-2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="res/TWL.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -17,6 +17,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.CursorLoader;
+
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
 import com.matze.knightmare.meshes.Building;
@@ -30,7 +31,9 @@ import com.richard.knightmare.util.Pathhandler;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
-public class Knightmare implements StringConstants {
+import de.matthiasmann.twl.Widget;
+
+public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
 	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10; // inverted
@@ -86,51 +89,7 @@ public class Knightmare implements StringConstants {
 	public void loop() {
 		init();
 
-		bm = new RectangleGraphicalObject(new Pos(0, 0), WIDTH, HEIGHT / 4, "url.png", false);
-		bm.initRender();
-		for (int x = 0; x < 15; x++) {
-			if (x != 14) {
-				menue[x][2] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH) - 1), 0), (int) (256 * ((double) 1920 / WIDTH)),
-						(int) (176 * ((double) 1080 / HEIGHT)), new StringBuilder("m2").append(x).append(".png").toString(), false);
-				menue[x][2].setHudpos(menue[x][2].getPosition());
-				menue[x][2].initRender();
-			} else {
-				menue[x][2] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH) - 1), 0), (int) (64 * ((double) 1920 / WIDTH)),
-						(int) (176 * ((double) 1080 / HEIGHT)), new StringBuilder("m2").append(x).append(".png").toString(), false);
-				menue[x][2].setHudpos(menue[x][2].getPosition());
-				menue[x][2].initRender();
-			}
-		}
-		for (int x = 0; x < 15; x++) {
-			if (x != 14) {
-				menue[x][1] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH) - 1), 176 * ((double) 1080 / HEIGHT)),
-						(int) (256 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m1").append(x).append(".png").toString(),
-						false);
-				menue[x][1].setHudpos(menue[x][1].getPosition());
-				menue[x][1].initRender();
-			} else {
-				menue[x][1] = new RectangleGraphicalObject(new Pos(x * (256 * ((double) 1920 / WIDTH) - 1), 176 * ((double) 1080 / HEIGHT)),
-						(int) (64 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m1").append(x).append(".png").toString(), false);
-				menue[x][1].setHudpos(menue[x][1].getPosition());
-				menue[x][1].initRender();
-			}
-		}
-		for (int x = 0; x < 15; x++) {
-			if (x != 14) {
-				menue[x][0] = new RectangleGraphicalObject(
-						new Pos(x * (256 * ((double) 1920 / WIDTH) - 1), 176 * ((double) 1080 / HEIGHT) + 256 * ((double) 1080 / HEIGHT)),
-						(int) (256 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m0").append(x).append(".png").toString(),
-						false);
-				menue[x][0].setHudpos(menue[x][0].getPosition());
-				menue[x][0].initRender();
-			} else {
-				menue[x][0] = new RectangleGraphicalObject(
-						new Pos(x * (256 * ((double) 1920 / WIDTH) - 1), 176 * ((double) 1080 / HEIGHT) + 256 * ((double) 1080 / HEIGHT)),
-						(int) (64 * ((double) 1920 / WIDTH)), (int) (256 * ((double) 1080 / HEIGHT)), new StringBuilder("m0").append(x).append(".png").toString(), false);
-				menue[x][0].setHudpos(menue[x][0].getPosition());
-				menue[x][0].initRender();
-			}
-		}
+		
 
 		timer.scheduleAtFixedRate(new TimerTask() {
 
