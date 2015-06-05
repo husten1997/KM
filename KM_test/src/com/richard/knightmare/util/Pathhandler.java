@@ -2,6 +2,7 @@ package com.richard.knightmare.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
@@ -13,7 +14,7 @@ public class Pathhandler {
 	private HashMap<Integer, Pathfinding> pathfinding = new HashMap<>(), toDo = new HashMap<>();
 	private HashMap<Integer, com.richard.knightmare.util.Pos> toChange = new HashMap<>();
 	private HashMap<Integer, Integer> maxTrys = new HashMap<>(), trys = new HashMap<>();
-	private static RectangleGraphicalObject[][] world;
+	protected static RectangleGraphicalObject[][] world;
 
 	public Pathhandler(int width, int height) {
 		world = new RectangleGraphicalObject[width][height];
@@ -126,8 +127,18 @@ public class Pathhandler {
 	public void handle(ArrayList<Soldat> soldaten, com.richard.knightmare.util.Pos ziel){
 		//TODO
 	}
+	
+	public void move(){
+		move(toDo, 1);
+//		move(pathfinding, 2);
+	}
 
-	public void move() {
+	private void move(Object mapm, int m1) {
+		for (Entry<Integer, Pathfinding> entry : toDo.entrySet()) {
+			//TODO
+		}
+		
+		
 		Object[] keysToDo = toDo.keySet().toArray();
 		for (int i = 0; i < keysToDo.length; i++) {
 			Pathfinding p = toDo.get(keysToDo[i]);

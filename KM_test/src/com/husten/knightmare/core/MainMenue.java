@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.matze.knightmare.menues.Laden;
 import com.matze.knightmare.menues.Loadscreen;
 import com.matze.knightmare.menues.Optionen;
@@ -14,6 +18,7 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
+import com.richard.knightmare.util.Pathfinding;
 import com.richard.knightmare.util.Pos;
 
 @SuppressWarnings("serial")
@@ -21,8 +26,10 @@ public class MainMenue extends Optionsframesuperklasse {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
 	public static Optionsframesuperklasse instance;
+	private static Logger LOG = LogManager.getLogger(MainMenue.class);
 
 	public static void main(String[] args) {
+		LOG.info("TEST MSG");
 		Locale.setDefault(Locale.ENGLISH);
 		Loader.initLoader("Ares", "Knightmare");
 		MoodMusic.addMood("MainMenue");
