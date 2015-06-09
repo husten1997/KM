@@ -5,17 +5,19 @@ import java.util.Random;
 import com.husten.knightmare.constants.StringConstants;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
-import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
-import com.husten.knightmare.graphicalObjects.Terrain;
+import com.husten.knightmare.graphicalObjects.TerrainElement;
 
 public class WorldGenerator implements StringConstants {
 
-	private RectangleGraphicalObject World[][];
-	private Terrain Terrain;
+	private TerrainElement World[][];
 
 	private int x, y, smoothS = 71;
 
 	private double lW = 0.58, lS = 0.61, lG = 0.81, lR = 1;
+	
+	public double getLW(){
+		return lW;
+	}
 
 	private float max, min, dif;
 
@@ -27,16 +29,15 @@ public class WorldGenerator implements StringConstants {
 	private Random rand;
 	private Generator generator;
 
-	public WorldGenerator(RectangleGraphicalObject world[][], Terrain terrain) {
+	public WorldGenerator(TerrainElement world[][], int x, int y) {
 		World = world;
-		Terrain = terrain;
-		x = Terrain.getWidth();
-		y = Terrain.getHeight();
+		this.x = x;
+		this.y = y;
 		hm = new float[x][y];
 
 	}
 
-	public RectangleGraphicalObject[][] worldGen() {
+	public TerrainElement[][] worldGen() {
 		gen();
 		return World;
 	}
@@ -88,13 +89,13 @@ public class WorldGenerator implements StringConstants {
 					World[i][j] = null;
 				}
 				if (z > WW && z < WS) {
-					World[i][j] = new RectangleGraphicalObject(new Pos(i*32, j*32), 32, 32, "sand.png", true, Material.SAND);
+					World[i][j] = new TerrainElement(new Pos(i*32, j*32), z, "sand.png", Material_t.SAND);
 				}
 				if (z > WS && z < WG) {
-					World[i][j] = new RectangleGraphicalObject(new Pos(i * 32, j * 32), 32, 32, "gras.png", true, Material.GRAS);
+					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), z, "gras.png",  Material_t.GRAS);
 				}
 				if (z > WG && z < WR) {
-					World[i][j] = new RectangleGraphicalObject(new Pos(i * 32, j * 32), 32, 32, "rock.png", true, Material.ROCK);
+					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), z, "rock.png", Material_t.ROCK);
 				}
 			}
 		}

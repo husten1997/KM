@@ -53,8 +53,8 @@ public class Knightmare extends Widget implements StringConstants {
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
-	private RectangleGraphicalObject[][] menue = new RectangleGraphicalObject[15][3];
-	private RectangleGraphicalObject bm;
+//	private RectangleGraphicalObject[][] menue = new RectangleGraphicalObject[15][3];
+//	private RectangleGraphicalObject bm;
 
 	public Knightmare() {
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
@@ -343,11 +343,7 @@ public class Knightmare extends Widget implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-					for (int x = 0; x < menue.length; x++) {
-						for (int y = 0; y < menue[x].length; y++) {
-							menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-						}
-					}
+					
 				}
 				if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
@@ -370,11 +366,7 @@ public class Knightmare extends Widget implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-					for (int x = 0; x < menue.length; x++) {
-						for (int y = 0; y < menue[x].length; y++) {
-							menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-						}
-					}
+					
 				}
 
 			}
@@ -499,11 +491,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		} else if (dWheel > 0) {
 			double width = WIDTH * scale;
 			double height = HEIGHT * scale;
@@ -525,11 +513,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 
 		if (Mouse.isButtonDown(2)) {
@@ -547,11 +531,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 
 		// TODO JJDK
@@ -585,44 +565,28 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera links"))) {
 			CameraX -= scrollingSpeed * scale;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera unten"))) {
 			CameraY -= scrollingSpeed * scale;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera rechts"))) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 
 		if (Mouse.getX() < 32) {
@@ -630,44 +594,28 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Mouse.getX() > WIDTH - 32) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Mouse.getY() < 32) {
 			CameraY -= scrollingSpeed * scale;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Mouse.getY() > HEIGHT - 32) {
 			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			for (int x = 0; x < menue.length; x++) {
-				for (int y = 0; y < menue[x].length; y++) {
-					menue[x][y].setPosition(new Pos(menue[x][y].getHudpos().getX() + CameraX, menue[x][y].getHudpos().getY() + CameraY));
-				}
-			}
+			
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
@@ -685,7 +633,7 @@ public class Knightmare extends Widget implements StringConstants {
 				renderList[e].get(i).draw();
 			}
 		}
-		bm.draw();
+		
 		/*
 		 * if(inGameStat.equals(state.N_BUILDINGS)){ for (int x = 0; x <
 		 * menue.length; x++) { for (int y = 0; y < menue[x].length; y++) {

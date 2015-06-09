@@ -6,18 +6,19 @@ import com.richard.knightmare.util.Pos;
 
 public class Terrain extends GraphicalObject{
 
-	private RectangleGraphicalObject waterPlane, elements[][];
+	private TerrainElement waterPlane, elements[][];
 	private int width, height;
 	
 	public Terrain(int width, int height) {
 		super(new Pos(0,0), MeshType.GROUND);
 		this.width = width;
 		this.height = height;
-		waterPlane = new RectangleGraphicalObject(position, width*32, height*32, "water.png", false, Material.WATER);
-		waterPlane.setStrached(false);
-		elements = new RectangleGraphicalObject[width][height];
-		WorldGenerator WG = new WorldGenerator(elements, this);
+		
+		elements = new TerrainElement[width][height];
+		WorldGenerator WG = new WorldGenerator(elements, width, height);
 		elements = WG.worldGen();
+		waterPlane = new TerrainElement(position,(float) WG.getLW(), width*32, height*32, "water.png", Material_t.WATER);
+		waterPlane.setStrached(false);
 	}
 
 	@Override
@@ -41,6 +42,10 @@ public class Terrain extends GraphicalObject{
 			return null;
 		}
 		return elements[x][y].getType();
+	}
+	
+	public TerrainElement getElement(int x, int y){
+		return elements[x][y];
 	}
 
 	public int getWidth() {
