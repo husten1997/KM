@@ -6,6 +6,7 @@ import com.husten.knightmare.constants.StringConstants;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 import com.husten.knightmare.graphicalObjects.TerrainElement;
+import com.husten.knightmare.graphicalObjects.TerrainRes;
 
 public class WorldGenerator implements StringConstants {
 
@@ -14,6 +15,9 @@ public class WorldGenerator implements StringConstants {
 	private int x, y, smoothS = 71;
 
 	private double lW = 0.58, lS = 0.61, lG = 0.81, lR = 1;
+	
+	private double wE = 0.07;
+	private double wK = 0.12;
 	
 	public double getLW(){
 		return lW;
@@ -81,9 +85,12 @@ public class WorldGenerator implements StringConstants {
 		double WS = min + (lS * dif);
 		double WG = min + (lG * dif);
 		double WR = min + (lR * dif);
+		
+		Random randRes = new Random(rand.nextLong());
 		for (int i = 0; i < hm.length; i++) {
 			for (int j = 0; j < hm.length; j++) {
 				float z = hm[i][j];
+				int x = randRes.nextInt(100);
 
 				if (z < WW) {
 					World[i][j] = null;
@@ -96,10 +103,19 @@ public class WorldGenerator implements StringConstants {
 				}
 				if (z > WG && z < WR) {
 					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), z, "rock.png", Material_t.ROCK);
+					
+					if(x < wE*100){
+						World[i][j] = new TerrainRes(new Pos(i * 32, j * 32), z, "eisen.png", Material_t.IRON,randRes.nextInt(100));
+					}
+					if(x < (wK + wE)*100 && x > wE*100){
+						World[i][j] = new TerrainRes(new Pos(i * 32, j * 32), z, "kohle.png", Material_t.COAL,randRes.nextInt(180));
+					}
 				}
 			}
 		}
 	}
+	
+	
 
 	public void square(int xPos, int yPos, int inter, float r) {
 		if (xPos < x && xPos >= 0 && yPos < y && yPos >= 0) {

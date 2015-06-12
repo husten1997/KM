@@ -110,9 +110,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
 		glRotatef(90 * rotation, 0f, 0f, 1f);
+		
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
+		
 		// draw a quad textured to match the sprite
 		if (stratched) {
 			glBegin(GL_QUADS);

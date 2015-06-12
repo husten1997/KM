@@ -89,6 +89,7 @@ public class Texture {
 	 */
 	public void bind() {
 		glBindTexture(target, textureID);
+		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
 
 	/**

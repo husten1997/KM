@@ -13,6 +13,9 @@ public interface StringConstants {
 		public static String GRAS = "GRAS";
 		public static String ROCK = "ROCK";
 		public static String MOOR = "MOOR";
+		
+		public static String IRON = "IRON";
+		public static String COAL = "COAL";
 	}
 
 	public interface MeshType {
