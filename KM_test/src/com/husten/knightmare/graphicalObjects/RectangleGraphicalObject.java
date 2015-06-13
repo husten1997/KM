@@ -133,7 +133,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		}
 		if (randomRotation) {
 			rotation = WorldGenerator.prand.nextInt(4)+1;
-			System.out.println(rotation);
 		}
 	}
 	
