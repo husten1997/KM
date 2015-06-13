@@ -101,7 +101,8 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // | GL11.GL_DEPTH_BUFFER_BIT
+			
 			if (screenToSet) {
 				setDisplayMode(WIDTH, HEIGHT, fullscreen);
 				screenToSet = false;
@@ -136,6 +137,7 @@ public class Knightmare extends Widget implements StringConstants {
 					}
 				}
 			}
+			
 			grafikCycl();
 			updateDisplay();
 			updateFPS();

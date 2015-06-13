@@ -120,6 +120,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 			initTexture();
 		}
 		init();
+		
 	}
 	
 	public void init(){
@@ -143,14 +144,16 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	@Override
 	public void draw() {
+		
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
+		
 		texture.bind();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
-		glRotatef(90 * rotation, 0f, 0f, 1f);
 		
+		glRotatef(90 * rotation, 0f, 0f, 1f);
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
@@ -159,7 +162,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		
 		glBegin(GL_QUADS);
 		{
-			glTexCoord2f((float) widthCount, 0);
+			glTexCoord2f((float)widthCount, 0);
 			glVertex2f(0, 0);
 
 			glTexCoord2f((float) widthCount, (float) heightCount);
@@ -178,6 +181,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glColor3f(1f, 1f, 0.9f);
 		// restore the model view matrix to prevent contamination
 		glPopMatrix();
+		
 	}
 
 	public void moveX(double x){
