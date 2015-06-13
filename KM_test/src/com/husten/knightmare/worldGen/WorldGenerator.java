@@ -31,6 +31,7 @@ public class WorldGenerator implements StringConstants {
 
 	public static int seed = 1005464490;
 	private Random rand;
+	public static Random prand = new Random(seed);
 	private Generator generator;
 
 	public WorldGenerator(TerrainElement world[][], int x, int y) {
@@ -211,5 +212,8 @@ public class WorldGenerator implements StringConstants {
 			}
 		}
 	}
+	
+	
+	
 
 }

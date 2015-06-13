@@ -67,14 +67,13 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected boolean randomRotation, stretched = true;
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
-	private Random rand = new Random(WorldGenerator.seed);
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
 		this.width = width;
 		this.height = height;
 		this.randomRotation = randomRotation;
-		init();
+//		init();
 	}
 
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation) {
@@ -83,7 +82,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.height = height;
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
-		init();
+//		init();
 	}
 
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation, String material) {
@@ -94,7 +93,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.randomRotation = randomRotation;
 		
 		this.material = material;
-		init();
+//		init();
 	}
 	
 	public RectangleGraphicalObject(Pos position, String textureName, boolean randomRotation, String material) {
@@ -102,7 +101,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
 		this.material = material;
-		init();
+//		init();
 	}
 	
 	public RectangleGraphicalObject(Pos position,double widthCount, double heightCount, String textureName, boolean randomRotation, String material) {
@@ -112,7 +111,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
 		this.material = material;
-		init();
+		
 	}
 	
 	public void initRender(){
@@ -120,6 +119,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		if(width == 0 && height == 0){
 			initTexture();
 		}
+		init();
 	}
 	
 	public void init(){
@@ -131,7 +131,8 @@ public class RectangleGraphicalObject extends GraphicalObject {
 			heightCount = height / texture.getImageHeight();
 		}
 		if (randomRotation) {
-			rotation = rand.nextInt(4);
+			rotation = WorldGenerator.prand.nextInt(4)+1;
+			System.out.println(rotation);
 		}
 	}
 	
@@ -155,41 +156,24 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
 		
 		// draw a quad textured to match the sprite
-		if (stretched) {
-			glBegin(GL_QUADS);
-			{
-				glTexCoord2f((float) widthCount, 0);
-				glVertex2f(0, 0);
+		
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f((float) widthCount, 0);
+			glVertex2f(0, 0);
 
-				glTexCoord2f((float) widthCount, (float) heightCount);
-				glVertex2f(0, (float) height);
+			glTexCoord2f((float) widthCount, (float) heightCount);
+			glVertex2f(0, (float) height);
 
-				glTexCoord2f(0, (float) heightCount);
-				glVertex2f((float) width, (float) height);
+			glTexCoord2f(0, (float) heightCount);
+			glVertex2f((float) width, (float) height);
 
-				glTexCoord2f(0, 0);
-				glVertex2f((float) width, 0);
+			glTexCoord2f(0, 0);
+			glVertex2f((float) width, 0);
 
-			}
-			glEnd();
-		} else {
-			glBegin(GL_QUADS);
-			{
-				glTexCoord2f((float) width / texture.getImageWidth(), 0);
-				glVertex2f(0, 0);
-
-				glTexCoord2f((float) width / texture.getImageWidth(), (float) height / texture.getImageHeight());
-				glVertex2f(0, (float) height);
-
-				glTexCoord2f(0, (float) height / texture.getImageHeight());
-				glVertex2f((float) width, (float) height);
-
-				glTexCoord2f(0, 0);
-				glVertex2f((float) width, 0);
-
-			}
-			glEnd();
 		}
+		glEnd();
+		
 
 		glColor3f(1f, 1f, 0.9f);
 		// restore the model view matrix to prevent contamination
