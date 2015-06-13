@@ -15,14 +15,18 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import java.util.Random;
+
+import com.husten.knightmare.worldGen.WorldGenerator;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width, height, rotation = 2, id;
+	protected int width = 0, height = 0, rotation = 2, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
+	
 	public Pos getHudpos() {
 		return hudpos;
 	}
@@ -60,18 +64,17 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 
 	protected String textureName, material;
-	protected boolean randomRotation, stratched = true;
+	protected boolean randomRotation, stretched = true;
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
+	private Random rand = new Random(WorldGenerator.seed);
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
 		this.width = width;
 		this.height = height;
 		this.randomRotation = randomRotation;
-		if (randomRotation) {
-			rotation = (int) (Math.random() * 4);
-		}
+		init();
 	}
 
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation) {
@@ -80,9 +83,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.height = height;
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
-		if (randomRotation) {
-			rotation = (int) (Math.random() * 4);
-		}
+		init();
 	}
 
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation, String material) {
@@ -91,14 +92,52 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.height = height;
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
-		if (randomRotation) {
-			rotation = (int) (Math.random() * 4);
-		}
+		
 		this.material = material;
+		init();
+	}
+	
+	public RectangleGraphicalObject(Pos position, String textureName, boolean randomRotation, String material) {
+		super(position, MeshType.GROUND);
+		this.textureName = textureName;
+		this.randomRotation = randomRotation;
+		this.material = material;
+		init();
+	}
+	
+	public RectangleGraphicalObject(Pos position,double widthCount, double heightCount, String textureName, boolean randomRotation, String material) {
+		super(position, MeshType.GROUND);
+		this.widthCount = widthCount;
+		this.heightCount = heightCount;
+		this.textureName = textureName;
+		this.randomRotation = randomRotation;
+		this.material = material;
+		init();
 	}
 	
 	public void initRender(){
 		texture = Texturloader.getTexture(textureName);
+		if(width == 0 && height == 0){
+			initTexture();
+		}
+	}
+	
+	public void init(){
+		if(stretched){
+			widthCount = 1;
+			heightCount = 1;
+		} else{
+			widthCount = width / texture.getImageWidth();
+			heightCount = height / texture.getImageHeight();
+		}
+		if (randomRotation) {
+			rotation = rand.nextInt(4);
+		}
+	}
+	
+	public void initTexture(){
+		height = texture.getImageHeight();
+		width = texture.getImageWidth();
 	}
 
 	@Override
@@ -116,7 +155,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
 		
 		// draw a quad textured to match the sprite
-		if (stratched) {
+		if (stretched) {
 			glBegin(GL_QUADS);
 			{
 				glTexCoord2f((float) widthCount, 0);
@@ -182,11 +221,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 
 	public void setStrached(boolean strached) {
-		this.stratched = strached;
+		this.stretched = strached;
 	}
 
 	public boolean getStrached() {
-		return stratched;
+		return stretched;
 	}
 
 	public void setMaterial(String material) {

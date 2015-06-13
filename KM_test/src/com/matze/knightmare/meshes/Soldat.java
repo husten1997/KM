@@ -154,7 +154,7 @@ public class Soldat extends RectangleGraphicalObject {
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX() - 16, (float) position.getY() - 16, 0);
 		// draw a quad textured to match the sprite
-		if (stratched) {
+		if (stretched) {
 			glBegin(GL_QUADS);
 			{
 				glTexCoord2f((float) widthCount, 0);

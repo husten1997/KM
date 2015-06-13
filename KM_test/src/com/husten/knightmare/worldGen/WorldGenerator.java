@@ -29,7 +29,7 @@ public class WorldGenerator implements StringConstants {
 
 	private float routh = 0.6f, fallof = 0.8f, c = 2f;
 
-	private static int seed = 1005464490;
+	public static int seed = 1005464490;
 	private Random rand;
 	private Generator generator;
 

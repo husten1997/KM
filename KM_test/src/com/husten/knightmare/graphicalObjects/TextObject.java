@@ -49,7 +49,7 @@ public class TextObject extends RectangleGraphicalObject{
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
 		// draw a quad textured to match the sprite
-		if (stratched) {
+		if (stretched) {
 			glBegin(GL_QUADS);
 			{
 				glTexCoord2f((float) widthCount, 0);
