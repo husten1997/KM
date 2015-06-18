@@ -2,11 +2,6 @@ package com.husten.knightmare.constants;
 
 public interface StringConstants {
 
-	public interface Material {
-		
-		public static String FLESH = "FLESH";
-	}
-	
 	public interface Material_t {
 		public static String WATER = "WATER";
 		public static String SAND = "SAND";
@@ -32,5 +27,13 @@ public interface StringConstants {
 		public static String N_TRUPS = "N_TRUPS";
 		public static String ABREIﬂEN = "Abreiﬂen";
 	}
+	
+	public interface names{
+		public static String R = "Richard Kellnberger";
+		public static String M = "Matthias Kettl";
+		public static String H = "Julian Dietlmeier";
+	}
+	
+	public static String VERSION = "a0.0.0";
 
 }

@@ -1,5 +1,9 @@
 package com.husten.knightmare.core;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,9 +12,14 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.husten.knightmare.constants.StringConstants;
+import com.matze.knightmare.menues.Credits;
 import com.matze.knightmare.menues.Laden;
 import com.matze.knightmare.menues.Loadscreen;
 import com.matze.knightmare.menues.Optionen;
@@ -18,7 +27,6 @@ import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
-import com.richard.knightmare.util.Pathfinding;
 import com.richard.knightmare.util.Pos;
 
 @SuppressWarnings("serial")
@@ -116,6 +124,28 @@ public class MainMenue extends Optionsframesuperklasse {
 				click(new Pos(e.getX() - (screen.getWidth() - width) / 2, e.getY() - (screen.getHeight() - height) / 2));
 			}
 		});
+		JButton version = new JButton(StringConstants.VERSION);
+		version.setBounds((screen.width - width) / 2,
+		(screen.height - height) / 2 + height - width / 24,
+		width / 8, width / 24);
+		version.setHorizontalAlignment(SwingConstants.LEFT);
+		version.setVerticalAlignment(SwingConstants.BOTTOM);
+		version.setFont(new Font("Arial", Font.BOLD, width / 100));
+		version.setFocusable(false);
+		version.setForeground(Color.WHITE);
+		version.setContentAreaFilled(false);
+		version.setBorder(null);
+		version.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Credits().setAlwaysOnTop(true);
+				dispose();
+			}
+		});
+		add(version);
+		
+		
 		instance = this;
 	}
 	
