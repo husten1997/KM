@@ -42,7 +42,6 @@ public class Credits extends Optionsframesuperklasse implements ActionListener {
 		list.setVisibleRowCount(data.length);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.setOpaque(false);
-		list.setSelectedIndex(0);
 		((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
 		JScrollPane scroll = new JScrollPane(list);
