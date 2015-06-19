@@ -2,6 +2,7 @@ package com.husten.knightmare.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,6 +56,10 @@ public class Knightmare extends Widget implements StringConstants {
 	private Timer timer = new Timer(true);
 //	private RectangleGraphicalObject[][] menue = new RectangleGraphicalObject[15][3];
 //	private RectangleGraphicalObject bm;
+	
+	public static Color mainColor = new Color(255, 255, 255);
+	
+	private DNCycl DN;
 
 	public Knightmare() {
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
@@ -97,49 +102,15 @@ public class Knightmare extends Widget implements StringConstants {
 			public void run() {
 				pollInput();
 				calc();
-
+				DN.calc(6);
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // | GL11.GL_DEPTH_BUFFER_BIT
 			
-			if (screenToSet) {
-				setDisplayMode(WIDTH, HEIGHT, fullscreen);
-				screenToSet = false;
-			}
-			while (pending.size() > 0 && pendingEbenen.size() > 0) {
-				initRender(pending.get(0), pendingEbenen.get(0));
-				pending.remove(0);
-				pendingEbenen.remove(0);
-			}
-			if (inGameStat.equals(state.ABREIßEN)) {
-				if (!delete.equals(Mouse.getNativeCursor())) {
-					try {
-						Mouse.setNativeCursor(delete);
-					} catch (LWJGLException e) {
-						e.printStackTrace();
-					}
-				}
-			} else if (inGameStat.equals(state.N_BUILDINGS)) {
-				if (!haus.equals(Mouse.getNativeCursor())) {
-					try {
-						Mouse.setNativeCursor(haus);
-					} catch (LWJGLException e) {
-						e.printStackTrace();
-					}
-				}
-			} else {
-				if (!normal.equals(Mouse.getNativeCursor())) {
-					try {
-						Mouse.setNativeCursor(normal);
-					} catch (LWJGLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			
+			pollInputG();
 			grafikCycl();
-			updateDisplay();
+			updateDisplay();			
 			updateFPS();
 		}
 		Display.destroy();
@@ -206,6 +177,7 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 			});
 		}
+		DN = new DNCycl();
 	}
 
 	public void tooggleFullscreen() {
@@ -273,7 +245,9 @@ public class Knightmare extends Widget implements StringConstants {
 				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIßEN;
 				}
-
+				if (Keyboard.getEventKey() == Keyboard.KEY_T){
+					DN.toggle();
+				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
@@ -810,8 +784,10 @@ public class Knightmare extends Widget implements StringConstants {
 	public void updateDisplay() {
 		if (Vsync)
 			Display.sync(VsyncF);
-
+		
 		Display.update();
+		
+		
 	}
 
 	public void grafikCycl() {
@@ -824,6 +800,43 @@ public class Knightmare extends Widget implements StringConstants {
 		glLoadIdentity();
 
 		render();
+	}
+	
+	private void pollInputG(){
+		if (screenToSet) {
+			setDisplayMode(WIDTH, HEIGHT, fullscreen);
+			screenToSet = false;
+		}
+		while (pending.size() > 0 && pendingEbenen.size() > 0) {
+			initRender(pending.get(0), pendingEbenen.get(0));
+			pending.remove(0);
+			pendingEbenen.remove(0);
+		}
+		if (inGameStat.equals(state.ABREIßEN)) {
+			if (!delete.equals(Mouse.getNativeCursor())) {
+				try {
+					Mouse.setNativeCursor(delete);
+				} catch (LWJGLException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (inGameStat.equals(state.N_BUILDINGS)) {
+			if (!haus.equals(Mouse.getNativeCursor())) {
+				try {
+					Mouse.setNativeCursor(haus);
+				} catch (LWJGLException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			if (!normal.equals(Mouse.getNativeCursor())) {
+				try {
+					Mouse.setNativeCursor(normal);
+				} catch (LWJGLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 }
