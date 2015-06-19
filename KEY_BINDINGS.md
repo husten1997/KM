@@ -28,3 +28,4 @@ Please update if needed
 	F12: VSync on/off
 	
 	M: Next clip
+	T: Start/Stop Day Night Cycle
