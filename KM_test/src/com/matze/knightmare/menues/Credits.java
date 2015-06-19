@@ -41,6 +41,7 @@ public class Credits extends Optionsframesuperklasse implements ActionListener {
 		list.setSelectionForeground(Color.white);
 		list.setVisibleRowCount(data.length);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
+		list.setFocusable(false);
 		list.setOpaque(false);
 		((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
