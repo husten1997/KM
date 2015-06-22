@@ -60,7 +60,7 @@ public class DNCycl {
 	}
 	
 	private double funkt2(){
-		return 0.5 * Math.sin(Math.cos(1.3 * time + 1.59) * 0.8 * Math.PI + 1.5 * Math.PI) + 0.6;
+		return 0.5 * Math.sin(Math.cos(1.3 * time + 1.59) * 0.87 * Math.PI + 1.5 * Math.PI) + 0.54;
 	}
 
 }
