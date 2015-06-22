@@ -20,6 +20,7 @@ public class DNCycl {
 	private boolean run = true;
 	
 	
+	
 	public DNCycl(){
 		
 	}
@@ -27,10 +28,10 @@ public class DNCycl {
 	public void calc(int secph){
 		if(run){
 			double interv = inter/(secph*gamespeed);
-			setTime(interv);
-			breightnes = funkt2();
-//			System.out.println("B: " + breightnes + " X: " + time);
+			cTime(interv);
+			breightnes = funkt3();
 			set();
+			System.out.println(getTimeS());
 		}
 	}
 	
@@ -38,10 +39,10 @@ public class DNCycl {
 		Knightmare.mainColor = new Color((int)(red*breightnes), (int)(green*breightnes), (int)(blue*breightnes));
 	}
 	
-	private void setTime(double i){
+	private void cTime(double i){
 		double h = time += i;
-		if(h > 1.2){
-			time = -1.2;
+		if(h > 2.4){
+			time = 0;
 			time += i;
 		} else{
 			time += i;
@@ -62,5 +63,35 @@ public class DNCycl {
 	private double funkt2(){
 		return 0.5 * Math.sin(Math.cos(1.3 * time + 1.59) * 0.87 * Math.PI + 1.5 * Math.PI) + 0.54;
 	}
+	
+	private double funkt3(){
+		double min = 0.05;
+		return (0.5- min/2) * Math.sin(time * Math.PI/1.2 + Math.PI/0.67) + (0.5 + min/2);
+	}
+	
+	public double getTime(){
+		return time;
+	}
+	
+	public void setTime(double time){
+		this.time = time;
+	}
+	
+	public String getTimeS(){
+		int h;
+		double time_div;
+		int min;
+		if(time >= 0){
+			h = (int) (time *10);
+			time_div = time - ((double)h/10);
+			min = (int) ((time_div*10)*60);
+		} else{
+			h = 12 - ((int) (time *10)) * -1;
+			time_div = (time + ((double)h/10)) * -1;
+			min = 60 - ((int) ((time_div*10)*60));
+		}
+		return "" + h + ":" + min;
+	}
+	
 
 }
