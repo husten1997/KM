@@ -15,15 +15,18 @@ public class DNCycl {
 	private int blue = 255;
 	
 	private double inter = 0.1; //Intervall --> 0.1x entspricht 1h
-	private double gamespeed = 100; //durchläufe p sec
+	private double gamespeed = 200; //durchläufe p sec
 	
 	private boolean run = true;
+	
+	private long time_v = 0;
 	
 	
 	
 	public DNCycl(){
 		
 	}
+	
 	//@parameter secph --> sekunden pro stunde --> wie viele sekunden soll eine spielstunde dauern
 	public void calc(int secph){
 		if(run){
@@ -31,7 +34,7 @@ public class DNCycl {
 			cTime(interv);
 			breightnes = funkt3();
 			set();
-			System.out.println(getTimeS());
+//			System.out.println(getTimeS());
 		}
 	}
 	
@@ -42,6 +45,8 @@ public class DNCycl {
 	private void cTime(double i){
 		double h = time += i;
 		if(h > 2.4){
+			System.out.println("Dauer des tages: " +(System.currentTimeMillis() - time_v)/1000 + " sec");
+			time_v = System.currentTimeMillis();
 			time = 0;
 			time += i;
 		} else{
@@ -51,10 +56,10 @@ public class DNCycl {
 	
 	public void toggle(){
 			run = !run;
+			System.out.println("DayNight Cycle" + (run? " started":" stoped"));
 	}
 	
 	private double funkt1(){
-		
 		double h1 = Math.pow(time, 2);
 		double h2 = -(h1/1.8);
 		return Math.pow(Math.E, h2);
@@ -65,7 +70,7 @@ public class DNCycl {
 	}
 	
 	private double funkt3(){
-		double min = 0.05;
+		double min = 0.09;
 		return (0.5- min/2) * Math.sin(time * Math.PI/1.2 + Math.PI/0.67) + (0.5 + min/2);
 	}
 	
@@ -80,15 +85,21 @@ public class DNCycl {
 	public String getTimeS(){
 		int h;
 		double time_div;
-		int min;
+		int mini;
+		String min;
 		if(time >= 0){
 			h = (int) (time *10);
 			time_div = time - ((double)h/10);
-			min = (int) ((time_div*10)*60);
+			mini = (int) ((time_div*10)*60);
 		} else{
 			h = 12 - ((int) (time *10)) * -1;
 			time_div = (time + ((double)h/10)) * -1;
-			min = 60 - ((int) ((time_div*10)*60));
+			mini = 60 - ((int) ((time_div*10)*60));
+		}
+		if(mini < 10){
+			min = "0" + mini;
+		} else{
+			min = "" + mini;
 		}
 		return "" + h + ":" + min;
 	}
