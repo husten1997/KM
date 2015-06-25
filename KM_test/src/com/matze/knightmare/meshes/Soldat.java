@@ -1,20 +1,5 @@
 package com.matze.knightmare.meshes;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
-
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
