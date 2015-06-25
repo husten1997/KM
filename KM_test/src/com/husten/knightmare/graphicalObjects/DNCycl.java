@@ -8,7 +8,7 @@ import java.lang.Math;
 
 public class DNCycl {
 	
-	private double time = 0; //-12 bis 12
+	private double time = 1; //-12 bis 12
 	private double breightnes = 1;
 	private int red = 255;
 	private int green = 255;
