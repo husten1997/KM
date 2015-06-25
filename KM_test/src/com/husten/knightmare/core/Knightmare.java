@@ -89,11 +89,6 @@ public class Knightmare extends Widget implements StringConstants {
 		} catch (Exception e) {
 			// Ignore
 		}
-		
-		//TODO test-remove later
-		JFrame f = new JFrame("Ich bin ein Test");
-		f.setAlwaysOnTop(true);
-		f.setVisible(true);
 	}
 
 	public void loop() {
@@ -236,7 +231,7 @@ public class Knightmare extends Widget implements StringConstants {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {
 
-				if (getString("CONTROL_KEY: Escape/ZurÃ¼ck").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
@@ -247,8 +242,8 @@ public class Knightmare extends Widget implements StringConstants {
 					return;
 				}
 
-				if (getString("CONTROL_KEY: AbreiÃŸen").equals(gFN(Keyboard.getEventKey()))) {
-					inGameStat = state.ABREIÃŸEN;
+				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
+					inGameStat = state.ABREIßEN;
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_T){
 					DN.toggle();
@@ -391,8 +386,8 @@ public class Knightmare extends Widget implements StringConstants {
 					case state.S_BUILDINGS:
 						search(x, y);
 						break;
-					case state.ABREIÃŸEN:
-						RectangleGraphicalObject h = handler.abreiÃŸen(xR, yR);
+					case state.ABREIßEN:
+						RectangleGraphicalObject h = handler.abreißen(xR, yR);
 						if (h != null) {
 							renderList[1].remove(h);
 						}
@@ -520,7 +515,7 @@ public class Knightmare extends Widget implements StringConstants {
 			System.out.println("Space is down");
 		}
 
-		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: VorwÃ¤rts"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Vorwärts"))) {
 			if (figur != null) {
 				figur.moveY(0.3f);
 			}
@@ -530,7 +525,7 @@ public class Knightmare extends Widget implements StringConstants {
 				figur.moveX(-0.3f);
 			}
 		}
-		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: RÃ¼ckwÃ¤rts"))) {
+		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rückwärts"))) {
 			if (figur != null) {
 				figur.moveY(-0.3f);
 			}
@@ -817,7 +812,7 @@ public class Knightmare extends Widget implements StringConstants {
 			pending.remove(0);
 			pendingEbenen.remove(0);
 		}
-		if (inGameStat.equals(state.ABREIÃŸEN)) {
+		if (inGameStat.equals(state.ABREIßEN)) {
 			if (!delete.equals(Mouse.getNativeCursor())) {
 				try {
 					Mouse.setNativeCursor(delete);
