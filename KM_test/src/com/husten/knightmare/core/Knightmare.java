@@ -9,8 +9,6 @@ import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.plaf.ToolBarUI;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Cursor;
@@ -95,8 +93,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void loop() {
 		init();
-		new ToolBarUI() {
-		};
+
 		
 
 		timer.scheduleAtFixedRate(new TimerTask() {

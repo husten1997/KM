@@ -8,7 +8,7 @@ import java.lang.Math;
 
 public class DNCycl {
 	
-	private double time = 10; //-12 bis 12
+	private double time = 0; //-12 bis 12
 	private double breightnes = 1;
 	private int red = 255;
 	private int green = 255;
@@ -59,7 +59,7 @@ public class DNCycl {
 			System.out.println("DayNight Cycle" + (run? " started":" stoped"));
 	}
 	
-	/*private double funkt1(){
+	private double funkt1(){
 		double h1 = Math.pow(time, 2);
 		double h2 = -(h1/1.8);
 		return Math.pow(Math.E, h2);
@@ -67,7 +67,7 @@ public class DNCycl {
 	
 	private double funkt2(){
 		return 0.5 * Math.sin(Math.cos(1.3 * time + 1.59) * 0.87 * Math.PI + 1.5 * Math.PI) + 0.54;
-	}*/
+	}
 	
 	private double funkt3(){
 		double min = 0.09;
