@@ -26,5 +26,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="res/TWL.jar"/>
+	<classpathentry kind="lib" path="res/lzma.jar"/>
+	<classpathentry kind="lib" path="res/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

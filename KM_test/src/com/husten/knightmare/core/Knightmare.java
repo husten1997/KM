@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Timer;
@@ -21,6 +23,7 @@ import org.newdawn.slick.opengl.CursorLoader;
 
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.*;
+import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Soldat;
@@ -32,7 +35,11 @@ import com.richard.knightmare.util.Pathhandler;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
+import de.matthiasmann.twl.Button;
+import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Widget;
+import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
+import de.matthiasmann.twl.theme.ThemeManager;
 
 public class Knightmare extends Widget implements StringConstants {
 
@@ -54,8 +61,12 @@ public class Knightmare extends Widget implements StringConstants {
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
-//	private RectangleGraphicalObject[][] menue = new RectangleGraphicalObject[15][3];
-//	private RectangleGraphicalObject bm;
+	
+	//UI Var
+	private GUI gui;
+	private LWJGLRenderer renderer;
+	private Button button;
+	private ThemeManager themeManager;
 	
 	public static Color mainColor = new Color(255, 255, 255);
 	
@@ -110,10 +121,13 @@ public class Knightmare extends Widget implements StringConstants {
 			
 			pollInputG();
 			grafikCycl();
+			gui.update();
 			updateDisplay();			
 			updateFPS();
+			
 		}
 		Display.destroy();
+		gui.destroy();
 	}
 
 	private void init() {
@@ -178,6 +192,7 @@ public class Knightmare extends Widget implements StringConstants {
 			});
 		}
 		DN = new DNCycl();
+		
 	}
 
 	public void tooggleFullscreen() {
@@ -610,11 +625,6 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}
 		
-		/*
-		 * if(inGameStat.equals(state.N_BUILDINGS)){ for (int x = 0; x <
-		 * menue.length; x++) { for (int y = 0; y < menue[x].length; y++) {
-		 * menue[x][y].draw(); } } }
-		 */
 	}
 
 	public long getTime() {
@@ -779,6 +789,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public void initDisplay() {
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
+		initUI();
 	}
 
 	public void updateDisplay() {
@@ -837,6 +848,38 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 			}
 		}
+	}
+	
+	private void initUI(){
+		renderer = null;
+		try {
+			renderer = new LWJGLRenderer();
+		} catch (LWJGLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		gui = new GUI(this, renderer);
+		
+		try{
+			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"), renderer);
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+
+		gui.applyTheme(themeManager);
+		
+		button = new Button("HelloWorld!");
+		button.setTheme("button_Test");
+		add(button);
+	}
+	
+	@Override
+	protected void layout() {
+		 button.setPosition(100, 100);
+		 button.setSize(100, 33);
+		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
+//		super.layout();
 	}
 
 }
