@@ -141,7 +141,8 @@ public class Knightmare extends Widget implements StringConstants {
 			
 			pollInputG();
 			grafikCycl();
-			gui.update();
+//			gui.update();
+//			UIUpdate();
 			
 			updateDisplay();			
 			updateFPS();
@@ -900,14 +901,22 @@ public class Knightmare extends Widget implements StringConstants {
 		add(button);
 		
 		
+		
 	}
 	
 	@Override
 	protected void layout() {
 		 button.setPosition(100, 100);
 		 button.setSize(100, 33);
+		 button.setText(DN.getTimeS());
 		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
 //		super.layout();
+	}
+	
+	private void UIUpdate(){
+		gui.update();
+		gui.adjustSize();
+//		button.adjustSize();
 	}
 
 }
