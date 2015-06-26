@@ -141,7 +141,7 @@ public class Knightmare extends Widget implements StringConstants {
 			
 			pollInputG();
 			grafikCycl();
-//			gui.update();
+			gui.update();
 //			UIUpdate();
 			
 			updateDisplay();			
@@ -891,10 +891,6 @@ public class Knightmare extends Widget implements StringConstants {
 
 		gui.applyTheme(themeManager);
 		
-		fpsCounter = new FPSCounter();
-		fpsCounter.setPosition(0, 0);
-		fpsCounter.adjustSize();
-        add(fpsCounter);
 		
 		button = new Button("HelloWorld!");
 		button.setTheme("button_Test");

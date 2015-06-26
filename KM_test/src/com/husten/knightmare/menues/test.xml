@@ -49,6 +49,10 @@
         <param name="inputMap"><inputMap>-defaultInputMap</inputMap></param>
     </theme>
     
+    <theme name="tooltipwindow" ref="-defaults">
+        <param name="fadeInTime"><int>0</int></param>
+    </theme>
+    
     <theme name="button" ref="-defaults">
 		<param name="background"><image>button.background</image></param>
         <param name="minHeight"><int>10</int></param>
@@ -56,8 +60,6 @@
 	</theme>
 	
 	<theme name="main" ref="-defaults">
-		
-		
 		<theme name="button_Test" ref="button">
 			<param name=""><image>button.*</image></param>
 			<param name="minHeight"><int>10</int></param>
@@ -66,8 +68,6 @@
 	</theme>
 	
 	<theme name="knightmare" ref="-defaults">
-		
-		
 		<theme name="button_Test" ref="button">
 			<param name=""><image>button.*</image></param>
 			<param name="minHeight"><int>10</int></param>
