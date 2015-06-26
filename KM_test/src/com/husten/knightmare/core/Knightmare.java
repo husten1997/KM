@@ -1,11 +1,25 @@
 package com.husten.knightmare.core;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Timer;
@@ -22,7 +36,11 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.CursorLoader;
 
 import com.husten.knightmare.constants.StringConstants;
-import com.husten.knightmare.graphicalObjects.*;
+import com.husten.knightmare.graphicalObjects.DNCycl;
+import com.husten.knightmare.graphicalObjects.GraphicalObject;
+import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
+import com.husten.knightmare.graphicalObjects.Terrain;
+import com.husten.knightmare.graphicalObjects.Texture;
 import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
@@ -36,6 +54,7 @@ import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 import de.matthiasmann.twl.Button;
+import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Widget;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
@@ -67,6 +86,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private LWJGLRenderer renderer;
 	private Button button;
 	private ThemeManager themeManager;
+	private FPSCounter fpsCounter;
 	
 	public static Color mainColor = new Color(255, 255, 255);
 	
@@ -122,6 +142,7 @@ public class Knightmare extends Widget implements StringConstants {
 			pollInputG();
 			grafikCycl();
 			gui.update();
+			
 			updateDisplay();			
 			updateFPS();
 			
@@ -869,9 +890,16 @@ public class Knightmare extends Widget implements StringConstants {
 
 		gui.applyTheme(themeManager);
 		
+		fpsCounter = new FPSCounter();
+		fpsCounter.setPosition(0, 0);
+		fpsCounter.adjustSize();
+        add(fpsCounter);
+		
 		button = new Button("HelloWorld!");
 		button.setTheme("button_Test");
 		add(button);
+		
+		
 	}
 	
 	@Override
