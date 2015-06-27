@@ -131,29 +131,29 @@ public class Vektor {
 			x = ende.getX() - start.getX();
 			y = ende.getY() - start.getY();
 			m = x / y;
-			/*if (x > 0) {
+			if (x > 0) {
 				if (y < 0) {
-					soldat.setRotation(5);
+					soldat.setMRotation(5);
 				} else if (y == 0) {
-					soldat.setRotation(6);
+					soldat.setMRotation(6);
 				} else {
-					soldat.setRotation(7);
+					soldat.setMRotation(7);
 				}
 			} else if (x == 0) {
 				if (y < 0) {
-					soldat.setRotation(4);
+					soldat.setMRotation(4);
 				} else {
-					soldat.setRotation(0);
+					soldat.setMRotation(0);
 				}
 			} else {
 				if (y < 0) {
-					soldat.setRotation(3);
+					soldat.setMRotation(3);
 				} else if (y == 0) {
-					soldat.setRotation(2);
+					soldat.setMRotation(2);
 				} else {
-					soldat.setRotation(1);
+					soldat.setMRotation(1);
 				}
-			}*/
+			}
 		} else {
 			soldat.setPosition(ende);
 			return true;

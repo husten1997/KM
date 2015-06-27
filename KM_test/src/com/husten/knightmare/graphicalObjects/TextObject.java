@@ -44,7 +44,7 @@ public class TextObject extends RectangleGraphicalObject {
 		texture.bind();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
-		glRotatef(45 * t_rotation, 0f, 0f, 1f);
+		glRotatef(90 * t_rotation, 0f, 0f, 1f);
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
