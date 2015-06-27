@@ -131,7 +131,7 @@ public class Vektor {
 			x = ende.getX() - start.getX();
 			y = ende.getY() - start.getY();
 			m = x / y;
-			if (x > 0) {
+			/*if (x > 0) {
 				if (y < 0) {
 					soldat.setRotation(5);
 				} else if (y == 0) {
@@ -153,7 +153,7 @@ public class Vektor {
 				} else {
 					soldat.setRotation(1);
 				}
-			}
+			}*/
 		} else {
 			soldat.setPosition(ende);
 			return true;

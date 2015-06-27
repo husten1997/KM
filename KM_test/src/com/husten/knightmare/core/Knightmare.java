@@ -82,7 +82,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Timer timer = new Timer(true);
 
 	// UI Var
-//	private GUI gui;
+	// private GUI gui;
 	private LWJGLRenderer renderer;
 	private Button button;
 	private ThemeManager themeManager;
@@ -140,14 +140,14 @@ public class Knightmare extends Widget implements StringConstants {
 
 			pollInputG();
 			grafikCycl();
-//			gui.update();
+			// gui.update();
 			// UIUpdate();
 
 			updateDisplay();
 			updateFPS();
 
 		}
-//		gui.destroy();
+		// gui.destroy();
 		Display.destroy();
 	}
 
@@ -406,7 +406,7 @@ public class Knightmare extends Widget implements StringConstants {
 						}
 						break;
 					case state.N_TRUPS:
-						Soldat s = Rekrutieren.Hussar(x, y, 32, 32);
+						Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32);
 						if (handler.place(s)) {
 							s.setSort(1);
 							pending.add(s);
@@ -810,7 +810,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public void initDisplay() {
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
-//		initUI();
+		// initUI();
 	}
 
 	public void updateDisplay() {
@@ -870,48 +870,32 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 	}
 
-	/*private void initUI() {
-		renderer = null;
-		try {
-			renderer = new LWJGLRenderer();
-		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		gui = new GUI(this, renderer);
-
-		try {
-			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"), renderer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		gui.applyTheme(themeManager);
-
-		button = new Button("HelloWorld!");
-		button.setTheme("button_Test");
-		button.setPosition(100, 100);
-		button.setSize(100, 33);
-		button.setText(DN.getTimeS());
-		add(button);
-
-	}
-
-	@Override
-	protected void layout() {
-		button.setPosition(100, 100);
-		button.setSize(100, 33);
-		button.setText(DN.getTimeS());
-		// button.adjustSize(); //Calculate optimal size instead of manually
-		// setting it
-		// super.layout();
-	}
-
-	private void UIUpdate() {
-		gui.update();
-		gui.adjustSize();
-		// button.adjustSize();
-	}*/
+	/*
+	 * private void initUI() { renderer = null; try { renderer = new
+	 * LWJGLRenderer(); } catch (LWJGLException e) { // TODO Auto-generated
+	 * catch block e.printStackTrace(); }
+	 * 
+	 * gui = new GUI(this, renderer);
+	 * 
+	 * try { themeManager =
+	 * ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"),
+	 * renderer); } catch (IOException e) { e.printStackTrace(); }
+	 * 
+	 * gui.applyTheme(themeManager);
+	 * 
+	 * button = new Button("HelloWorld!"); button.setTheme("button_Test");
+	 * button.setPosition(100, 100); button.setSize(100, 33);
+	 * button.setText(DN.getTimeS()); add(button);
+	 * 
+	 * }
+	 * 
+	 * @Override protected void layout() { button.setPosition(100, 100);
+	 * button.setSize(100, 33); button.setText(DN.getTimeS()); //
+	 * button.adjustSize(); //Calculate optimal size instead of manually //
+	 * setting it // super.layout(); }
+	 * 
+	 * private void UIUpdate() { gui.update(); gui.adjustSize(); //
+	 * button.adjustSize(); }
+	 */
 
 }

@@ -25,7 +25,7 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width = 0, height = 0, rotation = 4, id, translation = 0;
+	protected int width = 0, height = 0, rotation = 4, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
 
@@ -43,13 +43,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	public void register(int id) {
 		this.id = id;
-	}
-
-	public void setRotation(int rot) {
-		rotation = rot;
-		if (rot == 1 || rot == 3 || rot == 5 || rot == 7) {
-			translation = 16;
-		}
 	}
 
 	public int getID() {
