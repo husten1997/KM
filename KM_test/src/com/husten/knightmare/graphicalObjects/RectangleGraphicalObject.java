@@ -1,31 +1,18 @@
 package com.husten.knightmare.graphicalObjects;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
-import com.husten.knightmare.core.Knightmare;
 
 import java.awt.Color;
 
+import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width = 0, height = 0, t_rotation = 2, m_rotation = 4, id;
+	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
 
@@ -145,16 +132,18 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
-
+		
 		texture.bind();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
 
 		glRotatef(90 * t_rotation, 0f, 0f, 1f);
 		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 		// translate to the right location and prepare to draw
-		glTranslatef((float) position.getX(), (float) position.getY(), 0);
 		
+		glTranslatef((float) position.getX(), (float) position.getY(), 0);
+		glRotatef(45*m_rotation, 0f, 0f, 1f);
 
 		// draw a quad textured to match the sprite
 
@@ -174,9 +163,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 		}
 		glEnd();
-		glRotatef(45*m_rotation, 0f, 0f, 1f);
 		glColor3f((float) Knightmare.mainColor.getRed() / 255, (float) Knightmare.mainColor.getGreen() / 255, (float) Knightmare.mainColor.getBlue() / 255);
+		
+		
 		// restore the model view matrix to prevent contamination
+		
 		glPopMatrix();
 
 	}
