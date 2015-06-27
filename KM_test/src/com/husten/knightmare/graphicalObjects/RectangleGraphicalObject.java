@@ -154,7 +154,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
-		glRotatef(45*m_rotation, 0f, 0f, 1f);
+		
 
 		// draw a quad textured to match the sprite
 
@@ -174,7 +174,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 		}
 		glEnd();
-
+		glRotatef(45*m_rotation, 0f, 0f, 1f);
 		glColor3f((float) Knightmare.mainColor.getRed() / 255, (float) Knightmare.mainColor.getGreen() / 255, (float) Knightmare.mainColor.getBlue() / 255);
 		// restore the model view matrix to prevent contamination
 		glPopMatrix();
