@@ -25,7 +25,7 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 4, id;
+	protected int width = 0, height = 0, t_rotation = 2, m_rotation = 4, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
 
