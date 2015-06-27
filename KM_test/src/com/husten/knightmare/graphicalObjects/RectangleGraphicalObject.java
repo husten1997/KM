@@ -15,10 +15,7 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
-
 import com.husten.knightmare.core.Knightmare;
-
-
 
 import java.awt.Color;
 
@@ -28,10 +25,10 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width = 0, height = 0, rotation = 2, id;
+	protected int width = 0, height = 0, rotation = 4, id, translation = 0;
 	protected boolean wasser = false;
 	private Pos hudpos;
-	
+
 	public Pos getHudpos() {
 		return hudpos;
 	}
@@ -44,18 +41,25 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		return width;
 	}
 
-	public void register(int id){
+	public void register(int id) {
 		this.id = id;
 	}
-	
-	public int getID(){
+
+	public void setRotation(int rot) {
+		rotation = rot;
+		if (rot == 1 || rot == 3 || rot == 5 || rot == 7) {
+			translation = 16;
+		}
+	}
+
+	public int getID() {
 		return id;
 	}
 
 	public boolean isWaterproof() {
 		return wasser;
 	}
-	
+
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -73,14 +77,13 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
 	private Color color = new Color(255, 255, 255);
-	
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
 		this.width = width;
 		this.height = height;
 		this.randomRotation = randomRotation;
-		
+
 	}
 
 	public RectangleGraphicalObject(Pos position, int width, int height, String textureName, boolean randomRotation) {
@@ -99,15 +102,15 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.randomRotation = randomRotation;
 		this.material = material;
 	}
-	
+
 	public RectangleGraphicalObject(Pos position, String textureName, boolean randomRotation, String material) {
 		super(position, MeshType.GROUND);
 		this.textureName = textureName;
 		this.randomRotation = randomRotation;
 		this.material = material;
 	}
-	
-	public RectangleGraphicalObject(Pos position,double widthCount, double heightCount, String textureName, boolean randomRotation, String material) {
+
+	public RectangleGraphicalObject(Pos position, double widthCount, double heightCount, String textureName, boolean randomRotation, String material) {
 		super(position, MeshType.GROUND);
 		this.widthCount = widthCount;
 		this.heightCount = heightCount;
@@ -115,55 +118,56 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.randomRotation = randomRotation;
 		this.material = material;
 	}
-	
-	public void initRender(){
+
+	public void initRender() {
 		texture = Texturloader.getTexture(textureName);
-		if(width == 0 && height == 0){
+		if (width == 0 && height == 0) {
 			initTexture();
 		}
 		init();
-		
+
 	}
-	
-	public void init(){
-		if(stretched){
+
+	public void init() {
+		if (stretched) {
 			widthCount = 1;
 			heightCount = 1;
-		} else{
+		} else {
 			widthCount = width / texture.getImageWidth();
 			heightCount = height / texture.getImageHeight();
 		}
 		if (randomRotation) {
-			rotation = WorldGenerator.prand.nextInt(4)+1;
+			rotation = WorldGenerator.prand.nextInt(4) + 1;
+			rotation *= 2;
 		}
 	}
-	
-	public void initTexture(){
+
+	public void initTexture() {
 		height = texture.getImageHeight();
 		width = texture.getImageWidth();
 	}
 
 	@Override
 	public void draw() {
-		
+
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
-		
+
 		texture.bind();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
-		
-		glRotatef(90 * rotation, 0f, 0f, 1f);
+
+		glRotatef(45 * rotation, 0f, 0f, 1f);
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
-		
+
 		// draw a quad textured to match the sprite
-		
+
 		glBegin(GL_QUADS);
 		{
-			glTexCoord2f((float)widthCount, 0);
+			glTexCoord2f((float) widthCount, 0);
 			glVertex2f(0, 0);
 
 			glTexCoord2f((float) widthCount, (float) heightCount);
@@ -177,22 +181,21 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 		}
 		glEnd();
-		
 
-		glColor3f((float)Knightmare.mainColor.getRed()/255, (float)Knightmare.mainColor.getGreen()/255, (float)Knightmare.mainColor.getBlue()/255);
+		glColor3f((float) Knightmare.mainColor.getRed() / 255, (float) Knightmare.mainColor.getGreen() / 255, (float) Knightmare.mainColor.getBlue() / 255);
 		// restore the model view matrix to prevent contamination
 		glPopMatrix();
-		
+
 	}
 
-	public void moveX(double x){
-		position.setX(position.getX()+x);
+	public void moveX(double x) {
+		position.setX(position.getX() + x);
 	}
-	
-	public void moveY(double y){
-		position.setY(position.getY()+y);
+
+	public void moveY(double y) {
+		position.setY(position.getY() + y);
 	}
-	
+
 	public void setHeightCount(double heightCount) {
 		this.heightCount = heightCount;
 	}
@@ -232,12 +235,12 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	public String getTextureName() {
 		return textureName;
 	}
-	
-	public Color getColor(){
+
+	public Color getColor() {
 		return color;
 	}
-	
-	public void setColor(Color color){
+
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

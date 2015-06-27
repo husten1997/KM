@@ -21,21 +21,21 @@ import java.awt.Font;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
-public class TextObject extends RectangleGraphicalObject{
+public class TextObject extends RectangleGraphicalObject {
 
 	private Color color;
 	private Font font;
-	
+
 	public TextObject(Pos position, int width, int height, String text, Color color, Font font) {
 		super(position, width, height, text, false);
 		this.color = color;
 		this.font = font;
 	}
-	
-	public void initRender(){
+
+	public void initRender() {
 		texture = Texturloader.createStringTexture(textureName, width, height, color, font);
 	}
-	
+
 	@Override
 	public void draw() {
 		// store the current model matrix
@@ -44,7 +44,7 @@ public class TextObject extends RectangleGraphicalObject{
 		texture.bind();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
-		glRotatef(90 * rotation, 0f, 0f, 1f);
+		glRotatef(45 * rotation, 0f, 0f, 1f);
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);

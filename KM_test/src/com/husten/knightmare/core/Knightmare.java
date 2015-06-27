@@ -80,16 +80,16 @@ public class Knightmare extends Widget implements StringConstants {
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
-	
-	//UI Var
-	private GUI gui;
+
+	// UI Var
+//	private GUI gui;
 	private LWJGLRenderer renderer;
 	private Button button;
 	private ThemeManager themeManager;
 	private FPSCounter fpsCounter;
-	
+
 	public static Color mainColor = new Color(255, 255, 255);
-	
+
 	private DNCycl DN;
 
 	public Knightmare() {
@@ -125,8 +125,6 @@ public class Knightmare extends Widget implements StringConstants {
 	public void loop() {
 		init();
 
-		
-
 		timer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
@@ -137,19 +135,20 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // | GL11.GL_DEPTH_BUFFER_BIT
-			
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |
+													// GL11.GL_DEPTH_BUFFER_BIT
+
 			pollInputG();
 			grafikCycl();
-			gui.update();
-//			UIUpdate();
-			
-			updateDisplay();			
+//			gui.update();
+			// UIUpdate();
+
+			updateDisplay();
 			updateFPS();
-			
+
 		}
+//		gui.destroy();
 		Display.destroy();
-		gui.destroy();
 	}
 
 	private void init() {
@@ -214,7 +213,7 @@ public class Knightmare extends Widget implements StringConstants {
 			});
 		}
 		DN = new DNCycl();
-		
+
 	}
 
 	public void tooggleFullscreen() {
@@ -282,7 +281,7 @@ public class Knightmare extends Widget implements StringConstants {
 				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIßEN;
 				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_T){
+				if (Keyboard.getEventKey() == Keyboard.KEY_T) {
 					DN.toggle();
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
@@ -356,7 +355,7 @@ public class Knightmare extends Widget implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-					
+
 				}
 				if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
@@ -379,7 +378,7 @@ public class Knightmare extends Widget implements StringConstants {
 					if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 						CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 					}
-					
+
 				}
 
 			}
@@ -504,7 +503,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			
+
 		} else if (dWheel > 0) {
 			double width = WIDTH * scale;
 			double height = HEIGHT * scale;
@@ -526,7 +525,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			
+
 		}
 
 		if (Mouse.isButtonDown(2)) {
@@ -544,7 +543,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			
+
 		}
 
 		// TODO JJDK
@@ -578,28 +577,28 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			
+
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera links"))) {
 			CameraX -= scrollingSpeed * scale;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			
+
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera unten"))) {
 			CameraY -= scrollingSpeed * scale;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			
+
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera rechts"))) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			
+
 		}
 
 		if (Mouse.getX() < 32) {
@@ -607,28 +606,28 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
-			
+
 		}
 		if (Mouse.getX() > WIDTH - 32) {
 			CameraX += scrollingSpeed * scale;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
-			
+
 		}
 		if (Mouse.getY() < 32) {
 			CameraY -= scrollingSpeed * scale;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
-			
+
 		}
 		if (Mouse.getY() > HEIGHT - 32) {
 			CameraY += scrollingSpeed * scale;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-			
+
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Volume -"))) {
 			MoodMusic.changeVolume(-0.5f);
@@ -646,7 +645,7 @@ public class Knightmare extends Widget implements StringConstants {
 				renderList[e].get(i).draw();
 			}
 		}
-		
+
 	}
 
 	public long getTime() {
@@ -811,16 +810,15 @@ public class Knightmare extends Widget implements StringConstants {
 	public void initDisplay() {
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
-		initUI();
+//		initUI();
 	}
 
 	public void updateDisplay() {
 		if (Vsync)
 			Display.sync(VsyncF);
-		
+
 		Display.update();
-		
-		
+
 	}
 
 	public void grafikCycl() {
@@ -834,8 +832,8 @@ public class Knightmare extends Widget implements StringConstants {
 
 		render();
 	}
-	
-	private void pollInputG(){
+
+	private void pollInputG() {
 		if (screenToSet) {
 			setDisplayMode(WIDTH, HEIGHT, fullscreen);
 			screenToSet = false;
@@ -871,8 +869,8 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}
 	}
-	
-	private void initUI(){
+
+	/*private void initUI() {
 		renderer = null;
 		try {
 			renderer = new LWJGLRenderer();
@@ -880,39 +878,40 @@ public class Knightmare extends Widget implements StringConstants {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		gui = new GUI(this, renderer);
-		
-		try{
+
+		try {
 			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"), renderer);
-		} catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		gui.applyTheme(themeManager);
-		
-		
+
 		button = new Button("HelloWorld!");
 		button.setTheme("button_Test");
+		button.setPosition(100, 100);
+		button.setSize(100, 33);
+		button.setText(DN.getTimeS());
 		add(button);
-		
-		
-		
+
 	}
-	
+
 	@Override
 	protected void layout() {
-		 button.setPosition(100, 100);
-		 button.setSize(100, 33);
-		 button.setText(DN.getTimeS());
-		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
-//		super.layout();
+		button.setPosition(100, 100);
+		button.setSize(100, 33);
+		button.setText(DN.getTimeS());
+		// button.adjustSize(); //Calculate optimal size instead of manually
+		// setting it
+		// super.layout();
 	}
-	
-	private void UIUpdate(){
+
+	private void UIUpdate() {
 		gui.update();
 		gui.adjustSize();
-//		button.adjustSize();
-	}
+		// button.adjustSize();
+	}*/
 
 }

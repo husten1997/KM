@@ -36,7 +36,7 @@ public class Vektor {
 	public void setEnde(Pos ende) {
 		this.ende = ende;
 	}
-	
+
 	public void setStart(Pos start) {
 		this.start = start;
 	}
@@ -131,6 +131,29 @@ public class Vektor {
 			x = ende.getX() - start.getX();
 			y = ende.getY() - start.getY();
 			m = x / y;
+			if (x > 0) {
+				if (y < 0) {
+					soldat.setRotation(5);
+				} else if (y == 0) {
+					soldat.setRotation(6);
+				} else {
+					soldat.setRotation(7);
+				}
+			} else if (x == 0) {
+				if (y < 0) {
+					soldat.setRotation(4);
+				} else {
+					soldat.setRotation(0);
+				}
+			} else {
+				if (y < 0) {
+					soldat.setRotation(3);
+				} else if (y == 0) {
+					soldat.setRotation(2);
+				} else {
+					soldat.setRotation(1);
+				}
+			}
 		} else {
 			soldat.setPosition(ende);
 			return true;
@@ -141,12 +164,12 @@ public class Vektor {
 	public Pos getEnde() {
 		return ende;
 	}
-	
-	public Pos getStart(){
+
+	public Pos getStart() {
 		return start;
 	}
-	
-	public boolean isAlreadyMoved(){
+
+	public boolean isAlreadyMoved() {
 		return alreadyMoved;
 	}
 
