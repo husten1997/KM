@@ -34,6 +34,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.CursorLoader;
+import org.newdawn.slick.tests.TestUtils;
 
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.DNCycl;
@@ -82,7 +83,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Timer timer = new Timer(true);
 
 	// UI Var
-	// private GUI gui;
+	private GUI gui;
 	private LWJGLRenderer renderer;
 	private Button button;
 	private ThemeManager themeManager;
@@ -132,22 +133,26 @@ public class Knightmare extends Widget implements StringConstants {
 				pollInput();
 				calc();
 				DN.calc(6);
+				
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
+			
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |
 													// GL11.GL_DEPTH_BUFFER_BIT
-
+			
 			pollInputG();
 			grafikCycl();
-			// gui.update();
+			gui.update();
+			
 			// UIUpdate();
-
+			
 			updateDisplay();
+			
 			updateFPS();
 
 		}
-		// gui.destroy();
+		gui.destroy();
 		Display.destroy();
 	}
 
@@ -259,6 +264,7 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void pollInput() {
+		System.out.println(Mouse.getX());
 		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
 			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
 			tooggleFullscreen();
@@ -645,6 +651,7 @@ public class Knightmare extends Widget implements StringConstants {
 				renderList[e].get(i).draw();
 			}
 		}
+		
 
 	}
 
@@ -810,7 +817,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public void initDisplay() {
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
-		// initUI();
+		initUI();
 	}
 
 	public void updateDisplay() {
@@ -822,6 +829,7 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	public void grafikCycl() {
+		
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, WIDTH * scale, 0, HEIGHT * scale, 3, -1);
@@ -829,8 +837,8 @@ public class Knightmare extends Widget implements StringConstants {
 		glMatrixMode(GL_MODELVIEW);
 
 		glLoadIdentity();
-
 		render();
+		
 	}
 
 	private void pollInputG() {
@@ -870,32 +878,36 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 	}
 
-	/*
-	 * private void initUI() { renderer = null; try { renderer = new
-	 * LWJGLRenderer(); } catch (LWJGLException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); }
-	 * 
-	 * gui = new GUI(this, renderer);
-	 * 
-	 * try { themeManager =
-	 * ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"),
-	 * renderer); } catch (IOException e) { e.printStackTrace(); }
-	 * 
-	 * gui.applyTheme(themeManager);
-	 * 
-	 * button = new Button("HelloWorld!"); button.setTheme("button_Test");
-	 * button.setPosition(100, 100); button.setSize(100, 33);
-	 * button.setText(DN.getTimeS()); add(button);
-	 * 
-	 * }
-	 * 
-	 * @Override protected void layout() { button.setPosition(100, 100);
-	 * button.setSize(100, 33); button.setText(DN.getTimeS()); //
-	 * button.adjustSize(); //Calculate optimal size instead of manually //
-	 * setting it // super.layout(); }
-	 * 
-	 * private void UIUpdate() { gui.update(); gui.adjustSize(); //
-	 * button.adjustSize(); }
-	 */
+	private void initUI(){
+		renderer = null;
+		try {
+			renderer = new LWJGLRenderer();
+		} catch (LWJGLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		gui = new GUI(this, renderer);
+		
+		try{
+			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"), renderer);
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+
+		gui.applyTheme(themeManager);
+		
+		button = new Button("HelloWorld!");
+		button.setTheme("button_Test");
+		add(button);
+	}
+	
+	@Override
+	protected void layout() {
+		 button.setPosition(100, 100);
+		 button.setSize(100, 33);
+		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
+//		super.layout();
+	}
 
 }
