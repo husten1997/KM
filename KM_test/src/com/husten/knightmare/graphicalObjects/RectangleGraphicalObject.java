@@ -25,7 +25,7 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width = 0, height = 0, rotation = 4, id;
+	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
 
@@ -130,8 +130,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 			heightCount = height / texture.getImageHeight();
 		}
 		if (randomRotation) {
-			rotation = WorldGenerator.prand.nextInt(4) + 1;
-			rotation *= 2;
+			t_rotation = WorldGenerator.prand.nextInt(4) + 1;
 		}
 	}
 
@@ -151,10 +150,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
 
-		glRotatef(45 * rotation, 0f, 0f, 1f);
+		glRotatef(90 * t_rotation, 0f, 0f, 1f);
 		glMatrixMode(GL_MODELVIEW);
 		// translate to the right location and prepare to draw
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
+		glRotatef(m_rotation, 0f, 0f, 1f);
 
 		// draw a quad textured to match the sprite
 
@@ -235,6 +235,14 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public int getMrotation(){
+		return m_rotation;
+	}
+	
+	public void setMRotation(int m_rotation){
+		this.m_rotation = m_rotation;
 	}
 
 }
