@@ -264,7 +264,6 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void pollInput() {
-		System.out.println(Mouse.getX());
 		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
 			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
 			tooggleFullscreen();
