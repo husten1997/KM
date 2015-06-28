@@ -149,19 +149,31 @@ public class Knightmare extends Widget implements StringConstants {
 			grafikCycl();
 			
 			
-			
-			
-			
-			// UIUpdate();
-			
-			
+			gui.setSize();
+			gui.updateTime();
+
 			try{
 				pollInput();
 			} catch(Exception e){
 				e.printStackTrace();
 			}
 			pollInputG();
-			gui.update();
+			
+			gui.handleKeyRepeat();
+			gui.handleTooltips();
+			gui.updateTimers();
+			gui.invokeRunables();
+			gui.validateLayout();
+			gui.draw();
+			gui.setCursor();
+			
+			
+			// UIUpdate();
+
+			
+			
+//			gui.update();
+			
 			
 			updateDisplay();
 			
@@ -292,6 +304,7 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
+			guiPollInput();
 			if (Keyboard.getEventKeyState()) {
 
 				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
@@ -412,7 +425,8 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		// Mosue-------------------------------------------------------------------------------------------------------
 		while (Mouse.next()) {
-			System.out.println();
+			guiPollInput();
+			
 			if (Mouse.getEventButtonState()) {
 				//Linksklick
 				if (Mouse.getEventButton() == 0) {
@@ -988,6 +1002,29 @@ public class Knightmare extends Widget implements StringConstants {
 		});
 		
 		
+	}
+	
+	public void guiUpdate(){
+		gui.setSize();
+		gui.updateTime();
+//		gui.handleInput();
+		gui.handleKeyRepeat();
+		gui.handleTooltips();
+		gui.updateTimers();
+		gui.invokeRunables();
+		gui.validateLayout();
+		gui.draw();
+		gui.setCursor();
+	}
+	
+	public void guiPollInput(){
+		gui.handleKey(Keyboard.getEventKey(), Keyboard.getEventCharacter(), Keyboard.getEventKeyState());
+		gui.handleMouse(Mouse.getEventX(), gui.getHeight() - Mouse.getEventY() - 1, Mouse.getEventButton(), Mouse.getEventButtonState());
+		
+		int wheelDelta = Mouse.getEventDWheel();
+	    if(wheelDelta != 0) {
+	    	gui.handleMouseWheel(wheelDelta);
+	    }
 	}
 
 }
