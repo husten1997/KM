@@ -34,8 +34,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.CursorLoader;
-import org.newdawn.slick.tests.TestUtils;
-
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.DNCycl;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
@@ -57,7 +55,6 @@ import com.richard.knightmare.util.Texturloader;
 import de.matthiasmann.twl.Button;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
-import de.matthiasmann.twl.InputMap;
 import de.matthiasmann.twl.Widget;
 import de.matthiasmann.twl.input.lwjgl.LWJGLInput;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
@@ -135,7 +132,7 @@ public class Knightmare extends Widget implements StringConstants {
 			@Override
 			public void run() {
 				calc();
-				DN.calc(1);
+				DN.calc(6);
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {

@@ -23,7 +23,7 @@ public class Rekrutieren {
 
 	public static Soldat Bogenschuetze(int posx, int posy, int w, int he, String spieler, int team) {
 		Infanterie t = new Infanterie(20, posx, posy, w, he, "Bogenschütze.png");
-		init_Array(5, 25, 0, 4, 7, 1);
+		init_Array(3, 25, 0, 4, 7, 1);
 		t.init(ang, ver, 12, "Bogenschütze", 73, 20, 15, 25, 50, false);
 		t.setTyp(1);
 		t.setTeam(team);

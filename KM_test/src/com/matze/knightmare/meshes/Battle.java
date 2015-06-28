@@ -22,7 +22,7 @@ public class Battle {
 		
 		for (int i = 50; i < 100; i++){
 			a1[i] = Rekrutieren.Bogenschuetze(0, 0, 0, 0, "Spieler 1", 0);
-			a2[i] = Rekrutieren.Hoplit(0, 0, 0, 0, "Spieler 2", 0);
+			a2[i] = Rekrutieren.Bogenschuetze(0, 0, 0, 0, "Spieler 2", 0);
 		}
 		
 		for (int i = 0; i < 100; i++){
@@ -33,43 +33,42 @@ public class Battle {
 
 	}
 	
-	public static Soldat kampf(Soldat a, Soldat b, int modus){
+	public static Soldat kampf(Soldat b, Soldat a, int modus){
 		Soldat winner = new Soldat(0,new Pos(3,3),0,0,"this");
 		winner.setName("Tie");
+		boolean tie = true;
 		
 		while (a.health > 0 && b.health > 0) {
 			if (b.getEffektivString().contains(a.getTypString())) {
-				if (b.angriff[modus] + b.bonusAng - a.verteidigung[modus] > 0) {
-					a.health -= b.angriff[modus] + a.bonusAng
-							- a.verteidigung[modus];
-					if (a.health <= 0) {
-						winner = b;
-					}
+				tie = false;
+				a.health -= (int) (((b.angriff[modus] + b.bonusAng) / a.verteidigung[modus])+1);
+				if (a.health <= 0) {
+					winner = b;
 				}
 			} else {
-				if (b.angriff[modus] - a.verteidigung[modus] > 0) {
-					a.health -= b.angriff[modus] - a.verteidigung[modus];
-					if (a.health <= 0) {
-						winner = b;
-					}
+				tie = false;
+				a.health -= (int) ((b.angriff[modus] / a.verteidigung[modus])+1);
+				if (a.health <= 0) {
+					winner = b;
 				}
 			}
 			
 			if (a.getEffektivString().contains(b.getTypString())) {
-				if (a.angriff[modus] + a.bonusAng - b.verteidigung[modus] > 0) {
-					b.health -= a.angriff[modus] + a.bonusAng
-							- b.verteidigung[modus];
-					if (b.health <= 0) {
-						winner = a;
-					}
+				tie = false;
+				b.health -= (int) (((a.angriff[modus] + a.bonusAng) / b.verteidigung[modus])+1);
+				if (b.health <= 0) {
+					winner = a;
 				}
 			} else {
-				if (b.angriff[modus] - a.verteidigung[modus] > 0) {
-					b.health -= a.angriff[modus] - b.verteidigung[modus];
-					if (b.health <= 0) {
-						winner = a;
-					}
+				tie  = false;
+				b.health -= (int) ((a.angriff[modus] / b.verteidigung[modus])+1);
+				if (b.health <= 0) {
+					winner = a;
 				}
+			}
+			
+			if (!tie){
+				break;
 			}
 			
 		}
