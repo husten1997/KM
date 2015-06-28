@@ -126,5 +126,49 @@ public class Soldat extends RectangleGraphicalObject {
 		return geschwindigkeit;
 	}
 
+	public int[] getAngriff() {
+		return angriff;
+	}
+
+	public int[] getVerteidigung() {
+		return verteidigung;
+	}
+
+	public int getBonusAng() {
+		return bonusAng;
+	}
+
+	public int getReichweite() {
+		return reichweite;
+	}
+
+	public int getGrundmoral() {
+		return grundmoral;
+	}
+
+	public int getAusdauer() {
+		return ausdauer;
+	}
+
+	public int getGeschwindigkeit() {
+		return geschwindigkeit;
+	}
+
+	public int getKosten() {
+		return kosten;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Ausruestung[] getAusruestung() {
+		return ausruestung;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
 
 }

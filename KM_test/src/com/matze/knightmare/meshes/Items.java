@@ -7,4 +7,8 @@ public class Items {
 	public Items (int iD){
 		id = iD;
 	}
+	
+	public int getID(){
+		return id;
+	}
 }
