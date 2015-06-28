@@ -2,7 +2,7 @@ package com.matze.knightmare.meshes;
 
 import java.awt.image.BufferedImage;
 
-public class Waren {
+public class Waren{
 
 	private int amount;
 	private String typ;
