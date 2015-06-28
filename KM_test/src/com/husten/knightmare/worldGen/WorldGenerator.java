@@ -211,7 +211,7 @@ public class WorldGenerator implements StringConstants {
 		}
 	}
 
-	public void init(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti, Generator generator) {
+	public void init(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti) {
 		this.smoothS = smoothS;
 		this.lW = lW;
 		this.lS = lS;
@@ -222,7 +222,6 @@ public class WorldGenerator implements StringConstants {
 		this.routh = routh;
 		this.fallof = fallof;
 		this.hMulti = hMulti;
-		this.generator = generator;
 	}
 
 	public double getLW(){
