@@ -122,6 +122,11 @@ public class Speicherer {
 								Building building = (Building) world[x][y];
 								currentWriter.write("building");
 								currentWriter.newLine();
+								
+								currentWriter.write(building.getBenötigt().length);
+								currentWriter.newLine();
+								
+								
 							} catch (IOException e) {
 								return false;
 							}
