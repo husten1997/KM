@@ -65,6 +65,8 @@ public class Speicherer {
 						try {
 							BufferedWriter currentWriter = new BufferedWriter(new FileWriter(currentFile));
 							Soldat soldat = (Soldat) world[x][y];
+							currentWriter.write("soldat");
+							currentWriter.newLine();
 							int[] angriff = soldat.getAngriff();
 							for(int i = 0; i< angriff.length; i++){
 								currentWriter.write(angriff[i]);
@@ -114,6 +116,8 @@ public class Speicherer {
 							try {
 								BufferedWriter currentWriter = new BufferedWriter(new FileWriter(currentFile));
 								Building building = (Building) world[x][y];
+								currentWriter.write("building");
+								currentWriter.newLine();
 							} catch (IOException e) {
 								return false;
 							}
