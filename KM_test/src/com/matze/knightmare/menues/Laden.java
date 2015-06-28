@@ -32,7 +32,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	private JButton zurück;
 	private String[] data;
 	private File[] removeAble;
-	private String defaultText[] = { "Keine Speicherstände vorhanden. Neues Spiel?" };
+	private String defaultText[] = { "Keine Speicherstände vorhanden.", "Neues Spiel?" };
 	private JButton löschen;
 	private boolean speichVorhanden;
 
@@ -225,10 +225,11 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 		list.addKeyListener(this);
 		list.addListSelectionListener(this);
+		list.setSelectedIndex(1);
 	}
 
 	private void performAction(int x) {
-		if (!speichVorhanden) {
+		if (speichVorhanden == false) {
 			MainMenue.instance.dispose();
 			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
@@ -252,10 +253,8 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
 		Object q = arg0.getSource();
-
 		if (q == list) {
 			list.addMouseListener(new MouseListener() {
-
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {

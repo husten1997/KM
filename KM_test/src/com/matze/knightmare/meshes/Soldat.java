@@ -57,9 +57,40 @@ public class Soldat extends RectangleGraphicalObject {
 	public int getTyp() {
 		return typ;
 	}
+	
+	public String getTypString() {
+		return typ+"";
+	}
+	
+	public void setTyp(int i){
+		typ = i;
+	}
 
-	public int getEffektiv() {
-		return effektiv;
+	public String getEffektivString() {
+		effektiv = 0;
+		switch (typ){
+			case 0: {
+				effektiv = 321;
+				break;
+			}
+			case 1:{
+				effektiv = 0;
+				break;
+			}
+			case 2: {
+				effektiv = 310;
+				break;
+			}
+			case 3:{
+				effektiv = 10;
+				break;
+			}
+			case 4: {
+				effektiv = 3210;
+				break;
+			}
+		}
+		return effektiv+"";
 	}
 
 	public int ausdauerBerechnen(int a, int einheitenFreundlich, int einheitenFeindlich) { // int
@@ -160,6 +191,10 @@ public class Soldat extends RectangleGraphicalObject {
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String n) {
+		name = n;
 	}
 
 	public Ausruestung[] getAusruestung() {

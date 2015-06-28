@@ -91,7 +91,7 @@ public class Speicherer {
 							currentWriter.newLine();
 							currentWriter.write(soldat.getName());
 							currentWriter.newLine();
-							currentWriter.write(soldat.getEffektiv());
+							currentWriter.write(soldat.getEffektivString());
 							currentWriter.newLine();
 							currentWriter.write(soldat.getTyp());
 							currentWriter.newLine();
