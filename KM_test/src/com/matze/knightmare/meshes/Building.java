@@ -3,7 +3,11 @@ package com.matze.knightmare.meshes;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
-public class Building extends RectangleGraphicalObject {	
+public class Building extends RectangleGraphicalObject {
+	
+	private int team;
+	private String spieler;
+	
 	private int health;
 	private int ProduktionproMinute;
 	private int angriff, reichweite;
@@ -137,6 +141,22 @@ public class Building extends RectangleGraphicalObject {
 	
 	public int getMaxKagerKap(){
 		return maxLagerKapazität;
+	}
+
+	public int getTeam() {
+		return team;
+	}
+
+	public void setTeam(int team) {
+		this.team = team;
+	}
+
+	public String getSpieler() {
+		return spieler;
+	}
+
+	public void setSpieler(String spieler) {
+		this.spieler = spieler;
 	}
 
 

@@ -11,18 +11,18 @@ public class Battle {
 		
 		
 		for (int i = 0; i < 10; i++){
-			a1[i] = Rekrutieren.Baliste(0, 0, 0, 0);
-			a2[i] = Rekrutieren.Armbrustschuetze(0, 0, 0, 0);
+			a1[i] = Rekrutieren.Baliste(0, 0, 0, 0, "Spieler 1", 0);
+			a2[i] = Rekrutieren.Armbrustschuetze(0, 0, 0, 0, "Spieler 2", 0);
 		}
 		
 		for (int i = 10; i < 50; i++){
-			a2[i] = Rekrutieren.Abgesessener_Ritter(0, 0, 0, 0);
-			a1[i] = Rekrutieren.Leichter_Lanz_Reiter(0, 0, 0, 0);
+			a2[i] = Rekrutieren.Abgesessener_Ritter(0, 0, 0, 0, "Spieler 1", 0);
+			a1[i] = Rekrutieren.Leichter_Lanz_Reiter(0, 0, 0, 0, "Spieler 2", 0);
 		}
 		
 		for (int i = 50; i < 100; i++){
-			a1[i] = Rekrutieren.Bogenschuetze(0, 0, 0, 0);
-			a2[i] = Rekrutieren.Hoplit(0, 0, 0, 0);
+			a1[i] = Rekrutieren.Bogenschuetze(0, 0, 0, 0, "Spieler 1", 0);
+			a2[i] = Rekrutieren.Hoplit(0, 0, 0, 0, "Spieler 2", 0);
 		}
 		
 		for (int i = 0; i < 100; i++){

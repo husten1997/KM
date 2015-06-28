@@ -10,14 +10,16 @@ public class Bauen {
 	private static int amountBenötigt[];
 	private static Waren benötigt[];
 	
-	public static Building KohleMine(Pos p, int w, int h){
+	public static Building KohleMine(Pos p, int w, int h, String spieler, int team){
 		Building b = new Building(p, w, h, ".png");
 		amountBenötigt = new int[1];
 		b.init(50, 20, 0, 0, "Kohlemine", null, amountBenötigt, Rohstoffe.Kohle(), 25);
+		b.setTeam(team);
+		b.setSpieler(spieler);
 		return b;
 	}
 	
-	public static Building EisenMine(Pos p, int w, int h){
+	public static Building EisenMine(Pos p, int w, int h, String spieler, int team){
 		Building b = new Building(p, w, h, "Eisenerz 1.png");
 		
 		int am = 1;
@@ -27,6 +29,9 @@ public class Bauen {
 		
 		benötigt[0] = Rohstoffe.Kohle();
 		amountBenötigt[0] = 1;
+		
+		b.setTeam(team);
+		b.setSpieler(spieler);
 		
 		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 100);
 		
@@ -47,8 +52,11 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Lager(Pos p, int w, int h){
+	public static Building Lager(Pos p, int w, int h, String spieler, int team){
 		Building b = new Building(p, w, h, "Eisenerz 1.png");
+		
+		b.setTeam(team);
+		b.setSpieler(spieler);
 		
 //		int am = 1;
 //		
