@@ -57,7 +57,9 @@ import com.richard.knightmare.util.Texturloader;
 import de.matthiasmann.twl.Button;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
+import de.matthiasmann.twl.InputMap;
 import de.matthiasmann.twl.Widget;
+import de.matthiasmann.twl.input.lwjgl.LWJGLInput;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
 import de.matthiasmann.twl.theme.ThemeManager;
 
@@ -90,6 +92,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button b_NBuilding;
 	private ThemeManager themeManager;
 	private FPSCounter fpsCounter;
+	private LWJGLInput input = new LWJGLInput();
 
 	public static Color mainColor = new Color(255, 255, 255);
 
@@ -132,12 +135,8 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				Display.processMessages();
-				try{
-					pollInput();
-				} catch(Exception e){
-					
-				}
+				
+				
 				
 				calc();
 				DN.calc(1);
@@ -147,17 +146,28 @@ public class Knightmare extends Widget implements StringConstants {
 		while (!Display.isCloseRequested() && running) {
 			
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |GL11.GL_DEPTH_BUFFER_BIT
-			
-			pollInputG();
-			
 			grafikCycl();
 			
-			gui.update();
+			
+			
+			
 			
 			// UIUpdate();
 			
 			
+			try{
+				pollInput();
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+			pollInputG();
+			gui.update();
+			
 			updateDisplay();
+			
+			
+//            GL11.glGetError();          // this call will burn the time between vsyncs
+//            Display.processMessages();  // process new native messages since Display.update();
 			
 			updateFPS();
 
@@ -274,8 +284,8 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void pollInput() throws Exception {
-		Mouse.poll();
-		Keyboard.poll();
+//		Mouse.poll();
+//		Keyboard.poll();
 		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
 			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
 			tooggleFullscreen();
@@ -402,8 +412,12 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		// Mosue-------------------------------------------------------------------------------------------------------
 		while (Mouse.next()) {
+			System.out.println();
 			if (Mouse.getEventButtonState()) {
+				//Linksklick
 				if (Mouse.getEventButton() == 0) {
+
+					
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
@@ -853,8 +867,8 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void pollInputG() {
-		Mouse.poll();
-		Keyboard.poll();
+//		Mouse.poll();
+//		Keyboard.poll();
 		if (screenToSet) {
 			setDisplayMode(WIDTH, HEIGHT, fullscreen);
 			screenToSet = false;
