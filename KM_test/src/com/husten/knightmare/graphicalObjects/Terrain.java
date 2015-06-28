@@ -32,6 +32,7 @@ public class Terrain extends GraphicalObject{
 
 	@Override
 	public void draw() {
+		waterPlane.draw();
 		int sp_x = (int) (Knightmare.CameraX / 32);
 		int sp_y = (int) (Knightmare.CameraY / 32);
 		if(sp_x - renderD >= 0){
@@ -42,7 +43,7 @@ public class Terrain extends GraphicalObject{
 		}
 		int ep_x = (int) ((Knightmare.CameraX + Knightmare.WIDTH * Knightmare.scale) / 32 + renderD);
 		int ep_y = (int) ((Knightmare.CameraY + Knightmare.HEIGHT * Knightmare.scale) / 32 + renderD);
-		waterPlane.draw();
+		
 		for (int x1 = sp_x; x1 < ep_x; x1++) {
 			for (int y1 = sp_y; y1 < ep_y; y1++) {
 				try{

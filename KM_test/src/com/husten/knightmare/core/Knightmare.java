@@ -130,6 +130,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
+				Display.processMessages();
 				try{
 					pollInput();
 				} catch(Exception e){
@@ -137,22 +138,22 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 				
 				calc();
-				DN.calc(6);
+				DN.calc(1);
 				
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
 			
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |
-													// GL11.GL_DEPTH_BUFFER_BIT
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |GL11.GL_DEPTH_BUFFER_BIT
 			
 			pollInputG();
-			Display.processMessages();
+			
 			grafikCycl();
 			
 			gui.update();
 			
 			// UIUpdate();
+			
 			
 			updateDisplay();
 			
