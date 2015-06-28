@@ -73,6 +73,10 @@
 			<param name="minHeight"><int>10</int></param>
 			<param name="minWidth"><int>10</int></param>
 		</theme>
+		
+		<theme name="label" ref="-defaults" allowWildcard="true">
+		
+   		</theme>
 	</theme>
 	
 	

@@ -34,6 +34,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.CursorLoader;
+
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.DNCycl;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
@@ -55,6 +56,7 @@ import com.richard.knightmare.util.Texturloader;
 import de.matthiasmann.twl.Button;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
+import de.matthiasmann.twl.Label;
 import de.matthiasmann.twl.Widget;
 import de.matthiasmann.twl.input.lwjgl.LWJGLInput;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
@@ -89,7 +91,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button b_NBuilding;
 	private ThemeManager themeManager;
 	private FPSCounter fpsCounter;
-	private LWJGLInput input = new LWJGLInput();
+	private Label l_fps;
 
 	public static Color mainColor = new Color(255, 255, 255);
 
@@ -683,6 +685,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Display.setTitle("FPS: " + fps);
+			l_fps.setText("FPS "+fps);
 			FPS = fps;
 			fps = 0;
 			lastFPS += 1000;
@@ -928,6 +931,9 @@ public class Knightmare extends Widget implements StringConstants {
 		 b_TSelect.setPosition(100, 200);
 		 b_TSelect.setSize(100, 33);
 		 
+		 l_fps.setPosition(100, 10);
+		 l_fps.setSize(20, 40);
+		 
 		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
 		super.layout();
 	}
@@ -974,6 +980,10 @@ public class Knightmare extends Widget implements StringConstants {
 				
 			}
 		});
+		
+		l_fps = new Label("");
+		l_fps.setTheme("label");
+		add(l_fps);
 		
 		
 	}
