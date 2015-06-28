@@ -850,7 +850,7 @@ public class Knightmare extends Widget implements StringConstants {
 			pending.remove(0);
 			pendingEbenen.remove(0);
 		}
-		if (inGameStat.equals(state.ABREIßEN)) {
+		/*if (inGameStat.equals(state.ABREIßEN)) {
 			if (!delete.equals(Mouse.getNativeCursor())) {
 				try {
 					Mouse.setNativeCursor(delete);
@@ -874,7 +874,7 @@ public class Knightmare extends Widget implements StringConstants {
 					e.printStackTrace();
 				}
 			}
-		}
+		}*/
 	}
 
 	private void initUI(){

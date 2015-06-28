@@ -11,6 +11,7 @@ import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.matze.knightmare.meshes.Ausruestung;
+import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 
 public class Speicherer {
@@ -109,7 +110,14 @@ public class Speicherer {
 							return false;
 						}
 					}else{
-						
+						if((int) world[x][y].getPosition().getX()/32 == x && (int) world[x][y].getPosition().getY()/32 == y){
+							try {
+								BufferedWriter currentWriter = new BufferedWriter(new FileWriter(currentFile));
+								Building building = (Building) world[x][y];
+							} catch (IOException e) {
+								return false;
+							}
+						}
 					}
 				}
 			}
