@@ -9,7 +9,7 @@ import com.husten.knightmare.graphicalObjects.TerrainElement;
 import com.husten.knightmare.graphicalObjects.TerrainRes;
 
 public class WorldGenerator implements StringConstants {
-
+	
 	private TerrainElement World[][];
 
 	private int x, y, smoothS = 71;
@@ -19,15 +19,11 @@ public class WorldGenerator implements StringConstants {
 	private double wE = 0.07;
 	private double wK = 0.12;
 	
-	public double getLW(){
-		return lW;
-	}
-
 	private float max, min, dif;
 
 	private float[][] hm;
 
-	private float routh = 0.6f, fallof = 0.8f, c = 2f;
+	private float routh = 0.6f, fallof = 0.8f, hMulti = 2f;
 
 	public static int seed = 1005464490;
 	private Random rand;
@@ -46,6 +42,8 @@ public class WorldGenerator implements StringConstants {
 		gen();
 		return World;
 	}
+	
+	
 
 	/**
 	 * Die auskomentierten Variablen sind mit absicht drinnen da man mithilfe
@@ -53,7 +51,7 @@ public class WorldGenerator implements StringConstants {
 	 */
 	public void gen() {
 		rand = new Random(seed);
-		generator = new RandomGenerator(rand, c, -1);
+		generator = new RandomGenerator(rand, hMulti, -1);
 		long Zvor = System.currentTimeMillis();
 		genHM(seed, routh);
 		set();
@@ -211,6 +209,72 @@ public class WorldGenerator implements StringConstants {
 				}
 			}
 		}
+	}
+
+	public void init(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti, Generator generator) {
+		this.smoothS = smoothS;
+		this.lW = lW;
+		this.lS = lS;
+		this.lG = lG;
+		this.lR = lR;
+		this.wE = wE;
+		this.wK = wK;
+		this.routh = routh;
+		this.fallof = fallof;
+		this.hMulti = hMulti;
+		this.generator = generator;
+	}
+
+	public double getLW(){
+		return lW;
+	}
+
+	public int getSmoothS() {
+		return smoothS;
+	}
+
+	public double getlW() {
+		return lW;
+	}
+
+	public double getlS() {
+		return lS;
+	}
+
+	public double getlG() {
+		return lG;
+	}
+
+	public double getlR() {
+		return lR;
+	}
+
+	public double getwE() {
+		return wE;
+	}
+
+	public double getwK() {
+		return wK;
+	}
+
+	public float getRouth() {
+		return routh;
+	}
+
+	public float getFallof() {
+		return fallof;
+	}
+
+	public float gethMulti() {
+		return hMulti;
+	}
+
+	public static int getSeed() {
+		return seed;
+	}
+
+	public Generator getGenerator() {
+		return generator;
 	}
 	
 	
