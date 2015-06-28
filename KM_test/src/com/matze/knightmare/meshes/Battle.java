@@ -27,7 +27,7 @@ public class Battle {
 		
 		for (int i = 0; i < 100; i++){
 			System.out.println(a1[i].name + " vs " + a2[i].name);
-			System.out.println(kampf(a1[i], a2[i], 0).name);
+			System.out.println(kampf(a1[i], a2[i], 0).getSpieler());
 		}
 
 
