@@ -2,13 +2,14 @@ package com.matze.knightmare.meshes;
 
 import java.awt.image.BufferedImage;
 
-public class Waren{
+public class Waren extends Items{
 
 	private int amount;
 	private String typ;
 	private String textur;
 	
-	public Waren(int am, String typ, String t){
+	public Waren(int id, int am, String typ, String t){
+		super(id);
 		amount = am;
 		this.typ = typ;
 		textur = t;
