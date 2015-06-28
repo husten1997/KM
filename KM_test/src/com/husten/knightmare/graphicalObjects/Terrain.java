@@ -9,6 +9,13 @@ public class Terrain extends GraphicalObject{
 	private TerrainElement waterPlane, elements[][];
 	private int width, height;
 	
+	/**
+	 * @var Variable für Render distance (wie viele felder preloded werden)
+	 * 		Jeh höher der wert desto schlechter die Performance
+	 */
+	private int renderD = 4;
+	
+	
 	public Terrain(int width, int height) {
 		super(new Pos(0,0), MeshType.GROUND);
 		this.width = width;
@@ -19,13 +26,25 @@ public class Terrain extends GraphicalObject{
 		elements = WG.worldGen();
 		waterPlane = new TerrainElement(position,(float) WG.getLW(), width*32, height*32, "water.png", Material_t.WATER);
 		waterPlane.setStrached(false);
+		
+		
 	}
 
 	@Override
 	public void draw() {
+		int sp_x = (int) (Knightmare.CameraX / 32);
+		int sp_y = (int) (Knightmare.CameraY / 32);
+		if(sp_x - renderD >= 0){
+			sp_x -= renderD;
+		}
+		if(sp_y -renderD >= 0){
+			sp_y -= renderD;
+		}
+		int ep_x = (int) ((Knightmare.CameraX + Knightmare.WIDTH * Knightmare.scale) / 32 + renderD);
+		int ep_y = (int) ((Knightmare.CameraY + Knightmare.HEIGHT * Knightmare.scale) / 32 + renderD);
 		waterPlane.draw();
-		for (int x1 = (int) (Knightmare.CameraX / 32); x1 < (int) ((Knightmare.CameraX + Knightmare.WIDTH * Knightmare.scale) / 32 + 4); x1++) {
-			for (int y1 = (int) (Knightmare.CameraY / 32); y1 < (int) ((Knightmare.CameraY + Knightmare.HEIGHT * Knightmare.scale) / 32 + 4); y1++) {
+		for (int x1 = sp_x; x1 < ep_x; x1++) {
+			for (int y1 = sp_y; y1 < ep_y; y1++) {
 				try{
 					if(elements[x1][y1]!=null){
 						elements[x1][y1].draw();
