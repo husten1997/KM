@@ -132,15 +132,10 @@ public class Knightmare extends Widget implements StringConstants {
 		init();
 
 		timer.scheduleAtFixedRate(new TimerTask() {
-
 			@Override
 			public void run() {
-				
-				
-				
 				calc();
 				DN.calc(1);
-				
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
@@ -148,39 +143,9 @@ public class Knightmare extends Widget implements StringConstants {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |GL11.GL_DEPTH_BUFFER_BIT
 			grafikCycl();
 			
-			
-			gui.setSize();
-			gui.updateTime();
-
-			try{
-				pollInput();
-			} catch(Exception e){
-				e.printStackTrace();
-			}
-			pollInputG();
-			
-			gui.handleKeyRepeat();
-			gui.handleTooltips();
-			gui.updateTimers();
-			gui.invokeRunables();
-			gui.validateLayout();
-			gui.draw();
-			gui.setCursor();
-			
-			
-			// UIUpdate();
-
-			
-			
-//			gui.update();
-			
+			handlInput();
 			
 			updateDisplay();
-			
-			
-//            GL11.glGetError();          // this call will burn the time between vsyncs
-//            Display.processMessages();  // process new native messages since Display.update();
-			
 			updateFPS();
 
 		}
@@ -1004,10 +969,15 @@ public class Knightmare extends Widget implements StringConstants {
 		
 	}
 	
-	public void guiUpdate(){
+	public void handlInput(){
 		gui.setSize();
 		gui.updateTime();
-//		gui.handleInput();
+		try{
+			pollInput();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		pollInputG();
 		gui.handleKeyRepeat();
 		gui.handleTooltips();
 		gui.updateTimers();
