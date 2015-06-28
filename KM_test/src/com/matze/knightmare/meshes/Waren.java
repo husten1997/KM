@@ -22,12 +22,24 @@ public class Waren{
 		return true;
 	}
 	
-	public boolean substractWare(){
-		if (amount == 0){
+	public boolean substractWare(int abzug){
+		if (amount-abzug < 0){
 			return false;
 		}
-		amount--;
+		amount -= abzug;
 		return true;
+	}
+	
+	public int getAmount(){
+		return amount;
+	}
+	
+	public void setAmount(int am){
+		amount = am;
+	}
+	
+	public String getTextur(){
+		return textur;
 	}
 	
 }

@@ -25,11 +25,11 @@ public class Building extends RectangleGraphicalObject {
 	public void init(int health, int ProduktionproMinute, int angriff,
 			int reichweite, String name, Waren[] benötigt,
 			int[] amountBenötigt, Waren produziert, int maxLagerKap) {
-		this.health = health;
+		this.setHealth(health);
 		this.ProduktionproMinute = ProduktionproMinute;
-		this.angriff = angriff;
-		this.reichweite = reichweite;
-		this.name = name;
+		this.setAngriff(angriff);
+		this.setReichweite(reichweite);
+		this.setName(name);
 
 		this.benötigt = new Waren[benötigt.length];
 		this.amountBenötigt = new int[benötigt.length];
@@ -44,6 +44,12 @@ public class Building extends RectangleGraphicalObject {
 
 	public void WareFertigstellen() {
 		amountProduzierteWare++;
+	}
+	
+	public void setWarenAmount(int i, int kap){
+		for (int b = 0; b < kap; b++){
+			benötigt[i].addWare(maxLagerKapazität);
+		}
 	}
 
 	public int getAmountProduzierterWare() {
@@ -68,10 +74,71 @@ public class Building extends RectangleGraphicalObject {
 		return false;
 
 	}
+	
+	public int getProdperMin(){
+		return ProduktionproMinute;
+	}
 
 	public void changeStats(Ausruestung a) {
 		//int stats = new
 	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public int getAngriff() {
+		return angriff;
+	}
+
+	public void setAngriff(int angriff) {
+		this.angriff = angriff;
+	}
+
+	public int getReichweite() {
+		return reichweite;
+	}
+
+	public void setReichweite(int reichweite) {
+		this.reichweite = reichweite;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Waren[] getBenötigt(){
+		return benötigt;
+	}
+	
+	public int[] getAmountBenötigt(){
+		return amountBenötigt;
+	}
+	
+	public Waren getProduziert(){
+		return produziert;
+	}
+	
+	public int getamountProdzuierteWare(){
+		return amountProduzierteWare;
+	}
+	
+	public Ausruestung[] getVerbesserung(){
+		return verbesserungen;
+	}
+	
+	public int getMaxKagerKap(){
+		return maxLagerKapazität;
+	}
+
 
 
 }
