@@ -130,7 +130,12 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				pollInput();
+				try{
+					pollInput();
+				} catch(Exception e){
+					
+				}
+				
 				calc();
 				DN.calc(6);
 				
@@ -142,7 +147,9 @@ public class Knightmare extends Widget implements StringConstants {
 													// GL11.GL_DEPTH_BUFFER_BIT
 			
 			pollInputG();
+			Display.processMessages();
 			grafikCycl();
+			
 			gui.update();
 			
 			// UIUpdate();
@@ -263,7 +270,9 @@ public class Knightmare extends Widget implements StringConstants {
 		return Keyboard.getKeyIndex(DictionaryE.getFullName(Loader.getCfgValue(k)));
 	}
 
-	private void pollInput() {
+	private void pollInput() throws Exception {
+		Mouse.poll();
+		Keyboard.poll();
 		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
 			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
 			tooggleFullscreen();
@@ -841,6 +850,8 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void pollInputG() {
+		Mouse.poll();
+		Keyboard.poll();
 		if (screenToSet) {
 			setDisplayMode(WIDTH, HEIGHT, fullscreen);
 			screenToSet = false;
