@@ -85,7 +85,9 @@ public class Knightmare extends Widget implements StringConstants {
 	// UI Var
 	private GUI gui;
 	private LWJGLRenderer renderer;
-	private Button button;
+	private Button b_NTrups;
+	private Button b_TSelect;
+	private Button b_NBuilding;
 	private ThemeManager themeManager;
 	private FPSCounter fpsCounter;
 
@@ -908,29 +910,70 @@ public class Knightmare extends Widget implements StringConstants {
 
 		gui.applyTheme(themeManager);
 		
-		button = new Button("Set Trup");
-		button.setTheme("button_Test");
-		add(button);
-		
-		button.addCallback(new Runnable() {
-			
-			@Override
-			public void run() {
-				inGameStat = state.N_TRUPS;
-				System.out.println(state.N_TRUPS);
-				
-			}
-		});
+		GUI();
 		
 		
 	}
 	
 	@Override
 	protected void layout() {
-		 button.setPosition(100, 100);
-		 button.setSize(100, 33);
+		 b_NTrups.setPosition(100, 100);
+		 b_NTrups.setSize(100, 33);
+		 
+		 b_NBuilding.setPosition(100, 150);
+		 b_NBuilding.setSize(100, 33);
+		 
+		 b_TSelect.setPosition(100, 200);
+		 b_TSelect.setSize(100, 33);
+		 
 		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
 		super.layout();
+	}
+	
+	private void GUI(){
+		b_NTrups = new Button("Set Trup");
+		b_NTrups.setTheme("button_Test");
+		add(b_NTrups);
+		
+		b_NTrups.addCallback(new Runnable() {
+			
+			@Override
+			public void run() {
+				inGameStat = state.N_TRUPS;
+				System.out.println(inGameStat);
+				
+			}
+		});
+		
+		b_NBuilding = new Button("New Buildung");
+		b_NBuilding.setTheme("button_Test");
+		add(b_NBuilding);
+		
+		b_NBuilding.addCallback(new Runnable() {
+			
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				System.out.println(inGameStat);
+				
+			}
+		});
+		
+		b_TSelect = new Button("Select");
+		b_TSelect.setTheme("button_Test");
+		add(b_TSelect);
+		
+		b_TSelect.addCallback(new Runnable() {
+			
+			@Override
+			public void run() {
+				inGameStat = state.S_TRUPS;
+				System.out.println(inGameStat);
+				
+			}
+		});
+		
+		
 	}
 
 }
