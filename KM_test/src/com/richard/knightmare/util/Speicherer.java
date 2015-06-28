@@ -108,6 +108,10 @@ public class Speicherer {
 							}
 							currentWriter.write(soldat.getHealth());
 							currentWriter.close();
+							currentWriter.write(soldat.getTeam());
+							currentWriter.close();
+							currentWriter.write(soldat.getSpieler());
+							currentWriter.close();
 						} catch (IOException e) {
 							return false;
 						}

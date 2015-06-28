@@ -318,6 +318,10 @@ public class Knightmare extends Widget implements StringConstants {
 					inGameStat = state.N_TRUPS;
 					System.out.println(inGameStat);
 				}
+				if (Keyboard.getEventKey() == Keyboard.KEY_J) {
+					inGameStat = state.NF_TROOP;
+					System.out.println(inGameStat);
+				}
 				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(-0.5f);
 				}
@@ -417,6 +421,14 @@ public class Knightmare extends Widget implements StringConstants {
 						if (handler.place(s)) {
 							s.setSort(1);
 							pending.add(s);
+							pendingEbenen.add(1);
+						}
+						break;
+					case state.NF_TROOP:
+						Soldat sf = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
+						if (handler.place(sf)) {
+							sf.setSort(1);
+							pending.add(sf);
 							pendingEbenen.add(1);
 						}
 						break;

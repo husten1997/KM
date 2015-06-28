@@ -26,6 +26,7 @@ public interface StringConstants {
 		public static String N_BUILDINGS = "N_BUILDINGS";
 		public static String N_TRUPS = "N_TRUPS";
 		public static String ABREIﬂEN = "Abreiﬂen";
+		public static String NF_TROOP = "NF_TROOP";
 	}
 	
 	public interface names{
