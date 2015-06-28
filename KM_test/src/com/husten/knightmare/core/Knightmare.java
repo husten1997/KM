@@ -908,9 +908,21 @@ public class Knightmare extends Widget implements StringConstants {
 
 		gui.applyTheme(themeManager);
 		
-		button = new Button("HelloWorld!");
+		button = new Button("Set Trup");
 		button.setTheme("button_Test");
 		add(button);
+		
+		button.addCallback(new Runnable() {
+			
+			@Override
+			public void run() {
+				inGameStat = state.N_TRUPS;
+				System.out.println(state.N_TRUPS);
+				
+			}
+		});
+		
+		
 	}
 	
 	@Override
@@ -918,7 +930,7 @@ public class Knightmare extends Widget implements StringConstants {
 		 button.setPosition(100, 100);
 		 button.setSize(100, 33);
 		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
-//		super.layout();
+		super.layout();
 	}
 
 }
