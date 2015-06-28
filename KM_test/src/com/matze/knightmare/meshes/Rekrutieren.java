@@ -212,7 +212,7 @@ public class Rekrutieren {
 
 	public static Soldat Baliste(int posx, int posy, int w, int he, String spieler, int team) {
 		Artillerie t = new Artillerie(45, posx, posy, w, he, "Baliste.png");
-		init_Array(10, 40, 0, 2, 15, 10);
+		init_Array(5, 40, 0, 1, 15, 10);
 		t.init(ang, ver, 10, "Baliste", 380, 30, 80, 10, -10, false);
 		t.setMann(4);
 		t.setTyp(2);

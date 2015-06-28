@@ -34,36 +34,72 @@ public class Battle {
 	}
 	
 	public static Soldat kampf(Soldat b, Soldat a, int modus){
-		Soldat winner = new Soldat(0,new Pos(3,3),0,0,"this");
-		winner.setName("Tie");
+		Soldat looser = new Soldat(32, new Pos (0,0), 32, 32, "");
 		
 		while (a.health > 0 && b.health > 0) {
 			if (b.getEffektivString().contains(a.getTypString())) {
 				a.health -= (int) (((b.angriff[modus] + b.bonusAng) / a.verteidigung[modus])+1);
 				if (a.health <= 0) {
-					winner = b;
+					looser = a;
+					break;
 				}
 			} else {
 				a.health -= (int) ((b.angriff[modus] / a.verteidigung[modus])+1);
 				if (a.health <= 0) {
-					winner = b;
+					looser = a;
+					break;
 				}
 			}
 			
 			if (a.getEffektivString().contains(b.getTypString())) {
 				b.health -= (int) (((a.angriff[modus] + a.bonusAng) / b.verteidigung[modus])+1);
 				if (b.health <= 0) {
-					winner = a;
+					looser = b;
+					break;
 				}
 			} else {
 				b.health -= (int) ((a.angriff[modus] / b.verteidigung[modus])+1);
 				if (b.health <= 0) {
-					winner = a;
+					looser = b;
+					break;
 				}
 			}
 		}
 		
-		return winner;
+		return looser;
+	}
+	
+	public static Soldat[] massenKampf(Soldat[] ang, Soldat ver, int VerModus){
+		Soldat tod[] = new Soldat[ang.length+1];
+		Soldat nah = ang[0];
+		int index = 0;
+		
+		
+		for (int i = 0; i < ang.length; i++){
+			if (ang[i].getEffektivString().contains(ver.getTypString())){
+				ver.health -= (int) (((ang[i].angriff[ang[i].getTyp()] + ang[i].bonusAng)/ver.verteidigung[VerModus])+1); 
+			} else {
+				ver.health -= (int) ((ang[i].angriff[ang[i].getTyp()]/ver.verteidigung[VerModus])+1); 
+			}
+			
+			if (ang[i].getTyp() == 0){
+				nah = ang[i];
+			}
+			
+			if (ver.health <= 0){
+				tod[index] = ver;
+				index++;
+				return tod;
+			}
+		}
+		
+		if (ver.getEffektivString().contains(ver.getTypString())){
+			nah.health -= (int) (((ver.angriff[nah.getTyp()] + ver.bonusAng)/nah.verteidigung[0])); 
+		} else {
+			ver.health -= (int) ((ver.angriff[nah.getTyp()]/nah.verteidigung[0])); 
+		}
+		
+		return tod;
 	}
 
 }
