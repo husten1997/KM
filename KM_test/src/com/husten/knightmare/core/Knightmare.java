@@ -83,15 +83,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
 
-	// UI Var
-	private GUI gui;
-	private LWJGLRenderer renderer;
-	private Button b_NTrups;
-	private Button b_TSelect;
-	private Button b_NBuilding;
-	private ThemeManager themeManager;
-	private FPSCounter fpsCounter;
-	private Label l_fps;
+	
 
 	public static Color mainColor = new Color(255, 255, 255);
 
@@ -135,6 +127,7 @@ public class Knightmare extends Widget implements StringConstants {
 			public void run() {
 				calc();
 				DN.calc(6);
+				l_time.setText(DN.getTimeS());
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
@@ -895,6 +888,8 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}*/
 	}
+	
+	
 
 	private void initUI(){
 		renderer = null;
@@ -920,6 +915,17 @@ public class Knightmare extends Widget implements StringConstants {
 		
 	}
 	
+	// UI Var
+	private GUI gui;
+	private LWJGLRenderer renderer;
+	private Button b_NTrups;
+	private Button b_TSelect;
+	private Button b_NBuilding;
+	private ThemeManager themeManager;
+	private FPSCounter fpsCounter;
+	private Label l_fps;
+	private Label l_time;
+	
 	@Override
 	protected void layout() {
 		 b_NTrups.setPosition(100, 100);
@@ -933,6 +939,9 @@ public class Knightmare extends Widget implements StringConstants {
 		 
 		 l_fps.setPosition(100, 10);
 		 l_fps.setSize(20, 40);
+		 
+		 l_time.setPosition(WIDTH - 200, 10);
+		 l_time.setSize(20, 40);
 		 
 		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
 		super.layout();
@@ -984,6 +993,10 @@ public class Knightmare extends Widget implements StringConstants {
 		l_fps = new Label("");
 		l_fps.setTheme("label");
 		add(l_fps);
+		
+		l_time = new Label("");
+		l_time.setTheme("label");
+		add(l_time);
 		
 		
 	}
