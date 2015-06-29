@@ -34,7 +34,8 @@ public class DNCycl {
 			cTime(interv);
 			breightnes = funkt3();
 			set();
-//			System.out.println(getTimeS());
+//			debug();
+
 		}
 	}
 	
@@ -71,7 +72,7 @@ public class DNCycl {
 	
 	private double funkt3(){
 		double min = 0.09;
-		return (0.5- min/2) * Math.sin(time * Math.PI/1.2 + Math.PI/0.67) + (0.5 + min/2);
+		return (0.5- min/2) * Math.sin(time * Math.PI/1.2 + Math.PI/0.75) + (0.5 + min/2);
 	}
 	
 	public double getTime(){
@@ -102,6 +103,10 @@ public class DNCycl {
 			min = "" + mini;
 		}
 		return "" + h + ":" + min;
+	}
+	
+	private void debug(){
+		System.out.println("Time: " + getTimeS() + " b: " + breightnes);
 	}
 	
 
