@@ -22,8 +22,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map.Entry;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -42,6 +44,7 @@ import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.graphicalObjects.Texture;
 import com.husten.knightmare.menues.MainGUI;
+import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Soldat;
@@ -58,7 +61,6 @@ import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
 import de.matthiasmann.twl.Widget;
-import de.matthiasmann.twl.input.lwjgl.LWJGLInput;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
 import de.matthiasmann.twl.theme.ThemeManager;
 
@@ -82,6 +84,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
+	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
 
 	
 
@@ -459,11 +462,14 @@ public class Knightmare extends Widget implements StringConstants {
 					case state.NOTHING:
 						break;
 					case state.S_TRUPS:
+						Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
 						for (int i = 0; i < selection.size(); i++) {
 							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 								Soldat h = (Soldat) selection.get(i);
 								handler.handle(h, p1, selection.size() + 2);// TODO
 																			// rework
+								angriffe.put(h, bogi);
+								angriffe.put(bogi, h);
 							}
 						}
 						break;
@@ -472,7 +478,7 @@ public class Knightmare extends Widget implements StringConstants {
 					}
 				}
 			} else {
-				// Buton releasd
+				// Button released
 				if (Mouse.getEventButton() == 0) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
@@ -756,6 +762,20 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void calc() {
 		handler.move();
+		
+		for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
+			Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
+			renderList[1].remove(handler.abreiﬂen(krepierd));
+			if(krepierd!=null){
+				angriffe.remove(entry.getKey());
+				angriffe.remove(krepierd);
+				for (Entry<Soldat, Soldat> entry2 : angriffe.entrySet()) {
+					if(entry2.getValue().equals(krepierd)){
+						angriffe.remove(entry2.getKey());
+					}
+				}
+			}
+		}
 	}
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {

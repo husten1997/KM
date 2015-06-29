@@ -43,6 +43,22 @@ public class Pathhandler {
 		}
 		return null;
 	}
+	
+	public RectangleGraphicalObject abreißen(RectangleGraphicalObject h) {
+		if (h != null) {
+			if (!isCurrentlyPathfinding(h.getID())) {
+				if (h.getWidth() > 32) {
+					world[(int) (h.getPosition().getX() / 32)][(int) (h.getPosition().getY() / 32)] = null;
+					world[(int) (h.getPosition().getX() / 32) + 1][(int) (h.getPosition().getY() / 32)] = null;
+					return h;
+				} else {
+					world[(int) (h.getPosition().getX() / 32)][(int) (h.getPosition().getY() / 32)] = null;
+					return h;
+				}
+			}
+		}
+		return null;
+	}
 
 	public boolean place(RectangleGraphicalObject toPlace) {
 		if (toPlace.getWidth() > 32) {
