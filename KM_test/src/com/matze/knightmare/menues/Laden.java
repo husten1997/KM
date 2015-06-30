@@ -36,6 +36,8 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	private JButton löschen;
 	private boolean speichVorhanden;
 
+	//TODO: !!!!!!!!!!!! mind 2 vorh
+	
 	public Laden() {
 		super("back.png", "Knightmare: Laden");
 		setLocationRelativeTo(null);

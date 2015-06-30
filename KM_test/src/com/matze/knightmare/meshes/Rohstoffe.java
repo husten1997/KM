@@ -59,8 +59,17 @@ public class Rohstoffe {
 		case 6:{ w = Getreide(); break;}
 		case 7:{ w = Lehm(); break;}
 		case 8:{ w = Stein(); break;}
+		default: {w = null; break;}
 		}
 		return w;
+	}
+	
+	public static int maxID(){
+			int a = 0;
+			while(Rohstoffe.Rohstoff_von_Index(a)!=null){
+				a++;
+			}
+			return a;
 	}
 	
 	

@@ -59,7 +59,7 @@ public class Bauen {
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
-		int am = Waren.class.getMethods().length-1;
+		int am = Rohstoffe.maxID()+1; //TODO überprüfen
 		
 		benötigt = new Waren[am];
 		amountBenötigt = new int[am];
