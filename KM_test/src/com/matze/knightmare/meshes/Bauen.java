@@ -1,5 +1,6 @@
 package com.matze.knightmare.meshes;
 
+import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,16 +59,19 @@ public class Bauen {
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
-//		int am = 1;
-//		
-//		benötigt = new Waren[am];
-//		amountBenötigt = new int[am];
-//		
-//		benötigt[0] = Rohstoffe.Kohle();
-//		amountBenötigt[0] = 1;
+		int am = Waren.class.getMethods().length-1;
 		
-		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 1000);
+		benötigt = new Waren[am];
+		amountBenötigt = new int[am];
+		
+		for (int i = 0; i < am; i++){
+			benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
+		}
+		
+		b.init(75, 0, 0, 0, "Lagerhaus", benötigt, amountBenötigt, null, 1000);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
 		return b;
 	}
-	
 }

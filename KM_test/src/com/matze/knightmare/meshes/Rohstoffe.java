@@ -12,4 +12,56 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Holz(){
+		Waren w = new Waren(2, 0, "Holz", "baum.png");
+		return w;
+	}
+	
+	public static Waren Diamant(){
+		Waren w = new Waren(3, 0, "Diamant", "dimant.png");
+		return w;
+	}
+	
+	public static Waren Pech(){
+		Waren w = new Waren(4, 0, "Pech", "pech.png");
+		return w;
+	}
+	
+	public static Waren Sand(){
+		Waren w = new Waren(5, 0, "Sand", "sand.png");
+		return w;
+	}
+	
+	public static Waren Getreide(){
+		Waren w = new Waren(6, 0, "Getreide", "woaz.png");
+		return w;
+	}
+	
+	public static Waren Lehm(){
+		Waren w = new Waren(7, 0, "Lehm", "Lehm.png");
+		return w;
+	}
+	
+	public static Waren Stein(){
+		Waren w = new Waren(8, 0, "Stein", "stein.png");
+		return w;
+	}
+	
+	public static Waren Rohstoff_von_Index(int index){
+		Waren w = null;
+		switch(index){
+		case 0:{ w = Kohle(); break;}
+		case 1:{ w = Eisen(); break;}
+		case 2:{ w = Holz(); break;}
+		case 3:{ w = Diamant(); break;}
+		case 4:{ w = Pech(); break;}
+		case 5:{ w = Sand(); break;}
+		case 6:{ w = Getreide(); break;}
+		case 7:{ w = Lehm(); break;}
+		case 8:{ w = Stein(); break;}
+		}
+		return w;
+	}
+	
+	
 }
