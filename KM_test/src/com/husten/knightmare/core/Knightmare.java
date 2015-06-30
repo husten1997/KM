@@ -72,16 +72,14 @@ public class Knightmare extends Widget implements StringConstants {
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
 	private String inGameStat = state.NOTHING;
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, screenToSet = false, running = true;
+	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true;
 	private Soldat figur;
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	private Pathhandler handler;
 	@SuppressWarnings("unchecked")
-	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen],
-			pending = new ArrayList<>();
-	private ArrayList<Integer> pendingEbenen = new ArrayList<>();
+	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
@@ -220,7 +218,7 @@ public class Knightmare extends Widget implements StringConstants {
 		} else {
 			initRes();
 		}
-		screenToSet = true;
+		setDisplayMode(WIDTH, HEIGHT, fullscreen);
 		if (scale < 0.1f) {
 			scale = 0.1f;
 		}
@@ -409,25 +407,22 @@ public class Knightmare extends Widget implements StringConstants {
 					case state.N_BUILDINGS:
 						Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, "haus.png");
 						if (handler.place(b)) {
-							b.setSort(2);
-							pending.add(b);
-							pendingEbenen.add(1);
+							b.setSort(0);
+							initRender(b, 1);
 						}
 						break;
 					case state.N_TRUPS:
 						Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 1", 0);
 						if (handler.place(s)) {
 							s.setSort(1);
-							pending.add(s);
-							pendingEbenen.add(1);
+							initRender(s, 1);
 						}
 						break;
 					case state.NF_TROOP:
 						Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
 						if (handler.place(sf)) {
 							sf.setSort(1);
-							pending.add(sf);
-							pendingEbenen.add(1);
+							initRender(sf, 1);
 						}
 						break;
 					case state.S_TRUPS:
@@ -873,15 +868,6 @@ public class Knightmare extends Widget implements StringConstants {
 	private void pollInputG() {
 //		Mouse.poll();
 //		Keyboard.poll();
-		if (screenToSet) {
-			setDisplayMode(WIDTH, HEIGHT, fullscreen);
-			screenToSet = false;
-		}
-		while (pending.size() > 0 && pendingEbenen.size() > 0) {
-			initRender(pending.get(0), pendingEbenen.get(0));
-			pending.remove(0);
-			pendingEbenen.remove(0);
-		}
 		/*if (inGameStat.equals(state.ABREIßEN)) {
 			if (!delete.equals(Mouse.getNativeCursor())) {
 				try {

@@ -15,6 +15,8 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
+	protected int team;
+	protected String spieler;
 
 	public Pos getHudpos() {
 		return hudpos;
@@ -235,5 +237,15 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	public void setMRotation(int m_rotation){
 		this.m_rotation = m_rotation;
 	}
+
+	public int getTeam() {
+		return team;
+	}
+
+	public String getSpieler() {
+		return spieler;
+	}
+	
+	
 
 }
