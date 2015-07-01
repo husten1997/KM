@@ -9,6 +9,7 @@ import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
+import com.husten.knightmare.graphicalObjects.DNCycl;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
@@ -58,7 +59,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected boolean randomRotation, stretched = true;
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
-	private Color color = new Color(255, 255, 255);
+	private final Color fColor = new Color(255, 255, 255);
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
@@ -130,7 +131,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 
 	@Override
 	public void draw() {
-
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
@@ -146,9 +146,9 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		
 		glTranslatef((float) position.getX(), (float) position.getY(), 0);
 		glRotatef(45*m_rotation, 0f, 0f, 1f);
-		glColor3f((float) Knightmare.mainColor.getRed() / 255, (float) Knightmare.mainColor.getGreen() / 255, (float) Knightmare.mainColor.getBlue() / 255);
+		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness), (float) (fColor.getGreen() / 255 * Knightmare.breightness), (float) (fColor.getBlue() / 255 * Knightmare.breightness));
 		// draw a quad textured to match the sprite
-
+		
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f((float) widthCount, 0);
@@ -223,13 +223,9 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 
 	public Color getColor() {
-		return color;
+		return fColor;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	
 	public int getMrotation(){
 		return m_rotation;
 	}
@@ -245,6 +241,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	public String getSpieler() {
 		return spieler;
 	}
+	
 	
 	
 

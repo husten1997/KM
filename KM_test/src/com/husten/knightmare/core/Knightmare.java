@@ -60,6 +60,7 @@ import de.matthiasmann.twl.Button;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
+import de.matthiasmann.twl.ResizableFrame;
 import de.matthiasmann.twl.Widget;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
 import de.matthiasmann.twl.theme.ThemeManager;
@@ -84,9 +85,8 @@ public class Knightmare extends Widget implements StringConstants {
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
 
-	
+	public static double breightness = 1;
 
-	public static Color mainColor = new Color(255, 255, 255);
 
 	private DNCycl DN;
 
@@ -931,14 +931,15 @@ public class Knightmare extends Widget implements StringConstants {
 	private FPSCounter fpsCounter;
 	private Label l_fps;
 	private Label l_time;
+	private ResizableFrame frame;
 	
 	@Override
 	protected void layout() {
 		 b_NTrups.setPosition(100, 100);
 		 b_NTrups.setSize(100, 33);
 		 
-		 b_NBuilding.setPosition(100, 150);
-		 b_NBuilding.setSize(100, 33);
+//		 b_NBuilding.setPosition(100, 150);
+//		 b_NBuilding.setSize(100, 33);
 		 
 		 b_TSelect.setPosition(100, 200);
 		 b_TSelect.setSize(100, 33);
@@ -948,6 +949,8 @@ public class Knightmare extends Widget implements StringConstants {
 		 
 		 l_time.setPosition(WIDTH - 200, 10);
 		 l_time.setSize(20, 40);
+		 
+		 gui.draw();
 		 
 		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
 		super.layout();
@@ -970,7 +973,7 @@ public class Knightmare extends Widget implements StringConstants {
 		
 		b_NBuilding = new Button("New Buildung");
 		b_NBuilding.setTheme("button_Test");
-		add(b_NBuilding);
+//		add(b_NBuilding);
 		
 		b_NBuilding.addCallback(new Runnable() {
 			
@@ -1003,6 +1006,18 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time = new Label("");
 		l_time.setTheme("label");
 		add(l_time);
+		
+		frame = new ResizableFrame();
+		frame.setTheme("frame");
+        frame.setTitle("Inventory");
+        frame.setResizableAxis(ResizableFrame.ResizableAxis.NONE);
+        frame.add(b_NBuilding);
+//        frame.add(b_TSelect);
+        
+        frame.setSize(100, 100);
+        frame.setPosition(1000, 500);
+        
+        add(frame);
 		
 		
 	}

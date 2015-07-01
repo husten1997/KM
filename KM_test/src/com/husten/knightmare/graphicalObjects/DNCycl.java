@@ -9,7 +9,7 @@ import java.lang.Math;
 public class DNCycl {
 	
 	private double time = 1; //-12 bis 12
-	private double breightnes = 1;
+	private static double breightnes = 1;
 	private int red = 255;
 	private int green = 255;
 	private int blue = 255;
@@ -39,9 +39,7 @@ public class DNCycl {
 		}
 	}
 	
-	private void set(){
-		Knightmare.mainColor = new Color((int)(red*breightnes), (int)(green*breightnes), (int)(blue*breightnes));
-	}
+	
 	
 	private void cTime(double i){
 		double h = time += i;
@@ -53,6 +51,10 @@ public class DNCycl {
 		} else{
 			time += i;
 		}
+	}
+	
+	private void set(){
+		Knightmare.breightness = breightnes;
 	}
 	
 	public void toggle(){
@@ -108,6 +110,14 @@ public class DNCycl {
 	private void debug(){
 		System.out.println("Time: " + getTimeS() + " b: " + breightnes);
 	}
-	
 
+	public static double getBreightnes() {
+		return breightnes;
+	}
+
+	public static void setBreightnes(double breightnes) {
+		DNCycl.breightnes = breightnes;
+	}
+	
+	
 }
