@@ -619,28 +619,28 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Mouse.getX() < 32) {
-			CameraX -= scrollingSpeed * scale;
+			CameraX -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
 
 		}
 		if (Mouse.getX() > WIDTH - 32) {
-			CameraX += scrollingSpeed * scale;
+			CameraX += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
 
 		}
 		if (Mouse.getY() < 32) {
-			CameraY -= scrollingSpeed * scale;
+			CameraY -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
 
 		}
 		if (Mouse.getY() > HEIGHT - 32) {
-			CameraY += scrollingSpeed * scale;
+			CameraY += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
