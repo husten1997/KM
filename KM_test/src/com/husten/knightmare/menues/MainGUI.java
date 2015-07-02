@@ -1,10 +1,7 @@
 package com.husten.knightmare.menues;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.lwjgl.LWJGLException;
 
 import de.matthiasmann.twl.*;

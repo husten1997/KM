@@ -18,6 +18,8 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -960,6 +962,22 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 	
 	private void GUI(){
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		int width, height;
+		double resolution = (double) 16 / (double) 9;
+		if (screen.getWidth() / screen.getHeight() == resolution) {
+			width = screen.width;
+			height = screen.height;
+		} else if (screen.getWidth() / screen.getHeight() > resolution) {
+			width = (int) (screen.getHeight() * resolution);
+			height = screen.height;
+		} else {
+			width = screen.width;
+			height = (int) (screen.getWidth() / resolution);
+		}
+		
+		
+		
 		b_NTrups = new Button("Set Trup");
 		b_NTrups.setTheme("button_Test");
 		add(b_NTrups);
