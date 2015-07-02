@@ -26,7 +26,7 @@ public class Credits extends Optionsframesuperklasse implements ActionListener {
 	JList<String> list;
 	String[] data = { "Lead-Programmer:", names.R, " ", "Graphic-Programmer:", names.H, " ", "Outsourced Resource Manager & Assistant Programmer:", names.M, " ",
 			"Preloading:", names.R, " ", "Config-File:", names.M, " ",  "Worldgen:", names.H, " ", "Soundsystem:", names.M + ", " + names.R, " ", "Troops & Buildings:", names.M, " ",
-			"Resourcepacks:", names.R, " ", "OpenGL:", names.H, " ", "Combat System:", names.M, " ", "Pathfinding:", names.R, " ", "Main Menue:", names.M + ", " + names.R, " ",
+			"Resourcepacks:", names.R, " ", "OpenGL:", names.H, " ", "Combat System:", names.M + ", " + names.R, " ", "Pathfinding:", names.R, " ", "Main Menue:", names.M + ", " + names.R, " ",
 			"Spacial Thanks:", "Stefan Schmalzbauer for awesome music", "Jean-Francois Fraundorfer for textures" };
 
 	public Credits() {
