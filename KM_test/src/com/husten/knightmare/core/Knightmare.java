@@ -17,9 +17,6 @@ import static org.lwjgl.opengl.GL11.glOrtho;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glViewport;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -914,7 +911,7 @@ public class Knightmare extends Widget implements StringConstants {
 		gui = new GUI(this, renderer);
 		
 		try{
-			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("test.xml"), renderer);
+			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("/resources/textures/test.xml"), renderer);
 		} catch(IOException e){
 			e.printStackTrace();
 		}
@@ -940,11 +937,15 @@ public class Knightmare extends Widget implements StringConstants {
 	
 	@Override
 	protected void layout() {
-		 b_NTrups.setPosition(100, 100);
-		 b_NTrups.setSize(100, 33);
+//		 b_NTrups.setPosition(100, 100);
+//		 b_NTrups.setSize(100, 33);
 		 
 //		 b_NBuilding.setPosition(100, 150);
 //		 b_NBuilding.setSize(100, 33);
+        b_NBuilding.setSize(WIDTH/2, HEIGHT/10);
+        b_NBuilding.setBackground(themeManager.getImage("test"));
+        b_NTrups.setSize(WIDTH/2, HEIGHT/10);
+        b_NTrups.setPosition(WIDTH/2, HEIGHT-HEIGHT/10);
 		 
 		 b_TSelect.setPosition(100, 200);
 		 b_TSelect.setSize(100, 33);
@@ -962,25 +963,9 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 	
 	private void GUI(){
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int width, height;
-		double resolution = (double) 16 / (double) 9;
-		if (screen.getWidth() / screen.getHeight() == resolution) {
-			width = screen.width;
-			height = screen.height;
-		} else if (screen.getWidth() / screen.getHeight() > resolution) {
-			width = (int) (screen.getHeight() * resolution);
-			height = screen.height;
-		} else {
-			width = screen.width;
-			height = (int) (screen.getWidth() / resolution);
-		}
-		
-		
-		
 		b_NTrups = new Button("Set Trup");
 		b_NTrups.setTheme("button_Test");
-		add(b_NTrups);
+//		add(b_NTrups);
 		
 		b_NTrups.addCallback(new Runnable() {
 			
@@ -1031,12 +1016,13 @@ public class Knightmare extends Widget implements StringConstants {
 		frame = new ResizableFrame();
 		frame.setTheme("frame");
         frame.setTitle("Inventory");
-        frame.setResizableAxis(ResizableFrame.ResizableAxis.NONE);
+//        frame.setResizableAxis(ResizableFrame.ResizableAxis.NONE);
         frame.add(b_NBuilding);
+        frame.add(b_NTrups);
 //        frame.add(b_TSelect);
         
-        frame.setSize(100, 100);
-        frame.setPosition(1000, 500);
+        frame.setSize(WIDTH, HEIGHT/10);
+        frame.setPosition(0, HEIGHT-HEIGHT/10);
         
         add(frame);
 		
