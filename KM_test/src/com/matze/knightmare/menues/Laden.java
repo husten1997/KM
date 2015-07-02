@@ -32,11 +32,9 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	private JButton zurück;
 	private String[] data;
 	private File[] removeAble;
-	private String defaultText[] = { "Keine Speicherstände vorhanden.", "Neues Spiel?" };
+	private String defaultText[] = { "Keine Speicherstände vorhanden. Neues Spiel?"};
 	private JButton löschen;
 	private boolean speichVorhanden;
-
-	//TODO: !!!!!!!!!!!! mind 2 vorh
 	
 	public Laden() {
 		super("back.png", "Knightmare: Laden");
@@ -90,7 +88,6 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		list.setVisibleRowCount(data.length);
 		list.setFont(new Font("Arial", Font.BOLD, 40));
 		list.setOpaque(false);
-		list.setSelectedIndex(0);
 		((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
 		JScrollPane scroll = new JScrollPane(list);
@@ -227,7 +224,6 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 
 		list.addKeyListener(this);
 		list.addListSelectionListener(this);
-		list.setSelectedIndex(1);
 	}
 
 	private void performAction(int x) {
