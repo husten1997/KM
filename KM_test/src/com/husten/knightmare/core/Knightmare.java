@@ -207,7 +207,7 @@ public class Knightmare extends Widget implements StringConstants {
 			});
 		}
 		DN = new DNCycl();
-//		initRender(new RectangleGraphicalObject(new Pos(0, 0), 1, 1, false), 1);
+		initRender(new RectangleGraphicalObject(new Pos(0, 0), 1, 1, "", false), 1);
 //		will versuchen dummy objekt einzufügen damit die buttons gehen
 
 	}
@@ -946,6 +946,7 @@ public class Knightmare extends Widget implements StringConstants {
         b_NBuilding.setBackground(themeManager.getImage("test"));
         b_NTrups.setSize(WIDTH/2, HEIGHT/10);
         b_NTrups.setPosition(WIDTH/2, HEIGHT-HEIGHT/10);
+        b_NTrups.setBackground(themeManager.getImageNoWarning("bauM"));
 		 
 		 b_TSelect.setPosition(100, 200);
 		 b_TSelect.setSize(100, 33);
@@ -1018,15 +1019,18 @@ public class Knightmare extends Widget implements StringConstants {
         frame.setTitle("Inventory");
 //        frame.setResizableAxis(ResizableFrame.ResizableAxis.NONE);
         frame.add(b_NBuilding);
-        frame.add(b_NTrups);
+//        frame.add(b_NTrups);
 //        frame.add(b_TSelect);
         
-        frame.setSize(WIDTH, HEIGHT/10);
-        frame.setPosition(0, HEIGHT-HEIGHT/10);
+        int width = WIDTH;
+        if(width>1920){
+        	width=1920;
+        }
+        frame.setSize(width, width/5);
+        frame.setPosition(0, HEIGHT-width/5);
+        frame.setBackground(themeManager.getImageNoWarning("bauM"));
         
         add(frame);
-		
-		
 	}
 	
 	public void handlInput(){

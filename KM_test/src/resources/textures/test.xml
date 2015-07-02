@@ -26,6 +26,24 @@
 		</select>
 	</images>
 	
+	<images file="mm.png" format="RGBA">
+		<area name="-frameMenue" xywh="0,0,3648,688" splitx="L3,R3" splity="T3,B3"/>
+		<select name="baumenue">
+			<alias ref="-frameMenue" if="disabled" tint="#8fff"/>
+			<alias ref="-frameMenue" if="armed"/>
+			<alias ref="-frameMenue"/>
+		</select>
+	</images>
+	
+	<images file="url.png" format="RGBA">
+		<area name="-frameM" xywh="0,0,1920,362" splitx="L3,R3" splity="T3,B3"/>
+		<select name="bauM">
+			<alias ref="-frameM" if="disabled" tint="#8fff"/>
+			<alias ref="-frameM" if="armed"/>
+			<alias ref="-frameM"/>
+		</select>
+	</images>
+	
     <fontDef name="normal" filename="font.fnt" color="white" default="true">
         <fontParam if="error" color="red"/>
         <fontParam if="warning" color="orange"/>
@@ -82,7 +100,7 @@
     </theme>
 	
     <theme name="resizableframe" ref="-defaults">
-        <param name="background"><image>button.background</image></param>
+        <param name="background"><image>bauM</image></param>
 		<param name="offscreenExtra"><border>13,15</border></param>
         <param name="titleAreaTop"><int>5</int></param>
         <param name="titleAreaLeft"><int>5</int></param>
@@ -95,7 +113,7 @@
         <param name="resizeHandleX"><int>0</int></param>
         <param name="resizeHandleY"><int>0</int></param>
         <param name="mouseCursor."><cursor>eforen.cursor.arrow.*</cursor></param>
-        <param name="fadeColorInactive"><color>#F888</color></param>
+        <param name="fadeColorInactive"><color>#FFFF</color></param>
         <param name="fadeDurationActivate"><int>200</int></param>
         <param name="fadeDurationDeactivate"><int>200</int></param>
         <param name="fadeDurationShow"><int>200</int></param>
