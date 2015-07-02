@@ -42,6 +42,10 @@ public class SingleManPathfinding {
 	public boolean getContinuing() {
 		return continueing;
 	}
+	
+	public void stop(){
+		soldat.setPosition(vektoren.get(0).getEnde());
+	}
 
 	public Soldat getSoldat() {
 		return soldat;

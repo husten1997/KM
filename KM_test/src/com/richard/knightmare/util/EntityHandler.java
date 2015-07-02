@@ -2,6 +2,7 @@ package com.richard.knightmare.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
@@ -79,10 +80,29 @@ public class EntityHandler {
 	}
 
 	public void tick() {
-		// TODO
+		if(ticksSinceLastRetry>200){
+			//TODO retry
+			ticksSinceLastRetry = 0;
+		}
+		ticksSinceLastRetry++;
+		for(Entry<Soldat, SingleManPathfinding> entry: finding.entrySet()){
+			if(!entry.getValue().move()){
+				if(entry.getValue().getFinished()){
+					finding.remove(entry.getKey());
+					if(chasing.containsKey(entry.getKey())){
+						//TODO is already near?
+					}
+				}else{
+					pathfindTo(finding.get(entry.getKey()).getZiel().getX(), finding.get(entry.getKey()).getZiel().getY(), entry.getKey());
+				}
+			}
+		}
 	}
 
 	public void pathfindTo(double x, double y, RectangleGraphicalObject object) {
+		if(finding.containsKey(object)){
+			finding.get(object).stop();
+		}
 		finding.remove(object);
 		SingleManPathfinding path = new SingleManPathfinding((Soldat) object, new Pos(x, y));
 		com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
