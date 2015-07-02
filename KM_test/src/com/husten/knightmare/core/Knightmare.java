@@ -84,7 +84,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
-
+	
 	public static double breightness = 1;
 
 
@@ -208,6 +208,8 @@ public class Knightmare extends Widget implements StringConstants {
 			});
 		}
 		DN = new DNCycl();
+//		initRender(new RectangleGraphicalObject(new Pos(0, 0), 1, 1, false), 1);
+//		will versuchen dummy objekt einzufügen damit die buttons gehen
 
 	}
 
@@ -588,28 +590,28 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera oben"))) {
-			CameraY += scrollingSpeed * scale;
+			CameraY += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera links"))) {
-			CameraX -= scrollingSpeed * scale;
+			CameraX -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
 
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera unten"))) {
-			CameraY -= scrollingSpeed * scale;
+			CameraY -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
 
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera rechts"))) {
-			CameraX += scrollingSpeed * scale;
+			CameraX += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
@@ -655,6 +657,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void render() {
 		terrain.draw();
+		
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
 				renderList[e].get(i).draw();
