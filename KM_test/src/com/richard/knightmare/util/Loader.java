@@ -233,6 +233,9 @@ public class Loader {
 
 			defaultConfigValues.put("CONTROL_KEY: Abreiﬂen", "Entf");
 			sortedKeys.add("CONTROL_KEY: Abreiﬂen");
+			
+			defaultConfigValues.put("CONTROL_KEY: Quicksave", "Q");
+			sortedKeys.add("CONTROL_KEY: Quicksave");
 
 			// Settings
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
@@ -240,6 +243,7 @@ public class Loader {
 
 			defaultConfigValues.put("SETTINGS: Fenstermodus", "false");
 			sortedKeys.add("SETTINGS: Fenstermodus");
+		
 
 			sortedKeys.sort(new Comparator<String>() {
 

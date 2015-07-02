@@ -290,9 +290,9 @@ public class Knightmare extends Widget implements StringConstants {
 					scale = 1f;
 				}
 
-				if (Keyboard.getEventKey() == Keyboard.KEY_Q) {
+				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
 					// TODO name
-					Loader.speichern("Tets");
+					Loader.speichern("Test");
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
