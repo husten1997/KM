@@ -17,8 +17,9 @@ import static org.lwjgl.opengl.GL11.glOrtho;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glViewport;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -28,20 +29,16 @@ import java.util.Map.Entry;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
-import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.opengl.CursorLoader;
-
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.DNCycl;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
-import com.husten.knightmare.graphicalObjects.Texture;
 import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Building;
@@ -56,19 +53,19 @@ import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 import de.matthiasmann.twl.Button;
-import de.matthiasmann.twl.Dimension;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
 import de.matthiasmann.twl.ResizableFrame;
 import de.matthiasmann.twl.Widget;
+import de.matthiasmann.twl.renderer.MouseCursor;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
 import de.matthiasmann.twl.theme.ThemeManager;
 
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10; // inverted
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /*inverted*/,cursorIndex = 0, category; 
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
 	private String inGameStat = state.N_BUILDINGS;
@@ -81,12 +78,10 @@ public class Knightmare extends Widget implements StringConstants {
 	private Pathhandler handler;
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
-	private Cursor delete, normal, haus;
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
-	
-	public static double breightness = 1;
 
+	public static double breightness = 1;
 
 	private DNCycl DN;
 
@@ -104,20 +99,6 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		Texturloader.initLoader();
 		objectinit();
-
-		BufferedImage image = Loader.getImage("CursorKM.png");
-		try {
-			normal = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 0, 0,
-					image.getWidth(), image.getHeight());
-			image = Loader.getImage("delete.png");
-			delete = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 0, 0,
-					image.getWidth(), image.getHeight());
-			image = Loader.getImage("haus.png");
-			haus = CursorLoader.get().getCursor(Texturloader.convertImageData(image, new Texture(GL_TEXTURE_2D, Texturloader.createTextureID())), 16, 16,
-					image.getWidth(), image.getHeight());
-		} catch (Exception e) {
-			// Ignore
-		}
 	}
 
 	public void loop() {
@@ -132,15 +113,14 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}, 0, gameSpeed);
 		while (!Display.isCloseRequested() && running) {
-			
+
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT); // |GL11.GL_DEPTH_BUFFER_BIT
 			grafikCycl();
-			
+
 			handlInput();
-			
+
 			updateDisplay();
 			updateFPS();
-
 		}
 		gui.destroy();
 		Display.destroy();
@@ -209,7 +189,7 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		DN = new DNCycl();
 		initRender(new RectangleGraphicalObject(new Pos(0, 0), 1, 1, "", false), 1);
-//		will versuchen dummy objekt einzufügen damit die buttons gehen
+		// will versuchen dummy objekt einzufügen damit die buttons gehen
 
 	}
 
@@ -256,8 +236,8 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void pollInput() throws Exception {
-//		Mouse.poll();
-//		Keyboard.poll();
+		// Mouse.poll();
+		// Keyboard.poll();
 		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
 			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
 			tooggleFullscreen();
@@ -280,6 +260,10 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIßEN;
+					if(cursorIndex==0){
+						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
+						cursorIndex = 1;
+					}
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_T) {
 					DN.toggle();
@@ -295,30 +279,46 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
 					inGameStat = state.S_TRUPS;
+					if(cursorIndex==1){
+						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						cursorIndex = 0;
+					}
 					System.out.println(inGameStat);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_V) {
 					inGameStat = state.S_BUILDINGS;
+					if(cursorIndex==1){
+						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						cursorIndex = 0;
+					}
 					System.out.println(inGameStat);
 				}
 
 				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
-					if (inGameStat.equals(state.N_BUILDINGS)) {
-						inGameStat = state.NOTHING;
-					} else {
-						inGameStat = state.N_BUILDINGS;
-					}
 					baumenueShowen = !baumenueShowen;
+					inGameStat = state.N_BUILDINGS;
+					if(cursorIndex==1){
+						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						cursorIndex = 0;
+					}
 					System.out.println(inGameStat);
 				}
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_N) {
 					inGameStat = state.N_TRUPS;
+					if(cursorIndex==1){
+						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						cursorIndex = 0;
+					}
 					System.out.println(inGameStat);
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_J) {
 					inGameStat = state.NF_TROOP;
+					if(cursorIndex==1){
+						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						cursorIndex = 0;
+					}
 					System.out.println(inGameStat);
 				}
 				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
@@ -391,16 +391,15 @@ public class Knightmare extends Widget implements StringConstants {
 		// Mosue-------------------------------------------------------------------------------------------------------
 		while (Mouse.next()) {
 			guiPollInput();
-			
+
 			if (Mouse.getEventButtonState()) {
-				//Linksklick
+				// Linksklick
 				if (Mouse.getEventButton() == 0) {
 
-					
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					if(!isOn(Mouse.getX(), Mouse.getY())){
+					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						pos1.setX(x);
 						pos1.setY(y);
 
@@ -456,8 +455,8 @@ public class Knightmare extends Widget implements StringConstants {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					if(!isOn(Mouse.getX(), Mouse.getY())){
-						
+					if (!isOn(Mouse.getX(), Mouse.getY())) {
+
 						Pos p1 = new Pos(x, y); // Ende
 
 						switch (inGameStat) {
@@ -479,14 +478,14 @@ public class Knightmare extends Widget implements StringConstants {
 							break;
 						}
 					}
-					}
+				}
 			} else {
 				// Button released
 				if (Mouse.getEventButton() == 0) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					if(!isOn(Mouse.getX(), Mouse.getY())){
+					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						pos2.setX(x);
 						pos2.setY(y);
 
@@ -665,13 +664,12 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void render() {
 		terrain.draw();
-		
+
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
 				renderList[e].get(i).draw();
 			}
 		}
-		
 
 	}
 
@@ -690,7 +688,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Display.setTitle("FPS: " + fps);
-			l_fps.setText("FPS "+fps);
+			l_fps.setText("FPS " + fps);
 			FPS = fps;
 			fps = 0;
 			lastFPS += 1000;
@@ -768,15 +766,15 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void calc() {
 		handler.move();
-		
+
 		for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
 			Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
 			renderList[1].remove(handler.abreißen(krepierd));
-			if(krepierd!=null){
+			if (krepierd != null) {
 				angriffe.remove(entry.getKey());
 				angriffe.remove(krepierd);
 				for (Entry<Soldat, Soldat> entry2 : angriffe.entrySet()) {
-					if(entry2.getValue().equals(krepierd)){
+					if (entry2.getValue().equals(krepierd)) {
 						angriffe.remove(entry2.getKey());
 					}
 				}
@@ -864,7 +862,7 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	public void grafikCycl() {
-		
+
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, WIDTH * scale, 0, HEIGHT * scale, 3, -1);
@@ -873,48 +871,18 @@ public class Knightmare extends Widget implements StringConstants {
 
 		glLoadIdentity();
 		render();
-		
+
 	}
 
-//	private void pollInputG() {
-//		Mouse.poll();
-//		Keyboard.poll();
-		/*if (inGameStat.equals(state.ABREIßEN)) {
-			if (!delete.equals(Mouse.getNativeCursor())) {
-				try {
-					Mouse.setNativeCursor(delete);
-				} catch (LWJGLException e) {
-					e.printStackTrace();
-				}
-			}
-		} else if (inGameStat.equals(state.N_BUILDINGS)) {
-			if (!haus.equals(Mouse.getNativeCursor())) {
-				try {
-					Mouse.setNativeCursor(haus);
-				} catch (LWJGLException e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			if (!normal.equals(Mouse.getNativeCursor())) {
-				try {
-					Mouse.setNativeCursor(normal);
-				} catch (LWJGLException e) {
-					e.printStackTrace();
-				}
-			}
-		}*/
-//	}
-	
-	private boolean isOn(double x, double y){
+	private boolean isOn(double x, double y) {
 		int width = WIDTH;
-        if(width>1920){
-        	width=1920;
-        }
-        return baumenueShowen&&x>(WIDTH-width)/2&&x<(WIDTH+width)/2&&y<width/7;
+		if (width > 1920) {
+			width = 1920;
+		}
+		return baumenueShowen && x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2 && y < width / 7;
 	}
 
-	private void initUI(){
+	private void initUI() {
 		renderer = null;
 		try {
 			renderer = new LWJGLRenderer();
@@ -922,22 +890,29 @@ public class Knightmare extends Widget implements StringConstants {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		gui = new GUI(this, renderer);
-		
-		try{
-			themeManager = ThemeManager.createThemeManager(MainGUI.class.getResource("/resources/textures/test.xml"), renderer);
-		} catch(IOException e){
+
+		try {
+			URL url = null;
+			try {
+				url = new URL(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/menue.xml").toString());
+			} catch (MalformedURLException e) {
+				// Leck mich
+			}
+			URL url2 = MainGUI.class.getResource(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/menue.xml").toString());
+			themeManager = ThemeManager.createThemeManager((url == null ? url2 : url), renderer);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		gui.applyTheme(themeManager);
-		
+		gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+
 		GUI();
-		
-		
+
 	}
-	
+
 	// UI Var
 	private GUI gui;
 	private LWJGLRenderer renderer;
@@ -949,7 +924,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Label l_fps;
 	private Label l_time;
 	private ResizableFrame frame;
-	
+
 	@Override
 	protected void layout() {
 //		 b_NTrups.setPosition(100, 100);
@@ -977,93 +952,142 @@ public class Knightmare extends Widget implements StringConstants {
 		super.layout();
 	}
 	
-	private void GUI(){
+	private void GUI() {
 		b_NTrups = new Button("Set Trup");
 		b_NTrups.setTheme("button_Test");
-//		add(b_NTrups);
-		
+		// add(b_NTrups);
+
 		b_NTrups.addCallback(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				inGameStat = state.N_TRUPS;
 				System.out.println(inGameStat);
-				
+
 			}
 		});
-		
+
 		b_NBuilding = new Button("New Buildung");
 		b_NBuilding.setTheme("button_Test");
-		
+
 		b_NBuilding.addCallback(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				inGameStat = state.N_BUILDINGS;
 				System.out.println(inGameStat);
-				
+
 			}
 		});
-		
+
 		b_TSelect = new Button("Select");
 		b_TSelect.setTheme("button_Test");
 		add(b_TSelect);
-		
+
 		b_TSelect.addCallback(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				inGameStat = state.S_TRUPS;
 				System.out.println(inGameStat);
-				
+
 			}
 		});
-		
+
 		l_fps = new Label("");
 		l_fps.setTheme("label");
 		add(l_fps);
-		
+
 		l_time = new Label("");
 		l_time.setTheme("label");
 		add(l_time);
-		
+
 		frame = new ResizableFrame();
 		frame.setTheme("frame");
-        frame.setTitle("Inventory");
-//        frame.setResizableAxis(ResizableFrame.ResizableAxis.NONE);
-//        frame.add(b_NBuilding);
-//        frame.add(b_NTrups);
-//        frame.add(b_TSelect);
-        
-        int width = WIDTH;
-        if(width>1920){
-        	width=1920;
-        }
-        frame.setSize(width, width/7);
-        frame.setPosition((WIDTH-width)/2, HEIGHT-width/7);
-        frame.setBackground(themeManager.getImageNoWarning("bauM"));
-        
-//        add(frame);
+		frame.setTitle("Inventory");
+//		add(frame);
+//		Button buttonProduktion = new Button("d");
+//		buttonProduktion.setBackground(themeManager.getImage("cP"));
+//		buttonProduktion.addCallback(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				category = 0;
+//				System.out.println(category);
+//			}
+//		});
+//		frame.add(buttonProduktion);
+//		buttonProduktion.setSize(64, 64);
+//		buttonProduktion.setPosition(2000, HEIGHT-100);
+//		
+//		Button buttonResourcen = new Button("d");
+//		buttonResourcen.setBackground(themeManager.getImage("cR"));
+//		buttonResourcen.addCallback(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				category = 0;
+//				System.out.println(category);
+//			}
+//		});
+//		frame.add(buttonResourcen);
+//		buttonResourcen.setSize(64, 64);
+//		buttonResourcen.setPosition(2100, HEIGHT-100);
+		frame.add(b_NBuilding);
+		 frame.add(b_NTrups);
+		// frame.add(b_TSelect);
+
+		int width = WIDTH;
+		if (width > 1920) {
+			width = 1920;
+		}
+		frame.setSize(width, width / 7);
+		frame.setPosition((WIDTH - width) / 2, HEIGHT - width / 7);
+		frame.setBackground(themeManager.getImageNoWarning("bauM"));
+
+		 add(frame);
+		// b_NTrups.setPosition(100, 100);
+		// b_NTrups.setSize(100, 33);
+
+//		b_NBuilding.setPosition(100, 150);
+		// b_NBuilding.setSize(100, 33);
+//		b_NBuilding.setSize(WIDTH / 6, HEIGHT / 10);
+//		b_NBuilding.setBackground(themeManager.getImage("cP"));
+//		b_NTrups.setSize(WIDTH / 6, HEIGHT / 10);
+//		b_NTrups.setPosition(WIDTH / 2, HEIGHT - HEIGHT / 10);
+
+		b_TSelect.setPosition(100, 200);
+		b_TSelect.setSize(100, 33);
+
+		l_fps.setPosition(100, 10);
+		l_fps.setSize(20, 40);
+
+		l_time.setPosition(WIDTH - 200, 10);
+		l_time.setSize(20, 40);
+
+		gui.draw();
+
+		// button.adjustSize(); //Calculate optimal size instead of manually
+		// setting it
 	}
-	
-	public void handlInput(){
+
+	public void handlInput() {
 		gui.setSize();
 		gui.updateTime();
-		try{
+		try {
 			pollInput();
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		pollInputG();
-		
-		if(baumenueShowen){
-			if(getChildIndex(frame)==-1){
+
+		if (baumenueShowen) {
+			if (getChildIndex(frame) == -1) {
 				add(frame);
 			}
-		}else{
+		} else {
 			removeChild(frame);
 		}
-		
+
 		gui.handleKeyRepeat();
 		gui.handleTooltips();
 		gui.updateTimers();
@@ -1072,15 +1096,15 @@ public class Knightmare extends Widget implements StringConstants {
 		gui.draw();
 		gui.setCursor();
 	}
-	
-	public void guiPollInput(){
+
+	public void guiPollInput() {
 		gui.handleKey(Keyboard.getEventKey(), Keyboard.getEventCharacter(), Keyboard.getEventKeyState());
 		gui.handleMouse(Mouse.getEventX(), gui.getHeight() - Mouse.getEventY() - 1, Mouse.getEventButton(), Mouse.getEventButtonState());
-		
+
 		int wheelDelta = Mouse.getEventDWheel();
-	    if(wheelDelta != 0) {
-	    	gui.handleMouseWheel(wheelDelta);
-	    }
+		if (wheelDelta != 0) {
+			gui.handleMouseWheel(wheelDelta);
+		}
 	}
 
 }

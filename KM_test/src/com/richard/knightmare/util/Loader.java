@@ -629,4 +629,12 @@ public class Loader {
 		}
 		return null;
 	}
+	
+	public static String getTexturePath(){
+		if (getCfgValue("Resourcepack").equals("Default")) {
+			return "/resources/textures";
+		}else{
+			return new StringBuilder("file:/").append(texturesRes.getAbsolutePath()).toString();
+		}
+	}
 }
