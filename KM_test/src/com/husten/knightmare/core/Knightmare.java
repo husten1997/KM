@@ -303,7 +303,7 @@ public class Knightmare extends Widget implements StringConstants {
 					System.out.println(inGameStat);
 				}
 
-				if (Keyboard.getEventKey() == Keyboard.KEY_B) {
+				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
 					if (inGameStat.equals(state.N_BUILDINGS)) {
 						inGameStat = state.NOTHING;
 					} else {

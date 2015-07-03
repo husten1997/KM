@@ -236,6 +236,9 @@ public class Loader {
 			
 			defaultConfigValues.put("CONTROL_KEY: Quicksave", "Q");
 			sortedKeys.add("CONTROL_KEY: Quicksave");
+			
+			defaultConfigValues.put("CONTROL_KEY: Baumenü ein/aus", "B");
+			sortedKeys.add("CONTROL_KEY: Baumenü ein/aus");
 
 			// Settings
 			defaultConfigValues.put("SETTINGS: V-Sync", "Off");
