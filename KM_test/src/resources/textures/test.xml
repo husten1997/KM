@@ -15,25 +15,12 @@
 			<alias ref="-frameE" if="armed"/>
 			<alias ref="-frameB"/>
 		</select>
-	</images>
-	<images file="a.png" format="RGBA">
-		<area name="-frameAA" xywh="0,0,32,32" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameBB" xywh="0,0,32,32" splitx="L3,R3" splity="T3,B3"/>
-		<select name="test">
-			<alias ref="-frameAA" if="disabled" tint="#8fff"/>
-			<alias ref="-frameBB" if="armed"/>
-			<alias ref="-frameAA"/>
-		</select>
-	</images>
-	
-	<images file="mm.png" format="RGBA">
-		<area name="-frameMenue" xywh="0,0,3648,688" splitx="L3,R3" splity="T3,B3"/>
-		<select name="baumenue">
-			<alias ref="-frameMenue" if="disabled" tint="#8fff"/>
-			<alias ref="-frameMenue" if="armed"/>
-			<alias ref="-frameMenue"/>
-		</select>
-	</images>
+	</images><fontDef name="normal" filename="font.fnt" color="white" default="true">
+        <fontParam if="error" color="red" />
+        <fontParam if="warning" color="orange" />
+        <fontParam if="disabled" color="gray" />
+        <fontParam if="textSelection" color="blue" />
+    </fontDef>
 	
 	<images file="url.png" format="RGBA">
 		<area name="-frameM" xywh="0,0,1920,362" splitx="L3,R3" splity="T3,B3"/>
@@ -44,12 +31,7 @@
 		</select>
 	</images>
 	
-    <fontDef name="normal" filename="font.fnt" color="white" default="true">
-        <fontParam if="error" color="red"/>
-        <fontParam if="warning" color="orange"/>
-        <fontParam if="disabled" color="gray"/>
-        <fontParam if="textSelection" color="blue"/>
-    </fontDef>
+    
 	
 	
 	

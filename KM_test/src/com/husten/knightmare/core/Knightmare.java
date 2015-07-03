@@ -56,6 +56,7 @@ import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 import de.matthiasmann.twl.Button;
+import de.matthiasmann.twl.Dimension;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
@@ -70,9 +71,9 @@ public class Knightmare extends Widget implements StringConstants {
 	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10; // inverted
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
-	private String inGameStat = state.NOTHING;
+	private String inGameStat = state.N_BUILDINGS;
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true;
+	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true;
 	private Soldat figur;
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
@@ -308,6 +309,7 @@ public class Knightmare extends Widget implements StringConstants {
 					} else {
 						inGameStat = state.N_BUILDINGS;
 					}
+					baumenueShowen = !baumenueShowen;
 					System.out.println(inGameStat);
 				}
 
@@ -398,49 +400,51 @@ public class Knightmare extends Widget implements StringConstants {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					pos1.setX(x);
-					pos1.setY(y);
+					if(!isOn(Mouse.getX(), Mouse.getY())){
+						pos1.setX(x);
+						pos1.setY(y);
 
-					int xR = x / 32;
-					int yR = y / 32;
+						int xR = x / 32;
+						int yR = y / 32;
 
-					switch (inGameStat) {
-					case state.N_BUILDINGS:
-						Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, "haus.png");
-						if (handler.place(b)) {
-							b.setSort(0);
-							initRender(b, 1);
+						switch (inGameStat) {
+						case state.N_BUILDINGS:
+							Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, "haus.png");
+							if (handler.place(b)) {
+								b.setSort(0);
+								initRender(b, 1);
+							}
+							break;
+						case state.N_TRUPS:
+							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 1", 0);
+							if (handler.place(s)) {
+								s.setSort(1);
+								initRender(s, 1);
+							}
+							break;
+						case state.NF_TROOP:
+							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
+							if (handler.place(sf)) {
+								sf.setSort(1);
+								initRender(sf, 1);
+							}
+							break;
+						case state.S_TRUPS:
+							search(x, y);
+							if (selection.get(selection.size() - 1) instanceof Soldat) {
+								figur = (Soldat) selection.get(selection.size() - 1);
+							}
+							break;
+						case state.S_BUILDINGS:
+							search(x, y);
+							break;
+						case state.ABREIﬂEN:
+							RectangleGraphicalObject h = handler.abreiﬂen(xR, yR);
+							if (h != null) {
+								renderList[1].remove(h);
+							}
+							break;
 						}
-						break;
-					case state.N_TRUPS:
-						Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 1", 0);
-						if (handler.place(s)) {
-							s.setSort(1);
-							initRender(s, 1);
-						}
-						break;
-					case state.NF_TROOP:
-						Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
-						if (handler.place(sf)) {
-							sf.setSort(1);
-							initRender(sf, 1);
-						}
-						break;
-					case state.S_TRUPS:
-						search(x, y);
-						if (selection.get(selection.size() - 1) instanceof Soldat) {
-							figur = (Soldat) selection.get(selection.size() - 1);
-						}
-						break;
-					case state.S_BUILDINGS:
-						search(x, y);
-						break;
-					case state.ABREIﬂEN:
-						RectangleGraphicalObject h = handler.abreiﬂen(xR, yR);
-						if (h != null) {
-							renderList[1].remove(h);
-						}
-						break;
 					}
 				}
 
@@ -452,45 +456,50 @@ public class Knightmare extends Widget implements StringConstants {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					Pos p1 = new Pos(x, y); // Ende
+					if(!isOn(Mouse.getX(), Mouse.getY())){
+						
+						Pos p1 = new Pos(x, y); // Ende
 
-					switch (inGameStat) {
-					case state.NOTHING:
-						break;
-					case state.S_TRUPS:
-						Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
-						for (int i = 0; i < selection.size(); i++) {
-							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-								Soldat h = (Soldat) selection.get(i);
-								handler.handle(h, p1, selection.size() + 2);// TODO
-																			// rework
-								angriffe.put(h, bogi);
-								angriffe.put(bogi, h);
+						switch (inGameStat) {
+						case state.NOTHING:
+							break;
+						case state.S_TRUPS:
+							Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
+							for (int i = 0; i < selection.size(); i++) {
+								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+									Soldat h = (Soldat) selection.get(i);
+									handler.handle(h, p1, selection.size() + 2);// TODO
+																				// rework
+									angriffe.put(h, bogi);
+									angriffe.put(bogi, h);
+								}
 							}
+							break;
+						case state.S_BUILDINGS:
+							break;
 						}
-						break;
-					case state.S_BUILDINGS:
-						break;
 					}
-				}
+					}
 			} else {
 				// Button released
 				if (Mouse.getEventButton() == 0) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					pos2.setX(x);
-					pos2.setY(y);
+					if(!isOn(Mouse.getX(), Mouse.getY())){
+						pos2.setX(x);
+						pos2.setY(y);
 
-					switch (inGameStat) {
-					case state.S_TRUPS:
-						search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
-						for (int i = 0; i < selection.size(); i++) {
-							if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-								((Soldat) selection.get(i)).say();
+						switch (inGameStat) {
+						case state.S_TRUPS:
+							search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
+							for (int i = 0; i < selection.size(); i++) {
+								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+									((Soldat) selection.get(i)).say();
+								}
 							}
+							break;
 						}
-						break;
 					}
 				}
 			}
@@ -867,7 +876,7 @@ public class Knightmare extends Widget implements StringConstants {
 		
 	}
 
-	private void pollInputG() {
+//	private void pollInputG() {
 //		Mouse.poll();
 //		Keyboard.poll();
 		/*if (inGameStat.equals(state.ABREIﬂEN)) {
@@ -895,9 +904,15 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 			}
 		}*/
+//	}
+	
+	private boolean isOn(double x, double y){
+		int width = WIDTH;
+        if(width>1920){
+        	width=1920;
+        }
+        return baumenueShowen&&x>(WIDTH-width)/2&&x<(WIDTH+width)/2&&y<width/7;
 	}
-	
-	
 
 	private void initUI(){
 		renderer = null;
@@ -943,7 +958,7 @@ public class Knightmare extends Widget implements StringConstants {
 //		 b_NBuilding.setPosition(100, 150);
 //		 b_NBuilding.setSize(100, 33);
         b_NBuilding.setSize(WIDTH/2, HEIGHT/10);
-        b_NBuilding.setBackground(themeManager.getImage("test"));
+//        b_NBuilding.setBackground(themeManager.getImage("test"));
         b_NTrups.setSize(WIDTH/2, HEIGHT/10);
         b_NTrups.setPosition(WIDTH/2, HEIGHT-HEIGHT/10);
         b_NTrups.setBackground(themeManager.getImageNoWarning("bauM"));
@@ -980,7 +995,6 @@ public class Knightmare extends Widget implements StringConstants {
 		
 		b_NBuilding = new Button("New Buildung");
 		b_NBuilding.setTheme("button_Test");
-//		add(b_NBuilding);
 		
 		b_NBuilding.addCallback(new Runnable() {
 			
@@ -1018,7 +1032,7 @@ public class Knightmare extends Widget implements StringConstants {
 		frame.setTheme("frame");
         frame.setTitle("Inventory");
 //        frame.setResizableAxis(ResizableFrame.ResizableAxis.NONE);
-        frame.add(b_NBuilding);
+//        frame.add(b_NBuilding);
 //        frame.add(b_NTrups);
 //        frame.add(b_TSelect);
         
@@ -1026,11 +1040,11 @@ public class Knightmare extends Widget implements StringConstants {
         if(width>1920){
         	width=1920;
         }
-        frame.setSize(width, width/5);
-        frame.setPosition(0, HEIGHT-width/5);
+        frame.setSize(width, width/7);
+        frame.setPosition((WIDTH-width)/2, HEIGHT-width/7);
         frame.setBackground(themeManager.getImageNoWarning("bauM"));
         
-        add(frame);
+//        add(frame);
 	}
 	
 	public void handlInput(){
@@ -1041,7 +1055,16 @@ public class Knightmare extends Widget implements StringConstants {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-		pollInputG();
+//		pollInputG();
+		
+		if(baumenueShowen){
+			if(getChildIndex(frame)==-1){
+				add(frame);
+			}
+		}else{
+			removeChild(frame);
+		}
+		
 		gui.handleKeyRepeat();
 		gui.handleTooltips();
 		gui.updateTimers();
