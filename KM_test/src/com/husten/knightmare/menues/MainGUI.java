@@ -18,7 +18,7 @@ public class MainGUI extends Widget {
 	public MainGUI(Widget rootPane) throws LWJGLException, MalformedURLException, IOException{
 			renderer = new LWJGLRenderer();
 			gui = new GUI(rootPane, renderer);
-			theme = ThemeManager.createThemeManager(this.getClass().getResource("test.xml"), renderer);
+			theme = ThemeManager.createThemeManager(this.getClass().getResource(Loader.get"menue.xml"), renderer);
 			//Probleme mit dem xml-File #ichsteignichtganzdurch
 			gui.applyTheme(theme);
 			init();

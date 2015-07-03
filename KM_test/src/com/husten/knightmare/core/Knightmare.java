@@ -961,7 +961,6 @@ public class Knightmare extends Widget implements StringConstants {
 //        b_NBuilding.setBackground(themeManager.getImage("test"));
         b_NTrups.setSize(WIDTH/2, HEIGHT/10);
         b_NTrups.setPosition(WIDTH/2, HEIGHT-HEIGHT/10);
-        b_NTrups.setBackground(themeManager.getImageNoWarning("bauM"));
 		 
 		 b_TSelect.setPosition(100, 200);
 		 b_TSelect.setSize(100, 33);
