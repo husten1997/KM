@@ -57,6 +57,7 @@ public class Terrain extends GraphicalObject{
 		}
 	}
 	
+	
 	public String getMeterial(int x, int y){
 		if(elements[x][y]==null){
 			return null;
