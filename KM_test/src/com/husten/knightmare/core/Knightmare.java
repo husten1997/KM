@@ -923,7 +923,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Label l_time;
 	private ResizableFrame frame, kopfframe;
 	private Button[] categories = new Button[6];
-	private Button menue;
+	private Button menue, einstellungen;
 
 	@Override
 	protected void layout() {
@@ -942,12 +942,16 @@ public class Knightmare extends Widget implements StringConstants {
 			categories[i].setBackground(themeManager.getImageNoWarning(imgs[i]));
 		}
 		
-		menue.setSize(kopfframe.getHeight()*2, kopfframe.getHeight());
-		menue.setPosition((WIDTH+width)/2-menue.getWidth(), 0);
+		menue.setSize(kopfframe.getHeight()*2-7, kopfframe.getHeight()-12);
+		menue.setPosition((WIDTH+width)/2-menue.getWidth()-6, 7);
 		menue.setBackground(themeManager.getImage("button.background"));
+		
+		einstellungen.setSize(menue.getHeight(), menue.getHeight());
+		einstellungen.setPosition(menue.getX()-einstellungen.getWidth(), menue.getY());
+		einstellungen.setBackground(themeManager.getImage("cfg"));
 
 		l_fps.adjustSize();
-		l_fps.setPosition((WIDTH-width)/2, (kopfframe.getHeight()-l_fps.getHeight())/2);
+		l_fps.setPosition((WIDTH-width)/2+7, (kopfframe.getHeight()-l_fps.getHeight())/2);
 
 		l_time.adjustSize();
 		l_time.setPosition(WIDTH/2-l_time.getWidth()/2, (kopfframe.getHeight()-l_time.getHeight())/2);;
@@ -998,6 +1002,15 @@ public class Knightmare extends Widget implements StringConstants {
 				m.setAutoRequestFocus(true);
 			}
 		});
+		einstellungen = new Button();
+		einstellungen.addCallback(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		l_fps = new Label("");
 		l_fps.setTheme("label");
@@ -1009,6 +1022,7 @@ public class Knightmare extends Widget implements StringConstants {
 		kopfframe.setTheme("frame");
 		kopfframe.setTitle("Header");
 		kopfframe.add(menue);
+		kopfframe.add(einstellungen);
 		add(kopfframe);
 		add(l_fps);
 		add(l_time);
