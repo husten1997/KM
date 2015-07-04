@@ -73,7 +73,7 @@ public class MainMenue extends Optionsframesuperklasse {
 				new Pos(w(Loader.getCfgValue("Button: Optionen (posx2)")) * width, h(Loader.getCfgValue("Button: Optionen (posy2)")) * height)) {
 			@Override
 			public void onClick() {
-				new Optionen().setAlwaysOnTop(true);
+				new Optionen(false).setAlwaysOnTop(true);
 				dispose();
 			}
 		});

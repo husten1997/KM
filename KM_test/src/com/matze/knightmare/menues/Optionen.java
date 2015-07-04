@@ -27,9 +27,11 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 	private String[] text = { "Grafikeinstellungen", "Resourcepacks", "Tastenbelegung"};
 	public static Optionsframesuperklasse instance;
 
-	public Optionen() {
+	public Optionen(boolean inG) {
 		super("back.png", "Knightmare: Optionen");
 		optionen = new JButton[text.length];
+		
+		inGame = inG;
 
 		position = (int) ((Float.parseFloat(Loader.getCfgValue("Volume")) / 0.84) + 94);
 
@@ -111,10 +113,14 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 			volume.setValue(position);
 			repaint();
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
+			if (inGame){
+				dispose();
+			} else {
 			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
+			}
 		}
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
 			Loader.changeCfgValue("SETTINGS: V-Sync", Loader.getCfgValue("SETTINGS: V-Sync").equals("On")?"Off":"On");
@@ -128,24 +134,28 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		repaint();
 
 		if (q == zurück) {
+			if (inGame){
+				dispose();
+			} else {
 			MainMenue.instance.setUndecorated(isUndecorated());
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
+			}
 		}
 		
 		if (q == optionen[2]){
-			new Tastenbelegung();
+			new Tastenbelegung(inGame);
 			dispose();
 		}
 
 		if (q == optionen[1]) {
-			new Resourcepack();
+			new Resourcepack(inGame);
 			dispose();
 		}
 		
 		if (q == optionen[0]){
-			new Grafik("back.png", "Knightmare: Grafikeinstellungen");
+			new Grafik(inGame, "back.png", "Knightmare: Grafikeinstellungen");
 			dispose();
 		}
 

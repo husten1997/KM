@@ -20,6 +20,7 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 
 	protected int width, height;
 	protected Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+	protected boolean inGame = false;
 
 	protected Optionsframesuperklasse(String imgName, String name) {
 		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Loader.getImage("Cursor.png"), new Point(), "Knightmare_Cursor"));
