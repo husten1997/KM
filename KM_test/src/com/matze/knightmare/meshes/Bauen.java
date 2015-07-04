@@ -73,4 +73,13 @@ public class Bauen {
 		
 		return b;
 	}
+	
+	public static Building getBuildingforID(int id, Pos p, int w, int h, String spieler, int team){
+		switch (id){
+		case 0: {return KohleMine(p, w, h, spieler, team);}
+		case 1: {return EisenMine(p, w, h, spieler, team);}
+		case 2: {return Lager(p, w, h, spieler, team);}
+		default: return null;
+		}
+	}
 }
