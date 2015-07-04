@@ -20,11 +20,9 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 	private JButton settings[];
 	private String[] text = { "V-Sync", "Fenstermodus"};
 
-	protected Grafik(boolean inG, String imgName, String name) {
+	protected Grafik(String imgName, String name) {
 		super(imgName, name);
 
-		inGame=inG;
-		
 		settings = new JButton[text.length];
 		
 		for (int i = 0; i < text.length; i++) {
@@ -57,17 +55,11 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
-			if (inGame){
-				InGameOptionen.instance.setUndecorated(isUndecorated());
-				InGameOptionen.instance.setVisible(true);
-				InGameOptionen.instance.setAutoRequestFocus(true);
-				dispose();
-			} else {
-				Optionen.instance.setUndecorated(isUndecorated());
-				Optionen.instance.setVisible(true);
-				Optionen.instance.setAutoRequestFocus(true);
-				dispose();
-			}
+			Optionen.instance.dispose();
+			Optionen.instance.setUndecorated(isUndecorated());
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
+			dispose();
 		}
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
 			Loader.changeCfgValue("SETTINGS: V-Sync", Loader.getCfgValue("SETTINGS: V-Sync").equals("On")?"Off":"On");
@@ -81,17 +73,10 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		Object q = e.getSource();
 
 		if (q == zurück) {
-			if (inGame){
-				InGameOptionen.instance.setUndecorated(isUndecorated());
-				InGameOptionen.instance.setVisible(true);
-				InGameOptionen.instance.setAutoRequestFocus(true);
-				dispose();
-			} else {
-				Optionen.instance.setUndecorated(isUndecorated());
-				Optionen.instance.setVisible(true);
-				Optionen.instance.setAutoRequestFocus(true);
-				dispose();
-			}
+			Optionen.instance.setUndecorated(isUndecorated());
+			Optionen.instance.setVisible(true);
+			Optionen.instance.setAutoRequestFocus(true);
+			dispose();
 		}
 
 		if (q == settings[0]) {

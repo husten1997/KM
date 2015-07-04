@@ -19,7 +19,6 @@ import com.richard.knightmare.sound.MoodMusic;
 public class Optionsframesuperklasse extends JFrame implements KeyListener {
 
 	protected int width, height;
-	protected boolean inGame = false;
 	protected Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
 	protected Optionsframesuperklasse(String imgName, String name) {
@@ -87,9 +86,5 @@ public class Optionsframesuperklasse extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// Ignore
-	}
-	
-	public void setInGame(boolean a){
-		inGame = a;
 	}
 }

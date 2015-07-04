@@ -27,11 +27,9 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 	private String[] text = { "Grafikeinstellungen", "Resourcepacks", "Tastenbelegung"};
 	public static Optionsframesuperklasse instance;
 
-	public Optionen(boolean inG) {
+	public Optionen() {
 		super("back.png", "Knightmare: Optionen");
 		optionen = new JButton[text.length];
-		
-		inGame = inG;
 
 		position = (int) ((Float.parseFloat(Loader.getCfgValue("Volume")) / 0.84) + 94);
 
@@ -137,17 +135,17 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		}
 		
 		if (q == optionen[2]){
-			new Tastenbelegung(inGame);
+			new Tastenbelegung();
 			dispose();
 		}
 
 		if (q == optionen[1]) {
-			new Resourcepack(inGame);
+			new Resourcepack();
 			dispose();
 		}
 		
 		if (q == optionen[0]){
-			new Grafik(inGame, "back.png", "Knightmare: Grafikeinstellungen");
+			new Grafik("back.png", "Knightmare: Grafikeinstellungen");
 			dispose();
 		}
 

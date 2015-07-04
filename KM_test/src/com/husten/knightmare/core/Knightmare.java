@@ -961,7 +961,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = {"Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil"};
 
 	private void GUI() {
-		//gebäude[0][0] = 
+		gebäude[0][0] = 
 		
 		
 		
