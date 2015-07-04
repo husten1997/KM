@@ -1,191 +1,270 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE themes PUBLIC "-//www.matthiasmann.de//TWL-Theme//EN" "http://hg.l33tlabs.org/twl/raw-file/tip/src/de/matthiasmann/twl/theme/theme.dtd">
 <themes>
-    <images file="simple.png" format="RGBA">
-		<area name="-frameA" xywh="0,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameB" xywh="10,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameC" xywh="20,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameD" xywh="30,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameE" xywh="40,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameF" xywh="50,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameG" xywh="60,0,9,9" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-frameH" xywh="70,0,9,9" splitx="L3,R3" splity="T3,B3"/>
+	<images file="simple.png" format="RGBA">
+		<area name="-frameA" xywh="0,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameB" xywh="10,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameC" xywh="20,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameD" xywh="30,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameE" xywh="40,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameF" xywh="50,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameG" xywh="60,0,9,9" splitx="L3,R3" splity="T3,B3" />
+		<area name="-frameH" xywh="70,0,9,9" splitx="L3,R3" splity="T3,B3" />
 		<select name="button.background">
-			<alias ref="-frameB" if="disabled" tint="#8fff"/>
-			<alias ref="-frameE" if="armed"/>
-			<alias ref="-frameB"/>
+			<alias ref="-frameB" if="disabled" tint="#8fff" />
+			<alias ref="-frameE" if="armed" />
+			<alias ref="-frameB" />
 		</select>
 	</images>
-	 <images file="categories.png" format="RGBA">
-		<area name="-cP" xywh="0,0,64,64" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-cR" xywh="65,0,64,64" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-cN" xywh="129,0,64,64" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-cM" xywh="193,0,64,64" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-cV" xywh="256,0,64,64" splitx="L3,R3" splity="T3,B3"/>
-		<area name="-cZ" xywh="320,0,64,64" splitx="L3,R3" splity="T3,B3"/>
+	<images file="categories.png" format="RGBA">
+		<area name="-cP" xywh="0,0,64,64" splitx="L3,R3" splity="T3,B3" />
+		<area name="-cR" xywh="64,0,64,64" splitx="L3,R3" splity="T3,B3" />
+		<area name="-cN" xywh="128,0,64,64" splitx="L3,R3" splity="T3,B3" />
+		<area name="-cM" xywh="192,0,64,64" splitx="L3,R3" splity="T3,B3" />
+		<area name="-cV" xywh="256,0,64,64" splitx="L3,R3" splity="T3,B3" />
+		<area name="-cZ" xywh="320,0,64,64" splitx="L3,R3" splity="T3,B3" />
 		<select name="cP">
-			<alias ref="-cP" if="disabled" tint="#8fff"/>
-			<alias ref="-cP" if="armed"/>
-			<alias ref="-cP"/>
+			<alias ref="-cP" if="disabled" tint="#8fff" />
+			<alias ref="-cP" if="armed" tint="#999999" />
+			<alias ref="-cP" />
 		</select>
 		<select name="cR">
-			<alias ref="-cR" if="disabled" tint="#8fff"/>
-			<alias ref="-cR" if="armed"/>
-			<alias ref="-cR"/>
+			<alias ref="-cR" if="disabled" tint="#8fff" />
+			<alias ref="-cR" if="armed" tint="#999999" />
+			<alias ref="-cR" />
 		</select>
 		<select name="cN">
-			<alias ref="-cN" if="disabled" tint="#8fff"/>
-			<alias ref="-cN" if="armed"/>
-			<alias ref="-cN"/>
+			<alias ref="-cN" if="disabled" tint="#8fff" />
+			<alias ref="-cN" if="armed" tint="#999999" />
+			<alias ref="-cN" />
 		</select>
 		<select name="cM">
-			<alias ref="-cM" if="disabled" tint="#8fff"/>
-			<alias ref="-cM" if="armed"/>
-			<alias ref="-cM"/>
+			<alias ref="-cM" if="disabled" tint="#8fff" />
+			<alias ref="-cM" if="armed" tint="#999999" />
+			<alias ref="-cM" />
 		</select>
 		<select name="cV">
-			<alias ref="-cV" if="disabled" tint="#8fff"/>
-			<alias ref="-cV" if="armed"/>
-			<alias ref="-cV"/>
+			<alias ref="-cV" if="disabled" tint="#8fff" />
+			<alias ref="-cV" if="armed" tint="#999999" />
+			<alias ref="-cV" />
 		</select>
 		<select name="cZ">
-			<alias ref="-cZ" if="disabled" tint="#8fff"/>
-			<alias ref="-cZ" if="armed"/>
-			<alias ref="-cZ"/>
+			<alias ref="-cZ" if="disabled" tint="#8fff" />
+			<alias ref="-cZ" if="armed" tint="#999999" />
+			<alias ref="-cZ" />
 		</select>
 	</images>
 	<images file="Cursor.png" format="RGBA">
-		<area name="-cursor" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0"/>
+		<area name="-cursor" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="dCursor">
-			<alias ref="-cursor" if="disabled" tint="#8fff"/>
-			<alias ref="-cursor" if="armed"/>
-			<alias ref="-cursor"/>
+			<alias ref="-cursor" if="disabled" tint="#8fff" />
+			<alias ref="-cursor" if="armed" />
+			<alias ref="-cursor" />
 		</select>
-		<cursor name="cursor1" hotSpotX="0" hotSpotY="0" xywh="*" imageRef="dCursor"/>
+		<cursor name="cursor1" hotSpotX="0" hotSpotY="0" xywh="*"
+			imageRef="dCursor" />
 	</images>
 	<images file="delete.png" format="RGBA">
-		<area name="-cursorDel" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0"/>
+		<area name="-cursorDel" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="delCursor">
-			<alias ref="-cursorDel" if="disabled" tint="#8fff"/>
-			<alias ref="-cursorDel" if="armed"/>
-			<alias ref="-cursorDel"/>
+			<alias ref="-cursorDel" if="disabled" tint="#8fff" />
+			<alias ref="-cursorDel" if="armed" />
+			<alias ref="-cursorDel" />
 		</select>
-		<cursor name="cursorDel" hotSpotX="0" hotSpotY="0" xywh="*" imageRef="delCursor"/>
+		<cursor name="cursorDel" hotSpotX="0" hotSpotY="0" xywh="*"
+			imageRef="delCursor" />
 	</images>
-	<fontDef name="normal" filename="font.fnt" color="white" default="true">
-        <fontParam if="error" color="red" />
-        <fontParam if="warning" color="orange" />
-        <fontParam if="disabled" color="gray" />
-        <fontParam if="textSelection" color="blue" />
-    </fontDef>
-	
-	<images file="baumenue.png" format="RGBA">
-		<area name="-frameM" xywh="0,0,1920,362" splitx="L3,R3" splity="T3,B3"/>
-		<select name="baumenue">
-			<alias ref="-frameM" if="disabled" tint="#8fff"/>
-			<alias ref="-frameM" if="armed"/>
-			<alias ref="-frameM"/>
-		</select>
-	</images>
-	
-    
-	
-	
-    <inputMapDef name="-defaultInputMap">
-        <action name="selectAll">ctrl A</action>
-        <action name="selectAll">cmd A</action>
-        <action name="cut">ctrl X</action>
-        <action name="cut">cmd X</action>
-        <action name="copy">ctrl C</action>
-        <action name="copy">cmd C</action>
-        <action name="paste">ctrl V</action>
-        <action name="paste">cmd V</action>
-    </inputMapDef>
+	<fontDef name="normal" filename="font.fnt" color="white"
+		default="true">
+		<fontParam if="error" color="red" />
+		<fontParam if="warning" color="orange" />
+		<fontParam if="disabled" color="gray" />
+		<fontParam if="textSelection" color="blue" />
+	</fontDef>
 
-    <theme name="-defaults">
-        <param name="background"><image>none</image></param>
-        <param name="overlay"><image>none</image></param>
-        <param name="font"><font>normal</font></param>
-        <param name="textAlignment"><enum type="alignment">center</enum></param>
-        <param name="minWidth"><int>0</int></param>
-        <param name="minHeight"><int>0</int></param>
-        <param name="maxWidth"><int>0</int></param>
-        <param name="maxHeight"><int>0</int></param>
-        <param name="inputMap"><inputMap>-defaultInputMap</inputMap></param>
-    </theme>
-    <theme name="tooltipwindow" ref="-defaults">
-        <param name="fadeInTime"><int>0</int></param>
-    </theme>
-    
-    <theme name="button" ref="-defaults">
-		<param name="background"><image>button.background</image></param>
-        <param name="minHeight"><int>10</int></param>
-        <param name="minWidth"><int>10</int></param>
+	<images file="baumenue.png" format="RGBA">
+		<area name="-frameM" xywh="0,0,1920,362" splitx="L3,R3" splity="T3,B3" />
+		<select name="baumenue">
+			<alias ref="-frameM" if="disabled" tint="#8fff" />
+			<alias ref="-frameM" if="armed" />
+			<alias ref="-frameM" />
+		</select>
+	</images>
+
+
+
+
+	<inputMapDef name="-defaultInputMap">
+		<action name="selectAll">ctrl A</action>
+		<action name="selectAll">cmd A</action>
+		<action name="cut">ctrl X</action>
+		<action name="cut">cmd X</action>
+		<action name="copy">ctrl C</action>
+		<action name="copy">cmd C</action>
+		<action name="paste">ctrl V</action>
+		<action name="paste">cmd V</action>
+	</inputMapDef>
+
+	<theme name="-defaults">
+		<param name="background">
+			<image>none</image>
+		</param>
+		<param name="overlay">
+			<image>none</image>
+		</param>
+		<param name="font">
+			<font>normal</font>
+		</param>
+		<param name="textAlignment">
+			<enum type="alignment">center</enum>
+		</param>
+		<param name="minWidth">
+			<int>0</int>
+		</param>
+		<param name="minHeight">
+			<int>0</int>
+		</param>
+		<param name="maxWidth">
+			<int>0</int>
+		</param>
+		<param name="maxHeight">
+			<int>0</int>
+		</param>
+		<param name="inputMap">
+			<inputMap>-defaultInputMap</inputMap>
+		</param>
 	</theme>
-	
+	<theme name="tooltipwindow" ref="-defaults">
+		<param name="fadeInTime">
+			<int>0</int>
+		</param>
+	</theme>
+
+	<theme name="button" ref="-defaults">
+		<param name="minHeight">
+			<int>10</int>
+		</param>
+		<param name="minWidth">
+			<int>10</int>
+		</param>
+	</theme>
+
 	<theme name="main" ref="-defaults">
 		<theme name="button_Test" ref="button">
-			<param name=""><image>button.*</image></param>
-			<param name="minHeight"><int>10</int></param>
-			<param name="minWidth"><int>10</int></param>
+			<param name="">
+				<image>button.*</image>
+			</param>
+			<param name="minHeight">
+				<int>10</int>
+			</param>
+			<param name="minWidth">
+				<int>10</int>
+			</param>
 		</theme>
 	</theme>
-	
-	
-	
-	<theme name="label" ref="-defaults" allowWildcard="true">
-    </theme>
-	
-    <theme name="resizableframe" ref="-defaults">
-        <param name="background"><image>baumenue</image></param>
-		<param name="offscreenExtra"><border>13,15</border></param>
-        <param name="titleAreaTop"><int>5</int></param>
-        <param name="titleAreaLeft"><int>5</int></param>
-        <param name="titleAreaRight"><int>-5</int></param>
-        <param name="titleAreaBottom"><int>5</int></param>
-        <param name="hasCloseButton"><bool>false</bool></param>
-        <param name="closeButtonX"><int>0</int></param>
-        <param name="closeButtonY"><int>0</int></param>
-        <param name="hasResizeHandle"><bool>false</bool></param>
-        <param name="resizeHandleX"><int>0</int></param>
-        <param name="resizeHandleY"><int>0</int></param>
-        <param name="fadeColorInactive"><color>#FFFF</color></param>
-        <param name="fadeDurationActivate"><int>200</int></param>
-        <param name="fadeDurationDeactivate"><int>200</int></param>
-        <param name="fadeDurationShow"><int>200</int></param>
-        <param name="fadeDurationHide"><int>200</int></param>
-        <theme name="title" ref="label">
-            <param name="textAlignment"><enum type="alignment">top</enum></param>
-        </theme>
-        <theme name="closeButton" ref="button">
-            <param name=""><image>eforen.frame.closebutton.*</image></param>
-            <param name="border"><border>background.border</border></param>
-            <param name="minWidth"><int>0</int></param>
-        </theme>
-        <theme name="button_Test" ref="button">
-			<param name=""><image>button.*</image></param>
-			<param name="minHeight"><int>10</int></param>
-			<param name="minWidth"><int>10</int></param>
-		</theme>
-        <theme name="resizeHandle" ref="-defaults"/>
-    </theme>
-    
-    <theme name="knightmare" ref="-defaults">
-		<theme name="button_Test" ref="button">
-			<param name=""><image>button.*</image></param>
-			<param name="minHeight"><int>10</int></param>
-			<param name="minWidth"><int>10</int></param>
-		</theme>
-		
-		<theme name="label" ref="-defaults" allowWildcard="true">
-		
-   		</theme>
-   		
-   		<theme name="frame" ref="resizableframe">
-   		</theme>
-	</theme>
-	
-	
 
-    
+
+
+	<theme name="label" ref="-defaults" allowWildcard="true">
+	</theme>
+
+	<theme name="resizableframe" ref="-defaults">
+		<param name="background">
+			<image>baumenue</image>
+		</param>
+		<param name="offscreenExtra">
+			<border>13,15</border>
+		</param>
+		<param name="titleAreaTop">
+			<int>5</int>
+		</param>
+		<param name="titleAreaLeft">
+			<int>5</int>
+		</param>
+		<param name="titleAreaRight">
+			<int>-5</int>
+		</param>
+		<param name="titleAreaBottom">
+			<int>5</int>
+		</param>
+		<param name="hasCloseButton">
+			<bool>false</bool>
+		</param>
+		<param name="closeButtonX">
+			<int>0</int>
+		</param>
+		<param name="closeButtonY">
+			<int>0</int>
+		</param>
+		<param name="hasResizeHandle">
+			<bool>false</bool>
+		</param>
+		<param name="resizeHandleX">
+			<int>0</int>
+		</param>
+		<param name="resizeHandleY">
+			<int>0</int>
+		</param>
+		<param name="fadeColorInactive">
+			<color>#FFFF</color>
+		</param>
+		<param name="fadeDurationActivate">
+			<int>200</int>
+		</param>
+		<param name="fadeDurationDeactivate">
+			<int>200</int>
+		</param>
+		<param name="fadeDurationShow">
+			<int>200</int>
+		</param>
+		<param name="fadeDurationHide">
+			<int>200</int>
+		</param>
+		<theme name="title" ref="label">
+			<param name="textAlignment">
+				<enum type="alignment">top</enum>
+			</param>
+		</theme>
+		<theme name="closeButton" ref="button">
+			<param name="">
+				<image>eforen.frame.closebutton.*</image>
+			</param>
+			<param name="border">
+				<border>background.border</border>
+			</param>
+			<param name="minWidth">
+				<int>0</int>
+			</param>
+		</theme>
+		<theme name="resizeHandle" ref="-defaults" />
+	</theme>
+
+	<theme name="knightmare" ref="-defaults">
+		<theme name="button" ref="button">
+			<param name="minHeight">
+				<int>10</int>
+			</param>
+			<param name="minWidth">
+				<int>10</int>
+			</param>
+		</theme>
+
+		<theme name="label" ref="-defaults" allowWildcard="true">
+		</theme>
+
+		<theme name="frame" ref="resizableframe">
+			<theme name="button" ref="button">
+				<param name="minHeight">
+					<int>10</int>
+				</param>
+				<param name="minWidth">
+					<int>10</int>
+				</param>
+			</theme>
+		</theme>
+	</theme>
+
+
+
+
 </themes>

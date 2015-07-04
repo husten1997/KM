@@ -53,6 +53,7 @@ import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 import de.matthiasmann.twl.Button;
+import de.matthiasmann.twl.Color;
 import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
@@ -65,7 +66,7 @@ import de.matthiasmann.twl.theme.ThemeManager;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /*inverted*/,cursorIndex = 0, category; 
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category;
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
 	private String inGameStat = state.N_BUILDINGS;
@@ -260,7 +261,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIßEN;
-					if(cursorIndex==0){
+					if (cursorIndex == 0) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
 						cursorIndex = 1;
 					}
@@ -279,7 +280,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
 					inGameStat = state.S_TRUPS;
-					if(cursorIndex==1){
+					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
@@ -288,7 +289,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_V) {
 					inGameStat = state.S_BUILDINGS;
-					if(cursorIndex==1){
+					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
@@ -298,7 +299,7 @@ public class Knightmare extends Widget implements StringConstants {
 				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
 					baumenueShowen = !baumenueShowen;
 					inGameStat = state.N_BUILDINGS;
-					if(cursorIndex==1){
+					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
@@ -307,7 +308,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (Keyboard.getEventKey() == Keyboard.KEY_N) {
 					inGameStat = state.N_TRUPS;
-					if(cursorIndex==1){
+					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
@@ -315,7 +316,7 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 				if (Keyboard.getEventKey() == Keyboard.KEY_J) {
 					inGameStat = state.NF_TROOP;
-					if(cursorIndex==1){
+					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
@@ -924,75 +925,102 @@ public class Knightmare extends Widget implements StringConstants {
 	private Label l_fps;
 	private Label l_time;
 	private ResizableFrame frame;
+	private Button[] categories = new Button[6];
 
 	@Override
 	protected void layout() {
-//		 b_NTrups.setPosition(100, 100);
-//		 b_NTrups.setSize(100, 33);
-		 
-//		 b_NBuilding.setPosition(100, 150);
-//		 b_NBuilding.setSize(100, 33);
-        b_NBuilding.setSize(WIDTH/2, HEIGHT/10);
-//        b_NBuilding.setBackground(themeManager.getImage("test"));
-        b_NTrups.setSize(WIDTH/2, HEIGHT/10);
-        b_NTrups.setPosition(WIDTH/2, HEIGHT-HEIGHT/10);
-		 
-		 b_TSelect.setPosition(100, 200);
-		 b_TSelect.setSize(100, 33);
-		 
-		 l_fps.setPosition(100, 10);
-		 l_fps.setSize(20, 40);
-		 
-		 l_time.setPosition(WIDTH - 200, 10);
-		 l_time.setSize(20, 40);
-		 
-		 gui.draw();
-		 
-		    //button.adjustSize(); //Calculate optimal size instead of manually setting it
+		int width = WIDTH;
+		if (width > 1920) {
+			width = 1920;
+		}
+		Pos start = new Pos((WIDTH - width) / 2 + width / 4 + width/16, HEIGHT - 85);
+		for (int i = 0; i < categories.length; i++) {
+			categories[i].setSize(40, 40);
+			categories[i].setPosition((int) start.getX() + 40 * i, (int) start.getY());
+			categories[i].setBackground(themeManager.getImageNoWarning(imgs[i]));
+		}
+
+		// b_NTrups.setPosition(100, 100);
+		// b_NTrups.setSize(100, 33);
+
+		// b_NBuilding.setPosition(100, 150);
+		// b_NBuilding.setSize(100, 33);
+		// b_NBuilding.setSize(WIDTH / 2, HEIGHT / 10);
+		// b_NBuilding.setBackground(themeManager.getImage("test"));
+		// b_NTrups.setSize(WIDTH / 2, HEIGHT / 10);
+		// b_NTrups.setPosition(WIDTH / 2, HEIGHT - HEIGHT / 10);
+
+		// b_TSelect.setPosition(100, 200);
+		// b_TSelect.setSize(100, 33);
+
+		l_fps.setPosition(100, 10);
+		l_fps.setSize(20, 40);
+
+		l_time.setPosition(WIDTH - 200, 10);
+		l_time.setSize(20, 40);
+
+		gui.draw();
+
+		// button.adjustSize(); //Calculate optimal size instead of manually
+		// setting it
 		super.layout();
 	}
-	
+
+	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" };
+
 	private void GUI() {
-		b_NTrups = new Button("Set Trup");
-		b_NTrups.setTheme("button_Test");
-		// add(b_NTrups);
+		for (int i = 0; i < categories.length; i++) {
+			categories[i] = new Button();
+			// categories[i].setTheme("button");
+			int help = i;
+			categories[i].addCallback(new Runnable() {
 
-		b_NTrups.addCallback(new Runnable() {
+				@Override
+				public void run() {
+					for(int j = 0; j< categories.length; j++){
+						if(j!=help){
+							categories[j].getAnimationState().setAnimationState(STATE_DISABLED, true);
+						}else{
+							categories[j].getAnimationState().setAnimationState(STATE_DISABLED, false);
+						}
+					}
+					category = help;
+					System.out.println(category);
+				}
+			});
+		}
 
-			@Override
-			public void run() {
-				inGameStat = state.N_TRUPS;
-				System.out.println(inGameStat);
-
-			}
-		});
-
-		b_NBuilding = new Button("New Buildung");
-		b_NBuilding.setTheme("button_Test");
-
-		b_NBuilding.addCallback(new Runnable() {
-
-			@Override
-			public void run() {
-				inGameStat = state.N_BUILDINGS;
-				System.out.println(inGameStat);
-
-			}
-		});
-
-		b_TSelect = new Button("Select");
-		b_TSelect.setTheme("button_Test");
-		add(b_TSelect);
-
-		b_TSelect.addCallback(new Runnable() {
-
-			@Override
-			public void run() {
-				inGameStat = state.S_TRUPS;
-				System.out.println(inGameStat);
-
-			}
-		});
+		/*
+		 * b_NTrups = new Button("Set Trup"); b_NTrups.setTheme("button_Test");
+		 * // add(b_NTrups);
+		 * 
+		 * b_NTrups.addCallback(new Runnable() {
+		 * 
+		 * @Override public void run() { inGameStat = state.N_TRUPS;
+		 * System.out.println(inGameStat);
+		 * 
+		 * } });
+		 * 
+		 * b_NBuilding = new Button("New Buildung");
+		 * b_NBuilding.setTheme("button_Test");
+		 * 
+		 * b_NBuilding.addCallback(new Runnable() {
+		 * 
+		 * @Override public void run() { inGameStat = state.N_BUILDINGS;
+		 * System.out.println(inGameStat);
+		 * 
+		 * } });
+		 * 
+		 * b_TSelect = new Button("Select"); b_TSelect.setTheme("button_Test");
+		 * add(b_TSelect);
+		 * 
+		 * b_TSelect.addCallback(new Runnable() {
+		 * 
+		 * @Override public void run() { inGameStat = state.S_TRUPS;
+		 * System.out.println(inGameStat);
+		 * 
+		 * } });
+		 */
 
 		l_fps = new Label("");
 		l_fps.setTheme("label");
@@ -1005,36 +1033,39 @@ public class Knightmare extends Widget implements StringConstants {
 		frame = new ResizableFrame();
 		frame.setTheme("frame");
 		frame.setTitle("Inventory");
-//		add(frame);
-//		Button buttonProduktion = new Button("d");
-//		buttonProduktion.setBackground(themeManager.getImage("cP"));
-//		buttonProduktion.addCallback(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				category = 0;
-//				System.out.println(category);
-//			}
-//		});
-//		frame.add(buttonProduktion);
-//		buttonProduktion.setSize(64, 64);
-//		buttonProduktion.setPosition(2000, HEIGHT-100);
-//		
-//		Button buttonResourcen = new Button("d");
-//		buttonResourcen.setBackground(themeManager.getImage("cR"));
-//		buttonResourcen.addCallback(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				category = 0;
-//				System.out.println(category);
-//			}
-//		});
-//		frame.add(buttonResourcen);
-//		buttonResourcen.setSize(64, 64);
-//		buttonResourcen.setPosition(2100, HEIGHT-100);
-		frame.add(b_NBuilding);
-		 frame.add(b_NTrups);
+
+		for (Button button : categories) {
+			frame.add(button);
+		}
+		// Button buttonProduktion = new Button("d");
+		// buttonProduktion.setBackground(themeManager.getImage("cP"));
+		// buttonProduktion.addCallback(new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// category = 0;
+		// System.out.println(category);
+		// }
+		// });
+		// frame.add(buttonProduktion);
+		// buttonProduktion.setSize(64, 64);
+		// buttonProduktion.setPosition(2000, HEIGHT-100);
+		//
+		// Button buttonResourcen = new Button("d");
+		// buttonResourcen.setBackground(themeManager.getImage("cR"));
+		// buttonResourcen.addCallback(new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// category = 0;
+		// System.out.println(category);
+		// }
+		// });
+		// frame.add(buttonResourcen);
+		// buttonResourcen.setSize(64, 64);
+		// buttonResourcen.setPosition(2100, HEIGHT-100);
+		// frame.add(b_NBuilding);
+		// frame.add(b_NTrups);
 		// frame.add(b_TSelect);
 
 		int width = WIDTH;
@@ -1045,19 +1076,19 @@ public class Knightmare extends Widget implements StringConstants {
 		frame.setPosition((WIDTH - width) / 2, HEIGHT - width / 7);
 		frame.setBackground(themeManager.getImageNoWarning("bauM"));
 
-		 add(frame);
+		// add(frame);
 		// b_NTrups.setPosition(100, 100);
 		// b_NTrups.setSize(100, 33);
 
-//		b_NBuilding.setPosition(100, 150);
+		// b_NBuilding.setPosition(100, 150);
 		// b_NBuilding.setSize(100, 33);
-//		b_NBuilding.setSize(WIDTH / 6, HEIGHT / 10);
-//		b_NBuilding.setBackground(themeManager.getImage("cP"));
-//		b_NTrups.setSize(WIDTH / 6, HEIGHT / 10);
-//		b_NTrups.setPosition(WIDTH / 2, HEIGHT - HEIGHT / 10);
+		// b_NBuilding.setSize(WIDTH / 6, HEIGHT / 10);
+		// b_NBuilding.setBackground(themeManager.getImage("cP"));
+		// b_NTrups.setSize(WIDTH / 6, HEIGHT / 10);
+		// b_NTrups.setPosition(WIDTH / 2, HEIGHT - HEIGHT / 10);
 
-		b_TSelect.setPosition(100, 200);
-		b_TSelect.setSize(100, 33);
+		// b_TSelect.setPosition(100, 200);
+		// b_TSelect.setSize(100, 33);
 
 		l_fps.setPosition(100, 10);
 		l_fps.setSize(20, 40);
