@@ -16,6 +16,14 @@
 			<alias ref="-frameB" />
 		</select>
 	</images>
+	<images file= "kopfzeile.png" format="RGBA">
+		<area name = "KZall" xywh="0,0,1920,54" splitx = "L3,R3" splity="T3,B3"/>
+		<select name ="kopfzeile">
+			<alias ref="KZall" if="disabled" tint="#8fff" />
+			<alias ref="KZall" if="armed" tint="#999999" />
+			<alias ref="KZall" />
+		</select>
+		</images>
 	<images file="categories.png" format="RGBA">
 		<area name="-cP" xywh="0,0,64,64" splitx="L3,R3" splity="T3,B3" />
 		<area name="-cR" xywh="64,0,64,64" splitx="L3,R3" splity="T3,B3" />
@@ -74,7 +82,7 @@
 		<cursor name="cursorDel" hotSpotX="0" hotSpotY="0" xywh="*"
 			imageRef="delCursor" />
 	</images>
-	<fontDef name="normal" filename="font.fnt" color="white"
+	<fontDef name="normal" filename="font.fnt" color="black"
 		default="true">
 		<fontParam if="error" color="red" />
 		<fontParam if="warning" color="orange" />
@@ -135,9 +143,16 @@
 		</param>
 	</theme>
 	<theme name="tooltipwindow" ref="-defaults">
-		<param name="fadeInTime">
-			<int>0</int>
+		<param name="background">
+			<image>-frameH</image>
 		</param>
+		<param name="border">
+			<border>3</border>
+		</param>
+		<param name="fadeInTime">
+			<int>1000</int>
+		</param>
+		<theme name="label" ref="-defaults"></theme>
 	</theme>
 
 	<theme name="button" ref="-defaults">
@@ -262,8 +277,19 @@
 				</param>
 			</theme>
 		</theme>
+		<theme name="tooltipwindow" ref="-defaults">
+			<param name="background">
+				<image>-frameH</image>
+			</param>
+			<param name="border">
+				<border>3</border>
+			</param>
+			<param name="fadeInTime">
+				<int>1000</int>
+			</param>
+			<theme name="label" ref="-defaults"></theme>
+		</theme>
 	</theme>
-
 
 
 
