@@ -22,8 +22,8 @@ public class Building extends RectangleGraphicalObject {
 
 	
 	public Building(int index, Pos position, int width, int height, String textureName) {
-		this.index = index;
 		super(position, width, height, textureName, false);
+		this.setIndex(index);
 		type = MeshType.GEBÄUDE;
 		verbesserungen = new Ausruestung[6];
 	}
@@ -159,6 +159,14 @@ public class Building extends RectangleGraphicalObject {
 
 	public void setSpieler(String spieler) {
 		this.spieler = spieler;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 

@@ -1,6 +1,5 @@
 package com.matze.knightmare.meshes;
 
-import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +11,7 @@ public class Bauen {
 	private static Waren benötigt[];
 	
 	public static Building KohleMine(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(p, w, h, ".png");
+		Building b = new Building(0, p, w, h, ".png");
 		amountBenötigt = new int[1];
 		b.init(50, 20, 0, 0, "Kohlemine", null, amountBenötigt, Rohstoffe.Kohle(), 25);
 		b.setTeam(team);
@@ -21,7 +20,7 @@ public class Bauen {
 	}
 	
 	public static Building EisenMine(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(0, p, w, h, "Eisenerz 1.png");
+		Building b = new Building(1, p, w, h, "Eisenerz 1.png");
 		
 		int am = 1;
 		
@@ -54,7 +53,7 @@ public class Bauen {
 	}
 	
 	public static Building Lager(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(1, p, w, h, "Eisenerz 1.png");
+		Building b = new Building(2, p, w, h, "Eisenerz 1.png");
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);

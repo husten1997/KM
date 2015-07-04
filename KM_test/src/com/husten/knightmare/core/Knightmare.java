@@ -28,6 +28,7 @@ import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.menues.InGameOptionen;
 import com.matze.knightmare.meshes.Battle;
+import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Soldat;
@@ -51,7 +52,7 @@ import de.matthiasmann.twl.theme.ThemeManager;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category;
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category, aktuellesGebäude = -1;
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
 	private String inGameStat = state.N_BUILDINGS;
@@ -397,7 +398,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 						switch (inGameStat) {
 						case state.N_BUILDINGS:
-							Building b = new Building(new Pos(xR * 32, yR * 32), 64, 32, "haus.png");
+							Building b = Bauen.Lager(new Pos(xR*32, yR*32), 64, 64, "Spieler 1", 0);
 							if (handler.place(b)) {
 								b.setSort(0);
 								initRender(b, 1);
@@ -437,7 +438,8 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 
 				if (Mouse.getEventButton() == 2) {
-					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
+//					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
+					ang = new Pos(Mouse.getX(), Mouse.getY());
 				}	
 				if (Mouse.getEventButton() == 1) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
@@ -541,8 +543,12 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Mouse.isButtonDown(2)) {
-			CameraX = -(Mouse.getX() * scale - ang.getX());
-			CameraY = -(Mouse.getY() * scale - ang.getY());
+//			CameraX = -(Mouse.getX() * scale - ang.getX());
+//			CameraY = -(Mouse.getY() * scale - ang.getY());
+			
+			CameraX -= (Mouse.getX()-ang.getX())*scale*0.005;
+			CameraY -= (Mouse.getY()-ang.getY())*scale*0.005;
+			
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
@@ -555,7 +561,6 @@ public class Knightmare extends Widget implements StringConstants {
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
-
 		}
 
 		// TODO JJDK
@@ -913,6 +918,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private ResizableFrame frame, kopfframe;
 	private Button[] categories = new Button[6];
 	private Button menue, einstellungen;
+	private Button[][] gebäude = new Button[6][];
 
 	@Override
 	protected void layout() {
@@ -955,6 +961,12 @@ public class Knightmare extends Widget implements StringConstants {
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = {"Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil"};
 
 	private void GUI() {
+		gebäude[0][0] = 
+		
+		
+		
+		
+		
 		for (int i = 0; i < categories.length; i++) {
 			categories[i] = new Button();
 			Label l = new Label(names[i]);
