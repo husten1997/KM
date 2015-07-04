@@ -931,10 +931,10 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
 		gebäude[0][0].setSize(64, 64);
-		gebäude[0][0].setBackground(themeManager.getImage("button.background"));
+		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
 		gebäude[0][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[0][1].setSize(64, 64);
-		gebäude[0][1].setBackground(themeManager.getImage("button.background"));
+		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
 		gebäude[0][1].setPosition((int) baustart.getX() + 1 * 64, (int) baustart.getY());
 		gebäude[0][2].setSize(64, 64);
 		gebäude[0][2].setBackground(themeManager.getImage("button.background"));

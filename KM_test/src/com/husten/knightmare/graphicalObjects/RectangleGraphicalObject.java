@@ -9,7 +9,6 @@ import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
-import com.husten.knightmare.graphicalObjects.DNCycl;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 

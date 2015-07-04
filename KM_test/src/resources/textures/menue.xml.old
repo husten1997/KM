@@ -297,22 +297,11 @@
 			<theme name="label" ref="-defaults"/>
 		</theme>
 	</theme>
-   <images file="kohlemine.png" format="RGBA">
-		<area name="km" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0"/>
-		<select name="kohlemine">
-			<alias ref="km" if="disabled" tint="#8fff"/>
-			<alias ref="km" if="armed" tint="#999999"/>
-			<alias ref="km"/>
-		</select>
-	</images>
-   <images file="Eisenerz 1.png" format="RGBA">
-		<area name="em" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0"/>
-		<select name="eisenmine">
-			<alias ref="em"  if="disabled" tint="#8fff"/>
-			<alias ref="em" if="armed" tint="#999999"/>
-			<alias ref="em"/>
-		</select>
-	</images>
+    <images file="Kohlemine.png">
+        <select name="kohlemine">
+            <area xywh="*"/>
+        </select>
+    </images>
 
 
 
