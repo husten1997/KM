@@ -53,8 +53,6 @@ import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
 import de.matthiasmann.twl.Button;
-import de.matthiasmann.twl.Color;
-import de.matthiasmann.twl.FPSCounter;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
 import de.matthiasmann.twl.ResizableFrame;
@@ -949,10 +947,10 @@ public class Knightmare extends Widget implements StringConstants {
 		menue.setBackground(themeManager.getImage("button.background"));
 
 		l_fps.adjustSize();
-		l_fps.setPosition(WIDTH/2-l_fps.getWidth()/2, (kopfframe.getHeight()-l_fps.getHeight())/2);
+		l_fps.setPosition((WIDTH-width)/2, (kopfframe.getHeight()-l_fps.getHeight())/2);
 
-		l_time.setPosition(WIDTH - 200, 10);
-		l_time.setSize(20, 40);
+		l_time.adjustSize();
+		l_time.setPosition(WIDTH/2-l_time.getWidth()/2, (kopfframe.getHeight()-l_time.getHeight())/2);;
 
 		gui.draw();
 
@@ -1006,15 +1004,14 @@ public class Knightmare extends Widget implements StringConstants {
 
 		l_time = new Label("");
 		l_time.setTheme("label");
-		add(l_time);
 
 		kopfframe= new ResizableFrame();
 		kopfframe.setTheme("frame");
 		kopfframe.setTitle("Header");
 		kopfframe.add(menue);
-//		kopfframe.add(l_fps);
 		add(kopfframe);
 		add(l_fps);
+		add(l_time);
 		
 		
 		frame = new ResizableFrame();
