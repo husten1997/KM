@@ -10,7 +10,7 @@ import com.matze.knightmare.meshes.Soldat;
 
 public class EntityHandler {
 
-	private RectangleGraphicalObject[][] world;
+	public static RectangleGraphicalObject[][] world;
 	private ArrayList<RectangleGraphicalObject> entities = new ArrayList<>();
 	private int id = 1, ticksSinceLastRetry;
 	private HashMap<Soldat, SingleManPathfinding> finding = new HashMap<>();
@@ -81,7 +81,42 @@ public class EntityHandler {
 
 	public void tick() {
 		if(ticksSinceLastRetry>200){
-			//TODO retry
+			for(Entry<Soldat, Pos> entry: actualDeastination.entrySet()){
+				if(triesOnActual.get(entry.getKey())>5){
+					if(triesOnReplaced.get(entry.getKey())>5){
+						triesOnReplaced.remove(entry.getKey());
+						replacedDestination.remove(entry.getKey());
+						triesOnActual.remove(entry.getKey());
+						actualDeastination.remove(entry.getKey());
+						chasing.remove(entry.getKey());
+					}else{
+						SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), replacedDestination.get(entry.getKey()));
+						com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
+						if (alternative == null) {
+							finding.put(entry.getKey(), path);
+							triesOnReplaced.remove(entry.getKey());
+							replacedDestination.remove(entry.getKey());
+							triesOnActual.remove(entry.getKey());
+							actualDeastination.remove(entry.getKey());
+						} else {
+							replacedDestination.put(entry.getKey(), new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
+							triesOnReplaced.put(entry.getKey(), triesOnReplaced.get(entry.getKey())+1);
+						}
+					}
+				}else{
+					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), actualDeastination.get(entry.getKey()));
+					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
+					if (alternative == null) {
+						finding.put(entry.getKey(), path);
+						triesOnReplaced.remove(entry.getKey());
+						replacedDestination.remove(entry.getKey());
+						triesOnActual.remove(entry.getKey());
+						actualDeastination.remove(entry.getKey());
+					} else {
+						triesOnActual.put(entry.getKey(), triesOnActual.get(entry.getKey())+1);
+					}
+				}
+			}
 			ticksSinceLastRetry = 0;
 		}
 		ticksSinceLastRetry++;
@@ -117,6 +152,7 @@ public class EntityHandler {
 	}
 
 	public void remove(RectangleGraphicalObject object) {
+		entities.remove(object);
 		int w = object.getWidth() / 32;
 		int h = object.getHeight() / 32;
 		int startW = (int) (object.getPosition().getX() / 32);
@@ -127,7 +163,23 @@ public class EntityHandler {
 				world[startW + i][startH + j] = null;
 			}
 		}
+	}
+	
+	public void remove(int x, int y) {
+		RectangleGraphicalObject object = world[x][y];
 		entities.remove(object);
+		if(object!=null){
+			int w = object.getWidth() / 32;
+			int h = object.getHeight() / 32;
+			int startW = (int) (object.getPosition().getX() / 32);
+			int startH = (int) (object.getPosition().getY() / 32);
+
+			for (int i = 0; i < w; i++) {
+				for (int j = 0; j < h; j++) {
+					world[startW + i][startH + j] = null;
+				}
+			}
+		}
 	}
 
 	private boolean isObstractedFor(int x, int y, RectangleGraphicalObject soldat) {

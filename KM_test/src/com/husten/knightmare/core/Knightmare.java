@@ -35,8 +35,8 @@ import com.matze.knightmare.meshes.Soldat;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
+import com.richard.knightmare.util.EntityHandler;
 import com.richard.knightmare.util.Loader;
-import com.richard.knightmare.util.Pathhandler;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
@@ -62,9 +62,11 @@ public class Knightmare extends Widget implements StringConstants {
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-	private Pathhandler handler;
+//	private Pathhandler handler;
+	private EntityHandler newHandler;
+	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	@SuppressWarnings("unchecked")
-	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
+	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
 	private int renderD = 5;
@@ -167,7 +169,8 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		terrain = new Terrain((512) + 1, (512) + 1);
 		terrain.initRender();
-		handler = new Pathhandler(513, 513);
+//		handler = new Pathhandler(513, 513);
+		newHandler = new EntityHandler(513, 513);
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -400,24 +403,24 @@ public class Knightmare extends Widget implements StringConstants {
 						case state.N_BUILDINGS:
 							if (aktuellesGeb‰ude != -1) {
 								Building b = Bauen.getBuildingforID(aktuellesGeb‰ude, new Pos(xR * 32, yR * 32), 64, 64, "Spieler 1", 0);
-								if (handler.place(b)) {
-									b.setSort(0);
-									initRender(b, 1);
+								if (/*handler.place(b)*/newHandler.place(b)) {
+//									b.setSort(0);
+//									initRender(b, 1);
 								}
 							}
 							break;
 						case state.N_TRUPS:
 							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 1", 0);
-							if (handler.place(s)) {
-								s.setSort(1);
-								initRender(s, 1);
+							if (/*handler.place(s)*/newHandler.place(s)) {
+//								s.setSort(1);
+//								initRender(s, 1);
 							}
 							break;
 						case state.NF_TROOP:
 							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
-							if (handler.place(sf)) {
-								sf.setSort(1);
-								initRender(sf, 1);
+							if (/*handler.place(sf)*/newHandler.place(sf)) {
+//								sf.setSort(1);
+//								initRender(sf, 1);
 							}
 							break;
 						case state.S_TRUPS:
@@ -430,10 +433,10 @@ public class Knightmare extends Widget implements StringConstants {
 							search(x, y);
 							break;
 						case state.ABREIﬂEN:
-							RectangleGraphicalObject h = handler.abreiﬂen(xR, yR);
-							if (h != null) {
-								renderList[1].remove(h);
-							}
+							/*RectangleGraphicalObject h = handler.abreiﬂen(xR, yR)*/newHandler.remove(xR,yR);;
+//							if (h != null) {
+//								renderList[1].remove(h);
+//							}
 							break;
 						}
 					}
@@ -450,13 +453,14 @@ public class Knightmare extends Widget implements StringConstants {
 
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 
-						Pos p1 = new Pos(x, y); // Ende
+//						Pos p1 = new Pos(x, y); // Ende
 
 						switch (inGameStat) {
 						case state.NOTHING:
 							break;
 						case state.S_TRUPS:
-							Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
+							newHandler.processRightClick(x, y, selection);
+							/*Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
 							for (int i = 0; i < selection.size(); i++) {
 								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
 									Soldat h = (Soldat) selection.get(i);
@@ -465,7 +469,7 @@ public class Knightmare extends Widget implements StringConstants {
 									angriffe.put(h, bogi);
 									angriffe.put(bogi, h);
 								}
-							}
+							}*/
 							break;
 						case state.S_BUILDINGS:
 							break;
@@ -660,6 +664,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void render() {
 		terrain.draw();
+		newHandler.draw();
 
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
@@ -727,7 +732,7 @@ public class Knightmare extends Widget implements StringConstants {
 								&& renderList[e].get(i).getPosition().getY() <= Py1 && renderList[e].get(i).getPosition().getY() >= Py2) {
 
 							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-								selection.add(renderList[e].get(i));
+								selection.add((RectangleGraphicalObject) renderList[e].get(i));
 							}
 						}
 					}
@@ -757,15 +762,16 @@ public class Knightmare extends Widget implements StringConstants {
 		} catch (Exception e) {
 
 		}
-		selection.add(xy);
+		selection.add((RectangleGraphicalObject) xy);
 	}
 
 	public void calc() {
-		handler.move();
+//		handler.move();
+		newHandler.tick();
 
 		for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
 			Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
-			renderList[1].remove(handler.abreiﬂen(krepierd));
+			newHandler.remove(krepierd);/*renderList[1].remove(handler.abreiﬂen(krepierd));*/
 			if (krepierd != null) {
 				angriffe.remove(entry.getKey());
 				angriffe.remove(krepierd);

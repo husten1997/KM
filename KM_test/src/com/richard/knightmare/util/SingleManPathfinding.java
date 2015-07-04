@@ -56,8 +56,8 @@ public class SingleManPathfinding {
 			if (!vektoren.get(0).isAlreadyMoved()) {
 				if (!finishedmoving && continueing
 						&& !isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32)))) {
-					Pathhandler.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
-					Pathhandler.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
+					EntityHandler.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
+					EntityHandler.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
 				} else {
 					return false;
 				}
@@ -219,8 +219,8 @@ public class SingleManPathfinding {
 
 	public Pos pathfind() {
 		currentVektorStartPos = realStart;
-		pointsInGrid = new PathObject[Pathhandler.world.length][Pathhandler.world[0].length];
-		possiblePointsInGrid = new PathObject[Pathhandler.world.length][Pathhandler.world[0].length];
+		pointsInGrid = new PathObject[EntityHandler.world.length][EntityHandler.world[0].length];
+		possiblePointsInGrid = new PathObject[EntityHandler.world.length][EntityHandler.world[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
 		possiblePointsInGrid[start.x][start.y] = startObjt;
 		pointsInGrid[start.x][start.y] = startObjt;
@@ -382,14 +382,14 @@ public class SingleManPathfinding {
 	}
 
 	private boolean isValid(Pos p) {
-		return p.x < Pathhandler.world.length && p.x >= 0 && p.y < Pathhandler.world[0].length && p.y >= 0;
+		return p.x < EntityHandler.world.length && p.x >= 0 && p.y < EntityHandler.world[0].length && p.y >= 0;
 	}
 
 	private boolean isObstracted(Pos p) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
-				if (Pathhandler.world[p.x][p.y] != null) {
-					return Pathhandler.world[p.x][p.y].getID() != soldat.getID();
+				if (EntityHandler.world[p.x][p.y] != null) {
+					return EntityHandler.world[p.x][p.y].getID() != soldat.getID();
 				} else {
 					return false;
 				}
@@ -400,8 +400,8 @@ public class SingleManPathfinding {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
 			} else {
-				if (Pathhandler.world[p.x][p.y] != null) {
-					return Pathhandler.world[p.x][p.y].getID() != soldat.getID();
+				if (EntityHandler.world[p.x][p.y] != null) {
+					return EntityHandler.world[p.x][p.y].getID() != soldat.getID();
 				} else {
 					return false;
 				}
