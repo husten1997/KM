@@ -12,8 +12,9 @@ public class Bauen {
 	
 	public static Building KohleMine(Pos p, int w, int h, String spieler, int team){
 		Building b = new Building(0, p, w, h, ".png");
+		benötigt = new Waren[1];
 		amountBenötigt = new int[1];
-		b.init(50, 20, 0, 0, "Kohlemine", null, amountBenötigt, Rohstoffe.Kohle(), 25);
+		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		return b;
