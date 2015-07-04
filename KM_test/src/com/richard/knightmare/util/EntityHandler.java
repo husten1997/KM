@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.matze.knightmare.meshes.Soldat;
@@ -17,6 +18,7 @@ public class EntityHandler {
 	private HashMap<Soldat, Pos> actualDeastination = new HashMap<>(), replacedDestination = new HashMap<>();
 	private HashMap<Soldat, Integer> triesOnActual = new HashMap<>(), triesOnReplaced = new HashMap<>();
 	private HashMap<Soldat, RectangleGraphicalObject> chasing = new HashMap<>();
+	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 
 	public EntityHandler(int width, int height) {
 		world = new RectangleGraphicalObject[width][height];
@@ -33,6 +35,10 @@ public class EntityHandler {
 		for (RectangleGraphicalObject entity : entities) {
 			entity.draw();
 		}
+	}
+	
+	public ArrayList<RectangleGraphicalObject> getSelection(){
+		return selection;
 	}
 
 	public boolean place(RectangleGraphicalObject object) {
@@ -58,8 +64,67 @@ public class EntityHandler {
 		entities.add(object);
 		return true;
 	}
+	
+	public void search(double x1, double y1, double x2, double y2) {
+		if (x1 == x2 && y1 == y2) {
+			search(x1, y1);
+		} else {
+			selection.clear();
+			double Px1;
+			double Px2;
 
-	public void processRightClick(double x, double y, ArrayList<RectangleGraphicalObject> selection) {
+			double Py1;
+			double Py2;
+
+			if (x1 < x2) {
+				Px1 = x2;
+				Px2 = x1;
+			} else {
+				Px1 = x1;
+				Px2 = x2;
+			}
+
+			if (y1 < y2) {
+				Py1 = y2;
+				Py2 = y1;
+			} else {
+				Py1 = y1;
+				Py2 = y2;
+			}
+
+			try {
+					for (int i = 0; i < entities.size(); i++) {
+						if (entities.get(i).getPosition().getX() <= Px1 && entities.get(i).getPosition().getX() >= Px2
+								&& entities.get(i).getPosition().getY() <= Py1 && entities.get(i).getPosition().getY() >= Py2) {
+
+							if (entities.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+								selection.add((RectangleGraphicalObject) entities.get(i));
+							}
+						}
+				}
+			} catch (Exception e) {
+
+			}
+		}
+
+	}
+
+	public void search(double x, double y) {
+		selection .clear();
+
+		try {
+				for (int i = 0; i < entities.size(); i++) {
+					if (entities.get(i).getPosition().getX() <= x && entities.get(i).getPosition().getX() >= x - 64
+							&& entities.get(i).getPosition().getY() <= y && entities.get(i).getPosition().getY() >= y - 64) {
+						selection.add(entities.get(i));
+					}
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void processRightClick(double x, double y) {
 		int xPos = (int) x / 32;
 		int yPos = (int) y / 32;
 

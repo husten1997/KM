@@ -64,7 +64,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 //	private Pathhandler handler;
 	private EntityHandler newHandler;
-	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
+//	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
@@ -324,9 +324,9 @@ public class Knightmare extends Widget implements StringConstants {
 					Vsync = !Vsync;
 				}
 
-				if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
-					System.out.println(selection.size());
-				}
+//				if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
+//					System.out.println(selection.size());
+//				}
 
 				if (getString("CONTROL_KEY: Musik wechseln").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.nextClip();
@@ -424,13 +424,20 @@ public class Knightmare extends Widget implements StringConstants {
 							}
 							break;
 						case state.S_TRUPS:
-							search(x, y);
-							if (selection.get(selection.size() - 1) instanceof Soldat) {
-								figur = (Soldat) selection.get(selection.size() - 1);
+							newHandler.search(x, y);
+							if(newHandler.getSelection().size()>0){
+								if (newHandler.getSelection().get(newHandler.getSelection().size() - 1) instanceof Soldat) {
+									figur = (Soldat) newHandler.getSelection().get(newHandler.getSelection().size() - 1);
+								}
 							}
+//							search(x, y);
+//							if (selection.get(selection.size() - 1) instanceof Soldat) {
+//								figur = (Soldat) selection.get(selection.size() - 1);
+//							}
 							break;
 						case state.S_BUILDINGS:
-							search(x, y);
+							newHandler.search(x, y);
+//							search(x, y);
 							break;
 						case state.ABREIﬂEN:
 							/*RectangleGraphicalObject h = handler.abreiﬂen(xR, yR)*/newHandler.remove(xR,yR);;
@@ -443,9 +450,9 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 
 				if (Mouse.getEventButton() == 2) {
-					// ang = new Pos(CameraX + Mouse.getX() * scale, CameraY +
-					// Mouse.getY() * scale);
-					ang = new Pos(Mouse.getX(), Mouse.getY());
+					 ang = new Pos(CameraX + Mouse.getX() * scale, CameraY +
+					 Mouse.getY() * scale);
+//					ang = new Pos(Mouse.getX(), Mouse.getY());
 				}
 				if (Mouse.getEventButton() == 1) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
@@ -459,7 +466,7 @@ public class Knightmare extends Widget implements StringConstants {
 						case state.NOTHING:
 							break;
 						case state.S_TRUPS:
-							newHandler.processRightClick(x, y, selection);
+							newHandler.processRightClick(x, y);
 							/*Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
 							for (int i = 0; i < selection.size(); i++) {
 								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
@@ -488,12 +495,12 @@ public class Knightmare extends Widget implements StringConstants {
 
 						switch (inGameStat) {
 						case state.S_TRUPS:
-							search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
-							for (int i = 0; i < selection.size(); i++) {
-								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-									((Soldat) selection.get(i)).say();
-								}
-							}
+							newHandler.search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
+//							for (int i = 0; i < selection.size(); i++) {
+//								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+//									((Soldat) selection.get(i)).say();
+//								}
+//							}
 							break;
 						}
 					}
@@ -550,11 +557,8 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Mouse.isButtonDown(2)) {
-			// CameraX = -(Mouse.getX() * scale - ang.getX());
-			// CameraY = -(Mouse.getY() * scale - ang.getY());
-
-			CameraX -= (Mouse.getX() - ang.getX()) * scale * 0.005;
-			CameraY -= (Mouse.getY() - ang.getY()) * scale * 0.005;
+			 CameraX = -(Mouse.getX() * scale - ang.getX());
+			 CameraY = -(Mouse.getY() * scale - ang.getY());
 
 			if (CameraX < 0) {
 				CameraX = 0;
@@ -664,13 +668,13 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void render() {
 		terrain.draw();
-		newHandler.draw();
 
 		for (int e = 0; e < ebenen; e++) {
 			for (int i = 0; i < renderList[e].size(); i++) {
 				renderList[e].get(i).draw();
 			}
 		}
+		newHandler.draw();
 
 	}
 
@@ -697,73 +701,73 @@ public class Knightmare extends Widget implements StringConstants {
 		fps++;
 	}
 
-	public void search(double x1, double y1, double x2, double y2) {
-		if (x1 == x2 && y1 == y2) {
-			search(x1, y1);
-		} else {
-			selection.clear();
-			double Px1;
-			double Px2;
-
-			double Py1;
-			double Py2;
-
-			if (x1 < x2) {
-				Px1 = x2;
-				Px2 = x1;
-			} else {
-				Px1 = x1;
-				Px2 = x2;
-			}
-
-			if (y1 < y2) {
-				Py1 = y2;
-				Py2 = y1;
-			} else {
-				Py1 = y1;
-				Py2 = y2;
-			}
-
-			try {
-				for (int e = 0; e < ebenen; e++) {
-
-					for (int i = 0; i < renderList[e].size(); i++) {
-						if (renderList[e].get(i).getPosition().getX() <= Px1 && renderList[e].get(i).getPosition().getX() >= Px2
-								&& renderList[e].get(i).getPosition().getY() <= Py1 && renderList[e].get(i).getPosition().getY() >= Py2) {
-
-							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-								selection.add((RectangleGraphicalObject) renderList[e].get(i));
-							}
-						}
-					}
-				}
-			} catch (Exception e) {
-
-			}
-		}
-
-	}
-
-	// F√ºr einzelauswahl
-	public void search(double x, double y) {
-		GraphicalObject xy = figur;
-		selection.clear();
-
-		try {
-			for (int e = 0; e < ebenen; e++) {
-
-				for (int i = 0; i < renderList[e].size(); i++) {
-					if (renderList[e].get(i).getPosition().getX() <= x && renderList[e].get(i).getPosition().getX() >= x - 64
-							&& renderList[e].get(i).getPosition().getY() <= y && renderList[e].get(i).getPosition().getY() >= y - 64) {
-						xy = renderList[e].get(i);
-					}
-				}
-			}
-		} catch (Exception e) {
-
-		}
-		selection.add((RectangleGraphicalObject) xy);
-	}
+//	public void search(double x1, double y1, double x2, double y2) {
+//		if (x1 == x2 && y1 == y2) {
+//			search(x1, y1);
+//		} else {
+//			selection.clear();
+//			double Px1;
+//			double Px2;
+//
+//			double Py1;
+//			double Py2;
+//
+//			if (x1 < x2) {
+//				Px1 = x2;
+//				Px2 = x1;
+//			} else {
+//				Px1 = x1;
+//				Px2 = x2;
+//			}
+//
+//			if (y1 < y2) {
+//				Py1 = y2;
+//				Py2 = y1;
+//			} else {
+//				Py1 = y1;
+//				Py2 = y2;
+//			}
+//
+//			try {
+//				for (int e = 0; e < ebenen; e++) {
+//
+//					for (int i = 0; i < renderList[e].size(); i++) {
+//						if (renderList[e].get(i).getPosition().getX() <= Px1 && renderList[e].get(i).getPosition().getX() >= Px2
+//								&& renderList[e].get(i).getPosition().getY() <= Py1 && renderList[e].get(i).getPosition().getY() >= Py2) {
+//
+//							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+//								selection.add((RectangleGraphicalObject) renderList[e].get(i));
+//							}
+//						}
+//					}
+//				}
+//			} catch (Exception e) {
+//
+//			}
+//		}
+//
+//	}
+//
+//	// F√ºr einzelauswahl
+//	public void search(double x, double y) {
+//		GraphicalObject xy = figur;
+//		selection.clear();
+//
+//		try {
+//			for (int e = 0; e < ebenen; e++) {
+//
+//				for (int i = 0; i < renderList[e].size(); i++) {
+//					if (renderList[e].get(i).getPosition().getX() <= x && renderList[e].get(i).getPosition().getX() >= x - 64
+//							&& renderList[e].get(i).getPosition().getY() <= y && renderList[e].get(i).getPosition().getY() >= y - 64) {
+//						xy = renderList[e].get(i);
+//					}
+//				}
+//			}
+//		} catch (Exception e) {
+//
+//		}
+//		selection.add((RectangleGraphicalObject) xy);
+//	}
 
 	public void calc() {
 //		handler.move();
@@ -1123,7 +1127,7 @@ public class Knightmare extends Widget implements StringConstants {
 		gui.invokeRunables();
 		gui.validateLayout();
 		gui.draw();
-		gui.setCursor();
+//		gui.setCursor();TODO
 	}
 
 	public void guiPollInput() {
