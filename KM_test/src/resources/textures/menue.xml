@@ -16,14 +16,14 @@
 			<alias ref="-frameB" />
 		</select>
 	</images>
-	<images file= "kopfzeile.png" format="RGBA">
-		<area name = "KZall" xywh="0,0,1920,54" splitx = "L3,R3" splity="T3,B3"/>
-		<select name ="kopfzeile">
+	<images file="kopfzeile.png" format="RGBA">
+		<area name="KZall" xywh="0,0,1920,54" splitx="L3,R3" splity="T3,B3" />
+		<select name="kopfzeile">
 			<alias ref="KZall" if="disabled" tint="#8fff" />
 			<alias ref="KZall" if="armed" tint="#999999" />
 			<alias ref="KZall" />
 		</select>
-		</images>
+	</images>
 	<images file="categories.png" format="RGBA">
 		<area name="-cP" xywh="0,0,64,64" splitx="L3,R3" splity="T3,B3" />
 		<area name="-cR" xywh="64,0,64,64" splitx="L3,R3" splity="T3,B3" />
@@ -235,6 +235,8 @@
 		<param name="fadeDurationHide">
 			<int>200</int>
 		</param>
+		<theme name="label" ref="-defaults" allowWildcard="true">
+		</theme>
 		<theme name="title" ref="label">
 			<param name="textAlignment">
 				<enum type="alignment">top</enum>

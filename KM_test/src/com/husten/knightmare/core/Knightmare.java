@@ -921,7 +921,6 @@ public class Knightmare extends Widget implements StringConstants {
 	private GUI gui;
 	private LWJGLRenderer renderer;
 	private ThemeManager themeManager;
-	private FPSCounter fpsCounter;
 	private Label l_fps;
 	private Label l_time;
 	private ResizableFrame frame, kopfframe;
@@ -949,8 +948,8 @@ public class Knightmare extends Widget implements StringConstants {
 		menue.setPosition((WIDTH+width)/2-menue.getWidth(), 0);
 		menue.setBackground(themeManager.getImage("button.background"));
 
-		l_fps.setPosition(100, 10);
-		l_fps.setSize(20, 40);
+		l_fps.adjustSize();
+		l_fps.setPosition(WIDTH/2-l_fps.getWidth()/2, (kopfframe.getHeight()-l_fps.getHeight())/2);
 
 		l_time.setPosition(WIDTH - 200, 10);
 		l_time.setSize(20, 40);
@@ -1004,7 +1003,6 @@ public class Knightmare extends Widget implements StringConstants {
 
 		l_fps = new Label("");
 		l_fps.setTheme("label");
-		add(l_fps);
 
 		l_time = new Label("");
 		l_time.setTheme("label");
@@ -1014,7 +1012,9 @@ public class Knightmare extends Widget implements StringConstants {
 		kopfframe.setTheme("frame");
 		kopfframe.setTitle("Header");
 		kopfframe.add(menue);
+//		kopfframe.add(l_fps);
 		add(kopfframe);
+		add(l_fps);
 		
 		
 		frame = new ResizableFrame();
@@ -1033,7 +1033,6 @@ public class Knightmare extends Widget implements StringConstants {
 		
 		frame.setSize(width, width / 7);
 		frame.setPosition((WIDTH - width) / 2, HEIGHT - width / 7);
-		frame.setBackground(themeManager.getImageNoWarning("bauM"));
 
 		l_fps.setPosition(100, 10);
 		l_fps.setSize(20, 40);
