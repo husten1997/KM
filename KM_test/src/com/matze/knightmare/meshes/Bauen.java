@@ -21,7 +21,7 @@ public class Bauen {
 	}
 	
 	public static Building EisenMine(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(p, w, h, "Eisenerz 1.png");
+		Building b = new Building(0, p, w, h, "Eisenerz 1.png");
 		
 		int am = 1;
 		
@@ -54,7 +54,7 @@ public class Bauen {
 	}
 	
 	public static Building Lager(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(p, w, h, "Eisenerz 1.png");
+		Building b = new Building(1, p, w, h, "Eisenerz 1.png");
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);

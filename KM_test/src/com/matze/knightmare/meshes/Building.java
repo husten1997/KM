@@ -9,6 +9,7 @@ public class Building extends RectangleGraphicalObject {
 	private String spieler;
 	
 	private int health;
+	private int index;
 	private int ProduktionproMinute;
 	private int angriff, reichweite;
 	private String name;
@@ -20,7 +21,8 @@ public class Building extends RectangleGraphicalObject {
 	private int maxLagerKapazität;
 
 	
-	public Building(Pos position, int width, int height, String textureName) {
+	public Building(int index, Pos position, int width, int height, String textureName) {
+		this.index = index;
 		super(position, width, height, textureName, false);
 		type = MeshType.GEBÄUDE;
 		verbesserungen = new Ausruestung[6];
