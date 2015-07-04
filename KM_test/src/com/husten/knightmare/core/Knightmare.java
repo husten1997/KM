@@ -34,12 +34,15 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.DNCycl;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.menues.MainGUI;
+import com.matze.knightmare.menues.InGameOptionen;
+import com.matze.knightmare.menues.Optionen;
 import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
@@ -79,12 +82,14 @@ public class Knightmare extends Widget implements StringConstants {
 	private ArrayList<GraphicalObject> selection = new ArrayList<>(), renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
+	private Knightmare kn;
 
 	public static double breightness = 1;
 
 	private DNCycl DN;
 
 	public Knightmare() {
+		kn = this;
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
 		start();
 	}
@@ -1007,8 +1012,7 @@ public class Knightmare extends Widget implements StringConstants {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				
+				new InGameOptionen(kn);
 			}
 		});
 
@@ -1090,6 +1094,15 @@ public class Knightmare extends Widget implements StringConstants {
 		int wheelDelta = Mouse.getEventDWheel();
 		if (wheelDelta != 0) {
 			gui.handleMouseWheel(wheelDelta);
+		}
+	}
+	
+	public void setFocus(){
+		try {
+			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
+		} catch (LWJGLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
