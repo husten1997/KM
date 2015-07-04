@@ -136,17 +136,17 @@ public class InGameOptionen extends Optionsframesuperklasse implements ChangeLis
 		}
 		
 		if (q == optionen[2]){
-			new Tastenbelegung();
+			new Tastenbelegung(true);
 			dispose();
 		}
 
 		if (q == optionen[1]) {
-			new Resourcepack();
+			new Resourcepack(true);
 			dispose();
 		}
 		
 		if (q == optionen[0]){
-			new Grafik("back.png", "Knightmare: Grafikeinstellungen");
+			new Grafik(true, "back.png", "Knightmare: Grafikeinstellungen");
 			dispose();
 		}
 

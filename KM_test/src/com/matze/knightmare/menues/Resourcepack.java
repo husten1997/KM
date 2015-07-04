@@ -37,12 +37,14 @@ public class Resourcepack extends Optionsframesuperklasse implements
 	private String fehler[] = new String[3];
 	private int first;
 
-	public Resourcepack() {
+	public Resourcepack(boolean inG) {
 		super("back.png", "Knightmare: Resourcepack");
 		fehler[0] = "(bF) Resourcepack kann nicht 'Default' heißen.";
 		fehler[1] = "(bF) Das ist kein Ordner: ";
 		fehler[2] = "(bF) Kein gültiges Resourcepack: ";
 
+		inGame = inG;
+		
 		first = 0;
 		
 		path = new File(new StringBuilder("C:\\Users\\")
@@ -277,11 +279,19 @@ public class Resourcepack extends Optionsframesuperklasse implements
 										.startsWith(fehler[2])) {
 							Loader.changeCfgValue("Resourcepack",
 									text[list.getSelectedIndex()]);
-							Optionen.instance.dispose();
-							Optionen.instance.setUndecorated(isUndecorated());
-							Optionen.instance.setVisible(true);
-							Optionen.instance.setAutoRequestFocus(true);
-							dispose();
+							if (inGame){
+								InGameOptionen.instance.dispose();
+								InGameOptionen.instance.setUndecorated(isUndecorated());
+								InGameOptionen.instance.setVisible(true);
+								InGameOptionen.instance.setAutoRequestFocus(true);
+								dispose();
+							} else {
+								Optionen.instance.dispose();
+								Optionen.instance.setUndecorated(isUndecorated());
+								Optionen.instance.setVisible(true);
+								Optionen.instance.setAutoRequestFocus(true);
+								dispose();
+							}
 						}
 					}
 				}
@@ -324,10 +334,17 @@ public class Resourcepack extends Optionsframesuperklasse implements
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == zurück) {
-			Optionen.instance.setUndecorated(isUndecorated());
-			Optionen.instance.setVisible(true);
-			Optionen.instance.setAutoRequestFocus(true);
-			dispose();
+			if (inGame){
+				InGameOptionen.instance.setUndecorated(isUndecorated());
+				InGameOptionen.instance.setVisible(true);
+				InGameOptionen.instance.setAutoRequestFocus(true);
+				dispose();
+			} else {
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
+				dispose();
+			}
 		}
 		
 		
@@ -341,11 +358,17 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			for (int i = 0; i < deleteable.length; i++) {
 				recursicDelete(deleteable[i]);
 			}
-			Optionen.instance.dispose();
-			Optionen.instance.setUndecorated(isUndecorated());
-			Optionen.instance.setVisible(true);
-			Optionen.instance.setAutoRequestFocus(true);
-			dispose();
+			if (inGame){
+				InGameOptionen.instance.setUndecorated(isUndecorated());
+				InGameOptionen.instance.setVisible(true);
+				InGameOptionen.instance.setAutoRequestFocus(true);
+				dispose();
+			} else {
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
+				dispose();
+			}
 		}
 		first++;
 	}
@@ -368,9 +391,17 @@ public class Resourcepack extends Optionsframesuperklasse implements
 			MoodMusic.changeVolume(+0.5f);
 		} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
 				getString("CONTROL_KEY: Escape/Zurück"))) {
-			Optionen.instance.setVisible(true);
-			Optionen.instance.setAutoRequestFocus(true);
-			dispose();
+			if (inGame){
+				InGameOptionen.instance.setUndecorated(isUndecorated());
+				InGameOptionen.instance.setVisible(true);
+				InGameOptionen.instance.setAutoRequestFocus(true);
+				dispose();
+			} else {
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
+				dispose();
+			}
 		}
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(
 				Loader.getCfgValue("CONTROL_KEY: V-Sync"))) {

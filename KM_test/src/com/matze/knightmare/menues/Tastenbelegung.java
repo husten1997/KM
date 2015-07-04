@@ -33,9 +33,11 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 	private String text[] = { "Vorwärts", "Rückwärts", "Links", "Rechts", "Kamera oben", "Kamera unten", "Kamera links", "Kamera rechts", "Escape/Zurück", "Bestätigen",
 			"Fenster- u. Vollbildmodus", "Volume +", "Volume -", "Musik wechseln", "Scrollen +", "Scrollen -", "V-Sync", "Abreißen", "Quicksave", "Baumenü ein/aus" };
 
-	public Tastenbelegung() {
+	public Tastenbelegung(boolean inG) {
 		super("back.png", "Knightmare: Tastenbelegung");
 
+		inGame = inG;
+		
 		hilfe = new String[text.length];
 		String[] leer = new String[text.length];
 
@@ -402,10 +404,17 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
-				Optionen.instance.setUndecorated(isUndecorated());
-				Optionen.instance.setVisible(true);
-				Optionen.instance.setAutoRequestFocus(true);
-				dispose();
+				if (inGame){
+					InGameOptionen.instance.setUndecorated(isUndecorated());
+					InGameOptionen.instance.setVisible(true);
+					InGameOptionen.instance.setAutoRequestFocus(true);
+					dispose();
+				} else {
+					Optionen.instance.setUndecorated(isUndecorated());
+					Optionen.instance.setVisible(true);
+					Optionen.instance.setAutoRequestFocus(true);
+					dispose();
+				}
 			}
 		}
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))){
@@ -418,10 +427,17 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 		Object q = e.getSource();
 
 		if (q == zurück) {
-			Optionen.instance.setUndecorated(isUndecorated());
-			Optionen.instance.setVisible(true);
-			Optionen.instance.setAutoRequestFocus(true);
-			dispose();
+			if (inGame){
+				InGameOptionen.instance.setUndecorated(isUndecorated());
+				InGameOptionen.instance.setVisible(true);
+				InGameOptionen.instance.setAutoRequestFocus(true);
+				dispose();
+			} else {
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
+				dispose();
+			}
 		}
 
 	}
