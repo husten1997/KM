@@ -438,8 +438,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (Mouse.getEventButton() == 2) {
 					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
-				}
-
+				}	
 				if (Mouse.getEventButton() == 1) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
@@ -479,13 +478,13 @@ public class Knightmare extends Widget implements StringConstants {
 						pos2.setY(y);
 
 						switch (inGameStat) {
-						case state.S_TRUPS:
-							search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
-							for (int i = 0; i < selection.size(); i++) {
-								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-									((Soldat) selection.get(i)).say();
+							case state.S_TRUPS:
+								search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
+								for (int i = 0; i < selection.size(); i++) {
+									if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+										((Soldat) selection.get(i)).say();
+									}
 								}
-							}
 							break;
 						}
 					}
