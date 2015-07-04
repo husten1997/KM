@@ -287,7 +287,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
 					baumenueShowen = !baumenueShowen;
-//					inGameStat = state.N_BUILDINGS;
+					// inGameStat = state.N_BUILDINGS;
 					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
@@ -932,13 +932,13 @@ public class Knightmare extends Widget implements StringConstants {
 		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
 		gebäude[0][0].setSize(64, 64);
 		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
-		gebäude[0][0].setPosition((int) baustart.getX(), (int) baustart.getY());
+		gebäude[0][0].setPosition((int) baustart.getX() + 0 * 64, (int) baustart.getY());
 		gebäude[0][1].setSize(64, 64);
 		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
-		gebäude[0][1].setPosition((int) baustart.getX() + 1 * 64, (int) baustart.getY());
+		gebäude[0][1].setPosition((int) baustart.getX() + 1 * 64 + 1 * 10, (int) baustart.getY());
 		gebäude[0][2].setSize(64, 64);
 		gebäude[0][2].setBackground(themeManager.getImage("button.background"));
-		gebäude[0][2].setPosition((int) baustart.getX() + 2 * 64, (int) baustart.getY());
+		gebäude[0][2].setPosition((int) baustart.getX() + 2 * 64 + 2 * 10, (int) baustart.getY());
 
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
 		kopfframe.setPosition((WIDTH - width) / 2, 0);
@@ -988,36 +988,23 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 	}
 
-	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
+	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil"};
 
 	private void GUI() {
-		gebäude[0][0] = new Button();
-		gebäude[0][0].addCallback(new Runnable() {
+		for(int i = 0; i<3; i++){
+			gebäude[0][i] = new Button();
+			Label helpT = new Label(Bauen.getBuildingName(i));
+			gebäude[0][i].setTooltipContent(helpT);
+			int wieso = i;
+			gebäude[0][i].addCallback(new Runnable() {
 
-			@Override
-			public void run() {
-				inGameStat = state.N_BUILDINGS;
-				aktuellesGebäude = 0;
-			}
-		});
-		gebäude[0][1] = new Button();
-		gebäude[0][1].addCallback(new Runnable() {
-
-			@Override
-			public void run() {
-				inGameStat = state.N_BUILDINGS;
-				aktuellesGebäude = 1;
-			}
-		});
-		gebäude[0][2] = new Button();
-		gebäude[0][2].addCallback(new Runnable() {
-
-			@Override
-			public void run() {
-				inGameStat = state.N_BUILDINGS;
-				aktuellesGebäude = 2;
-			}
-		});
+				@Override
+				public void run() {
+					inGameStat = state.N_BUILDINGS;
+					aktuellesGebäude = wieso;
+				}
+			});
+		}
 
 		for (int i = 0; i < categories.length; i++) {
 			categories[i] = new Button();

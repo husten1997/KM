@@ -7,13 +7,13 @@ import com.richard.knightmare.util.Pos;
 
 public class Bauen {
 
-	private static int amountBenötigt[];
-	private static Waren benötigt[];
+//	private static int amountBenötigt[];
+//	private static Waren benötigt[];
 	
 	public static Building KohleMine(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(0, p, w, h, ".png");
-		benötigt = new Waren[1];
-		amountBenötigt = new int[1];
+		Building b = new Building(0, p, w, h, "Kohlemine.png");
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
 		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
 		b.setTeam(team);
 		b.setSpieler(spieler);
@@ -25,8 +25,8 @@ public class Bauen {
 		
 		int am = 1;
 		
-		benötigt = new Waren[am];
-		amountBenötigt = new int[am];
+		Waren[] benötigt = new Waren[am];
+		int[] amountBenötigt = new int[am];
 		
 		benötigt[0] = Rohstoffe.Kohle();
 		amountBenötigt[0] = 1;
@@ -34,7 +34,7 @@ public class Bauen {
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
-		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 100);
+		b.init(50, 20, 0, 0, "Eisenmine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 100);
 		
 		Timer timer = new Timer(true);
 		
@@ -43,7 +43,7 @@ public class Bauen {
 			@Override
 			public void run() {
 				if (benötigt[0].substractWare(amountBenötigt[0])){
-					b.WareFertigstellen();	
+					b.WareFertigstellen();
 				}
 			}
 			
@@ -61,8 +61,8 @@ public class Bauen {
 		
 		int am = Rohstoffe.maxID()+1; //TODO überprüfen
 		
-		benötigt = new Waren[am];
-		amountBenötigt = new int[am];
+		Waren[] benötigt = new Waren[am];
+		int[] amountBenötigt = new int[am];
 		
 		for (int i = 0; i < am; i++){
 			benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
@@ -81,6 +81,19 @@ public class Bauen {
 		case 1: {return EisenMine(p, w, h, spieler, team);}
 		case 2: {return Lager(p, w, h, spieler, team);}
 		default: return null;
+		}
+	}
+	
+	public static String getBuildingName(int id){
+		switch (id) {
+		case 0:
+			return "Kohlemine";
+		case 1:
+			return "Eisenmine";
+		case 2:
+			return "Lager";
+		default:
+			return "TODO";
 		}
 	}
 }
