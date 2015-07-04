@@ -17,6 +17,17 @@ public class Bauen {
 		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
 		b.setTeam(team);
 		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+					b.WareFertigstellen();
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
 		return b;
 	}
 	
