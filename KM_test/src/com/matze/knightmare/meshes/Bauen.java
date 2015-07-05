@@ -117,7 +117,7 @@ public class Bauen {
 	}
 	
 	public static Building next(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(3, p, w, h, "Holz.png");
+		Building b = new Building(4, p, w, h, "Holz.png");
 		
 		int am = 1;
 		Waren[] benötigt = new Waren[am];

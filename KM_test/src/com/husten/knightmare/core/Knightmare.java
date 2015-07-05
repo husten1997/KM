@@ -941,14 +941,18 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
 		gebäude[0][0].setSize(64, 64);
-		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
 		gebäude[0][0].setPosition((int) baustart.getX() + 0 * 64, (int) baustart.getY());
+		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
 		gebäude[0][1].setSize(64, 64);
-		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
 		gebäude[0][1].setPosition((int) baustart.getX() + 1 * 64 + 1 * 10, (int) baustart.getY());
+		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
 		gebäude[0][2].setSize(64, 64);
-		gebäude[0][2].setBackground(themeManager.getImage("lager"));
 		gebäude[0][2].setPosition((int) baustart.getX() + 2 * 64 + 2 * 10, (int) baustart.getY());
+		gebäude[0][2].setBackground(themeManager.getImage("lager"));
+		
+		gebäude[1][0].setSize(64, 64);
+		gebäude[1][0].setPosition((int) baustart.getX() + 0 * 64, (int) baustart.getY());
+		gebäude[1][0].setBackground(themeManager.getImage("Holz"));
 
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
 		kopfframe.setPosition((WIDTH - width) / 2, 0);
@@ -1015,6 +1019,17 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 			});
 		}
+		gebäude[1][0] = new Button();
+		Label helpT = new Label(Bauen.getBuildingName(3));
+		gebäude[1][0].setTooltipContent(helpT);
+		gebäude[1][0].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 3;
+			}
+		});
 
 		for (int i = 0; i < categories.length; i++) {
 			categories[i] = new Button();
