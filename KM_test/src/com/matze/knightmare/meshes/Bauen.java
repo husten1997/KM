@@ -7,14 +7,12 @@ import com.richard.knightmare.util.Pos;
 
 public class Bauen {
 
-//	private static int amountBenötigt[];
-//	private static Waren benötigt[];
-	
 	public static Building KohleMine(Pos p, Spieler sp){		
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		b.setSpieler(sp);
 		
 		b.setKostetWarevonIndex(2, 10);
+		
 		int error = 0;
 
 		for (int i = 0; i < Rohstoffe.maxID(); i++) {
@@ -521,6 +519,30 @@ public class Bauen {
 		case 9: {return Turm(p, spieler);}
 		case 10: {return Mauern(p, spieler);}
 		default: return null;
+		}
+	}
+	
+	public static int[] getKostenvonGeb(int id, Pos p, Spieler spieler){
+		Building b = new Building(0, new Pos(0,0), 0, 0, "");
+		switch (id){
+		case 0:  {b.setKostetWarevonIndex(2, 10); return b.getKostetWarevonArray();}
+		case 1:  {b.setKostetWarevonIndex(2, 25);
+			      b.setKostetWarevonIndex(8, 10);
+			      return b.getKostetWarevonArray();}
+		case 2:  {b.setKostetWarevonIndex(2, 10);
+				  b.setKostetWarevonIndex(8, 5);
+				  return b.getKostetWarevonArray();}
+		case 3:  {b.setKostetWarevonIndex(2, 5); return b.getKostetWarevonArray();}
+		case 4:  {b.setKostetWarevonIndex(2, 5); return b.getKostetWarevonArray();}
+		case 5:  {b.setKostetWarevonIndex(2, 15); return b.getKostetWarevonArray();}
+		case 6:  {b.setKostetWarevonIndex(2, 8); return b.getKostetWarevonArray();}
+		case 7:  {b.setKostetWarevonIndex(2, 15); return b.getKostetWarevonArray();}
+		case 8:  {b.setKostetWarevonIndex(2, 15); return b.getKostetWarevonArray();}
+		case 9:  {b.setKostetWarevonIndex(8, 30);
+        		  b.setKostetWarevonIndex(2, 10);
+        		  return b.getKostetWarevonArray();}
+		case 10: {b.setKostetWarevonIndex(8, 8); return b.getKostetWarevonArray();}
+		default: return new int[0];
 		}
 	}
 	

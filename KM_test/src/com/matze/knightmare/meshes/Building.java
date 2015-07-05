@@ -177,6 +177,10 @@ public class Building extends RectangleGraphicalObject {
 	public void setKostetWarevonIndex(int i, int amount) {
 		kostetWarevonIndex[i]=amount;
 	}
+	
+	public int[] getKostetWarevonArray() {
+		return kostetWarevonIndex;
+	}
 
 
 }
