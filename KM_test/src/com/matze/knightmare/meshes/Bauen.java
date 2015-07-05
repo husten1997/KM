@@ -116,19 +116,19 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building next(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(4, p, w, h, "Holz.png");
+	public static Building Haus(Pos p, int w, int h, String spieler, int team){
+		Building b = new Building(4, p, w, h, "Haus.png");
 		
 		int am = 1;
 		Waren[] benötigt = new Waren[am];
 		int[] amountBenötigt = new int[am];
 		
-		benötigt[0] = Rohstoffe.Holz();
+		benötigt[0] = Rohstoffe.Mensch();
 		amountBenötigt[0] = 0;
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);
-		b.init(30, 10, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
+		b.init(30, 10, 0, 0, "Haus", benötigt, amountBenötigt, Rohstoffe.Mensch(), 0);
 		
 		Timer timer = new Timer(true);
 
@@ -136,12 +136,12 @@ public class Bauen {
 
 			@Override
 			public void run() {
-				if (/* Baum in der Nähe*/true){
-					b.WareFertigstellen();
-				}
+				b.setProduktionProMinute(1);
+				b.WareFertigstellen();
+				//TODO ppm so ändern dass effektivität pro gebäude um 50% gesteigert wird, steht es alleine in einem bestimmten sektor, wird die produktion pro minute um 50% gesenkt (auch negativ möglich, dann sterben die leute)
 			}
 			
-		}, 0, (long) (60000/b.getProdperMin()));
+		}, 0, (long) (600000/b.getProdperMin()));
 		
 		return b;
 	}
@@ -166,6 +166,8 @@ public class Bauen {
 			return "Lager";
 		case 3:
 			return "Holzfäller";
+		case 4:
+			return "Haus";
 		default:
 			return "TODO";
 		}

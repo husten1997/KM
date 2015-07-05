@@ -172,6 +172,10 @@ public class Building extends RectangleGraphicalObject {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+	
+	public void setProduktionProMinute(int p){
+		ProduktionproMinute = p;
+	}
 
 
 

@@ -74,6 +74,12 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Mensch(){
+		Waren w = new Waren(9,0,"Mensch", "manfred.png");
+		//TODO mensch soll zum sammelpunkt gehen
+		return w;
+	}
+	
 	public static Waren Rohstoff_von_Index(int index){
 		Waren w = null;
 		switch(index){
@@ -86,6 +92,7 @@ public class Rohstoffe {
 		case 6:{ w = Getreide(); break;}
 		case 7:{ w = Lehm(); break;}
 		case 8:{ w = Stein(); break;}
+		case 9:{ w = Mensch(); break;}
 		default: {w = null; break;}
 		}
 		return w;
