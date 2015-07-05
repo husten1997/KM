@@ -63,6 +63,10 @@ public class Building extends RectangleGraphicalObject {
 		amountProduzierteWare = 0;
 		return hilfe;
 	}
+	
+	public int getAmountProduzierterWareAuslesen() {
+		return amountProduzierteWare;
+	}
 
 	public Waren getProduzierteWare() {
 		if (amountProduzierteWare == 0 || produziert == null) {
@@ -141,7 +145,7 @@ public class Building extends RectangleGraphicalObject {
 		return verbesserungen;
 	}
 	
-	public int getMaxKagerKap(){
+	public int getMaxLagerKap(){
 		return maxLagerKapazität;
 	}
 

@@ -80,8 +80,66 @@ public class Bauen {
 		}
 		
 		b.init(75, 0, 0, 0, "Lagerhaus", benötigt, amountBenötigt, null, 1000);
+		
+		return b;
+	}
+	
+	public static Building Holzfäller(Pos p, int w, int h, String spieler, int team){
+		Building b = new Building(3, p, w, h, "Holz.png");
+		
+		int am = 1;
+		Waren[] benötigt = new Waren[am];
+		int[] amountBenötigt = new int[am];
+		
+		benötigt[0] = Rohstoffe.Holz();
+		amountBenötigt[0] = 0;
+		
 		b.setTeam(team);
 		b.setSpieler(spieler);
+		b.init(30, 10, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
+		
+		Timer timer = new Timer(true);
+
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if ((/* Baum in der Nähe*/true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	public static Building next(Pos p, int w, int h, String spieler, int team){
+		Building b = new Building(3, p, w, h, "Holz.png");
+		
+		int am = 1;
+		Waren[] benötigt = new Waren[am];
+		int[] amountBenötigt = new int[am];
+		
+		benötigt[0] = Rohstoffe.Holz();
+		amountBenötigt[0] = 0;
+		
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		b.init(30, 10, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
+		
+		Timer timer = new Timer(true);
+
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if (/* Baum in der Nähe*/true){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
 		
 		return b;
 	}
@@ -91,6 +149,7 @@ public class Bauen {
 		case 0: {return KohleMine(p, w, h, spieler, team);}
 		case 1: {return EisenMine(p, w, h, spieler, team);}
 		case 2: {return Lager(p, w, h, spieler, team);}
+		case 3: {return Holzfäller(p, w, h, spieler, team);}
 		default: return null;
 		}
 	}
@@ -103,6 +162,8 @@ public class Bauen {
 			return "Eisenmine";
 		case 2:
 			return "Lager";
+		case 3:
+			return "Holzfäller";
 		default:
 			return "TODO";
 		}
