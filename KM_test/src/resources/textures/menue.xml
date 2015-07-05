@@ -319,6 +319,14 @@
 			<alias ref="em" />
 		</select>
 	</images>
+	<images file="Lager.png" format="RGBA">
+		<area name="la" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<select name="lager">
+			<alias ref="la" if="disabled" tint="#8fff" />
+			<alias ref="la" if="armed" tint="#999999" />
+			<alias ref="la" />
+		</select>
+	</images>
 
 
 

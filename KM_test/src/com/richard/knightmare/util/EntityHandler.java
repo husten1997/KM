@@ -3,7 +3,6 @@ package com.richard.knightmare.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
@@ -140,19 +139,33 @@ public class EntityHandler {
 				pathfindTo(x, y, selection.get(0));
 			}
 		} else {
+			for(RectangleGraphicalObject soldat: selection){
+				if (world[xPos][yPos] != null) {
+					if (world[xPos][yPos].getTeam() != soldat.getTeam()) {
+						chasing.put((Soldat) soldat, world[xPos][yPos]);
+						pathfindTo(x, y, soldat);
+					} else {
+						pathfindTo(x, y, soldat);
+					}
+				} else {
+					pathfindTo(x, y, soldat);
+				}
+			}
 			// TODO future work
 		}
 	}
 
 	public void tick() {
-		if(ticksSinceLastRetry>200){
+		if(ticksSinceLastRetry>20){
+			ArrayList<Soldat> toRemoveActual = new ArrayList<>();
 			for(Entry<Soldat, Pos> entry: actualDeastination.entrySet()){
 				if(triesOnActual.get(entry.getKey())>5){
 					if(triesOnReplaced.get(entry.getKey())>5){
 						triesOnReplaced.remove(entry.getKey());
 						replacedDestination.remove(entry.getKey());
 						triesOnActual.remove(entry.getKey());
-						actualDeastination.remove(entry.getKey());
+//						actualDeastination.remove(entry.getKey());
+						toRemoveActual.add(entry.getKey());
 						chasing.remove(entry.getKey());
 					}else{
 						SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), replacedDestination.get(entry.getKey()));
@@ -162,7 +175,8 @@ public class EntityHandler {
 							triesOnReplaced.remove(entry.getKey());
 							replacedDestination.remove(entry.getKey());
 							triesOnActual.remove(entry.getKey());
-							actualDeastination.remove(entry.getKey());
+//							actualDeastination.remove(entry.getKey());
+							toRemoveActual.add(entry.getKey());
 						} else {
 							replacedDestination.put(entry.getKey(), new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
 							triesOnReplaced.put(entry.getKey(), triesOnReplaced.get(entry.getKey())+1);
@@ -176,26 +190,50 @@ public class EntityHandler {
 						triesOnReplaced.remove(entry.getKey());
 						replacedDestination.remove(entry.getKey());
 						triesOnActual.remove(entry.getKey());
-						actualDeastination.remove(entry.getKey());
+//						actualDeastination.remove(entry.getKey());
+						toRemoveActual.add(entry.getKey());
 					} else {
 						triesOnActual.put(entry.getKey(), triesOnActual.get(entry.getKey())+1);
 					}
 				}
 			}
+			for(Soldat soldat: toRemoveActual){
+				actualDeastination.remove(soldat);
+			}
 			ticksSinceLastRetry = 0;
 		}
 		ticksSinceLastRetry++;
+		ArrayList<Soldat> toRemove = new ArrayList<>();
 		for(Entry<Soldat, SingleManPathfinding> entry: finding.entrySet()){
 			if(!entry.getValue().move()){
 				if(entry.getValue().getFinished()){
-					finding.remove(entry.getKey());
+//					finding.remove(entry.getKey());
+					toRemove.add(entry.getKey());
 					if(chasing.containsKey(entry.getKey())){
+						chasing.remove(entry.getKey());
 						//TODO is already near?
 					}
 				}else{
-					pathfindTo(finding.get(entry.getKey()).getZiel().getX(), finding.get(entry.getKey()).getZiel().getY(), entry.getKey());
+					finding.get(entry.getKey()).stop();
+//					pathfindTo(entry.getValue().getZiel().getX()*32+16, entry.getValue().getZiel().getY()*32+16, entry.getKey());
+					double x = entry.getValue().getZiel().getX()*32+16, y = entry.getValue().getZiel().getY()*32+16;
+					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), new Pos(x, y));
+					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
+					if (alternative == null) {
+						finding.put(entry.getKey(), path);
+					} else {
+//						finding.remove(entry.getKey());
+						toRemove.add(entry.getKey());
+						actualDeastination.put(entry.getKey(), new Pos(x, y));
+						triesOnActual.put(entry.getKey(), 1);
+						replacedDestination.put(entry.getKey(), new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
+						triesOnReplaced.put(entry.getKey(), 0);
+					}
 				}
 			}
+		}
+		for(Soldat soldat: toRemove){
+			finding.remove(soldat);
 		}
 	}
 

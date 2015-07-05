@@ -67,7 +67,7 @@ public class Bauen {
 	}
 	
 	public static Building Lager(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(2, p, w, h, "Eisenerz 1.png");
+		Building b = new Building(2, p, w, h, "Lager.png");
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);

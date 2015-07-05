@@ -44,7 +44,7 @@ public class SingleManPathfinding {
 	}
 	
 	public void stop(){
-		soldat.setPosition(vektoren.get(0).getEnde());
+		soldat.setPosition(vektoren.get(0).getStart());
 	}
 
 	public Soldat getSoldat() {

@@ -947,7 +947,7 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
 		gebäude[0][1].setPosition((int) baustart.getX() + 1 * 64 + 1 * 10, (int) baustart.getY());
 		gebäude[0][2].setSize(64, 64);
-		gebäude[0][2].setBackground(themeManager.getImage("button.background"));
+		gebäude[0][2].setBackground(themeManager.getImage("lager"));
 		gebäude[0][2].setPosition((int) baustart.getX() + 2 * 64 + 2 * 10, (int) baustart.getY());
 
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
