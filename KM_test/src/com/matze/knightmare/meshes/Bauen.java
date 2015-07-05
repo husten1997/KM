@@ -10,8 +10,8 @@ public class Bauen {
 //	private static int amountBenötigt[];
 //	private static Waren benötigt[];
 	
-	public static Building KohleMine(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(0, p, w, h, "Kohlemine.png");
+	public static Building KohleMine(Pos p, String spieler, int team){
+		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
@@ -33,8 +33,8 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building EisenMine(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(1, p, w, h, "Eisenerz 1.png");
+	public static Building EisenMine(Pos p, String spieler, int team){
+		Building b = new Building(1, p, 64, 64, "Eisenerz 1.png");
 		
 		int am = 1;
 		
@@ -66,8 +66,8 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Lager(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(2, p, w, h, "Lager.png");
+	public static Building Lager(Pos p, String spieler, int team){
+		Building b = new Building(2, p, 64, 64, "Lager.png");
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);
@@ -86,8 +86,8 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Holzfäller(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(3, p, w, h, "Holz.png");
+	public static Building Holzfäller(Pos p, String spieler, int team){
+		Building b = new Building(3, p, 64, 64, "Holz.png");
 		
 		int am = 1;
 		Waren[] benötigt = new Waren[am];
@@ -116,8 +116,8 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Haus(Pos p, int w, int h, String spieler, int team){
-		Building b = new Building(4, p, w, h, "Haus.png");
+	public static Building Haus(Pos p, String spieler, int team){
+		Building b = new Building(4, p, 64, 32, "Haus.png");
 		
 		int am = 1;
 		Waren[] benötigt = new Waren[am];
@@ -146,13 +146,13 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building getBuildingforID(int id, Pos p, int w, int h, String spieler, int team){
+	public static Building getBuildingforID(int id, Pos p, String spieler, int team){
 		switch (id){
-		case 0: {return KohleMine(p, w, h, spieler, team);}
-		case 1: {return EisenMine(p, w, h, spieler, team);}
-		case 2: {return Lager(p, w, h, spieler, team);}
-		case 3: {return Holzfäller(p, w, h, spieler, team);}
-		case 4: {return Haus(p, w, h, spieler, team);}
+		case 0: {return KohleMine(p, spieler, team);}
+		case 1: {return EisenMine(p, spieler, team);}
+		case 2: {return Lager(p, spieler, team);}
+		case 3: {return Holzfäller(p, spieler, team);}
+		case 4: {return Haus(p, spieler, team);}
 		default: return null;
 		}
 	}

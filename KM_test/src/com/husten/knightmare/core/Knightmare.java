@@ -402,7 +402,7 @@ public class Knightmare extends Widget implements StringConstants {
 						switch (inGameStat) {
 						case state.N_BUILDINGS:
 							if (aktuellesGebäude != -1) {
-								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), 64, 64, "Spieler 1", 0);
+								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), "Spieler 1", 0);
 								if (/*handler.place(b)*/newHandler.place(b)) {
 //									b.setSort(0);
 //									initRender(b, 1);
@@ -941,18 +941,22 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
 		gebäude[0][0].setSize(64, 64);
-		gebäude[0][0].setPosition((int) baustart.getX() + 0 * 64, (int) baustart.getY());
+		gebäude[0][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
 		gebäude[0][1].setSize(64, 64);
-		gebäude[0][1].setPosition((int) baustart.getX() + 1 * 64 + 1 * 10, (int) baustart.getY());
+		gebäude[0][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
 		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
 		gebäude[0][2].setSize(64, 64);
-		gebäude[0][2].setPosition((int) baustart.getX() + 2 * 64 + 2 * 10, (int) baustart.getY());
+		gebäude[0][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
 		gebäude[0][2].setBackground(themeManager.getImage("lager"));
 		
 		gebäude[1][0].setSize(64, 64);
-		gebäude[1][0].setPosition((int) baustart.getX() + 0 * 64, (int) baustart.getY());
+		gebäude[1][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[1][0].setBackground(themeManager.getImage("Holz"));
+		
+		gebäude[5][0].setSize(64, 32);
+		gebäude[5][0].setPosition((int) baustart.getX(), (int) baustart.getY());
+		gebäude[5][0].setBackground(themeManager.getImage("Haus"));
 
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
 		kopfframe.setPosition((WIDTH - width) / 2, 0);
@@ -1028,6 +1032,17 @@ public class Knightmare extends Widget implements StringConstants {
 			public void run() {
 				inGameStat = state.N_BUILDINGS;
 				aktuellesGebäude = 3;
+			}
+		});
+		gebäude[5][0] = new Button();
+		Label helpTH = new Label(Bauen.getBuildingName(4));
+		gebäude[5][0].setTooltipContent(helpTH);
+		gebäude[5][0].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 4;
 			}
 		});
 
