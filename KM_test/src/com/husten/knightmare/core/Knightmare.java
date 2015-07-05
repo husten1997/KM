@@ -235,10 +235,10 @@ public class Knightmare extends Widget implements StringConstants {
 	private void pollInput() throws Exception {
 		// Mouse.poll();
 		// Keyboard.poll();
-		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
-			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
-			tooggleFullscreen();
-		}
+//		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
+//			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
+//			tooggleFullscreen();
+//		}
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
 			guiPollInput();
