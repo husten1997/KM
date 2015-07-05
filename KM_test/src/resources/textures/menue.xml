@@ -191,6 +191,12 @@
 		<fontParam if="disabled" color="gray" />
 		<fontParam if="textSelection" color="blue" />
 	</fontDef>
+	<fontDef name="normalB" filename="bfont.fnt" color="black">
+		<fontParam if="error" color="red" />
+		<fontParam if="warning" color="orange" />
+		<fontParam if="disabled" color="gray" />
+		<fontParam if="textSelection" color="blue" />
+	</fontDef>
 
 	<images file="baumenue.png" format="RGBA">
 		<area name="-frameM" xywh="0,0,1920,362" splitx="L3,R3" splity="T3,B3" />

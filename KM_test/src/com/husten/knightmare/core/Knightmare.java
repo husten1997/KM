@@ -1014,6 +1014,7 @@ public class Knightmare extends Widget implements StringConstants {
 		menue.setSize(kopfframe.getHeight() * 2 - 7, kopfframe.getHeight() - 12);
 		menue.setPosition((WIDTH + width) / 2 - menue.getWidth() - 6, 7);
 		menue.setBackground(themeManager.getImage("button.background"));
+		menue.setFont(themeManager.getFont("normalB"));
 
 		einstellungen.setSize(menue.getHeight(), menue.getHeight());
 		einstellungen.setPosition(menue.getX() - einstellungen.getWidth(), menue.getY());
