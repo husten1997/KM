@@ -252,7 +252,7 @@ public class Bauen {
 	}
 	
 	public static Building Turm(Pos p, String spieler, int team){
-		Building b = new Building(8, p, 64, 64, "Turm.png");
+		Building b = new Building(9, p, 64, 64, "Turm.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
@@ -277,7 +277,7 @@ public class Bauen {
 	}
 	
 	public static Building Mauern(Pos p, String spieler, int team){
-		Building b = new Building(8, p, 64, 32, "Mauer.png");
+		Building b = new Building(10, p, 64, 32, "Mauer.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
@@ -315,6 +315,8 @@ public class Bauen {
 		case 6: {return Bauernhof(p, spieler, team);}
 		case 7: {return Viehstall(p, spieler, team);}
 		case 8: {return Steinbruch(p, spieler, team);}
+		case 9: {return Turm(p, spieler, team);}
+		case 10: {return Mauern(p, spieler, team);}
 		default: return null;
 		}
 	}
@@ -339,6 +341,10 @@ public class Bauen {
 			return "Viehstall";
 		case 8:
 			return "Steinbruch";
+		case 9:
+			return "Turm";
+		case 10:
+			return "Mauern";
 		default:
 			return "TODO";
 		}
