@@ -261,18 +261,6 @@ public class Bauen {
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
-		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(new TimerTask(){
-
-			@Override
-			public void run() {
-				if ((/* Stein in der Nähe*/true) && (/*Stein hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
-					b.WareFertigstellen();
-				}
-			}
-			
-		}, 0, (long) (60000/b.getProdperMin()));
-		
 		return b;
 	}
 	
@@ -289,15 +277,6 @@ public class Bauen {
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
 
-			@Override
-			public void run() {
-				if ((/* Stein in der Nähe*/true) && (/*Stein hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
-					b.WareFertigstellen();
-				}
-			}
-			
-		}, 0, (long) (60000/b.getProdperMin()));
-		
 		return b;
 	}
 	
