@@ -24,6 +24,86 @@
 			<alias ref="KZall" />
 		</select>
 	</images>
+	<images file="Icon_Diamant.png" format="RGBA">
+		<area name="ic" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IDiamant">
+			<alias ref="ic" if="disabled" tint="#8fff" />
+			<alias ref="ic" if="armed" tint="#999999" />
+			<alias ref="ic" />
+		</select>
+	</images>
+	<images file="Icon_Holz.png" format="RGBA">
+		<area name="ih" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IHolz">
+			<alias ref="ih" if="disabled" tint="#8fff" />
+			<alias ref="ih" if="armed" tint="#999999" />
+			<alias ref="ih" />
+		</select>
+	</images>
+	<images file="Icon_Eisen.png" format="RGBA">
+		<area name="ie" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IEisen">
+			<alias ref="ie" if="disabled" tint="#8fff" />
+			<alias ref="ie" if="armed" tint="#999999" />
+			<alias ref="ie" />
+		</select>
+	</images>
+	<images file="Icon_Kohle.png" format="RGBA">
+		<area name="ik" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IKohle">
+			<alias ref="ik" if="disabled" tint="#8fff" />
+			<alias ref="ik" if="armed" tint="#999999" />
+			<alias ref="ik" />
+		</select>
+	</images>
+	<images file="Icon_Lehm.png" format="RGBA">
+		<area name="il" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="ILehm">
+			<alias ref="il" if="disabled" tint="#8fff" />
+			<alias ref="il" if="armed" tint="#999999" />
+			<alias ref="il" />
+		</select>
+	</images>
+	<images file="Icon_Pech.png" format="RGBA">
+		<area name="ip" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IPech">
+			<alias ref="ip" if="disabled" tint="#8fff" />
+			<alias ref="ip" if="armed" tint="#999999" />
+			<alias ref="ip" />
+		</select>
+	</images>
+	<images file="Icon_Sand.png" format="RGBA">
+		<area name="is" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="ISand">
+			<alias ref="is" if="disabled" tint="#8fff" />
+			<alias ref="is" if="armed" tint="#999999" />
+			<alias ref="is" />
+		</select>
+	</images>
+	<images file="Icon_Stein.png" format="RGBA">
+		<area name="ist" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IStein">
+			<alias ref="ist" if="disabled" tint="#8fff" />
+			<alias ref="ist" if="armed" tint="#999999" />
+			<alias ref="ist" />
+		</select>
+	</images>
+	<images file="Icon_Weizen.png" format="RGBA">
+		<area name="iw" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IWeizen">
+			<alias ref="iw" if="disabled" tint="#8fff" />
+			<alias ref="iw" if="armed" tint="#999999" />
+			<alias ref="iw" />
+		</select>
+	</images>
+	<images file="muenze.png" format="RGBA">
+		<area name="im" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IMünze">
+			<alias ref="im" if="disabled" tint="#8fff" />
+			<alias ref="im" if="armed" tint="#999999" />
+			<alias ref="im" />
+		</select>
+	</images>
 	<images file="cfg.png" format="RGBA">
 		<area name="cfgall" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="cfg">
@@ -341,6 +421,54 @@
 			<alias ref="ha" if="disabled" tint="#8fff" />
 			<alias ref="ha" if="armed" tint="#999999" />
 			<alias ref="ha" />
+		</select>
+	</images>
+	<images file="Steinbruch.png" format="RGBA">
+		<area name="stei" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<select name="Steinbruch">
+			<alias ref="stei" if="disabled" tint="#8fff" />
+			<alias ref="stei" if="armed" tint="#999999" />
+			<alias ref="stei" />
+		</select>
+	</images>
+	<images file="Turm.png" format="RGBA">
+		<area name="turm" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<select name="Turm">
+			<alias ref="turm" if="disabled" tint="#8fff" />
+			<alias ref="turm" if="armed" tint="#999999" />
+			<alias ref="turm" />
+		</select>
+	</images>
+	<images file="Sandschmeiz.png" format="RGBA">
+		<area name="san" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<select name="Sandschmelze">
+			<alias ref="san" if="disabled" tint="#8fff" />
+			<alias ref="san" if="armed" tint="#999999" />
+			<alias ref="san" />
+		</select>
+	</images>
+	<images file="viecha.png" format="RGBA">
+		<area name="vie" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<select name="Viecha">
+			<alias ref="vie" if="disabled" tint="#8fff" />
+			<alias ref="vie" if="armed" tint="#999999" />
+			<alias ref="vie" />
+		</select>
+	</images>
+	<images file="Hof.png" format="RGBA">
+		<area name="hof" xywh="0,0,128,128" splitx="L0,R0" splity="T0,B0" />
+		<select name="Hof">
+			<alias ref="hof" if="disabled" tint="#8fff" />
+			<alias ref="hof" if="armed" tint="#999999" />
+			<alias ref="hof" />
+		</select>
+	</images>
+	<images file="Mauer.png" format="RGBA">
+		<area name="mau" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="Mauer">
+			<alias ref="mau" if="disabled" tint="#8fff" />
+			<alias ref="mau" if="armed" tint="#999999" />
+			<alias ref="mau" />
 		</select>
 	</images>
 

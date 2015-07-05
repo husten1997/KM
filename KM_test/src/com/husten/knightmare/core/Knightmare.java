@@ -949,10 +949,30 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[0][2].setSize(64, 64);
 		gebäude[0][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
 		gebäude[0][2].setBackground(themeManager.getImage("lager"));
+		gebäude[0][3].setSize(64, 64);
+		gebäude[0][3].setPosition((int) baustart.getX() + 222, (int) baustart.getY());
+		gebäude[0][3].setBackground(themeManager.getImage("Sandschmelze"));
 		
 		gebäude[1][0].setSize(64, 64);
 		gebäude[1][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[1][0].setBackground(themeManager.getImage("Holz"));
+		gebäude[1][1].setSize(64, 64);
+		gebäude[1][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		gebäude[1][1].setBackground(themeManager.getImage("Steinbruch"));
+		
+		gebäude[3][0].setSize(64, 64);
+		gebäude[3][0].setPosition((int) baustart.getX(), (int) baustart.getY());
+		gebäude[3][0].setBackground(themeManager.getImage("Hof"));
+		gebäude[3][1].setSize(64, 64);
+		gebäude[3][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		gebäude[3][1].setBackground(themeManager.getImage("Viecha"));
+
+		gebäude[4][0].setSize(64, 64);
+		gebäude[4][0].setPosition((int) baustart.getX(), (int) baustart.getY());
+		gebäude[4][0].setBackground(themeManager.getImage("Turm"));
+		gebäude[4][1].setSize(32, 32);
+		gebäude[4][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		gebäude[4][1].setBackground(themeManager.getImage("Mauer"));
 		
 		gebäude[5][0].setSize(64, 32);
 		gebäude[5][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1022,7 +1042,18 @@ public class Knightmare extends Widget implements StringConstants {
 					aktuellesGebäude = wieso;
 				}
 			});
-		}
+		}gebäude[0][3] = new Button();
+		Label helpTS = new Label(Bauen.getBuildingName(5));
+		gebäude[0][3].setTooltipContent(helpTS);
+		gebäude[0][3].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 5;
+			}
+		});
+		
 		gebäude[1][0] = new Button();
 		Label helpT = new Label(Bauen.getBuildingName(3));
 		gebäude[1][0].setTooltipContent(helpT);
@@ -1034,6 +1065,65 @@ public class Knightmare extends Widget implements StringConstants {
 				aktuellesGebäude = 3;
 			}
 		});
+		gebäude[1][1] = new Button();
+		Label helpTSt = new Label(Bauen.getBuildingName(8));
+		gebäude[1][1].setTooltipContent(helpTSt);
+		gebäude[1][1].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 8;
+			}
+		});
+		
+		gebäude[3][0] = new Button();
+		Label helpTHo = new Label(Bauen.getBuildingName(6));
+		gebäude[3][0].setTooltipContent(helpTHo);
+		gebäude[3][0].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 6;
+			}
+		});
+		gebäude[3][1] = new Button();
+		Label helpVie = new Label(Bauen.getBuildingName(7));
+		gebäude[3][1].setTooltipContent(helpVie);
+		gebäude[3][1].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 7;
+			}
+		});
+
+
+		gebäude[4][0] = new Button();
+		Label helpTT = new Label(Bauen.getBuildingName(9));
+		gebäude[4][0].setTooltipContent(helpTT);
+		gebäude[4][0].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 9;
+			}
+		});
+		gebäude[4][1] = new Button();
+		Label helpTMau = new Label(Bauen.getBuildingName(10));
+		gebäude[4][1].setTooltipContent(helpTMau);
+		gebäude[4][1].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 10;
+			}
+		});
+		
 		gebäude[5][0] = new Button();
 		Label helpTH = new Label(Bauen.getBuildingName(4));
 		gebäude[5][0].setTooltipContent(helpTH);
