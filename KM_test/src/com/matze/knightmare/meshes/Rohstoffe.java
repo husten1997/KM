@@ -84,7 +84,11 @@ public class Rohstoffe {
 		case 6:{ w = Getreide(); break;}
 		case 7:{ w = Lehm(); break;}
 		case 8:{ w = Stein(); break;}
-		case 9:{ w = Mensch(); break;}
+		case 9:{ w = Geld(); break;}
+		case 10:{ w = Fleisch(); break;}
+		case 11:{ w = Glas(); break;}
+		case 12:{ w = Nothing(); break;}
+		
 		default: {w = null; break;}
 		}
 		return w;

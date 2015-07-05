@@ -69,7 +69,7 @@ public class Bauen {
 		
 		b.setSpieler(sp);
 		
-		int am = Rohstoffe.maxID()+1; //TODO überprüfen
+		int am = Rohstoffe.maxID(); //TODO überprüfen
 		
 		Waren[] benötigt = new Waren[am];
 		int[] amountBenötigt = new int[am];
