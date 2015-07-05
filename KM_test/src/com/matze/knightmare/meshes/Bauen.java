@@ -10,64 +10,127 @@ public class Bauen {
 //	private static int amountBenötigt[];
 //	private static Waren benötigt[];
 	
-	public static Building KohleMine(Pos p, Spieler sp){
+	public static Building KohleMine(Pos p, Spieler sp){		
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
-		Waren[] benötigt = new Waren[1];
-		int[] amountBenötigt = new int[1];
-		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
 		b.setSpieler(sp);
 		
-		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(new TimerTask(){
+		b.setKostetWarevonIndex(2, 10);
+		int error = 0;
 
-			@Override
-			public void run() {
-				if ((/* Kohle in der Nähe*/true) && (/*Kohle hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
-					b.WareFertigstellen();
-				}
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+			
+			for (int i = 0; i < Rohstoffe.maxID(); i++){
+				b.getSpieler().setAmountofResourcewithIndex
+				(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
 			}
 			
-		}, 0, (long) (60000/b.getProdperMin()));
-		
-		return b;
+			Waren[] benötigt = new Waren[1];
+			int[] amountBenötigt = new int[1];
+			b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt,
+					Rohstoffe.Kohle(), 25);
+
+			Timer timer = new Timer(true);
+			timer.scheduleAtFixedRate(new TimerTask() {
+
+				@Override
+				public void run() {
+					if ((/* Kohle in der Nähe */true) && (/* Kohle hat ressourcen */true) && (!(b
+							.getAmountProduzierterWareAuslesen() == b
+							.getMaxLagerKap()))) {
+						b.WareFertigstellen();
+					}
+				}
+
+			}, 0, (long) (60000 / b.getProdperMin()));
+
+			return b;
+		}
+		return null;
 	}
 	
 	public static Building EisenMine(Pos p, Spieler sp){
 		Building b = new Building(1, p, 64, 64, "Eisenerz 1.png");
-		
-		int am = 1;
-		
-		Waren[] benötigt = new Waren[am];
-		int[] amountBenötigt = new int[am];
-		
-		benötigt[0] = Rohstoffe.Kohle();
-		amountBenötigt[0] = 1;
-		
-		b.setSpieler(sp);
-		
-		b.init(50, 20, 0, 0, "Eisenmine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 100);
-		
-		Timer timer = new Timer(true);
-		
-		timer.scheduleAtFixedRate(new TimerTask(){
 
-			@Override
-			public void run() {
-				if (benötigt[0].substractWare(amountBenötigt[0]) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
-					b.WareFertigstellen();
-				}
-			}
-			
-		}, 0, (long) (60000/b.getProdperMin()));
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 25);
+		b.setKostetWarevonIndex(8, 10);
 		
-	
-		return b;
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+			
+			for (int i = 0; i < Rohstoffe.maxID(); i++){
+				b.getSpieler().setAmountofResourcewithIndex
+				(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
+			}
+
+			int am = 1;
+
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Kohle();
+			amountBenötigt[0] = 1;
+
+			b.init(50, 20, 0, 0, "Eisenmine", benötigt, amountBenötigt,
+					Rohstoffe.Eisen(), 100);
+
+			Timer timer = new Timer(true);
+
+			timer.scheduleAtFixedRate(new TimerTask() {
+
+				@Override
+				public void run() {
+					if (benötigt[0].substractWare(amountBenötigt[0])
+							&& (!(b.getAmountProduzierterWareAuslesen() == b
+									.getMaxLagerKap()))) {
+						b.WareFertigstellen();
+					}
+				}
+
+			}, 0, (long) (60000 / b.getProdperMin()));
+			return b;
+		}
+		return null;
 	}
 	
 	public static Building Lager(Pos p, Spieler sp){
 		Building b = new Building(2, p, 64, 64, "Lager.png");
 		
 		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 25);
+		b.setKostetWarevonIndex(8, 10);
+		
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+			
+			for (int i = 0; i < Rohstoffe.maxID(); i++){
+				b.getSpieler().setAmountofResourcewithIndex
+				(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
+			}
+
 		
 		int am = Rohstoffe.maxID(); //TODO überprüfen
 		
@@ -80,78 +143,129 @@ public class Bauen {
 		
 		b.init(75, 0, 0, 0, "Lagerhaus", benötigt, amountBenötigt, null, 1000);
 		
-		return b;
+		return b;}
+		return null;
 	}
 	
 	public static Building Holzfäller(Pos p, Spieler sp){
 		Building b = new Building(3, p, 64, 64, "Holz.png");
-		
-		int am = 1;
-		Waren[] benötigt = new Waren[am];
-		int[] amountBenötigt = new int[am];
-		
-		benötigt[0] = Rohstoffe.Holz();
-		amountBenötigt[0] = 0;
-		
+
 		b.setSpieler(sp);
-		
-		b.init(30, 5, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
-		
-		Timer timer = new Timer(true);
+		b.setKostetWarevonIndex(2, 5);
 
-		timer.scheduleAtFixedRate(new TimerTask(){
+		int error = 0;
 
-			@Override
-			public void run() {
-				if ((/* Baum in der Nähe*/true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
-					b.WareFertigstellen();
-				}
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
 			}
-			
-		}, 0, (long) (60000/b.getProdperMin()));
-		
-		return b;
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Holz();
+			amountBenötigt[0] = 0;
+
+			b.init(30, 5, 0, 0, "Holzfäller", benötigt, amountBenötigt,
+					Rohstoffe.Holz(), 20);
+
+			Timer timer = new Timer(true);
+
+			timer.scheduleAtFixedRate(new TimerTask() {
+
+				@Override
+				public void run() {
+					if ((/* Baum in der Nähe */true) && (!(b
+							.getAmountProduzierterWareAuslesen() == b
+							.getMaxLagerKap()))) {
+						b.WareFertigstellen();
+					}
+				}
+
+			}, 0, (long) (60000 / b.getProdperMin()));
+
+			return b;
+		}
+		return null;
 	}
 	
 	public static Building Haus(Pos p, Spieler sp){
 		Building b = new Building(4, p, 64, 32, "Haus.png");
-		
-		int am = 1;
-		Waren[] benötigt = new Waren[am];
-		int[] amountBenötigt = new int[am];
-		
-		benötigt[0] = Rohstoffe.Mensch();
-		amountBenötigt[0] = 0;
-		
 		b.setSpieler(sp);
-		b.init(30, 1, 0, 0, "Haus", benötigt, amountBenötigt, Rohstoffe.Mensch(), 8);
-		
-		Timer timer = new Timer(true);
+		b.setKostetWarevonIndex(2, 5);
 
-		timer.scheduleAtFixedRate(new TimerTask(){
+		int error = 0;
 
-			@Override
-			public void run() {
-				b.setProduktionProMinute(1);
-				b.WareFertigstellen();
-				//TODO ppm so ändern dass effektivität pro gebäude um 50% gesteigert wird, steht es alleine in einem bestimmten sektor, wird die produktion pro minute um 50% gesenkt (auch negativ möglich, dann sterben die leute)
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
 			}
-			
-		}, 0, (long) (600000/b.getProdperMin()));
-		
-		Timer timer2 = new Timer(true);
+		}
 
-		timer2.scheduleAtFixedRate(new TimerTask(){
+		if (error == 0) {
 
-			@Override
-			public void run() {
-				b.getSpieler().setAmountofResourcewithIndex(b.getSpieler().getAmountofResource(10)+1, 10);
-				//TODO ppm so ändern dass effektivität pro gebäude um 50% gesteigert wird, steht es alleine in einem bestimmten sektor, wird die produktion pro minute um 50% gesenkt (auch negativ möglich, dann sterben die leute)
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
 			}
-			
-		}, 0, (long) (60000));
-		
-		return b;
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Mensch();
+			amountBenötigt[0] = 0;
+
+			b.init(30, 1, 0, 0, "Haus", benötigt, amountBenötigt,
+					Rohstoffe.Mensch(), 8);
+
+			Timer timer = new Timer(true);
+
+			timer.scheduleAtFixedRate(new TimerTask() {
+
+				@Override
+				public void run() {
+					b.setProduktionProMinute(1);
+					b.WareFertigstellen();
+					// TODO ppm so ändern dass effektivität pro gebäude um 50%
+					// gesteigert wird, steht es alleine in einem bestimmten
+					// sektor, wird die produktion pro minute um 50% gesenkt
+					// (auch negativ möglich, dann sterben die leute)
+				}
+
+			}, 0, (long) (600000 / b.getProdperMin()));
+
+			Timer timer2 = new Timer(true);
+
+			timer2.scheduleAtFixedRate(new TimerTask() {
+
+				@Override
+				public void run() {
+					b.getSpieler().setAmountofResourcewithIndex(
+							b.getSpieler().getAmountofResource(10) + 1, 10);
+					// TODO ppm so ändern dass effektivität pro gebäude um 50%
+					// gesteigert wird, steht es alleine in einem bestimmten
+					// sektor, wird die produktion pro minute um 50% gesenkt
+					// (auch negativ möglich, dann sterben die leute)
+				}
+
+			}, 0, (long) (60000));
+
+			return b;
+		}
+		return null;
 	}
 	
 	

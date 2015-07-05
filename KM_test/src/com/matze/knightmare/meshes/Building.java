@@ -7,6 +7,7 @@ public class Building extends RectangleGraphicalObject {
 	
 	private Spieler s;
 	
+	private int kostetWarevonIndex[];
 	private int health;
 	private int index;
 	private int ProduktionproMinute;
@@ -25,6 +26,7 @@ public class Building extends RectangleGraphicalObject {
 		this.setIndex(index);
 		type = MeshType.GEBÄUDE;
 		verbesserungen = new Ausruestung[6];
+		kostetWarevonIndex = new int[Rohstoffe.maxID()];
 	}
 
 	public void init(int health, int ProduktionproMinute, int angriff,
@@ -166,6 +168,14 @@ public class Building extends RectangleGraphicalObject {
 
 	public Spieler getSpieler(){
 		return s;
+	}
+
+	public int getKostetWarevonIndex(int i) {
+		return kostetWarevonIndex[i];
+	}
+
+	public void setKostetWarevonIndex(int i, int amount) {
+		kostetWarevonIndex[i]=amount;
 	}
 
 

@@ -393,12 +393,13 @@ public class Tastenbelegung extends Optionsframesuperklasse implements ActionLis
 			changing = true;
 		} else {
 			if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Fenster- u. Vollbildmodus"))) {
+				if (!inGame){
 				dispose();
 				setUndecorated(!isUndecorated());
 				setVisible(true);
 				setAutoRequestFocus(true);
 				setLocationRelativeTo(null);
-				Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));
+				Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(!isUndecorated()));}
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume -"))) {
 				MoodMusic.changeVolume(-0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {

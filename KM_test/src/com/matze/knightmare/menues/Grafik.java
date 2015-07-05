@@ -52,6 +52,10 @@ public class Grafik extends Optionsframesuperklasse implements ActionListener {
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
 		add(zurück);
+		
+		if (inGame){
+			settings[1].setEnabled(false);
+		}
 	}
 
 	@Override
