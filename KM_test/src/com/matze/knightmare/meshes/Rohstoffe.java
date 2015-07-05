@@ -80,6 +80,21 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Geld(){
+		Waren w = new Waren(10,0,"Geld","muenze.png");
+		return w;
+	}
+	
+	public static Waren Fleisch(){
+		Waren w = new Waren(11,0,"Fleisch","fleisch.png");
+		return w;
+	}
+	
+	public static Waren Glas(){
+		Waren w = new Waren(12,0,"Glas","glas.png");
+		return w;
+	}
+	
 	public static Waren Rohstoff_von_Index(int index){
 		Waren w = null;
 		switch(index){

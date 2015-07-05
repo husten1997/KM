@@ -146,6 +146,111 @@ public class Bauen {
 		return b;
 	}
 	
+	
+	public static Building Sandschmelze(Pos p, String spieler, int team){
+		Building b = new Building(5, p, 64, 32, "Sandschmeiz.png");
+		
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		
+		b.init(50, 20, 0, 0, "Sandschmelze", benötigt, amountBenötigt, Rohstoffe.Sand(), 10);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if ((/* Sand in der Nähe*/true) && (/*Sand hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	public static Building Bauernhof(Pos p, String spieler, int team){
+		Building b = new Building(6, p, 64, 32, "Hof.png");
+		
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		
+		b.init(50, 20, 0, 0, "Bauernhof", benötigt, amountBenötigt, Rohstoffe.Getreide(), 5);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if ((/* Felder in der Nähe*/true) && (/*Felder hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	public static Building Viehstall(Pos p, String spieler, int team){
+		Building b = new Building(7, p, 64, 32, "viecha.png");
+		
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		
+		b.init(50, 20, 0, 0, "Viehstall", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 5);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap())){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	
+	public static Building Steinbruch(Pos p, String spieler, int team){
+		Building b = new Building(8, p, 64, 32, "Steinbruch.png");
+		
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		
+		b.init(50, 20, 0, 0, "Steinbruch", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 5);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if ((/* Stein in der Nähe*/true) && (/*Stein hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	
+	
+	
 	public static Building getBuildingforID(int id, Pos p, String spieler, int team){
 		switch (id){
 		case 0: {return KohleMine(p, spieler, team);}
@@ -153,6 +258,10 @@ public class Bauen {
 		case 2: {return Lager(p, spieler, team);}
 		case 3: {return Holzfäller(p, spieler, team);}
 		case 4: {return Haus(p, spieler, team);}
+		case 5: {return Sandschmelze(p, spieler, team);}
+		case 6: {return Bauernhof(p, spieler, team);}
+		case 7: {return Viehstall(p, spieler, team);}
+		case 8: {return Steinbruch(p, spieler, team);}
 		default: return null;
 		}
 	}
@@ -169,6 +278,14 @@ public class Bauen {
 			return "Holzfäller";
 		case 4:
 			return "Haus";
+		case 5:
+			return "Sandschmelze";
+		case 6:
+			return "Bauernhof";
+		case 7:
+			return "Viehstall";
+		case 8:
+			return "Steinbruch";
 		default:
 			return "TODO";
 		}
