@@ -95,6 +95,10 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Nothing(){
+		return null;
+	}
+	
 	public static Waren Rohstoff_von_Index(int index){
 		Waren w = null;
 		switch(index){

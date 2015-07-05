@@ -98,7 +98,7 @@ public class Bauen {
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);
-		b.init(30, 10, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
+		b.init(30, 5, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
 		
 		Timer timer = new Timer(true);
 
@@ -128,7 +128,7 @@ public class Bauen {
 		
 		b.setTeam(team);
 		b.setSpieler(spieler);
-		b.init(30, 10, 0, 0, "Haus", benötigt, amountBenötigt, Rohstoffe.Mensch(), 0);
+		b.init(30, 1, 0, 0, "Haus", benötigt, amountBenötigt, Rohstoffe.Mensch(), 8);
 		
 		Timer timer = new Timer(true);
 
@@ -148,12 +148,15 @@ public class Bauen {
 	
 	
 	public static Building Sandschmelze(Pos p, String spieler, int team){
-		Building b = new Building(5, p, 64, 32, "Sandschmeiz.png");
+		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
-		b.init(50, 20, 0, 0, "Sandschmelze", benötigt, amountBenötigt, Rohstoffe.Sand(), 10);
+		benötigt[0] = Rohstoffe.Sand();
+		amountBenötigt[0] = 5;
+		
+		b.init(50, 3, 0, 0, "Sandschmelze", benötigt, amountBenötigt, Rohstoffe.Glas(), 9);
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
@@ -162,7 +165,7 @@ public class Bauen {
 
 			@Override
 			public void run() {
-				if ((/* Sand in der Nähe*/true) && (/*Sand hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+				if (benötigt[0].substractWare(amountBenötigt[0]) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
 					b.WareFertigstellen();
 				}
 			}
@@ -173,12 +176,12 @@ public class Bauen {
 	}
 	
 	public static Building Bauernhof(Pos p, String spieler, int team){
-		Building b = new Building(6, p, 64, 32, "Hof.png");
+		Building b = new Building(6, p, 128, 128, "Hof.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
-		b.init(50, 20, 0, 0, "Bauernhof", benötigt, amountBenötigt, Rohstoffe.Getreide(), 5);
+		b.init(50, 4, 0, 0, "Bauernhof", benötigt, amountBenötigt, Rohstoffe.Getreide(), 36);
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
@@ -198,12 +201,12 @@ public class Bauen {
 	}
 	
 	public static Building Viehstall(Pos p, String spieler, int team){
-		Building b = new Building(7, p, 64, 32, "viecha.png");
+		Building b = new Building(7, p, 64, 64, "viecha.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
-		b.init(50, 20, 0, 0, "Viehstall", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 5);
+		b.init(50, 5, 0, 0, "Viehstall", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 25);
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
@@ -224,12 +227,62 @@ public class Bauen {
 	
 	
 	public static Building Steinbruch(Pos p, String spieler, int team){
-		Building b = new Building(8, p, 64, 32, "Steinbruch.png");
+		Building b = new Building(8, p, 64, 64, "Steinbruch.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
-		b.init(50, 20, 0, 0, "Steinbruch", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 5);
+		b.init(50, 15, 0, 0, "Steinbruch", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 75);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if ((/* Stein in der Nähe*/true) && (/*Stein hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	public static Building Turm(Pos p, String spieler, int team){
+		Building b = new Building(8, p, 64, 64, "Turm.png");
+		
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		
+		b.init(1500, 0, 0, 0, "Turm", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
+		b.setTeam(team);
+		b.setSpieler(spieler);
+		
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				if ((/* Stein in der Nähe*/true) && (/*Stein hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
+					b.WareFertigstellen();
+				}
+			}
+			
+		}, 0, (long) (60000/b.getProdperMin()));
+		
+		return b;
+	}
+	
+	public static Building Mauern(Pos p, String spieler, int team){
+		Building b = new Building(8, p, 64, 32, "Mauer.png");
+		
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		
+		b.init(1200, 0, 10, 70, "Mauern", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
 		b.setTeam(team);
 		b.setSpieler(spieler);
 		
