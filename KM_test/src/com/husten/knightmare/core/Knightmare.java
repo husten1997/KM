@@ -407,7 +407,10 @@ public class Knightmare extends Widget implements StringConstants {
 						case state.N_BUILDINGS:
 							if (aktuellesGebäude != -1) {
 								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
-								if (/* handler.place(b) */newHandler.place(b)) {
+								if (b == null) {
+									add(labelZuTeuer);
+									gednedShown = true;
+								} else if (/* handler.place(b) */newHandler.place(b)) {
 									// b.setSort(0);
 									// initRender(b, 1);
 								}
@@ -787,6 +790,14 @@ public class Knightmare extends Widget implements StringConstants {
 	// }
 
 	public void calc() {
+		if (showGedNedSeitWann > 200) {
+			removeGedNed = true;
+			showGedNedSeitWann = 0;
+			gednedShown = false;
+		}
+		if (gednedShown) {
+			showGedNedSeitWann++;
+		}
 		// handler.move();
 		newHandler.tick();
 
@@ -946,15 +957,16 @@ public class Knightmare extends Widget implements StringConstants {
 	private GUI gui;
 	private LWJGLRenderer renderer;
 	private ThemeManager themeManager;
-	private Label l_fps;
-	private Label l_time;
+	private Label l_fps, l_time, labelZuTeuer;
 	private ResizableFrame frame, kopfframe;
 	private Button[] categories = new Button[6];
 	private Button menue, einstellungen;
 	private Button[][] gebäude = new Button[6][10];
 	private Label[] res = new Label[11];
-	private String[] resn = {"IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas"};
-	private String[] resnT = {"Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Glas"};
+	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas" };
+	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Glas" };
+	private boolean removeGedNed = false, gednedShown = false;
+	private int showGedNedSeitWann;
 
 	@Override
 	protected void layout() {
@@ -1027,18 +1039,26 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time.adjustSize();
 		l_time.setPosition(WIDTH / 2 - l_time.getWidth() / 2, (kopfframe.getHeight() - l_time.getHeight()) / 2);
 
+		labelZuTeuer.adjustSize();
+		labelZuTeuer.setPosition((WIDTH - labelZuTeuer.getWidth()) / 2, (HEIGHT - labelZuTeuer.getHeight()) / 2);
+
 		res[0].setText(String.valueOf(spieler[0].getAmountofResource(0)));
 		res[0].adjustSize();
 		res[0].setSize(Math.max(res[0].getWidth(), res[0].getHeight()), Math.max(res[0].getWidth(), res[0].getHeight()));
 		res[0].setPosition(l_fps.getX() + l_fps.getWidth() + 10, (kopfframe.getHeight() - res[0].getHeight()) / 2);
 		res[0].setBackground(themeManager.getImage("IKohle"));
-		for(int i = 1; i<resn.length; i++){
+		for (int i = 1; i < resn.length; i++) {
 			res[i].setText(String.valueOf(spieler[0].getAmountofResource(i)));
 			res[i].adjustSize();
 			res[i].setSize(Math.max(res[i].getWidth(), res[i].getHeight()), Math.max(res[i].getWidth(), res[i].getHeight()));
-			res[i].setPosition(res[i-1].getX() + res[i-1].getWidth() + 10, (kopfframe.getHeight() - res[i].getHeight()) / 2);
+			res[i].setPosition(res[i - 1].getX() + res[i - 1].getWidth() + 10, (kopfframe.getHeight() - res[i].getHeight()) / 2);
 			res[i].setBackground(themeManager.getImage(resn[i]));
-			
+
+		}
+
+		if (removeGedNed) {
+			removeChild(labelZuTeuer);
+			removeGedNed = false;
 		}
 
 		gui.draw();
@@ -1047,7 +1067,7 @@ public class Knightmare extends Widget implements StringConstants {
 		// setting it
 		super.layout();
 	}
-	
+
 	private void setCategory() {
 		for (Button[] button : gebäude) {
 			for (Button button1 : button) {
@@ -1062,7 +1082,7 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}
 	}
-	
+
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 
 	private void GUI() {
@@ -1225,7 +1245,9 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time = new Label("");
 		l_time.setTheme("label");
 
-		for(int i = 0; i<resn.length; i++){
+		labelZuTeuer = new Label("Das Können wir uns nicht Leisten Sir");
+
+		for (int i = 0; i < resn.length; i++) {
 			res[i] = new Label();
 			res[i].setTooltipContent(new Label(resnT[i]));
 		}
