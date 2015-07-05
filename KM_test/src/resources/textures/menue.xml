@@ -24,6 +24,14 @@
 			<alias ref="KZall" />
 		</select>
 	</images>
+	<images file="Fenster.png" format="RGBA">
+		<area name="ife" xywh="0,0,100,100" splitx="L0,R0" splity="T0,B0" />
+		<select name="Fenster">
+			<alias ref="ife" if="disabled" tint="#8fff" />
+			<alias ref="ife" if="armed" tint="#999999" />
+			<alias ref="ife" />
+		</select>
+	</images>
 	<images file="Icon_Diamant.png" format="RGBA">
 		<area name="ic" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="IDiamant">

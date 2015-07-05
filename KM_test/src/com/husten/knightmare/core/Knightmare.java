@@ -46,6 +46,7 @@ import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
 import de.matthiasmann.twl.ResizableFrame;
 import de.matthiasmann.twl.Widget;
+import de.matthiasmann.twl.renderer.Font;
 import de.matthiasmann.twl.renderer.MouseCursor;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
 import de.matthiasmann.twl.theme.ThemeManager;
@@ -55,7 +56,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private long lastFrame, lastFPS;
 	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1;
 	@SuppressWarnings("unused")
-	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5;
+	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
 	private String inGameStat = state.S_TRUPS;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true;
@@ -418,6 +419,7 @@ public class Knightmare extends Widget implements StringConstants {
 								} else if (/* handler.place(b) */newHandler.place(b)) {
 									// b.setSort(0);
 									// initRender(b, 1);
+									Bauen.kostenAbziehen(b);
 								}
 							}
 							break;
@@ -457,8 +459,15 @@ public class Knightmare extends Widget implements StringConstants {
 							/*
 							 * RectangleGraphicalObject h = handler.abreißen(xR,
 							 * yR)
-							 */newHandler.remove(xR, yR);
-							;
+							 */
+							RectangleGraphicalObject help = newHandler.remove(xR, yR);
+							if (help instanceof Building) {
+								int[] kosten = ((Building) help).getKostetWarevonArray();
+								for (int i = 0; i < kosten.length; i++) {
+									help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i) + (int) Math.round(kosten[i]*rückerstattungsanteil), i);
+								}
+							}
+
 							// if (h != null) {
 							// renderList[1].remove(h);
 							// }
@@ -491,8 +500,8 @@ public class Knightmare extends Widget implements StringConstants {
 							 * (selection.get(i).getType().equals(
 							 * StringConstants.MeshType.EINHEIT)) { Soldat h =
 							 * (Soldat) selection.get(i); handler.handle(h, p1,
-							 * selection.size() + 2);
-							 * angriffe.put(h, bogi); angriffe.put(bogi, h); } }
+							 * selection.size() + 2); angriffe.put(h, bogi);
+							 * angriffe.put(bogi, h); } }
 							 */
 							break;
 						case state.S_BUILDINGS:
@@ -1093,18 +1102,32 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private void showKosten() {
 		if (aktuellesGebäude != -1) {
-			int[] help = new int[5];
+			int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
 			for (int i = 0; i < resK.length; i++) {
-				resK[i].setText(String.valueOf(help[i]));
-				if (help[i] > Integer.parseInt(res[i].getText())) {
-					resK[i].setFont(themeManager.getFont("normalR"));
-				} else {
-					resK[i].setFont(themeManager.getFont("normalG"));
+				if (help[i] != 0) {
+					if (resK[i].getBackground() == null) {
+						resK[i].setBackground(themeManager.getImage("Fenster"));
+					}
+					resK[i].setText(String.valueOf(help[i]));
+					if (help[i] > Integer.parseInt(res[i].getText())) {
+						Font helpf = themeManager.getFont("normalR");
+						if (!resK[i].getFont().equals(helpf)) {
+							resK[i].setFont(helpf);
+						}
+					} else {
+						Font helpf = themeManager.getFont("normalG");
+						if (!resK[i].getFont().equals(helpf)) {
+							resK[i].setFont(helpf);
+						}
+					}
 				}
 			}
 		} else {
 			for (Label label : resK) {
 				label.setText("");
+				if (label.getBackground() != null) {
+					label.setBackground(null);
+				}
 			}
 		}
 	}
@@ -1228,6 +1251,8 @@ public class Knightmare extends Widget implements StringConstants {
 
 				@Override
 				public void run() {
+					category = help;
+					setCategory();
 					for (int j = 0; j < categories.length; j++) {
 						if (j != help) {
 							categories[j].getAnimationState().setAnimationState(STATE_DISABLED, true);
@@ -1235,9 +1260,6 @@ public class Knightmare extends Widget implements StringConstants {
 							categories[j].getAnimationState().setAnimationState(STATE_DISABLED, false);
 						}
 					}
-					category = help;
-					setCategory();
-					System.out.println(category);
 				}
 			});
 		}

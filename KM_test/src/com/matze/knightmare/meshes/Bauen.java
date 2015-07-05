@@ -464,7 +464,7 @@ public class Bauen {
 		}
 	}
 	
-	public static int[] getKostenvonGeb(int id, Pos p, Spieler spieler){
+	public static int[] getKostenvonGeb(int id){
 		Building b = new Building(0, new Pos(0,0), 0, 0, "");
 		switch (id){
 		case 0:  {b.setKostetWarevonIndex(2, 10); return b.getKostetWarevonArray();}

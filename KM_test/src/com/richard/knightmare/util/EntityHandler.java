@@ -267,7 +267,7 @@ public class EntityHandler {
 		}
 	}
 	
-	public void remove(int x, int y) {
+	public RectangleGraphicalObject remove(int x, int y) {
 		RectangleGraphicalObject object = world[x][y];
 		entities.remove(object);
 		if(object!=null){
@@ -282,6 +282,7 @@ public class EntityHandler {
 				}
 			}
 		}
+		return object;
 	}
 
 	private boolean isObstractedFor(int x, int y, RectangleGraphicalObject soldat) {
