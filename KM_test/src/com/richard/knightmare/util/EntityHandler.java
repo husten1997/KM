@@ -129,7 +129,7 @@ public class EntityHandler {
 
 		if (selection.size() == 1) {
 			if (world[xPos][yPos] != null) {
-				if (world[xPos][yPos].getTeam() != selection.get(0).getTeam()) {
+				if (world[xPos][yPos].getSpieler().getTeam() != selection.get(0).getSpieler().getTeam()) {
 					chasing.put((Soldat) selection.get(0), world[xPos][yPos]);
 					pathfindTo(x, y, selection.get(0));
 				} else {
@@ -141,7 +141,7 @@ public class EntityHandler {
 		} else {
 			for(RectangleGraphicalObject soldat: selection){
 				if (world[xPos][yPos] != null) {
-					if (world[xPos][yPos].getTeam() != soldat.getTeam()) {
+					if (world[xPos][yPos].getSpieler().getTeam() != soldat.getSpieler().getTeam()) {
 						chasing.put((Soldat) soldat, world[xPos][yPos]);
 						pathfindTo(x, y, soldat);
 					} else {
