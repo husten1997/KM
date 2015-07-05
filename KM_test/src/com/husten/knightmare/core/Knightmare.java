@@ -72,13 +72,15 @@ public class Knightmare extends Widget implements StringConstants {
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
 	private int renderD = 5;
+	private Spieler[] spieler;
 
 	public static double breightness = 1;
 
 	private DNCycl DN;
 
-	public Knightmare() {
+	public Knightmare(Spieler[] spieler) {
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
+		this.spieler = spieler;
 		start();
 	}
 
@@ -404,7 +406,7 @@ public class Knightmare extends Widget implements StringConstants {
 						switch (inGameStat) {
 						case state.N_BUILDINGS:
 							if (aktuellesGebäude != -1) {
-								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), new Spieler(0, "Spieler 1", 0));
+								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
 								if (/* handler.place(b) */newHandler.place(b)) {
 									// b.setSort(0);
 									// initRender(b, 1);
@@ -412,14 +414,14 @@ public class Knightmare extends Widget implements StringConstants {
 							}
 							break;
 						case state.N_TRUPS:
-							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, new Spieler(0, "Spieler 1", 0));
+							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, spieler[0]);
 							if (/* handler.place(s) */newHandler.place(s)) {
 								// s.setSort(1);
 								// initRender(s, 1);
 							}
 							break;
 						case state.NF_TROOP:
-							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, new Spieler(0, "Spieler 1", 0));
+							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, spieler[0]);
 							if (/* handler.place(sf) */newHandler.place(sf)) {
 								// sf.setSort(1);
 								// initRender(sf, 1);
@@ -951,7 +953,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button menue, einstellungen;
 	private Button[][] gebäude = new Button[6][10];
 	private Label[] res = new Label[11];
-	private String[] resn = {"IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze"};
+	private String[] resn = {"IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas"};
 
 	@Override
 	protected void layout() {

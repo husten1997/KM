@@ -11,6 +11,9 @@ public class Spieler {
 		this.setTeam(team);
 		this.setName(name);
 		this.index = SpielerNR;
+		
+		amountResourcesOfIndex[getIndexofResource("Holz")] = 20;
+		amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
 	}
 	
 	

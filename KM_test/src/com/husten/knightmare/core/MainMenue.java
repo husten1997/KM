@@ -23,6 +23,7 @@ import com.matze.knightmare.menues.Credits;
 import com.matze.knightmare.menues.Laden;
 import com.matze.knightmare.menues.Loadscreen;
 import com.matze.knightmare.menues.Optionen;
+import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;
@@ -34,6 +35,7 @@ public class MainMenue extends Optionsframesuperklasse {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
 	public static Optionsframesuperklasse instance;
+	private Spieler[] spieler;
 	private static Logger LOG = LogManager.getLogger(MainMenue.class);
 
 	public static void main(String[] args) {
@@ -49,8 +51,13 @@ public class MainMenue extends Optionsframesuperklasse {
 	public MainMenue() {
 		super("menue.png", "Knightmare: MainMenue");
 		// Spiel Starten
+		spieler = new Spieler[2];
+		spieler[0] =  new Spieler(0, "Spieler 1", 1);
+		spieler[1] =  new Spieler(0, "Spieler 2", 2);
+		
 		buttons.add(new Button(new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx1)")) * width, h(Loader.getCfgValue("Button: Spielstarten (posy1)")) * height),
 				new Pos(w(Loader.getCfgValue("Button: Spielstarten (posx2)")) * width, h(Loader.getCfgValue("Button: Spielstarten (posy2)")) * height)) {
+			
 			@Override
 			public void onClick() {
 				dispose();
@@ -59,7 +66,7 @@ public class MainMenue extends Optionsframesuperklasse {
 					@Override
 					public void run() {
 						Loadscreen l = new Loadscreen();
-						Knightmare km = new Knightmare();
+						Knightmare km = new Knightmare(spieler);
 						MoodMusic.changeMood("Default");
 						l.dispose();
 						km.loop();
