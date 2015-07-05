@@ -24,11 +24,6 @@ public class Bauen {
 
 		if (error == 0) {
 			
-			for (int i = 0; i < Rohstoffe.maxID(); i++){
-				b.getSpieler().setAmountofResourcewithIndex
-				(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
-			}
-			
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
 			b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt,
@@ -70,11 +65,6 @@ public class Bauen {
 		}
 
 		if (error == 0) {
-			
-			for (int i = 0; i < Rohstoffe.maxID(); i++){
-				b.getSpieler().setAmountofResourcewithIndex
-				(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
-			}
 
 			int am = 1;
 
@@ -123,12 +113,6 @@ public class Bauen {
 		}
 
 		if (error == 0) {
-			
-			for (int i = 0; i < Rohstoffe.maxID(); i++){
-				b.getSpieler().setAmountofResourcewithIndex
-				(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
-			}
-
 		
 		int am = Rohstoffe.maxID(); //TODO überprüfen
 		
@@ -161,12 +145,6 @@ public class Bauen {
 		}
 
 		if (error == 0) {
-
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 
 			int am = 1;
 			Waren[] benötigt = new Waren[am];
@@ -214,11 +192,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 			int am = 1;
 			Waren[] benötigt = new Waren[am];
 			int[] amountBenötigt = new int[am];
@@ -284,11 +257,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -330,12 +298,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
-			
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -373,11 +335,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -416,11 +373,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -459,11 +411,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -489,11 +436,6 @@ public class Bauen {
 
 		if (error == 0) {
 
-			for (int i = 0; i < Rohstoffe.maxID(); i++) {
-				b.getSpieler().setAmountofResourcewithIndex(
-						b.getSpieler().getAmountofResource(i)
-								- b.getKostetWarevonIndex(i), i);
-			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -572,6 +514,13 @@ public class Bauen {
 			return "Mauern";
 		default:
 			return "TODO";
+		}
+	}
+	
+	public static void kostenAbziehen(Building b){
+		for (int i = 0; i < Rohstoffe.maxID(); i++){
+			b.getSpieler().setAmountofResourcewithIndex
+			(b.getSpieler().getAmountofResource(i)-b.getKostetWarevonIndex(i), i);
 		}
 	}
 }
