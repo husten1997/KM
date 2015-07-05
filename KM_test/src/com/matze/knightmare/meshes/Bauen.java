@@ -112,8 +112,8 @@ public class Bauen {
 		Building b = new Building(2, p, 64, 64, "Lager.png");
 		
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 25);
-		b.setKostetWarevonIndex(8, 10);
+		b.setKostetWarevonIndex(2, 10);
+		b.setKostetWarevonIndex(8, 5);
 		
 		int error = 0;
 
@@ -272,6 +272,25 @@ public class Bauen {
 	public static Building Sandschmelze(Pos p, Spieler sp){
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 		
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 15);
+
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
@@ -279,7 +298,6 @@ public class Bauen {
 		amountBenötigt[0] = 5;
 		
 		b.init(50, 3, 0, 0, "Sandschmelze", benötigt, amountBenötigt, Rohstoffe.Glas(), 9);
-		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -293,17 +311,37 @@ public class Bauen {
 			
 		}, 0, (long) (60000/b.getProdperMin()));
 		
-		return b;
+		return b;}
+		return null;
 	}
 	
 	public static Building Bauernhof(Pos p, Spieler sp){
 		Building b = new Building(6, p, 128, 128, "Hof.png");
 		
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 8);
+
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
+			
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(50, 4, 0, 0, "Bauernhof", benötigt, amountBenötigt, Rohstoffe.Getreide(), 36);
-		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -317,17 +355,35 @@ public class Bauen {
 			
 		}, 0, (long) (60000/b.getProdperMin()));
 		
-		return b;
+		return b;}
+		return null;
 	}
 	
 	public static Building Viehstall(Pos p, Spieler sp){
 		Building b = new Building(7, p, 64, 64, "viecha.png");
-		
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 15);
+
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(50, 5, 0, 0, "Viehstall", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 25);
-		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -341,18 +397,36 @@ public class Bauen {
 			
 		}, 0, (long) (60000/b.getProdperMin()));
 		
-		return b;
+		return b;}
+		return null;
 	}
 	
 	
 	public static Building Steinbruch(Pos p, Spieler sp){
 		Building b = new Building(8, p, 64, 64, "Steinbruch.png");
-		
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 5);
+
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(50, 15, 0, 0, "Steinbruch", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 75);
-		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -366,30 +440,68 @@ public class Bauen {
 			
 		}, 0, (long) (60000/b.getProdperMin()));
 		
-		return b;
+		return b;}
+		return null;
 	}
 	
 	public static Building Turm(Pos p, Spieler sp){
 		Building b = new Building(9, p, 64, 64, "Turm.png");
-		
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(8, 30);
+		b.setKostetWarevonIndex(2, 10);
+
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(1500, 0, 0, 0, "Turm", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
-		b.setSpieler(sp);
 		
-		return b;
+		return b;}
+		return null;
 	}
 	
 	public static Building Mauern(Pos p, Spieler sp){
 		Building b = new Building(10, p, 32, 32, "Mauer.png");
-		
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(8, 8);
+
+		int error = 0;
+
+		for (int i = 0; i < Rohstoffe.maxID(); i++) {
+			if (b.getSpieler().getAmountofResource(i)
+					- b.getKostetWarevonIndex(i) < 0) {
+				error++;
+			}
+		}
+
+		if (error == 0) {
+
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				b.getSpieler().setAmountofResourcewithIndex(
+						b.getSpieler().getAmountofResource(i)
+								- b.getKostetWarevonIndex(i), i);
+			}
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(1200, 0, 10, 70, "Mauern", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
-		b.setSpieler(sp);
-		return b;
+		return b;}
+		return null;
 	}
 	
 	

@@ -12,8 +12,9 @@ public class Spieler {
 		this.setName(name);
 		this.index = SpielerNR;
 		
-		amountResourcesOfIndex[getIndexofResource("Holz")] = 20;
+		amountResourcesOfIndex[getIndexofResource("Holz")] = 30;
 		amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
+		amountResourcesOfIndex[getIndexofResource("Stein")] = 15;
 	}
 	
 	
