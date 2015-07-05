@@ -112,6 +112,9 @@ public class Knightmare extends Widget implements StringConstants {
 			grafikCycl();
 
 			handlInput();
+			if (!inGameStat.equals(state.N_BUILDINGS)) {
+				aktuellesGebäude = -1;
+			}
 
 			updateDisplay();
 			updateFPS();
@@ -235,10 +238,12 @@ public class Knightmare extends Widget implements StringConstants {
 	private void pollInput() throws Exception {
 		// Mouse.poll();
 		// Keyboard.poll();
-//		if (getString("CONTROL_KEY: Fenster- u. Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
-//			Loader.changeCfgValue("SETTINGS: Fenstermodus", String.valueOf(fullscreen));
-//			tooggleFullscreen();
-//		}
+		// if (getString("CONTROL_KEY: Fenster- u.
+		// Vollbildmodus").equals(gFN(Keyboard.getEventKey()))) {
+		// Loader.changeCfgValue("SETTINGS: Fenstermodus",
+		// String.valueOf(fullscreen));
+		// tooggleFullscreen();
+		// }
 		// Keyboard------------------------------------------------------------------------------------
 		while (Keyboard.next()) {
 			guiPollInput();
@@ -486,7 +491,7 @@ public class Knightmare extends Widget implements StringConstants {
 							 * (selection.get(i).getType().equals(
 							 * StringConstants.MeshType.EINHEIT)) { Soldat h =
 							 * (Soldat) selection.get(i); handler.handle(h, p1,
-							 * selection.size() + 2);// TODO // rework
+							 * selection.size() + 2);
 							 * angriffe.put(h, bogi); angriffe.put(bogi, h); } }
 							 */
 							break;
@@ -927,7 +932,6 @@ public class Knightmare extends Widget implements StringConstants {
 		try {
 			renderer = new LWJGLRenderer();
 		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -963,6 +967,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button menue, einstellungen;
 	private Button[][] gebäude = new Button[6][10];
 	private Label[] res = new Label[11];
+	private Label[] resK = new Label[11];
 	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas" };
 	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Glas" };
 	private boolean removeGedNed = false, gednedShown = false;
@@ -1047,20 +1052,23 @@ public class Knightmare extends Widget implements StringConstants {
 		res[0].setSize(Math.max(res[0].getWidth(), res[0].getHeight()), Math.max(res[0].getWidth(), res[0].getHeight()));
 		res[0].setPosition(l_fps.getX() + l_fps.getWidth() + 10, (kopfframe.getHeight() - res[0].getHeight()) / 2);
 		res[0].setBackground(themeManager.getImage("IKohle"));
+		resK[0].setSize(res[0].getWidth(), res[0].getHeight());
+		resK[0].setPosition(res[0].getX(), res[0].getY() + res[0].getHeight());
 		for (int i = 1; i < resn.length; i++) {
 			res[i].setText(String.valueOf(spieler[0].getAmountofResource(i)));
 			res[i].adjustSize();
 			res[i].setSize(Math.max(res[i].getWidth(), res[i].getHeight()), Math.max(res[i].getWidth(), res[i].getHeight()));
 			res[i].setPosition(res[i - 1].getX() + res[i - 1].getWidth() + 10, (kopfframe.getHeight() - res[i].getHeight()) / 2);
 			res[i].setBackground(themeManager.getImage(resn[i]));
-
+			resK[i].setSize(res[i].getWidth(), res[i].getHeight());
+			resK[i].setPosition(res[i].getX(), res[i].getY() + res[i].getHeight());
 		}
 
 		if (removeGedNed) {
 			removeChild(labelZuTeuer);
 			removeGedNed = false;
 		}
-
+		showKosten();
 		gui.draw();
 
 		// button.adjustSize(); //Calculate optimal size instead of manually
@@ -1079,6 +1087,24 @@ public class Knightmare extends Widget implements StringConstants {
 				if (button != null) {
 					frame.add(button);
 				}
+			}
+		}
+	}
+
+	private void showKosten() {
+		if (aktuellesGebäude != -1) {
+			int[] help = new int[5];
+			for (int i = 0; i < resK.length; i++) {
+				resK[i].setText(String.valueOf(help[i]));
+				if (help[i] > Integer.parseInt(res[i].getText())) {
+					resK[i].setFont(themeManager.getFont("normalR"));
+				} else {
+					resK[i].setFont(themeManager.getFont("normalG"));
+				}
+			}
+		} else {
+			for (Label label : resK) {
+				label.setText("");
 			}
 		}
 	}
@@ -1250,6 +1276,7 @@ public class Knightmare extends Widget implements StringConstants {
 		for (int i = 0; i < resn.length; i++) {
 			res[i] = new Label();
 			res[i].setTooltipContent(new Label(resnT[i]));
+			resK[i] = new Label();
 		}
 
 		kopfframe = new ResizableFrame();
@@ -1262,6 +1289,7 @@ public class Knightmare extends Widget implements StringConstants {
 		add(l_time);
 		for (int i = 0; i < resn.length; i++) {
 			add(res[i]);
+			add(resK[i]);
 		}
 
 		frame = new ResizableFrame();
@@ -1331,7 +1359,6 @@ public class Knightmare extends Widget implements StringConstants {
 		try {
 			Display.setDisplayModeAndFullscreen(new DisplayMode(WIDTH, HEIGHT));
 		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

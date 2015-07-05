@@ -151,7 +151,6 @@ public class EntityHandler {
 					pathfindTo(x, y, soldat);
 				}
 			}
-			// TODO future work
 		}
 	}
 
