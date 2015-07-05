@@ -23,7 +23,9 @@ public class Bauen {
 
 			@Override
 			public void run() {
+				if ((/* Kohle in der Nähe*/true) && (/*Kohle hat ressourcen*/ true) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
 					b.WareFertigstellen();
+				}
 			}
 			
 		}, 0, (long) (60000/b.getProdperMin()));
@@ -53,7 +55,7 @@ public class Bauen {
 
 			@Override
 			public void run() {
-				if (benötigt[0].substractWare(amountBenötigt[0])){
+				if (benötigt[0].substractWare(amountBenötigt[0]) && (!(b.getAmountProduzierterWareAuslesen() == b.getMaxLagerKap()))){
 					b.WareFertigstellen();
 				}
 			}
