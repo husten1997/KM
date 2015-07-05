@@ -1120,6 +1120,11 @@ public class Knightmare extends Widget implements StringConstants {
 							resK[i].setFont(helpf);
 						}
 					}
+				}else{
+					resK[i].setText("");
+					if (resK[i].getBackground() != null) {
+						resK[i].setBackground(null);
+					}
 				}
 			}
 		} else {
