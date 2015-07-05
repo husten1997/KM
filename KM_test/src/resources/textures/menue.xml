@@ -32,6 +32,14 @@
 			<alias ref="ic" />
 		</select>
 	</images>
+	<images file="glas.png" format="RGBA">
+		<area name="ig" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="IGlas">
+			<alias ref="ig" if="disabled" tint="#8fff" />
+			<alias ref="ig" if="armed" tint="#999999" />
+			<alias ref="ig" />
+		</select>
+	</images>
 	<images file="Icon_Holz.png" format="RGBA">
 		<area name="ih" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="IHolz">
