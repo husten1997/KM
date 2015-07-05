@@ -412,14 +412,14 @@ public class Knightmare extends Widget implements StringConstants {
 							}
 							break;
 						case state.N_TRUPS:
-							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 1", 0);
+							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, new Spieler(0, "Spieler 1", 0));
 							if (/* handler.place(s) */newHandler.place(s)) {
 								// s.setSort(1);
 								// initRender(s, 1);
 							}
 							break;
 						case state.NF_TROOP:
-							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
+							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, new Spieler(0, "Spieler 1", 0));
 							if (/* handler.place(sf) */newHandler.place(sf)) {
 								// sf.setSort(1);
 								// initRender(sf, 1);
