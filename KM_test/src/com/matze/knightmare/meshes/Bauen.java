@@ -10,13 +10,12 @@ public class Bauen {
 //	private static int amountBenötigt[];
 //	private static Waren benötigt[];
 	
-	public static Building KohleMine(Pos p, String spieler, int team){
+	public static Building KohleMine(Pos p, Spieler sp){
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -33,7 +32,7 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building EisenMine(Pos p, String spieler, int team){
+	public static Building EisenMine(Pos p, Spieler sp){
 		Building b = new Building(1, p, 64, 64, "Eisenerz 1.png");
 		
 		int am = 1;
@@ -44,8 +43,7 @@ public class Bauen {
 		benötigt[0] = Rohstoffe.Kohle();
 		amountBenötigt[0] = 1;
 		
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		b.init(50, 20, 0, 0, "Eisenmine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 100);
 		
@@ -66,11 +64,10 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Lager(Pos p, String spieler, int team){
+	public static Building Lager(Pos p, Spieler sp){
 		Building b = new Building(2, p, 64, 64, "Lager.png");
 		
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		int am = Rohstoffe.maxID()+1; //TODO überprüfen
 		
@@ -86,7 +83,7 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Holzfäller(Pos p, String spieler, int team){
+	public static Building Holzfäller(Pos p, Spieler sp){
 		Building b = new Building(3, p, 64, 64, "Holz.png");
 		
 		int am = 1;
@@ -96,8 +93,8 @@ public class Bauen {
 		benötigt[0] = Rohstoffe.Holz();
 		amountBenötigt[0] = 0;
 		
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
+		
 		b.init(30, 5, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
 		
 		Timer timer = new Timer(true);
@@ -116,7 +113,7 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Haus(Pos p, String spieler, int team){
+	public static Building Haus(Pos p, Spieler sp){
 		Building b = new Building(4, p, 64, 32, "Haus.png");
 		
 		int am = 1;
@@ -126,8 +123,7 @@ public class Bauen {
 		benötigt[0] = Rohstoffe.Mensch();
 		amountBenötigt[0] = 0;
 		
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		b.init(30, 1, 0, 0, "Haus", benötigt, amountBenötigt, Rohstoffe.Mensch(), 8);
 		
 		Timer timer = new Timer(true);
@@ -147,7 +143,7 @@ public class Bauen {
 	}
 	
 	
-	public static Building Sandschmelze(Pos p, String spieler, int team){
+	public static Building Sandschmelze(Pos p, Spieler sp){
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 		
 		Waren[] benötigt = new Waren[1];
@@ -157,8 +153,7 @@ public class Bauen {
 		amountBenötigt[0] = 5;
 		
 		b.init(50, 3, 0, 0, "Sandschmelze", benötigt, amountBenötigt, Rohstoffe.Glas(), 9);
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -175,15 +170,14 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Bauernhof(Pos p, String spieler, int team){
+	public static Building Bauernhof(Pos p, Spieler sp){
 		Building b = new Building(6, p, 128, 128, "Hof.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(50, 4, 0, 0, "Bauernhof", benötigt, amountBenötigt, Rohstoffe.Getreide(), 36);
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -200,15 +194,14 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Viehstall(Pos p, String spieler, int team){
+	public static Building Viehstall(Pos p, Spieler sp){
 		Building b = new Building(7, p, 64, 64, "viecha.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(50, 5, 0, 0, "Viehstall", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 25);
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -226,15 +219,14 @@ public class Bauen {
 	}
 	
 	
-	public static Building Steinbruch(Pos p, String spieler, int team){
+	public static Building Steinbruch(Pos p, Spieler sp){
 		Building b = new Building(8, p, 64, 64, "Steinbruch.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(50, 15, 0, 0, "Steinbruch", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 75);
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		Timer timer = new Timer(true);
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -251,48 +243,45 @@ public class Bauen {
 		return b;
 	}
 	
-	public static Building Turm(Pos p, String spieler, int team){
+	public static Building Turm(Pos p, Spieler sp){
 		Building b = new Building(9, p, 64, 64, "Turm.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(1500, 0, 0, 0, "Turm", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
-		b.setTeam(team);
-		b.setSpieler(spieler);
+		b.setSpieler(sp);
 		
 		return b;
 	}
 	
-	public static Building Mauern(Pos p, String spieler, int team){
+	public static Building Mauern(Pos p, Spieler sp){
 		Building b = new Building(10, p, 32, 32, "Mauer.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		
 		b.init(1200, 0, 10, 70, "Mauern", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
-		b.setTeam(team);
-		b.setSpieler(spieler);
-
+		b.setSpieler(sp);
 		return b;
 	}
 	
 	
 	
 	
-	public static Building getBuildingforID(int id, Pos p, String spieler, int team){
+	public static Building getBuildingforID(int id, Pos p, Spieler spieler){
 		switch (id){
-		case 0: {return KohleMine(p, spieler, team);}
-		case 1: {return EisenMine(p, spieler, team);}
-		case 2: {return Lager(p, spieler, team);}
-		case 3: {return Holzfäller(p, spieler, team);}
-		case 4: {return Haus(p, spieler, team);}
-		case 5: {return Sandschmelze(p, spieler, team);}
-		case 6: {return Bauernhof(p, spieler, team);}
-		case 7: {return Viehstall(p, spieler, team);}
-		case 8: {return Steinbruch(p, spieler, team);}
-		case 9: {return Turm(p, spieler, team);}
-		case 10: {return Mauern(p, spieler, team);}
+		case 0: {return KohleMine(p, spieler);}
+		case 1: {return EisenMine(p, spieler);}
+		case 2: {return Lager(p, spieler);}
+		case 3: {return Holzfäller(p, spieler);}
+		case 4: {return Haus(p, spieler);}
+		case 5: {return Sandschmelze(p, spieler);}
+		case 6: {return Bauernhof(p, spieler);}
+		case 7: {return Viehstall(p, spieler);}
+		case 8: {return Steinbruch(p, spieler);}
+		case 9: {return Turm(p, spieler);}
+		case 10: {return Mauern(p, spieler);}
 		default: return null;
 		}
 	}

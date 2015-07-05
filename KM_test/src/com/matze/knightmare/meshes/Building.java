@@ -5,8 +5,7 @@ import com.richard.knightmare.util.Pos;
 
 public class Building extends RectangleGraphicalObject {
 	
-	private int team;
-	private String spieler;
+	private Spieler s;
 	
 	private int health;
 	private int index;
@@ -149,22 +148,6 @@ public class Building extends RectangleGraphicalObject {
 		return maxLagerKapazität;
 	}
 
-	public int getTeam() {
-		return team;
-	}
-
-	public void setTeam(int team) {
-		this.team = team;
-	}
-
-	public String getSpieler() {
-		return spieler;
-	}
-
-	public void setSpieler(String spieler) {
-		this.spieler = spieler;
-	}
-
 	public int getIndex() {
 		return index;
 	}
@@ -175,6 +158,10 @@ public class Building extends RectangleGraphicalObject {
 	
 	public void setProduktionProMinute(int p){
 		ProduktionproMinute = p;
+	}
+	
+	public void setSpieler(Spieler sp){
+		s = sp;
 	}
 
 

@@ -32,6 +32,7 @@ import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Soldat;
+import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
@@ -402,7 +403,7 @@ public class Knightmare extends Widget implements StringConstants {
 						switch (inGameStat) {
 						case state.N_BUILDINGS:
 							if (aktuellesGebäude != -1) {
-								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), "Spieler 1", 0);
+								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), new Spieler(0,"Spieler1",1));
 								if (/*handler.place(b)*/newHandler.place(b)) {
 //									b.setSort(0);
 //									initRender(b, 1);

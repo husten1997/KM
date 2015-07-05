@@ -1,33 +1,6 @@
 package com.matze.knightmare.meshes;
 
 public class Rohstoffe {
-
-	private static int amountResourcesOfIndex[] = new int [maxID()];
-	
-	public static Waren setAmountofResourcewithIndex(int amount, int index){
-		amountResourcesOfIndex[index] = amount;
-		return Rohstoff_von_Index(index);
-	}
-	
-	public static Waren setAmountofResourcewithName(int amount, String name){
-		int index = getIndexofResource(name);
-		amountResourcesOfIndex[index] = amount;
-		return Rohstoff_von_Index(index);
-	}
-	
-	public static int getAmountofResource(int index){
-		return amountResourcesOfIndex[index];
-	}
-	
-	public static int getIndexofResource(String name){
-		for (int i = 0; i < maxID(); i++){
-			if (name.equals(Rohstoff_von_Index(i).getName())){
-				return i;
-			}
-		}
-		System.out.println(name + ": Resource nicht vorhanden");
-		return -1;
-	}
 	
 	public static Waren Kohle(){
 		Waren w = new Waren(0, 0, "Kohle", "kohle.png");
