@@ -954,6 +954,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button[][] gebäude = new Button[6][10];
 	private Label[] res = new Label[11];
 	private String[] resn = {"IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas"};
+	private String[] resnT = {"Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Glas"};
 
 	@Override
 	protected void layout() {
@@ -1026,11 +1027,13 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time.adjustSize();
 		l_time.setPosition(WIDTH / 2 - l_time.getWidth() / 2, (kopfframe.getHeight() - l_time.getHeight()) / 2);
 
+		res[0].setText(String.valueOf(spieler[0].getAmountofResource(0)));
 		res[0].adjustSize();
 		res[0].setSize(Math.max(res[0].getWidth(), res[0].getHeight()), Math.max(res[0].getWidth(), res[0].getHeight()));
 		res[0].setPosition(l_fps.getX() + l_fps.getWidth() + 10, (kopfframe.getHeight() - res[0].getHeight()) / 2);
 		res[0].setBackground(themeManager.getImage("IKohle"));
 		for(int i = 1; i<resn.length; i++){
+			res[i].setText(String.valueOf(spieler[0].getAmountofResource(i)));
 			res[i].adjustSize();
 			res[i].setSize(Math.max(res[i].getWidth(), res[i].getHeight()), Math.max(res[i].getWidth(), res[i].getHeight()));
 			res[i].setPosition(res[i-1].getX() + res[i-1].getWidth() + 10, (kopfframe.getHeight() - res[i].getHeight()) / 2);
@@ -1223,7 +1226,8 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time.setTheme("label");
 
 		for(int i = 0; i<resn.length; i++){
-			res[i] = new Label("10");
+			res[i] = new Label();
+			res[i].setTooltipContent(new Label(resnT[i]));
 		}
 
 		kopfframe = new ResizableFrame();
