@@ -43,4 +43,8 @@ public class Waren extends Items{
 		return textur;
 	}
 	
+	public String getName(){
+		return typ;
+	}
+	
 }
