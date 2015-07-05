@@ -265,7 +265,7 @@ public class Bauen {
 	}
 	
 	public static Building Mauern(Pos p, String spieler, int team){
-		Building b = new Building(10, p, 64, 32, "Mauer.png");
+		Building b = new Building(10, p, 64, 16, "Mauer.png");
 		
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
@@ -273,9 +273,6 @@ public class Bauen {
 		b.init(1200, 0, 10, 70, "Mauern", benötigt, amountBenötigt, Rohstoffe.Nothing(), 0);
 		b.setTeam(team);
 		b.setSpieler(spieler);
-		
-		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(new TimerTask(){
 
 		return b;
 	}
