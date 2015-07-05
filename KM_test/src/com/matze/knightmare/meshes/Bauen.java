@@ -139,6 +139,18 @@ public class Bauen {
 			
 		}, 0, (long) (600000/b.getProdperMin()));
 		
+		Timer timer2 = new Timer(true);
+
+		timer2.scheduleAtFixedRate(new TimerTask(){
+
+			@Override
+			public void run() {
+				b.getSpieler().setAmountofResourcewithIndex(b.getSpieler().getAmountofResource(10)+1, 10);
+				//TODO ppm so ändern dass effektivität pro gebäude um 50% gesteigert wird, steht es alleine in einem bestimmten sektor, wird die produktion pro minute um 50% gesenkt (auch negativ möglich, dann sterben die leute)
+			}
+			
+		}, 0, (long) (60000));
+		
 		return b;
 	}
 	

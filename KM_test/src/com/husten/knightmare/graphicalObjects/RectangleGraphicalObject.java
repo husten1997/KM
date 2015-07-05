@@ -2,11 +2,11 @@ package com.husten.knightmare.graphicalObjects;
 
 import static org.lwjgl.opengl.GL11.*;
 
-
 import java.awt.Color;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
+import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Texturloader;
 
@@ -15,8 +15,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id;
 	protected boolean wasser = false;
 	private Pos hudpos;
-	protected int team;
-	protected String spieler;
+	protected Spieler s;
 
 	public Pos getHudpos() {
 		return hudpos;
@@ -233,12 +232,12 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		this.m_rotation = m_rotation;
 	}
 
-	public int getTeam() {
-		return team;
+	public void setSpieler(Spieler s){
+		this.s = s;
 	}
-
-	public String getSpieler() {
-		return spieler;
+	
+	public Spieler getSpieler(){
+		return s;
 	}
 	
 	

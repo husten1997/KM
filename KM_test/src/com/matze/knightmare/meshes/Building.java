@@ -164,6 +164,9 @@ public class Building extends RectangleGraphicalObject {
 		s = sp;
 	}
 
+	public Spieler getSpieler(){
+		return s;
+	}
 
 
 }
