@@ -152,6 +152,7 @@ public class Bauen {
 		case 1: {return EisenMine(p, w, h, spieler, team);}
 		case 2: {return Lager(p, w, h, spieler, team);}
 		case 3: {return Holzfäller(p, w, h, spieler, team);}
+		case 4: {return Haus(p, w, h, spieler, team);}
 		default: return null;
 		}
 	}
