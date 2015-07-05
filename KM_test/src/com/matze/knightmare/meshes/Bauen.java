@@ -48,7 +48,7 @@ public class Bauen {
 					}
 				}
 
-			}, 0, (long) (60000 / b.getProdperMin()));
+			}, (long) (60000 / b.getProdperMin()), (long) (60000 / b.getProdperMin()));
 
 			return b;
 		}
@@ -102,7 +102,7 @@ public class Bauen {
 					}
 				}
 
-			}, 0, (long) (60000 / b.getProdperMin()));
+			}, (long) (60000 / b.getProdperMin()), (long) (60000 / b.getProdperMin()));
 			return b;
 		}
 		return null;
@@ -193,7 +193,7 @@ public class Bauen {
 					}
 				}
 
-			}, 0, (long) (60000 / b.getProdperMin()));
+			}, (long) (60000 / b.getProdperMin()), (long) (60000 / b.getProdperMin()));
 
 			return b;
 		}
@@ -261,7 +261,7 @@ public class Bauen {
 					// (auch negativ möglich, dann sterben die leute)
 				}
 
-			}, 0, (long) (60000));
+			}, (long) (60000), (long) (60000));
 
 			return b;
 		}
@@ -309,7 +309,7 @@ public class Bauen {
 				}
 			}
 			
-		}, 0, (long) (60000/b.getProdperMin()));
+		}, (long) (60000/b.getProdperMin()), (long) (60000/b.getProdperMin()));
 		
 		return b;}
 		return null;
@@ -353,7 +353,7 @@ public class Bauen {
 				}
 			}
 			
-		}, 0, (long) (60000/b.getProdperMin()));
+		}, (long) (60000/b.getProdperMin()), (long) (60000/b.getProdperMin()));
 		
 		return b;}
 		return null;
@@ -395,7 +395,7 @@ public class Bauen {
 				}
 			}
 			
-		}, 0, (long) (60000/b.getProdperMin()));
+		}, (long) (60000/b.getProdperMin()), (long) (60000/b.getProdperMin()));
 		
 		return b;}
 		return null;
@@ -438,7 +438,7 @@ public class Bauen {
 				}
 			}
 			
-		}, 0, (long) (60000/b.getProdperMin()));
+		}, (long) (60000/b.getProdperMin()), (long) (60000/b.getProdperMin()));
 		
 		return b;}
 		return null;
