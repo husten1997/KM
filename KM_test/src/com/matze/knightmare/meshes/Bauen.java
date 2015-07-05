@@ -254,7 +254,7 @@ public class Bauen {
 				@Override
 				public void run() {
 					b.getSpieler().setAmountofResourcewithIndex(
-							b.getSpieler().getAmountofResource(10) + 1, 10);
+							b.getSpieler().getAmountofResource(9) + 1, 10);
 					// TODO ppm so ändern dass effektivität pro gebäude um 50%
 					// gesteigert wird, steht es alleine in einem bestimmten
 					// sektor, wird die produktion pro minute um 50% gesenkt
