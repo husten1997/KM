@@ -4,12 +4,12 @@ public class Rohstoffe {
 
 	private static int amountResourcesOfIndex[] = new int [maxID()];
 	
-	public static Waren setAmountofResource(int amount, int index){
+	public static Waren setAmountofResourcewithIndex(int amount, int index){
 		amountResourcesOfIndex[index] = amount;
 		return Rohstoff_von_Index(index);
 	}
 	
-	public static Waren setAmountofResource(int amount, String name){
+	public static Waren setAmountofResourcewithName(int amount, String name){
 		int index = getIndexofResource(name);
 		amountResourcesOfIndex[index] = amount;
 		return Rohstoff_von_Index(index);
