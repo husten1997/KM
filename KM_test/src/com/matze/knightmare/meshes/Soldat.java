@@ -16,6 +16,7 @@ public class Soldat extends RectangleGraphicalObject {
 	protected int health;
 	protected int team;
 	protected String spieler;
+	protected Spieler sp;
 
 	// TODO Inventory
 	public Soldat(int h, Pos position, int width, int height, String textureName) {
@@ -207,20 +208,8 @@ public class Soldat extends RectangleGraphicalObject {
 		return health;
 	}
 
-	public int getTeam() {
-		return team;
-	}
-
-	public void setTeam(int team) {
-		this.team = team;
-	}
-
-	public String getSpieler() {
-		return spieler;
-	}
-
-	public void setSpieler(String spieler) {
-		this.spieler = spieler;
+	public void setSpieler(Spieler spieler){
+		sp = spieler;
 	}
 
 
