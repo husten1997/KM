@@ -63,9 +63,10 @@ public class Knightmare extends Widget implements StringConstants {
 	public static Terrain terrain;
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-//	private Pathhandler handler;
+	// private Pathhandler handler;
 	private EntityHandler newHandler;
-//	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
+	// private ArrayList<RectangleGraphicalObject> selection = new
+	// ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
@@ -170,7 +171,7 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 		terrain = new Terrain((512) + 1, (512) + 1);
 		terrain.initRender();
-//		handler = new Pathhandler(513, 513);
+		// handler = new Pathhandler(513, 513);
 		newHandler = new EntityHandler(513, 513);
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
@@ -325,9 +326,9 @@ public class Knightmare extends Widget implements StringConstants {
 					Vsync = !Vsync;
 				}
 
-//				if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
-//					System.out.println(selection.size());
-//				}
+				// if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
+				// System.out.println(selection.size());
+				// }
 
 				if (getString("CONTROL_KEY: Musik wechseln").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.nextClip();
@@ -403,57 +404,62 @@ public class Knightmare extends Widget implements StringConstants {
 						switch (inGameStat) {
 						case state.N_BUILDINGS:
 							if (aktuellesGeb‰ude != -1) {
-								Building b = Bauen.getBuildingforID(aktuellesGeb‰ude, new Pos(xR * 32, yR * 32), new Spieler(0,"Spieler1",1));
-								if (/*handler.place(b)*/newHandler.place(b)) {
-//									b.setSort(0);
-//									initRender(b, 1);
+								Building b = Bauen.getBuildingforID(aktuellesGeb‰ude, new Pos(xR * 32, yR * 32), new Spieler(0, "Spieler 1", 0));
+								if (/* handler.place(b) */newHandler.place(b)) {
+									// b.setSort(0);
+									// initRender(b, 1);
 								}
 							}
 							break;
 						case state.N_TRUPS:
 							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, "Spieler 1", 0);
-							if (/*handler.place(s)*/newHandler.place(s)) {
-//								s.setSort(1);
-//								initRender(s, 1);
+							if (/* handler.place(s) */newHandler.place(s)) {
+								// s.setSort(1);
+								// initRender(s, 1);
 							}
 							break;
 						case state.NF_TROOP:
 							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, "Spieler 2", 1);
-							if (/*handler.place(sf)*/newHandler.place(sf)) {
-//								sf.setSort(1);
-//								initRender(sf, 1);
+							if (/* handler.place(sf) */newHandler.place(sf)) {
+								// sf.setSort(1);
+								// initRender(sf, 1);
 							}
 							break;
 						case state.S_TRUPS:
 							newHandler.search(x, y);
-							if(newHandler.getSelection().size()>0){
+							if (newHandler.getSelection().size() > 0) {
 								if (newHandler.getSelection().get(newHandler.getSelection().size() - 1) instanceof Soldat) {
 									figur = (Soldat) newHandler.getSelection().get(newHandler.getSelection().size() - 1);
 								}
 							}
-//							search(x, y);
-//							if (selection.get(selection.size() - 1) instanceof Soldat) {
-//								figur = (Soldat) selection.get(selection.size() - 1);
-//							}
+							// search(x, y);
+							// if (selection.get(selection.size() - 1)
+							// instanceof Soldat) {
+							// figur = (Soldat) selection.get(selection.size() -
+							// 1);
+							// }
 							break;
 						case state.S_BUILDINGS:
 							newHandler.search(x, y);
-//							search(x, y);
+							// search(x, y);
 							break;
 						case state.ABREIﬂEN:
-							/*RectangleGraphicalObject h = handler.abreiﬂen(xR, yR)*/newHandler.remove(xR,yR);;
-//							if (h != null) {
-//								renderList[1].remove(h);
-//							}
+							/*
+							 * RectangleGraphicalObject h = handler.abreiﬂen(xR,
+							 * yR)
+							 */newHandler.remove(xR, yR);
+							;
+							// if (h != null) {
+							// renderList[1].remove(h);
+							// }
 							break;
 						}
 					}
 				}
 
 				if (Mouse.getEventButton() == 2) {
-					 ang = new Pos(CameraX + Mouse.getX() * scale, CameraY +
-					 Mouse.getY() * scale);
-//					ang = new Pos(Mouse.getX(), Mouse.getY());
+					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
+					// ang = new Pos(Mouse.getX(), Mouse.getY());
 				}
 				if (Mouse.getEventButton() == 1) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
@@ -461,23 +467,23 @@ public class Knightmare extends Widget implements StringConstants {
 
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 
-//						Pos p1 = new Pos(x, y); // Ende
+						// Pos p1 = new Pos(x, y); // Ende
 
 						switch (inGameStat) {
 						case state.NOTHING:
 							break;
 						case state.S_TRUPS:
 							newHandler.processRightClick(x, y);
-							/*Soldat bogi = Rekrutieren.Abgesessener_Ritter(0, 0, 32, 32, "Spieler 2", 1);
-							for (int i = 0; i < selection.size(); i++) {
-								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-									Soldat h = (Soldat) selection.get(i);
-									handler.handle(h, p1, selection.size() + 2);// TODO
-																				// rework
-									angriffe.put(h, bogi);
-									angriffe.put(bogi, h);
-								}
-							}*/
+							/*
+							 * Soldat bogi = Rekrutieren.Abgesessener_Ritter(0,
+							 * 0, 32, 32, "Spieler 2", 1); for (int i = 0; i <
+							 * selection.size(); i++) { if
+							 * (selection.get(i).getType().equals(
+							 * StringConstants.MeshType.EINHEIT)) { Soldat h =
+							 * (Soldat) selection.get(i); handler.handle(h, p1,
+							 * selection.size() + 2);// TODO // rework
+							 * angriffe.put(h, bogi); angriffe.put(bogi, h); } }
+							 */
 							break;
 						case state.S_BUILDINGS:
 							break;
@@ -497,11 +503,13 @@ public class Knightmare extends Widget implements StringConstants {
 						switch (inGameStat) {
 						case state.S_TRUPS:
 							newHandler.search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
-//							for (int i = 0; i < selection.size(); i++) {
-//								if (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-//									((Soldat) selection.get(i)).say();
-//								}
-//							}
+							// for (int i = 0; i < selection.size(); i++) {
+							// if
+							// (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT))
+							// {
+							// ((Soldat) selection.get(i)).say();
+							// }
+							// }
 							break;
 						}
 					}
@@ -558,8 +566,8 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Mouse.isButtonDown(2)) {
-			 CameraX = -(Mouse.getX() * scale - ang.getX());
-			 CameraY = -(Mouse.getY() * scale - ang.getY());
+			CameraX = -(Mouse.getX() * scale - ang.getX());
+			CameraY = -(Mouse.getY() * scale - ang.getY());
 
 			if (CameraX < 0) {
 				CameraX = 0;
@@ -702,81 +710,90 @@ public class Knightmare extends Widget implements StringConstants {
 		fps++;
 	}
 
-//	public void search(double x1, double y1, double x2, double y2) {
-//		if (x1 == x2 && y1 == y2) {
-//			search(x1, y1);
-//		} else {
-//			selection.clear();
-//			double Px1;
-//			double Px2;
-//
-//			double Py1;
-//			double Py2;
-//
-//			if (x1 < x2) {
-//				Px1 = x2;
-//				Px2 = x1;
-//			} else {
-//				Px1 = x1;
-//				Px2 = x2;
-//			}
-//
-//			if (y1 < y2) {
-//				Py1 = y2;
-//				Py2 = y1;
-//			} else {
-//				Py1 = y1;
-//				Py2 = y2;
-//			}
-//
-//			try {
-//				for (int e = 0; e < ebenen; e++) {
-//
-//					for (int i = 0; i < renderList[e].size(); i++) {
-//						if (renderList[e].get(i).getPosition().getX() <= Px1 && renderList[e].get(i).getPosition().getX() >= Px2
-//								&& renderList[e].get(i).getPosition().getY() <= Py1 && renderList[e].get(i).getPosition().getY() >= Py2) {
-//
-//							if (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-//								selection.add((RectangleGraphicalObject) renderList[e].get(i));
-//							}
-//						}
-//					}
-//				}
-//			} catch (Exception e) {
-//
-//			}
-//		}
-//
-//	}
-//
-//	// F√ºr einzelauswahl
-//	public void search(double x, double y) {
-//		GraphicalObject xy = figur;
-//		selection.clear();
-//
-//		try {
-//			for (int e = 0; e < ebenen; e++) {
-//
-//				for (int i = 0; i < renderList[e].size(); i++) {
-//					if (renderList[e].get(i).getPosition().getX() <= x && renderList[e].get(i).getPosition().getX() >= x - 64
-//							&& renderList[e].get(i).getPosition().getY() <= y && renderList[e].get(i).getPosition().getY() >= y - 64) {
-//						xy = renderList[e].get(i);
-//					}
-//				}
-//			}
-//		} catch (Exception e) {
-//
-//		}
-//		selection.add((RectangleGraphicalObject) xy);
-//	}
+	// public void search(double x1, double y1, double x2, double y2) {
+	// if (x1 == x2 && y1 == y2) {
+	// search(x1, y1);
+	// } else {
+	// selection.clear();
+	// double Px1;
+	// double Px2;
+	//
+	// double Py1;
+	// double Py2;
+	//
+	// if (x1 < x2) {
+	// Px1 = x2;
+	// Px2 = x1;
+	// } else {
+	// Px1 = x1;
+	// Px2 = x2;
+	// }
+	//
+	// if (y1 < y2) {
+	// Py1 = y2;
+	// Py2 = y1;
+	// } else {
+	// Py1 = y1;
+	// Py2 = y2;
+	// }
+	//
+	// try {
+	// for (int e = 0; e < ebenen; e++) {
+	//
+	// for (int i = 0; i < renderList[e].size(); i++) {
+	// if (renderList[e].get(i).getPosition().getX() <= Px1 &&
+	// renderList[e].get(i).getPosition().getX() >= Px2
+	// && renderList[e].get(i).getPosition().getY() <= Py1 &&
+	// renderList[e].get(i).getPosition().getY() >= Py2) {
+	//
+	// if
+	// (renderList[e].get(i).getType().equals(StringConstants.MeshType.EINHEIT))
+	// {
+	// selection.add((RectangleGraphicalObject) renderList[e].get(i));
+	// }
+	// }
+	// }
+	// }
+	// } catch (Exception e) {
+	//
+	// }
+	// }
+	//
+	// }
+	//
+	// // F√ºr einzelauswahl
+	// public void search(double x, double y) {
+	// GraphicalObject xy = figur;
+	// selection.clear();
+	//
+	// try {
+	// for (int e = 0; e < ebenen; e++) {
+	//
+	// for (int i = 0; i < renderList[e].size(); i++) {
+	// if (renderList[e].get(i).getPosition().getX() <= x &&
+	// renderList[e].get(i).getPosition().getX() >= x - 64
+	// && renderList[e].get(i).getPosition().getY() <= y &&
+	// renderList[e].get(i).getPosition().getY() >= y - 64) {
+	// xy = renderList[e].get(i);
+	// }
+	// }
+	// }
+	// } catch (Exception e) {
+	//
+	// }
+	// selection.add((RectangleGraphicalObject) xy);
+	// }
 
 	public void calc() {
-//		handler.move();
+		// handler.move();
 		newHandler.tick();
 
 		for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
 			Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
-			newHandler.remove(krepierd);/*renderList[1].remove(handler.abreiﬂen(krepierd));*/
+			newHandler.remove(krepierd);/*
+										 * renderList[1].remove(handler.abreiﬂen
+										 * (krepierd));
+										 */
 			if (krepierd != null) {
 				angriffe.remove(entry.getKey());
 				angriffe.remove(krepierd);
@@ -933,6 +950,8 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button[] categories = new Button[6];
 	private Button menue, einstellungen;
 	private Button[][] geb‰ude = new Button[6][10];
+	private Label[] res = new Label[11];
+	private String[] resn = {"IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IM¸nze"};
 
 	@Override
 	protected void layout() {
@@ -953,14 +972,14 @@ public class Knightmare extends Widget implements StringConstants {
 		geb‰ude[0][3].setSize(64, 64);
 		geb‰ude[0][3].setPosition((int) baustart.getX() + 222, (int) baustart.getY());
 		geb‰ude[0][3].setBackground(themeManager.getImage("Sandschmelze"));
-		
+
 		geb‰ude[1][0].setSize(64, 64);
 		geb‰ude[1][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		geb‰ude[1][0].setBackground(themeManager.getImage("Holz"));
 		geb‰ude[1][1].setSize(64, 64);
 		geb‰ude[1][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
 		geb‰ude[1][1].setBackground(themeManager.getImage("Steinbruch"));
-		
+
 		geb‰ude[3][0].setSize(64, 64);
 		geb‰ude[3][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		geb‰ude[3][0].setBackground(themeManager.getImage("Hof"));
@@ -974,7 +993,7 @@ public class Knightmare extends Widget implements StringConstants {
 		geb‰ude[4][1].setSize(32, 32);
 		geb‰ude[4][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
 		geb‰ude[4][1].setBackground(themeManager.getImage("Mauer"));
-		
+
 		geb‰ude[5][0].setSize(64, 32);
 		geb‰ude[5][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		geb‰ude[5][0].setBackground(themeManager.getImage("Haus"));
@@ -1003,7 +1022,18 @@ public class Knightmare extends Widget implements StringConstants {
 
 		l_time.adjustSize();
 		l_time.setPosition(WIDTH / 2 - l_time.getWidth() / 2, (kopfframe.getHeight() - l_time.getHeight()) / 2);
-		;
+
+		res[0].adjustSize();
+		res[0].setSize(Math.max(res[0].getWidth(), res[0].getHeight()), Math.max(res[0].getWidth(), res[0].getHeight()));
+		res[0].setPosition(l_fps.getX() + l_fps.getWidth() + 10, (kopfframe.getHeight() - res[0].getHeight()) / 2);
+		res[0].setBackground(themeManager.getImage("IKohle"));
+		for(int i = 1; i<resn.length; i++){
+			res[i].adjustSize();
+			res[i].setSize(Math.max(res[i].getWidth(), res[i].getHeight()), Math.max(res[i].getWidth(), res[i].getHeight()));
+			res[i].setPosition(res[i-1].getX() + res[i-1].getWidth() + 10, (kopfframe.getHeight() - res[i].getHeight()) / 2);
+			res[i].setBackground(themeManager.getImage(resn[i]));
+			
+		}
 
 		gui.draw();
 
@@ -1011,7 +1041,7 @@ public class Knightmare extends Widget implements StringConstants {
 		// setting it
 		super.layout();
 	}
-
+	
 	private void setCategory() {
 		for (Button[] button : geb‰ude) {
 			for (Button button1 : button) {
@@ -1026,11 +1056,11 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}
 	}
-
-	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Milit‰r", "Nahrung", "Verteidigung", "Zivil"};
+	
+	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Milit‰r", "Nahrung", "Verteidigung", "Zivil" };
 
 	private void GUI() {
-		for(int i = 0; i<3; i++){
+		for (int i = 0; i < 3; i++) {
 			geb‰ude[0][i] = new Button();
 			Label helpT = new Label(Bauen.getBuildingName(i));
 			geb‰ude[0][i].setTooltipContent(helpT);
@@ -1043,7 +1073,8 @@ public class Knightmare extends Widget implements StringConstants {
 					aktuellesGeb‰ude = wieso;
 				}
 			});
-		}geb‰ude[0][3] = new Button();
+		}
+		geb‰ude[0][3] = new Button();
 		Label helpTS = new Label(Bauen.getBuildingName(5));
 		geb‰ude[0][3].setTooltipContent(helpTS);
 		geb‰ude[0][3].addCallback(new Runnable() {
@@ -1054,7 +1085,7 @@ public class Knightmare extends Widget implements StringConstants {
 				aktuellesGeb‰ude = 5;
 			}
 		});
-		
+
 		geb‰ude[1][0] = new Button();
 		Label helpT = new Label(Bauen.getBuildingName(3));
 		geb‰ude[1][0].setTooltipContent(helpT);
@@ -1077,7 +1108,7 @@ public class Knightmare extends Widget implements StringConstants {
 				aktuellesGeb‰ude = 8;
 			}
 		});
-		
+
 		geb‰ude[3][0] = new Button();
 		Label helpTHo = new Label(Bauen.getBuildingName(6));
 		geb‰ude[3][0].setTooltipContent(helpTHo);
@@ -1101,7 +1132,6 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		});
 
-
 		geb‰ude[4][0] = new Button();
 		Label helpTT = new Label(Bauen.getBuildingName(9));
 		geb‰ude[4][0].setTooltipContent(helpTT);
@@ -1124,7 +1154,7 @@ public class Knightmare extends Widget implements StringConstants {
 				aktuellesGeb‰ude = 10;
 			}
 		});
-		
+
 		geb‰ude[5][0] = new Button();
 		Label helpTH = new Label(Bauen.getBuildingName(4));
 		geb‰ude[5][0].setTooltipContent(helpTH);
@@ -1189,6 +1219,10 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time = new Label("");
 		l_time.setTheme("label");
 
+		for(int i = 0; i<resn.length; i++){
+			res[i] = new Label("10");
+		}
+
 		kopfframe = new ResizableFrame();
 		kopfframe.setTheme("frame");
 		kopfframe.setTitle("Header");
@@ -1197,6 +1231,9 @@ public class Knightmare extends Widget implements StringConstants {
 		add(kopfframe);
 		add(l_fps);
 		add(l_time);
+		for (int i = 0; i < resn.length; i++) {
+			add(res[i]);
+		}
 
 		frame = new ResizableFrame();
 		frame.setTheme("frame");
@@ -1248,7 +1285,7 @@ public class Knightmare extends Widget implements StringConstants {
 		gui.invokeRunables();
 		gui.validateLayout();
 		gui.draw();
-//		gui.setCursor();TODO
+		// gui.setCursor();TODO
 	}
 
 	public void guiPollInput() {
