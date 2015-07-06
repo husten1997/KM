@@ -9,9 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -22,9 +19,7 @@ import com.husten.knightmare.constants.StringConstants;
 import com.matze.knightmare.menues.Configscreen;
 import com.matze.knightmare.menues.Credits;
 import com.matze.knightmare.menues.Laden;
-import com.matze.knightmare.menues.Loadscreen;
 import com.matze.knightmare.menues.Optionen;
-import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Button;
 import com.richard.knightmare.util.Loader;

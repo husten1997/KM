@@ -11,8 +11,8 @@ import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.core.MainMenue;
 import com.matze.knightmare.meshes.Spieler;
@@ -52,6 +52,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		beschreibung[0].setBorder(null);
 		beschreibung[0].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 		beschreibung[0].setForeground(Color.white);
+		beschreibung[0].setHorizontalAlignment(JLabel.CENTER);
 		add(beschreibung[0]);
 		for (int i = 0; i < 4; i++){
 			beschreibung[i] = new JTextField(inhalt[i+1]);
@@ -61,6 +62,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			beschreibung[i].setBorder(null);
 			beschreibung[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 			beschreibung[i].setForeground(Color.white);
+			beschreibung[i].setHorizontalAlignment(JLabel.CENTER);
 			add(beschreibung[i]);
 		}
 		
@@ -172,6 +174,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 				name[i].setBorder(null);
 				name[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 				name[i].setForeground(Color.white);
+				name[i].setHorizontalAlignment(JLabel.CENTER);
 				spielerArt[i].setBounds((screen.width-width)/2+250, (screen.height-height)/2+260+(i*60), 100, 50);
 				spielerArt[i].setBorder(null);
 				spielerArt[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));

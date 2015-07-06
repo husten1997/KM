@@ -35,6 +35,6 @@ public interface StringConstants {
 		public static String H = "Julian Dietlmeier";
 	}
 	
-	public static String VERSION = "a0.0.0";
+	public static String VERSION = "a0.1.0";
 
 }
