@@ -19,13 +19,14 @@ import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
+@SuppressWarnings("serial")
 public class Configscreen extends Optionsframesuperklasse implements ActionListener, ItemListener{
 
 	private JButton zurück, spielStarten;
 	private Spieler spieler[];
-	private JComboBox cB;
+	private JComboBox<String> cB;
 	private JTextField name[], beschreibung[];
-	private JComboBox team[], spielerArt[], schwierigkeit[];
+	private JComboBox<String> team[], spielerArt[], schwierigkeit[];
 	private static String[] value = new String[8];
 	private int ausgeführt,anzahl;
 	
@@ -46,19 +47,28 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		beschreibung[0]=new JTextField(inhalt[0]);
 		beschreibung[0].setEditable(false);
 		beschreibung[0].setFocusable(false);
-		beschreibung[0].setBounds(100, 100, 100, 50);
+		beschreibung[0].setBounds((screen.width-width)/2+100, (screen.height-height)/2+100, 100, 50);
+		beschreibung[0].setBorder(null);
+		beschreibung[0].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		beschreibung[0].setForeground(Color.white);
 		add(beschreibung[0]);
 		for (int i = 0; i < 4; i++){
 			beschreibung[i] = new JTextField(inhalt[i+1]);
-			beschreibung[i].setBounds(100+(i*150), 200, 100, 50);
+			beschreibung[i].setBounds((screen.width-width)/2+100+(i*150), (screen.height-height)/2+200, 100, 50);
 			beschreibung[i].setEditable(false);
 			beschreibung[i].setFocusable(false);
+			beschreibung[i].setBorder(null);
+			beschreibung[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+			beschreibung[i].setForeground(Color.white);
 			add(beschreibung[i]);
 		}
 		
-		cB = new JComboBox(value);
+		cB = new JComboBox<String>(value);
 		cB.addItemListener(this);
-		cB.setBounds(200, 100, 100, 50);
+		cB.setBounds((screen.width-width)/2+200, (screen.height-height)/2+100, 100, 50);
+		cB.setBorder(null);
+		cB.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		cB.setForeground(Color.white);
 		add(cB);
 		
 		//Buttons:
@@ -126,6 +136,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 		Object q = arg0.getSource();
@@ -149,20 +160,32 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			}
 			
 			for (int i = 0; i < anzahl; i++){
-				spielerArt[i] = new JComboBox(art);
-				team[i] = new JComboBox(teamName);
-				schwierigkeit[i] = new JComboBox(schwierigkeiten);
+				spielerArt[i] = new JComboBox<String>(art);
+				team[i] = new JComboBox<String>(teamName);
+				schwierigkeit[i] = new JComboBox<String>(schwierigkeiten);
 			}
 			
 			for (int i = 0; i < anzahl; i++){
 				name[i]= new JTextField("Spieler " + (i+1));
-				name[i].setBounds(100, 260+(i*60), 100, 50);
-				spielerArt[i].setBounds(250, 260+(i*60), 100, 50);
+				name[i].setBounds((screen.width-width)/2+100, (screen.height-height)/2+260+(i*60), 100, 50);
+				name[i].setBorder(null);
+				name[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+				name[i].setForeground(Color.white);
+				spielerArt[i].setBounds((screen.width-width)/2+250, (screen.height-height)/2+260+(i*60), 100, 50);
+				spielerArt[i].setBorder(null);
+				spielerArt[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+				spielerArt[i].setForeground(Color.white);
 				if (i == 0)
 				spielerArt[i].setSelectedIndex(1);
-				team[i].setBounds(400, 260+(i*60), 100, 50);
+				team[i].setBounds((screen.width-width)/2+400, (screen.height-height)/2+260+(i*60), 100, 50);
+				team[i].setBorder(null);
+				team[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+				team[i].setForeground(Color.white);
 				team[i].setSelectedIndex(i);
-				schwierigkeit[i].setBounds(550, 260+(i*60), 100, 50);
+				schwierigkeit[i].setBounds((screen.width-width)/2+550, (screen.height-height)/2+260+(i*60), 100, 50);
+				schwierigkeit[i].setBorder(null);
+				schwierigkeit[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+				schwierigkeit[i].setForeground(Color.white);
 				add(name[i]);
 				add(spielerArt[i]);
 				add(team[i]);
