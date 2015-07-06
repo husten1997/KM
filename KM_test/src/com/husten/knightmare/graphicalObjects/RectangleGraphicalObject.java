@@ -238,7 +238,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		float x = mi_vector.x;
 		float y = mi_vector.y;
 		mi_vector.x = (float) (x * Math.cos(-m_rotation) - y * Math.sin(-m_rotation));
-		mi_vector.y = (float) (x * Math.sin(-m_rotation) - y * Math.cos(-m_rotation));
+		mi_vector.y = (float) (x * Math.sin(-m_rotation) + y * Math.cos(-m_rotation));
 		position.setDX(-mi_vector.x);
 		position.setDY(-mi_vector.y);
 	}
