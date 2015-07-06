@@ -50,6 +50,7 @@ public class Building extends RectangleGraphicalObject {
 	}
 
 	public void WareFertigstellen() {
+		produziert.addWare(maxLagerKapazität);
 		amountProduzierteWare++;
 	}
 	
@@ -59,10 +60,8 @@ public class Building extends RectangleGraphicalObject {
 		}
 	}
 
-	public int getAmountProduzierterWare() {
-		int hilfe = amountProduzierteWare;
-		amountProduzierteWare = 0;
-		return hilfe;
+	public Waren getAmountProduzierterWare() {
+		return produziert;
 	}
 	
 	public int getAmountProduzierterWareAuslesen() {
