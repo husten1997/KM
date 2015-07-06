@@ -5,12 +5,27 @@ public class Spieler {
 	private int amountResourcesOfIndex[] = new int [Rohstoffe.maxID()];
 	private int team;
 	private int index;
+	private String typ;
+	private int difficulty;
 	private String name;
 	
-	public Spieler(int SpielerNR, String name, int team){
+	public Spieler(int SpielerNR, String name, int team, String typ, String schwierigkeit){
 		this.setTeam(team);
 		this.setName(name);
 		this.index = SpielerNR;
+		this.setTyp(typ);
+		
+		for (int i = 0; i < 3; i++){
+			if (schwierigkeit.equals("Leicht")){
+				setDifficulty(0);
+			}
+			if (schwierigkeit.equals("Mittel")){
+				setDifficulty(1);
+			}
+			if (schwierigkeit.equals("Schwer")){
+				setDifficulty(2);
+			}
+		}
 		
 		amountResourcesOfIndex[getIndexofResource("Holz")] = 30;
 		amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
@@ -67,6 +82,26 @@ public class Spieler {
 	
 	public int getIndex(){
 		return index;
+	}
+
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+
+	public String getTyp() {
+		return typ;
+	}
+
+
+	public void setTyp(String typ) {
+		this.typ = typ;
 	}
 	
 	
