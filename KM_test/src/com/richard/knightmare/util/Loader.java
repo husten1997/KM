@@ -246,6 +246,9 @@ public class Loader {
 
 			defaultConfigValues.put("SETTINGS: Fenstermodus", "false");
 			sortedKeys.add("SETTINGS: Fenstermodus");
+			
+			defaultConfigValues.put("SETTINGS: Profilname", "Lord Siegmund");
+			sortedKeys.add("SETTINGS: Profilname");
 		
 
 			sortedKeys.sort(new Comparator<String>() {
