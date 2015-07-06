@@ -21,6 +21,14 @@ public class Pos {
 	public void setX(double x) {
 		this.x = x;
 	}
+	
+	public void setDX(double x){
+		this.x += x;
+	}
+	
+	public void setDY(double y){
+		this.y += y;
+	}
 
 	public double getY() {
 		return y;

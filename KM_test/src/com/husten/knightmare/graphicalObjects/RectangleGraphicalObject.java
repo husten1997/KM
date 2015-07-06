@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 
+import org.lwjgl.util.vector.Vector2f;
+
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.matze.knightmare.meshes.Spieler;
@@ -58,6 +60,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
 	private final Color fColor = new Color(255, 255, 255);
+	private Vector2f mi_vector = new Vector2f(width/2, height/2);
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
@@ -230,6 +233,14 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	
 	public void setMRotation(int m_rotation){
 		this.m_rotation = m_rotation;
+		position.setDX(mi_vector.x);
+		position.setDY(mi_vector.y);
+		float x = mi_vector.x;
+		float y = mi_vector.y;
+		mi_vector.x = (float) (x * Math.cos(-m_rotation) - y * Math.sin(-m_rotation));
+		mi_vector.y = (float) (x * Math.sin(-m_rotation) - y * Math.cos(-m_rotation));
+		position.setDX(-mi_vector.x);
+		position.setDY(-mi_vector.y);
 	}
 
 	public void setSpieler(Spieler s){
@@ -239,6 +250,8 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	public Spieler getSpieler(){
 		return s;
 	}
+	
+	
 	
 	
 	
