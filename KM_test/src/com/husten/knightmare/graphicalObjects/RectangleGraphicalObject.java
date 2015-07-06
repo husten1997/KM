@@ -177,11 +177,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 
 	public void moveX(double x) {
-		position.setX(position.getX() + x);
+		position.setDX(x);
 	}
 
 	public void moveY(double y) {
-		position.setY(position.getY() + y);
+		position.setDY(y);
 	}
 
 	public void setHeightCount(double heightCount) {
@@ -251,6 +251,15 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	
 	public Spieler getSpieler(){
 		return s;
+	}
+	
+	public Pos getMPos(){
+		return new Pos(position.getX() + mi_vector.x, position.getY() + mi_vector.y);
+	}
+	
+	public void setMPos(Pos pos){
+		position.setX(pos.getX() - mi_vector.x);
+		position.setY(pos.getY() - mi_vector.y);
 	}
 	
 	
