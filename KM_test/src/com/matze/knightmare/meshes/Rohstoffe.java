@@ -47,24 +47,24 @@ public class Rohstoffe {
 		return w;
 	}
 	
-	public static Waren Mensch(){
-		Waren w = new Waren(9,0,"Mensch", "manfred.png");
-		//TODO mensch soll zum sammelpunkt gehen
-		return w;
-	}
-	
 	public static Waren Geld(){
-		Waren w = new Waren(10,0,"Geld","muenze.png");
+		Waren w = new Waren(9,0,"Geld","muenze.png");
 		return w;
 	}
 	
 	public static Waren Fleisch(){
-		Waren w = new Waren(11,0,"Fleisch","fleisch.png");
+		Waren w = new Waren(10,0,"Fleisch","fleisch.png");
 		return w;
 	}
 	
 	public static Waren Glas(){
-		Waren w = new Waren(12,0,"Glas","glas.png");
+		Waren w = new Waren(11,0,"Glas","glas.png");
+		return w;
+	}
+	
+	public static Waren Mensch(){
+		Waren w = new Waren(12,0,"Mensch", "manfred.png");
+		//TODO mensch soll zum sammelpunkt gehen
 		return w;
 	}
 	
@@ -73,25 +73,22 @@ public class Rohstoffe {
 	}
 	
 	public static Waren Rohstoff_von_Index(int index){
-		Waren w = null;
 		switch(index){
-		case 0:{ w = Kohle(); break;}
-		case 1:{ w = Eisen(); break;}
-		case 2:{ w = Holz(); break;}
-		case 3:{ w = Diamant(); break;}
-		case 4:{ w = Pech(); break;}
-		case 5:{ w = Sand(); break;}
-		case 6:{ w = Getreide(); break;}
-		case 7:{ w = Lehm(); break;}
-		case 8:{ w = Stein(); break;}
-		case 9:{ w = Geld(); break;}
-		case 10:{ w = Fleisch(); break;}
-		case 11:{ w = Glas(); break;}
-		case 12:{ w = Nothing(); break;}
-		
-		default: {w = null; break;}
+		case 0:{return Kohle();}
+		case 1:{return Eisen();}
+		case 2:{return Holz();}
+		case 3:{return Diamant();}
+		case 4:{return Pech();}
+		case 5:{return Sand();}
+		case 6:{return Getreide();}
+		case 7:{return Lehm();}
+		case 8:{return Stein();}
+		case 9:{return Geld();}
+		case 10:{return Fleisch();}
+		case 11:{return Glas();}
+		case 12:{return Mensch();}
+		default:{return Nothing();}
 		}
-		return w;
 	}
 	
 	public static int maxID(){
