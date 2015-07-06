@@ -5,7 +5,7 @@ public class Waren extends Items{
 	private int amount;
 	private String typ;
 	private String textur;
-	private int alter;
+	private int alter, maxAnz;
 	
 	public Waren(int id, int am, String typ, String t){
 		super(id);
@@ -52,6 +52,14 @@ public class Waren extends Items{
 
 	public void setAlter(int alter) {
 		this.alter = alter;
+	}
+
+	public int getMaxAnz() {
+		return maxAnz;
+	}
+
+	public void setMaxAnz(int maxAnz) {
+		this.maxAnz = maxAnz;
 	}
 	
 }

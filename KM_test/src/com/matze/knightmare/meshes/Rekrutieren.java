@@ -233,7 +233,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(250, posx, posy, width, height, "Handelsschiff.png");
 		init_Array(0, 0, 0, 40, 40, 20);
 		t.init(ang, ver, 0, "Handelsschiff", 0, 60, 120, 20, 100, true);
-		t.setSlots(4, 20, true, true);
+		t.setSlots(4, 20);
 		t.setTyp(4);
 		
 		t.setSpieler(spieler);
@@ -244,7 +244,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(500, posx, posy, width, height, "Groﬂes Handelsschiff.png");
 		init_Array(0, 0, 0, 40, 40, 20);
 		t.init(ang, ver, 0, "Groﬂes Handelsschiff", 0, 50, 150, 20, 100, true);
-		t.setSlots(4, 40, true, true);
+		t.setSlots(4, 40);
 		t.setTyp(4);
 		
 		t.setSpieler(spieler);
@@ -255,7 +255,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(650, posx, posy, width, height, "Bewaffnetes Handelsschiff.png");
 		init_Array(15, 60, 12, 15, 20, 10);
 		t.init(ang, ver, 10, "Bewaffnetes Handelsschiff", 400, 130, 180, 40, 100, true);
-		t.setSlots(3, 25, true, true);
+		t.setSlots(3, 25);
 		t.setTyp(4);
 		
 		t.setSpieler(spieler);
@@ -266,7 +266,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(750, posx, posy, width, height, "Kleines Kriegsschiff.png");
 		init_Array(30, 120, 25, 25, 30, 20);
 		t.init(ang, ver, 15, "Kleines Kriegsschiff", 600, 100, 180, 60, 100, true);
-		t.setSlots(2, 10, true, true);
+		t.setSlots(2, 10);
 		t.setTyp(4);
 		
 		t.setSpieler(spieler);
@@ -277,7 +277,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(900, posx, posy, width, height, "Groﬂes Kriegsschiff.png");
 		init_Array(60, 240, 50, 40, 50, 40);
 		t.init(ang, ver, 30, "Groﬂes Kriegsschiff", 800, 80, 240, 70, 100, true);
-		t.setSlots(2, 15, true, true);
+		t.setSlots(2, 15);
 		
 		t.setSpieler(spieler);
 		return t;
@@ -287,7 +287,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(100, posx, posy, width, height, "Kutsche.png");
 		init_Array(0, 0, 0, 10, 10, 5);
 		t.init(ang, ver, 0, "Kutsche", 0, 50, 50, 0, 60, false);
-		t.setSlots(2, 10, false, true);
+		t.setSlots(2, 10);
 		t.setTyp(4);
 		
 		t.setSpieler(spieler);
@@ -298,7 +298,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(30, posx, posy, width, height, "Hanndelskarren.png");
 		init_Array(0, 0, 0, 7, 7, 0);
 		t.init(ang, ver, 0, "Hanndelskarren", 0, 20, 10, 0, 10, false);
-		t.setSlots(2, 12, true, false);
+		t.setSlots(2, 12);
 		
 		t.setSpieler(spieler);
 		return t;
@@ -308,7 +308,7 @@ public class Rekrutieren {
 		Vehicle t = new Vehicle(20, posx, posy, width, height, "Transportkarren.png");
 		init_Array(0, 0, 0, 5, 5, 0);
 		t.init(ang, ver, 0, "Transportkarren", 0, 20, 15, 10, 30, false);
-		t.setSlots(2, 20, true, false);
+		t.setSlots(2, 20);
 		t.setTyp(4);
 		
 		t.setSpieler(spieler);

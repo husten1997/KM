@@ -11,6 +11,11 @@ public class Bauen {
 		b.setSpieler(sp);
 
 		b.setKostetWarevonIndex(2, 10);
+		
+		b.addnichtErlaubt("kohle");
+		b.addnichtErlaubt("stein");
+		b.addnichtErlaubt("eisen");
+		b.addnichtErlaubt("baum");
 
 		int error = 0;
 
@@ -50,6 +55,10 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 25);
 		b.setKostetWarevonIndex(8, 10);
 
+		b.addnichtErlaubt("kohle");
+		b.addnichtErlaubt("eisen");
+		b.addnichtErlaubt("baum");
+		
 		int error = 0;
 
 		for (int i = 0; i < Rohstoffe.maxID(); i++) {
@@ -93,6 +102,8 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
+		
+		b.addnichtErlaubt("baum");
 
 		int error = 0;
 		
@@ -130,6 +141,10 @@ public class Bauen {
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
+		
+		b.addnichtErlaubt("baum");
+		b.addnichtErlaubt("stein");
+		b.addnichtErlaubt("eisen");
 
 		int error = 0;
 
@@ -173,6 +188,10 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
 
+		b.addnichtErlaubt("baum");
+		b.addnichtErlaubt("stein");
+		b.addnichtErlaubt("eisen");
+		
 		int error = 0;
 
 		for (int i = 0; i < Rohstoffe.maxID(); i++) {
@@ -231,6 +250,8 @@ public class Bauen {
 	public static Building Sandschmelze(Pos p, Spieler sp) {
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 
+		b.addMuss("sand");
+		
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
 
@@ -274,6 +295,7 @@ public class Bauen {
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
+		b.addMuss("gras");
 
 		int error = 0;
 
@@ -312,7 +334,11 @@ public class Bauen {
 		Building b = new Building(7, p, 64, 64, "viecha.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
-
+		
+		b.addnichtErlaubt("baum");
+		b.addnichtErlaubt("stein");
+		b.addnichtErlaubt("eisen");
+		
 		int error = 0;
 
 		for (int i = 0; i < Rohstoffe.maxID(); i++) {
@@ -350,6 +376,8 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
 
+		b.addMuss("stein");
+		
 		int error = 0;
 
 		for (int i = 0; i < Rohstoffe.maxID(); i++) {

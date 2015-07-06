@@ -1,5 +1,6 @@
 package com.matze.knightmare.meshes;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
@@ -22,6 +23,8 @@ public class Building extends RectangleGraphicalObject {
 	private Ausruestung[] verbesserungen;
 	private int maxLagerKapazität;
 	private Timer timer = new Timer(true),timer2 = new Timer(true);
+	private ArrayList<String>erlaubt = new ArrayList<>();
+	private ArrayList<String>muss = new ArrayList<>();
 
 	
 	public Building(int index, Pos position, int width, int height, String textureName) {
@@ -196,6 +199,22 @@ public class Building extends RectangleGraphicalObject {
 	
 	public Timer getTimer2(){
 		return timer2;
+	}
+	
+	public void addnichtErlaubt(String e){
+		erlaubt.add(e);
+	}
+	
+	public ArrayList<String> getnichtErlaubt(){
+		return erlaubt;
+	}
+
+	public ArrayList<String> getMuss() {
+		return muss;
+	}
+
+	public void addMuss(String m) {
+		muss.add(m);
 	}
 
 
