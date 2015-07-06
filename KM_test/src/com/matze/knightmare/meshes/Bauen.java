@@ -1,6 +1,5 @@
 package com.matze.knightmare.meshes;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
 import com.richard.knightmare.util.Pos;

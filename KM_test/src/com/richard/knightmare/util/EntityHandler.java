@@ -277,6 +277,12 @@ public class EntityHandler {
 				world[startW + i][startH + j] = null;
 			}
 		}
+		if(object instanceof Building){
+			((Building) object).getTimer().cancel();
+		}
+		if (((Building) object).getIndex() == 4) {
+			((Building) object).getTimer2().cancel();
+		}
 		if (((Building) object).getIndex() == 2) {
 			for (Spieler hansl : spieler) {
 				if (hansl.getIndex()==object.getSpieler().getIndex()) {
@@ -288,26 +294,7 @@ public class EntityHandler {
 
 	public RectangleGraphicalObject remove(int x, int y) {
 		RectangleGraphicalObject object = world[x][y];
-		entities.remove(object);
-		if (object != null) {
-			int w = object.getWidth() / 32;
-			int h = object.getHeight() / 32;
-			int startW = (int) (object.getPosition().getX() / 32);
-			int startH = (int) (object.getPosition().getY() / 32);
-
-			for (int i = 0; i < w; i++) {
-				for (int j = 0; j < h; j++) {
-					world[startW + i][startH + j] = null;
-				}
-			}
-		}
-		if (((Building) object).getIndex() == 2) {
-			for (Spieler hansl : spieler) {
-				if (hansl.getIndex()==object.getSpieler().getIndex()) {
-					hansl.removeLager(object);
-				}
-			}
-		}
+		remove(object);
 		return object;
 	}
 

@@ -63,12 +63,8 @@ public class Spieler {
 	}
 	
 	public void abziehen(int warenID, int amount){
-		System.out.println("ziehe ab");
-		System.out.println(warenID);
-		System.out.println(amount);
 		for(Building l : lager){
 			int drin = l.getBenötigt()[warenID].getAmount();
-			System.out.println("drin san: "+drin);
 			int abziehen = Math.min(drin, amount);
 			l.deminishWarenAmount(warenID, abziehen);
 			amount -=abziehen;
