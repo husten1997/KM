@@ -59,6 +59,12 @@ public class Building extends RectangleGraphicalObject {
 			benötigt[i].addWare(maxLagerKapazität);
 		}
 	}
+	
+	public void deminishWarenAmount(int i, int kap){
+		for (int b = 0; b < kap; b++){
+			System.out.println("kann abziehen: "+benötigt[i].substractWare(1));
+		}
+	}
 
 	public Waren getAmountProduzierterWare() {
 		return produziert;

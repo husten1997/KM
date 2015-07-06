@@ -6,7 +6,9 @@ import java.util.Map.Entry;
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
+import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
+import com.matze.knightmare.meshes.Spieler;
 
 public class EntityHandler {
 
@@ -18,8 +20,10 @@ public class EntityHandler {
 	private HashMap<Soldat, Integer> triesOnActual = new HashMap<>(), triesOnReplaced = new HashMap<>();
 	private HashMap<Soldat, RectangleGraphicalObject> chasing = new HashMap<>();
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
+	private Spieler[] spieler;
 
-	public EntityHandler(int width, int height) {
+	public EntityHandler(int width, int height, Spieler[] spieler) {
+		this.spieler = spieler;
 		world = new RectangleGraphicalObject[width][height];
 	}
 
@@ -35,8 +39,8 @@ public class EntityHandler {
 			entity.draw();
 		}
 	}
-	
-	public ArrayList<RectangleGraphicalObject> getSelection(){
+
+	public ArrayList<RectangleGraphicalObject> getSelection() {
 		return selection;
 	}
 
@@ -61,9 +65,16 @@ public class EntityHandler {
 		}
 		object.initRender();
 		entities.add(object);
+		if (((Building) object).getIndex() == 2) {
+			for (Spieler hansl : spieler) {
+				if (hansl.equals(object.getSpieler())) {
+					hansl.addLager(object);
+				}
+			}
+		}
 		return true;
 	}
-	
+
 	public void search(double x1, double y1, double x2, double y2) {
 		if (x1 == x2 && y1 == y2) {
 			search(x1, y1);
@@ -92,14 +103,14 @@ public class EntityHandler {
 			}
 
 			try {
-					for (int i = 0; i < entities.size(); i++) {
-						if (entities.get(i).getPosition().getX() <= Px1 && entities.get(i).getPosition().getX() >= Px2
-								&& entities.get(i).getPosition().getY() <= Py1 && entities.get(i).getPosition().getY() >= Py2) {
+				for (int i = 0; i < entities.size(); i++) {
+					if (entities.get(i).getPosition().getX() <= Px1 && entities.get(i).getPosition().getX() >= Px2 && entities.get(i).getPosition().getY() <= Py1
+							&& entities.get(i).getPosition().getY() >= Py2) {
 
-							if (entities.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
-								selection.add((RectangleGraphicalObject) entities.get(i));
-							}
+						if (entities.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+							selection.add((RectangleGraphicalObject) entities.get(i));
 						}
+					}
 				}
 			} catch (Exception e) {
 
@@ -109,14 +120,14 @@ public class EntityHandler {
 	}
 
 	public void search(double x, double y) {
-		selection .clear();
+		selection.clear();
 
 		try {
-				for (int i = 0; i < entities.size(); i++) {
-					if (entities.get(i).getPosition().getX() <= x && entities.get(i).getPosition().getX() >= x - 64
-							&& entities.get(i).getPosition().getY() <= y && entities.get(i).getPosition().getY() >= y - 64) {
-						selection.add(entities.get(i));
-					}
+			for (int i = 0; i < entities.size(); i++) {
+				if (entities.get(i).getPosition().getX() <= x && entities.get(i).getPosition().getX() >= x - 64 && entities.get(i).getPosition().getY() <= y
+						&& entities.get(i).getPosition().getY() >= y - 64) {
+					selection.add(entities.get(i));
+				}
 			}
 		} catch (Exception e) {
 
@@ -139,7 +150,7 @@ public class EntityHandler {
 				pathfindTo(x, y, selection.get(0));
 			}
 		} else {
-			for(RectangleGraphicalObject soldat: selection){
+			for (RectangleGraphicalObject soldat : selection) {
 				if (world[xPos][yPos] != null) {
 					if (world[xPos][yPos].getSpieler().getTeam() != soldat.getSpieler().getTeam()) {
 						chasing.put((Soldat) soldat, world[xPos][yPos]);
@@ -155,18 +166,18 @@ public class EntityHandler {
 	}
 
 	public void tick() {
-		if(ticksSinceLastRetry>20){
+		if (ticksSinceLastRetry > 20) {
 			ArrayList<Soldat> toRemoveActual = new ArrayList<>();
-			for(Entry<Soldat, Pos> entry: actualDeastination.entrySet()){
-				if(triesOnActual.get(entry.getKey())>5){
-					if(triesOnReplaced.get(entry.getKey())>5){
+			for (Entry<Soldat, Pos> entry : actualDeastination.entrySet()) {
+				if (triesOnActual.get(entry.getKey()) > 5) {
+					if (triesOnReplaced.get(entry.getKey()) > 5) {
 						triesOnReplaced.remove(entry.getKey());
 						replacedDestination.remove(entry.getKey());
 						triesOnActual.remove(entry.getKey());
-//						actualDeastination.remove(entry.getKey());
+						// actualDeastination.remove(entry.getKey());
 						toRemoveActual.add(entry.getKey());
 						chasing.remove(entry.getKey());
-					}else{
+					} else {
 						SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), replacedDestination.get(entry.getKey()));
 						com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 						if (alternative == null) {
@@ -174,14 +185,14 @@ public class EntityHandler {
 							triesOnReplaced.remove(entry.getKey());
 							replacedDestination.remove(entry.getKey());
 							triesOnActual.remove(entry.getKey());
-//							actualDeastination.remove(entry.getKey());
+							// actualDeastination.remove(entry.getKey());
 							toRemoveActual.add(entry.getKey());
 						} else {
 							replacedDestination.put(entry.getKey(), new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
-							triesOnReplaced.put(entry.getKey(), triesOnReplaced.get(entry.getKey())+1);
+							triesOnReplaced.put(entry.getKey(), triesOnReplaced.get(entry.getKey()) + 1);
 						}
 					}
-				}else{
+				} else {
 					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), actualDeastination.get(entry.getKey()));
 					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
@@ -189,39 +200,40 @@ public class EntityHandler {
 						triesOnReplaced.remove(entry.getKey());
 						replacedDestination.remove(entry.getKey());
 						triesOnActual.remove(entry.getKey());
-//						actualDeastination.remove(entry.getKey());
+						// actualDeastination.remove(entry.getKey());
 						toRemoveActual.add(entry.getKey());
 					} else {
-						triesOnActual.put(entry.getKey(), triesOnActual.get(entry.getKey())+1);
+						triesOnActual.put(entry.getKey(), triesOnActual.get(entry.getKey()) + 1);
 					}
 				}
 			}
-			for(Soldat soldat: toRemoveActual){
+			for (Soldat soldat : toRemoveActual) {
 				actualDeastination.remove(soldat);
 			}
 			ticksSinceLastRetry = 0;
 		}
 		ticksSinceLastRetry++;
 		ArrayList<Soldat> toRemove = new ArrayList<>();
-		for(Entry<Soldat, SingleManPathfinding> entry: finding.entrySet()){
-			if(!entry.getValue().move()){
-				if(entry.getValue().getFinished()){
-//					finding.remove(entry.getKey());
+		for (Entry<Soldat, SingleManPathfinding> entry : finding.entrySet()) {
+			if (!entry.getValue().move()) {
+				if (entry.getValue().getFinished()) {
+					// finding.remove(entry.getKey());
 					toRemove.add(entry.getKey());
-					if(chasing.containsKey(entry.getKey())){
+					if (chasing.containsKey(entry.getKey())) {
 						chasing.remove(entry.getKey());
-						//TODO is already near?
+						// TODO is already near?
 					}
-				}else{
+				} else {
 					finding.get(entry.getKey()).stop();
-//					pathfindTo(entry.getValue().getZiel().getX()*32+16, entry.getValue().getZiel().getY()*32+16, entry.getKey());
-					double x = entry.getValue().getZiel().getX()*32+16, y = entry.getValue().getZiel().getY()*32+16;
+					// pathfindTo(entry.getValue().getZiel().getX()*32+16,
+					// entry.getValue().getZiel().getY()*32+16, entry.getKey());
+					double x = entry.getValue().getZiel().getX() * 32 + 16, y = entry.getValue().getZiel().getY() * 32 + 16;
 					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), new Pos(x, y));
 					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
 						finding.put(entry.getKey(), path);
 					} else {
-//						finding.remove(entry.getKey());
+						// finding.remove(entry.getKey());
 						toRemove.add(entry.getKey());
 						actualDeastination.put(entry.getKey(), new Pos(x, y));
 						triesOnActual.put(entry.getKey(), 1);
@@ -231,13 +243,13 @@ public class EntityHandler {
 				}
 			}
 		}
-		for(Soldat soldat: toRemove){
+		for (Soldat soldat : toRemove) {
 			finding.remove(soldat);
 		}
 	}
 
 	public void pathfindTo(double x, double y, RectangleGraphicalObject object) {
-		if(finding.containsKey(object)){
+		if (finding.containsKey(object)) {
 			finding.get(object).stop();
 		}
 		finding.remove(object);
@@ -265,12 +277,19 @@ public class EntityHandler {
 				world[startW + i][startH + j] = null;
 			}
 		}
+		if (((Building) object).getIndex() == 2) {
+			for (Spieler hansl : spieler) {
+				if (hansl.getIndex()==object.getSpieler().getIndex()) {
+					hansl.removeLager(object);
+				}
+			}
+		}
 	}
-	
+
 	public RectangleGraphicalObject remove(int x, int y) {
 		RectangleGraphicalObject object = world[x][y];
 		entities.remove(object);
-		if(object!=null){
+		if (object != null) {
 			int w = object.getWidth() / 32;
 			int h = object.getHeight() / 32;
 			int startW = (int) (object.getPosition().getX() / 32);
@@ -279,6 +298,13 @@ public class EntityHandler {
 			for (int i = 0; i < w; i++) {
 				for (int j = 0; j < h; j++) {
 					world[startW + i][startH + j] = null;
+				}
+			}
+		}
+		if (((Building) object).getIndex() == 2) {
+			for (Spieler hansl : spieler) {
+				if (hansl.getIndex()==object.getSpieler().getIndex()) {
+					hansl.removeLager(object);
 				}
 			}
 		}

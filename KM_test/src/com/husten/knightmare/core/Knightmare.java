@@ -178,7 +178,7 @@ public class Knightmare extends Widget implements StringConstants {
 		terrain = new Terrain((512) + 1, (512) + 1);
 		terrain.initRender();
 		// handler = new Pathhandler(513, 513);
-		newHandler = new EntityHandler(513, 513);
+		newHandler = new EntityHandler(513, 513, spieler);
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {
@@ -413,13 +413,28 @@ public class Knightmare extends Widget implements StringConstants {
 						case state.N_BUILDINGS:
 							if (aktuellesGebäude != -1) {
 								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
+								boolean hilfsboolean = false;
+								if(b!=null){
+									hilfsboolean = b.getSpieler().hatLager();
+								}
+								System.out.println(hilfsboolean);
 								if (b == null) {
 									add(labelZuTeuer);
 									gednedShown = true;
 								} else if (/* handler.place(b) */newHandler.place(b)) {
 									// b.setSort(0);
 									// initRender(b, 1);
-									Bauen.kostenAbziehen(b);
+									if(hilfsboolean){
+										Bauen.kostenAbziehen(b);
+									}else{
+										//TODO Startrohstoffe
+										b.getSpieler().verteilen(2, 30);
+										b.getSpieler().verteilen(0, 5);
+										b.getSpieler().verteilen(8, 15);
+										
+										b.setKostetWarevonIndex(2, 10);
+										b.setKostetWarevonIndex(8, 5);
+									}
 								}
 							}
 							break;
@@ -464,7 +479,8 @@ public class Knightmare extends Widget implements StringConstants {
 							if (help instanceof Building) {
 								int[] kosten = ((Building) help).getKostetWarevonArray();
 								for (int i = 0; i < kosten.length; i++) {
-									help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i) + (int) Math.round(kosten[i]*rückerstattungsanteil), i);
+									help.getSpieler().verteilen(i, (int) Math.round(kosten[i]*rückerstattungsanteil));
+//									help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i) + (int) Math.round(kosten[i]*rückerstattungsanteil), i);
 								}
 							}
 

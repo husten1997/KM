@@ -1,7 +1,5 @@
 package com.matze.knightmare.meshes;
 
-import java.awt.image.BufferedImage;
-
 public class Waren extends Items{
 
 	private int amount;
