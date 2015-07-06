@@ -65,10 +65,12 @@ public class EntityHandler {
 		}
 		object.initRender();
 		entities.add(object);
-		if (((Building) object).getIndex() == 2) {
-			for (Spieler hansl : spieler) {
-				if (hansl.equals(object.getSpieler())) {
-					hansl.addLager(object);
+		if(object instanceof Building){
+			if (((Building) object).getIndex() == 2) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addLager(object);
+					}
 				}
 			}
 		}
