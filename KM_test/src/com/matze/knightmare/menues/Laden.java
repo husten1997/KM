@@ -34,7 +34,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	private File[] removeAble;
 	private String defaultText[] = { "Keine Speicherstände vorhanden. Neues Spiel?"};
 	private JButton löschen;
-	private boolean speichVorhanden;
+	private boolean speichVorhanden, open = false;
 	
 	public Laden() {
 		super("back.png", "Knightmare: Laden");
@@ -227,11 +227,10 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	}
 
 	private void performAction(int x) {
-		if (speichVorhanden == false) {
-			MainMenue.instance.dispose();
-			MainMenue.instance.setUndecorated(isUndecorated());
-			MainMenue.instance.setVisible(true);
-			MainMenue.instance.setAutoRequestFocus(true);
+		System.out.println("Hier at" + System.currentTimeMillis());
+		if (!open && speichVorhanden == false && list.getSelectedIndex() == 0 && list.getSelectedValue().equals("Keine Speicherstände vorhanden. Neues Spiel?")) {
+			new Configscreen("back.png","Configscreen");
+			open = true;
 			dispose();
 		}
 	}
