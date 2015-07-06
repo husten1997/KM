@@ -21,7 +21,7 @@ public class Building extends RectangleGraphicalObject {
 	private int amountProduzierteWare;
 	private Ausruestung[] verbesserungen;
 	private int maxLagerKapazität;
-	private Timer timer = new Timer(true);
+	private Timer timer = new Timer(true),timer2 = new Timer(true);
 
 	
 	public Building(int index, Pos position, int width, int height, String textureName) {
@@ -192,6 +192,10 @@ public class Building extends RectangleGraphicalObject {
 	
 	public Timer getTimer(){
 		return timer;
+	}
+	
+	public Timer getTimer2(){
+		return timer2;
 	}
 
 

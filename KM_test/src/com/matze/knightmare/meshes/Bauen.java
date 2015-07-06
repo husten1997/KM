@@ -209,9 +209,7 @@ public class Bauen {
 
 			}, 0, (long) (600000 / b.getProdperMin()));
 
-			Timer timer2 = new Timer(true);
-
-			timer2.scheduleAtFixedRate(new TimerTask() {
+			b.getTimer2().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
