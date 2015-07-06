@@ -60,7 +60,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
 	private final Color fColor = new Color(255, 255, 255);
-	private Vector2f mi_vector;
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
@@ -109,7 +108,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 			initTexture();
 		}
 		init();
-		mi_vector = new Vector2f(width/2, height/2);
 
 	}
 
@@ -234,15 +232,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	
 	public void setMRotation(int m_rotation){
 		this.m_rotation = m_rotation;
-		position.setDX(mi_vector.x);
-		position.setDY(mi_vector.y);
-		float x = width/2;
-		float y = height;
-		double bog = (Math.PI * m_rotation*45)/180;
-		mi_vector.x = (float) (x * Math.cos(bog) - y * Math.sin(bog));
-		mi_vector.y = (float) (x* Math.sin(bog) + y * Math.cos(bog));
-		position.setDX(-mi_vector.x);
-		position.setDY(-mi_vector.y);
 	}
 
 	public void setSpieler(Spieler s){
@@ -251,15 +240,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	
 	public Spieler getSpieler(){
 		return s;
-	}
-	
-	public Pos getMPos(){
-		return new Pos(position.getX() + mi_vector.x, position.getY() + mi_vector.y);
-	}
-	
-	public void setMPos(Pos pos){
-		position.setX(pos.getX() - mi_vector.x);
-		position.setY(pos.getY() - mi_vector.y);
 	}
 	
 	
