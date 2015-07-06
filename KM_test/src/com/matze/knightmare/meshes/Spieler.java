@@ -1,5 +1,9 @@
 package com.matze.knightmare.meshes;
 
+import java.util.ArrayList;
+
+import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
+
 public class Spieler {
 
 	private int amountResourcesOfIndex[] = new int [Rohstoffe.maxID()];
@@ -8,6 +12,7 @@ public class Spieler {
 	private String typ;
 	private int difficulty;
 	private String name;
+	private ArrayList<RectangleGraphicalObject> lager;
 	
 	public Spieler(int SpielerNR, String name, int team, String typ, String schwierigkeit){
 		this.setTeam(team);
@@ -102,6 +107,16 @@ public class Spieler {
 
 	public void setTyp(String typ) {
 		this.typ = typ;
+	}
+	
+	public void addLager(RectangleGraphicalObject rgo){
+		Building b = (Building) rgo;
+		lager.add(b);
+	}
+	
+	public void removeLager(RectangleGraphicalObject rgo){
+		Building b = (Building) rgo;
+		lager.remove(b);
 	}
 	
 	
