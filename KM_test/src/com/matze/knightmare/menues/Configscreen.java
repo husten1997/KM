@@ -1,6 +1,7 @@
 package com.matze.knightmare.menues;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
+
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.core.MainMenue;
 import com.matze.knightmare.meshes.Spieler;
@@ -23,6 +26,8 @@ import com.richard.knightmare.util.Optionsframesuperklasse;
 @SuppressWarnings("serial")
 public class Configscreen extends Optionsframesuperklasse implements ActionListener, ItemListener{
 
+	//Basics
+	private Container c1; 
 	private JButton zurück, spielStarten;
 	private Spieler spieler[];
 	private JComboBox<String> cB;
@@ -36,9 +41,63 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 	private String schwierigkeiten[] = {"Leicht", "Mittel", "Schwer"};
 	private String inhalt[] = {"Spieleranzahl:", "Name:", "Typ:", "Team:", "Schwierigkeit:"};
 	
+	//Worldgen
+	private Container c2; 
+	private JLabel[] sett;
+	private JSlider[] settings;
+	private int seedValue;
+	private JTextField seed;
+	private JButton random;
+	private String[] setNames = {"Smoothing", "Wasserlevel", "Sandlevel", "Graslevel", "Steinlevel", "Eisenwahrscheinlichkeit", "Kohlewahrscheinlichkeit", "Routhness", "Falloff"};
+	
 	public Configscreen(String imgName, String name) {
 		super(imgName, name);
 		
+		//Worldgen
+		seedValue = (int) (Math.random()*Integer.MAX_VALUE);
+		sett = new JLabel[setNames.length];
+		settings = new JSlider[setNames.length];
+		seed = new JTextField(""+seedValue);
+		random = new JButton("Random");
+		random.addActionListener(this);
+		random.setBounds(1300, (75*6)+25, 200, 50);
+		seed.setBounds(1000, 75*6+25, 200, 50);
+		
+		for (int i = 0; i < setNames.length; i++){
+			sett[i] = new JLabel();
+			sett[i].setText(setNames[i]);
+			sett[i].setForeground(Color.WHITE);
+			settings[i] = new JSlider();
+			settings[i].setMaximum(100);
+			settings[i].setMinimum(0);
+			settings[i].setMinorTickSpacing(1);
+			settings[i].setMajorTickSpacing(10);
+			if (i < setNames.length/2){
+				sett[i].setBounds(1000, 100 + (75*i) -35, 200, 50);
+				settings[i].setBounds(1000, 100 + (75*i), 200, 50);
+			} else {
+				sett[i].setBounds(1300, 100 + (75*(i-(setNames.length/2)))-35, 200, 50);
+				settings[i].setBounds(1300, 100 + (75*(i-(setNames.length/2))), 200, 50);
+			}
+			add(sett[i]);
+			add(settings[i]);
+		}
+		
+		add(random);
+		add(seed);
+		
+		settings[0].setValue(71);
+		settings[1].setValue(58);
+		settings[2].setValue(61);
+		settings[3].setValue(81);
+		settings[4].setValue(100);
+		settings[5].setValue(7);
+		settings[6].setValue(12);
+		settings[7].setValue(60);
+		settings[8].setValue(80);
+		
+		
+		//Basics
 		for (int i = 0; i < 8; i++){
 			value[0]="Bitte wählen";
 			value[i]=""+(i+1);
@@ -108,6 +167,11 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
+		}
+		
+		if (e.getSource() == random){
+			seedValue = (int) (Math.random()*Integer.MAX_VALUE);
+			seed.setText(seedValue+"");
 		}
 		
 		if(e.getSource() == spielStarten){
