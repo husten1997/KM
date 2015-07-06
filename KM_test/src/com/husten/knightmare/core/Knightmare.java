@@ -98,6 +98,15 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void loop() {
 		init();
+		category = 0;
+		setCategory();
+		for (int j = 0; j < categories.length; j++) {
+			if (j != category) {
+				categories[j].getAnimationState().setAnimationState(STATE_DISABLED, true);
+			} else {
+				categories[j].getAnimationState().setAnimationState(STATE_DISABLED, false);
+			}
+		}
 
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
@@ -520,7 +529,8 @@ public class Knightmare extends Widget implements StringConstants {
 							 * angriffe.put(bogi, h); } }
 							 */
 							break;
-						case state.S_BUILDINGS:
+						case state.N_BUILDINGS:
+							inGameStat = state.S_TRUPS;
 							break;
 						}
 					}
@@ -1314,7 +1324,7 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time = new Label("");
 		l_time.setTheme("label");
 
-		labelZuTeuer = new Label("Das Können wir uns nicht Leisten Sir");
+		labelZuTeuer = new Label("Das Können wir uns nicht leisten Sir");
 
 		for (int i = 0; i < resn.length; i++) {
 			res[i] = new Label();
