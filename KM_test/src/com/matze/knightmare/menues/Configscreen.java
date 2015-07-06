@@ -17,6 +17,7 @@ import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.core.MainMenue;
 import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.sound.MoodMusic;
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
@@ -115,7 +116,6 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 						teamer = s-1;
 					}
 				}
-				System.out.println("Name: " + name[i].getText() + " Team: " + teamer + " SpielerArt: " + spielerArt[i].getSelectedItem().toString() + " Schwierigkeit: " +schwierigkeit[i].getSelectedItem().toString());
 				spieler[i] = new Spieler(i,name[i].getText(),teamer,spielerArt[i].getSelectedItem().toString(),schwierigkeit[i].getSelectedItem().toString());
 			}
 			dispose();
@@ -167,6 +167,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			
 			for (int i = 0; i < anzahl; i++){
 				name[i]= new JTextField("Spieler " + (i+1));
+				name[0].setText(Loader.getCfgValue("SETTINGS: Profilname"));
 				name[i].setBounds((screen.width-width)/2+100, (screen.height-height)/2+260+(i*60), 100, 50);
 				name[i].setBorder(null);
 				name[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
