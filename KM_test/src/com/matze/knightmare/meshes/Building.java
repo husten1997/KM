@@ -1,5 +1,7 @@
 package com.matze.knightmare.meshes;
 
+import java.util.Timer;
+
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
@@ -19,6 +21,7 @@ public class Building extends RectangleGraphicalObject {
 	private int amountProduzierteWare;
 	private Ausruestung[] verbesserungen;
 	private int maxLagerKapazität;
+	private Timer timer = new Timer(true);
 
 	
 	public Building(int index, Pos position, int width, int height, String textureName) {
@@ -185,6 +188,10 @@ public class Building extends RectangleGraphicalObject {
 	
 	public int[] getKostetWarevonArray() {
 		return kostetWarevonIndex;
+	}
+	
+	public Timer getTimer(){
+		return timer;
 	}
 
 

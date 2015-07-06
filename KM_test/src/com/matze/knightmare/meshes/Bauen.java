@@ -27,8 +27,7 @@ public class Bauen {
 			int[] amountBenötigt = new int[1];
 			b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt, Rohstoffe.Kohle(), 25);
 
-			Timer timer = new Timer(true);
-			timer.scheduleAtFixedRate(new TimerTask() {
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -72,9 +71,9 @@ public class Bauen {
 
 			b.init(50, 20, 0, 0, "Eisenmine", benötigt, amountBenötigt, Rohstoffe.Eisen(), 100);
 
-			Timer timer = new Timer(true);
+			
 
-			timer.scheduleAtFixedRate(new TimerTask() {
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -152,9 +151,9 @@ public class Bauen {
 
 			b.init(30, 5, 0, 0, "Holzfäller", benötigt, amountBenötigt, Rohstoffe.Holz(), 20);
 
-			Timer timer = new Timer(true);
+			
 
-			timer.scheduleAtFixedRate(new TimerTask() {
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -194,9 +193,9 @@ public class Bauen {
 
 			b.init(30, 1, 0, 0, "Haus", benötigt, amountBenötigt, Rohstoffe.Mensch(), 8);
 
-			Timer timer = new Timer(true);
+			
 
-			timer.scheduleAtFixedRate(new TimerTask() {
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -256,8 +255,8 @@ public class Bauen {
 
 			b.init(50, 3, 0, 0, "Sandschmelze", benötigt, amountBenötigt, Rohstoffe.Glas(), 9);
 
-			Timer timer = new Timer(true);
-			timer.scheduleAtFixedRate(new TimerTask() {
+			
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -294,8 +293,8 @@ public class Bauen {
 
 			b.init(50, 4, 0, 0, "Bauernhof", benötigt, amountBenötigt, Rohstoffe.Getreide(), 36);
 
-			Timer timer = new Timer(true);
-			timer.scheduleAtFixedRate(new TimerTask() {
+			
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -332,8 +331,8 @@ public class Bauen {
 
 			b.init(50, 5, 0, 0, "Viehstall", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 25);
 
-			Timer timer = new Timer(true);
-			timer.scheduleAtFixedRate(new TimerTask() {
+			
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
@@ -369,8 +368,8 @@ public class Bauen {
 
 			b.init(50, 15, 0, 0, "Steinbruch", benötigt, amountBenötigt, Rohstoffe.Fleisch(), 75);
 
-			Timer timer = new Timer(true);
-			timer.scheduleAtFixedRate(new TimerTask() {
+			
+			b.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
