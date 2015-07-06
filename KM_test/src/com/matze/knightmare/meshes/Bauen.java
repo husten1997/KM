@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import com.richard.knightmare.util.Pos;
 
 public class Bauen {
-
+//TODO Timer stopppen wenn abgerissen Weg
 	public static Building KohleMine(Pos p, Spieler sp) {
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		b.setSpieler(sp);
@@ -436,6 +436,17 @@ public class Bauen {
 		}
 		return null;
 	}
+	
+	public static Building Baum(Pos p, Spieler sp) {
+		Building b = new Building(11, p, 32, 32, "Baum.png");
+		b.setSpieler(new Spieler(-1, "Mutter Natur", -1, "KI", "Leicht"));
+		Waren w = Rohstoffe.Holz();
+		w.setAmount(50);
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, w, 50);
+		return b;
+	}
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
 		switch (id) {
@@ -471,6 +482,9 @@ public class Bauen {
 		}
 		case 10: {
 			return Mauern(p, spieler);
+		}
+		case 11: {
+			return Baum(p, spieler);
 		}
 		default:
 			return null;
@@ -527,6 +541,10 @@ public class Bauen {
 			b.setKostetWarevonIndex(8, 8);
 			return b.getKostetWarevonArray();
 		}
+		case 11: {
+			b.setKostetWarevonIndex(0, 0);
+			return b.getKostetWarevonArray();
+		}
 		default:
 			return new int[0];
 		}
@@ -556,6 +574,8 @@ public class Bauen {
 			return "Turm";
 		case 10:
 			return "Mauern";
+		case 11:
+			return "Baum";
 		default:
 			return "TODO";
 		}
