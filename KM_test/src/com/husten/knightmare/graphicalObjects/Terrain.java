@@ -8,6 +8,7 @@ public class Terrain extends GraphicalObject{
 
 	private TerrainElement waterPlane, elements[][];
 	private int width, height;
+	private WorldGenerator WG;
 	
 	/**
 	 * @var Variable für Render distance (wie viele felder preloded werden)
@@ -22,12 +23,19 @@ public class Terrain extends GraphicalObject{
 		this.height = height;
 		
 		elements = new TerrainElement[width][height];
-		WorldGenerator WG = new WorldGenerator(elements, width, height);
+		WG = new WorldGenerator(elements, width, height);
+		
+		
+	}
+	
+	public void gen(){
 		elements = WG.worldGen();
 		waterPlane = new TerrainElement(position,(float) WG.getLW(), width*32, height*32, "water.png", Material_t.WATER);
 		waterPlane.setStrached(false);
-		
-		
+	}
+	
+	public void setAll(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti, int seed){
+		WG.setAll(smoothS, lW, lS, lG, lR, wE, wK, routh, fallof, hMulti, seed);
 	}
 
 	@Override

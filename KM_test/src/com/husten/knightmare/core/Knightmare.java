@@ -61,7 +61,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true;
 	private Soldat figur;
-	public static Terrain terrain;
+	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	// private Pathhandler handler;
@@ -83,6 +83,10 @@ public class Knightmare extends Widget implements StringConstants {
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
 		this.spieler = spieler;
 		start();
+	}
+	
+	public void setAllWG(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti, int seed){
+		terrain.setAll(smoothS, lW, lS, lG, lR, wE, wK, routh, fallof, hMulti, seed);
 	}
 
 	private void start() {
@@ -184,7 +188,7 @@ public class Knightmare extends Widget implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
-		terrain = new Terrain((512) + 1, (512) + 1);
+		terrain.gen();
 		terrain.initRender();
 		// handler = new Pathhandler(513, 513);
 		newHandler = new EntityHandler(513, 513, spieler);

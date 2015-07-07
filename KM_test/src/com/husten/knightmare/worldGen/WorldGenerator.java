@@ -25,7 +25,7 @@ public class WorldGenerator implements StringConstants {
 
 	private float routh = 0.6f, fallof = 0.8f, hMulti = 2f;
 
-	public static int seed = 1005464490;
+	private static int seed = 1005464490;
 	private Random rand;
 	public static Random prand = new Random(seed);
 	private Generator generator;
@@ -36,6 +36,20 @@ public class WorldGenerator implements StringConstants {
 		this.y = y;
 		hm = new float[x][y];
 
+	}
+	
+	public void setAll(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti, int seed){
+		this.smoothS = smoothS;
+		this.lW = lW;
+		this.lS = lS;
+		this.lG = lG;
+		this.lR =lR;
+		this.wE = wE;
+		this.wK = wK;
+		this.routh = routh;
+		this.fallof = fallof;
+		this.hMulti = hMulti;
+		WorldGenerator.seed = seed;
 	}
 
 	public TerrainElement[][] worldGen() {
