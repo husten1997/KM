@@ -1,5 +1,8 @@
 package com.matze.knightmare.meshes;
 
+import static org.lwjgl.opengl.GL11.*;
+
+import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
@@ -211,8 +214,53 @@ public class Soldat extends RectangleGraphicalObject {
 		sp = spieler;
 	}
 	
-	public Spieler getSpieler(Spieler spieler){
+	public Spieler getSpieler(){
 		return sp;
+	}
+
+	@Override
+	public void draw() {
+		// store the current model matrix
+		glPushMatrix();
+		// bind to the appropriate texture for this sprite
+		
+		texture.bind();
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+
+		glRotatef(90 * t_rotation, 0f, 0f, 1f);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		// translate to the right location and prepare to draw
+		
+		glTranslatef((float) position.getX()+xz-16, (float) position.getY()+yz-16, 0);
+		glRotatef(45*m_rotation, 0f, 0f, 1f);
+		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness), (float) (fColor.getGreen() / 255 * Knightmare.breightness), (float) (fColor.getBlue() / 255 * Knightmare.breightness));
+		// draw a quad textured to match the sprite
+		
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f((float) widthCount, 0);
+			glVertex2f(0, 0);
+
+			glTexCoord2f((float) widthCount, (float) heightCount);
+			glVertex2f(0, (float) height);
+
+			glTexCoord2f(0, (float) heightCount);
+			glVertex2f((float) width, (float) height);
+
+			glTexCoord2f(0, 0);
+			glVertex2f((float) width, 0);
+
+		}
+		glEnd();
+		
+		
+		
+		// restore the model view matrix to prevent contamination
+		
+		glPopMatrix();
+
 	}
 
 

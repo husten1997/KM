@@ -225,15 +225,15 @@ public class RectangleGraphicalObject extends GraphicalObject {
 			this.m_rotation = m_rotation;
 			System.out.println(m_rotation);
 			switch (m_rotation) {
-			case 0://Links-Oben
+			case 0://Oben
 				xz = 0;
 				yz = 0;
 				break;
-			case 1://oben
-				xz = 0;
-				yz = 0;
+			case 1://Links-Oben
+				xz = 32-(int) k;
+				yz = -16;
 				break;
-			case 2://Rechts
+			case 2://Links!
 				xz = 32;
 				yz = 0;
 				break;
@@ -246,11 +246,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 				yz = 32;
 				break;
 			case 5://Rechts-Unten
-				xz = 32;
+				xz = (int)k;
 				yz = 48;
 				break;
-			case 6://Links
-				xz = -32;
+			case 6://Rechts!
+				xz = 0;
 				yz = 32;
 				break;
 			case 7://Rechts-Oben
