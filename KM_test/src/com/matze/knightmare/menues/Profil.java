@@ -44,17 +44,18 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		//Schwierigkeit
 		difficulty = new JTextField("Schwierigkeit:");
 		difficulty.setEditable(false);
-		difficulty.setBounds(325, 100, 200, 50);
+		difficulty.setBounds(100, 225, 200, 50);
 		add(difficulty);
 		
 		schwierigkei = new JComboBox<String>(val1);
 		schwierigkei.setBounds(325, 150, 200, 50);
+		schwierigkei.setSelectedIndex(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 		add(schwierigkei);
 		
 		//Sprache
 		sprach = new JTextField("Sprache:");
 		sprach.setEditable(false);
-		sprach.setBounds(100, 225, 200, 50);
+		sprach.setBounds(325, 100, 200, 50);
 		add(sprach);
 		
 		sprache = new JComboBox<String>(val2);
@@ -109,6 +110,7 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
+		Loader.changeCfgValue("SETTINGS: Default difficulty", ""+(schwierigkei.getSelectedIndex()));
 		if (e.getSource() == zurück) {
 			if (inGame){
 				InGameOptionen.instance.dispose();
@@ -144,6 +146,7 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
+		Loader.changeCfgValue("SETTINGS: Default difficulty", ""+schwierigkei.getSelectedIndex());
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Bestätigen"))) {
 			name[1].setFocusable(false);
 			name[0].setRequestFocusEnabled(true);

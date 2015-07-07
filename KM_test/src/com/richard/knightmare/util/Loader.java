@@ -255,6 +255,9 @@ public class Loader {
 			
 			defaultConfigValues.put("SETTINGS: Profilbild", "src\\resources\\textures\\profil.png");
 			sortedKeys.add("SETTINGS: Profilbild");
+			
+			defaultConfigValues.put("SETTINGS: Default difficulty", "1");
+			sortedKeys.add("SETTINGS: Default difficulty");
 		
 
 			sortedKeys.sort(new Comparator<String>() {
