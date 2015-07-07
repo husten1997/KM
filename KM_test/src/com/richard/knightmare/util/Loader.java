@@ -249,6 +249,9 @@ public class Loader {
 			
 			defaultConfigValues.put("SETTINGS: Profilname", "Lord Siegmund");
 			sortedKeys.add("SETTINGS: Profilname");
+			
+			defaultConfigValues.put("SETTINGS: Startzeit", "1");
+			sortedKeys.add("SETTINGS: Startzeit");
 		
 
 			sortedKeys.sort(new Comparator<String>() {

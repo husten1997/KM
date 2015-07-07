@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.core.MainMenue;
@@ -24,10 +26,9 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class Configscreen extends Optionsframesuperklasse implements ActionListener, ItemListener{
+public class Configscreen extends Optionsframesuperklasse implements ActionListener, ItemListener, ChangeListener{
 
-	//Basics
-	private Container c1; 
+	//Basics 
 	private JButton zurück, spielStarten;
 	private Spieler spieler[];
 	private JComboBox<String> cB;
@@ -42,19 +43,18 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 	private String inhalt[] = {"Spieleranzahl:", "Name:", "Typ:", "Team:", "Schwierigkeit:"};
 	
 	//Worldgen
-	private Container c2; 
 	private JLabel[] sett;
 	private JSlider[] settings;
 	private int seedValue;
 	private JTextField seed;
 	private JButton random;
-	private String[] setNames = {"Smoothing", "Wasserlevel", "Sandlevel", "Graslevel", "Steinlevel", "Eisenwahrscheinlichkeit", "Kohlewahrscheinlichkeit", "Routhness", "Falloff"};
+	private String[] setNames = {"Smoothing", "Wasserlevel", "Sandlevel", "Graslevel", "Steinlevel", "Eisenwahrscheinlichkeit", "Kohlewahrscheinlichkeit", "Routhness", "Falloff", "Uhrzeit"};
 	
 	public Configscreen(String imgName, String name) {
 		super(imgName, name);
 		
 		//Worldgen
-		seedValue = (int) (Math.random()*Integer.MAX_VALUE);
+		seedValue = 1005464490;
 		sett = new JLabel[setNames.length];
 		settings = new JSlider[setNames.length];
 		seed = new JTextField(""+seedValue);
@@ -72,6 +72,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			settings[i].setMinimum(0);
 			settings[i].setMinorTickSpacing(1);
 			settings[i].setMajorTickSpacing(10);
+			settings[i].addChangeListener(this);
 			if (i < setNames.length/2){
 				sett[i].setBounds(1000, 100 + (75*i) -35, 200, 50);
 				settings[i].setBounds(1000, 100 + (75*i), 200, 50);
@@ -82,6 +83,10 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			add(sett[i]);
 			add(settings[i]);
 		}
+		
+		settings[setNames.length-1].setMaximum(24);
+		settings[setNames.length-1].setMinimum(0);
+		settings[setNames.length-1].setValue(10);
 		
 		add(random);
 		add(seed);
@@ -124,6 +129,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			beschreibung[i].setHorizontalAlignment(JLabel.CENTER);
 			add(beschreibung[i]);
 		}
+		refresh();
 		
 		cB = new JComboBox<String>(value);
 		cB.addItemListener(this);
@@ -175,6 +181,8 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		}
 		
 		if(e.getSource() == spielStarten){
+			Loader.changeCfgValue("SETTINGS: Startzeit", ""+(double)((settings[setNames.length-1].getValue()/10)));
+			System.out.println("Loader"+Loader.getCfgValue("SETTINGS: Startzeit"));
 			for (int i = 0; i < anzahl; i++){
 				int teamer = 0;
 				for (int s = 1; s < anzahl+1; s++){
@@ -272,6 +280,19 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			this.remove(team[i]);
 			this.remove(schwierigkeit[i]);
 		}
+	}
+	
+	public void refresh(){
+		for (int i = 0; i < setNames.length; i++){
+			sett[i].setText(setNames[i] + ": " + settings[i].getValue() + "%");
+		}
+		sett[setNames.length-1].setText(setNames[setNames.length-1] + ": " + settings[setNames.length-1].getValue() + ":00 Uhr");
+	}
+
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		refresh();
 	}
 
 }

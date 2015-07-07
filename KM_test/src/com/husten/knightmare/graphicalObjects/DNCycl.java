@@ -3,12 +3,13 @@ package com.husten.knightmare.graphicalObjects;
 import java.awt.Color;
 
 import com.husten.knightmare.core.Knightmare;
+import com.richard.knightmare.util.Loader;
 
 import java.lang.Math;
 
 public class DNCycl {
 	
-	private double time = 1; //-12 bis 12
+	private double time = Double.parseDouble(Loader.getCfgValue("SETTINGS: Startzeit")); //-12 bis 12
 	private static double breightnes = 1;
 	private int red = 255;
 	private int green = 255;
