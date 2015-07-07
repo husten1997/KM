@@ -86,7 +86,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			add(settings[i]);
 		}
 		
-		settings[setNames.length-1].setMaximum(24);
+		settings[setNames.length-1].setMaximum(23);
 		settings[setNames.length-1].setMinimum(0);
 		settings[setNames.length-1].setValue(10);
 		
@@ -183,7 +183,6 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		}
 		
 		if(e.getSource() == spielStarten){
-			Loader.changeCfgValue("SETTINGS: Startzeit", ""+(double)((settings[setNames.length-1].getValue()/10)));
 			System.out.println("Loader"+Loader.getCfgValue("SETTINGS: Startzeit"));
 			for (int i = 0; i < anzahl; i++){
 				int teamer = 0;
@@ -321,6 +320,14 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
+		String time = settings[setNames.length-1].getValue()+"";
+		if (time.length() == 1){
+			time = "0."+settings[setNames.length-1].getValue();
+		} else {
+			time = time.substring(0, 1) + "." + time.substring(1,2);
+		}
+		Loader.changeCfgValue("SETTINGS: Startzeit", time);
+		System.out.println(Loader.getCfgValue("SETTINGS: Startzeit")+";");
 		refresh();
 	}
 

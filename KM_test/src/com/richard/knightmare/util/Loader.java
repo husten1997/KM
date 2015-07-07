@@ -250,7 +250,7 @@ public class Loader {
 			defaultConfigValues.put("SETTINGS: Profilname", "Lord Siegmund");
 			sortedKeys.add("SETTINGS: Profilname");
 			
-			defaultConfigValues.put("SETTINGS: Startzeit", "1");
+			defaultConfigValues.put("SETTINGS: Startzeit", "1.0");
 			sortedKeys.add("SETTINGS: Startzeit");
 			
 			defaultConfigValues.put("SETTINGS: Profilbild", "src\\resources\\textures\\profil.png");
