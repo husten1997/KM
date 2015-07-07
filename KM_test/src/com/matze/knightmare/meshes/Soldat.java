@@ -15,7 +15,6 @@ public class Soldat extends RectangleGraphicalObject {
 	protected Ausruestung ausruestung[];
 	protected int health;
 	protected int team;
-	protected String spieler;
 	protected Spieler sp;
 
 	// TODO Inventory
@@ -210,6 +209,10 @@ public class Soldat extends RectangleGraphicalObject {
 
 	public void setSpieler(Spieler spieler){
 		sp = spieler;
+	}
+	
+	public Spieler getSpieler(Spieler spieler){
+		return sp;
 	}
 
 
