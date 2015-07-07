@@ -2,6 +2,7 @@ package com.matze.knightmare.menues;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -28,18 +30,19 @@ import com.richard.knightmare.util.Optionsframesuperklasse;
 public class Configscreen extends Optionsframesuperklasse implements ActionListener, ItemListener, ChangeListener{
 
 	//Basics 
-	private JButton zurück, spielStarten;
+	private JButton zurück, spielStarten, bild[];
 	private Spieler spieler[];
 	private JComboBox<String> cB;
 	private JTextField name[], beschreibung[];
 	private JComboBox<String> team[], spielerArt[], schwierigkeit[];
 	private static String[] value = new String[8];
 	private int ausgeführt,anzahl;
+	ImageIcon ic = new ImageIcon(Loader.getCfgValue("SETTINGS: Profilbild"));
 	
 	private String art[] = {"KI","Mensch"};
 	private String teamName[];
 	private String schwierigkeiten[] = {"Leicht", "Mittel", "Schwer"};
-	private String inhalt[] = {"Spieleranzahl:", "Name:", "Typ:", "Team:", "Schwierigkeit:"};
+	private String inhalt[] = {"Spieleranzahl:", "Name:", "Typ:", "Team:", "Schwierigkeit:", "Bild:"};
 	
 	//Worldgen
 	private JLabel[] sett;
@@ -117,7 +120,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		beschreibung[0].setForeground(Color.white);
 		beschreibung[0].setHorizontalAlignment(JLabel.CENTER);
 		add(beschreibung[0]);
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 5; i++){
 			beschreibung[i] = new JTextField(inhalt[i+1]);
 			beschreibung[i].setBounds((screen.width-width)/2+100+(i*150), (screen.height-height)/2+200, 100, 50);
 			beschreibung[i].setEditable(false);
@@ -219,11 +222,22 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			if (ausgeführt != 0){
 				remove();
 			}
+			
+			Color c[] = new Color[8];
+			c[1] = Color.white;
+			c[2] = Color.blue;
+			c[3] = Color.gray;
+			c[4] = Color.green;
+			c[5] = Color.pink;
+			c[6] = Color.magenta;
+			c[7] = Color.CYAN;
+					
 			spielStarten.setEnabled(true);
 			anzahl = cB.getSelectedIndex()+1;
 			spieler = new Spieler[anzahl];
 			name = new JTextField[anzahl];
 			teamName = new String[anzahl];
+			bild = new JButton[anzahl];
 			spielerArt = new JComboBox[anzahl];
 		    team = new JComboBox[anzahl];
 		    schwierigkeit = new JComboBox[anzahl];
@@ -250,8 +264,20 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 				spielerArt[i].setBorder(null);
 				spielerArt[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 				spielerArt[i].setForeground(Color.white);
+				bild[i] = new JButton();
+				bild[i].setBounds((screen.width-width)/2+700, (screen.height-height)/2+260+(i*60), 100, 50);
+				
+				if(i != 0){
+					bild[i].setBackground(c[i]);
+				}
+				else{
+					ic.setImage(ic.getImage().getScaledInstance(bild[i].getWidth(), bild[i].getHeight(), Image.SCALE_SMOOTH));
+					bild[i].setIcon(ic);
+				}
+				
 				if (i == 0)
-				spielerArt[i].setSelectedIndex(1);
+					spielerArt[i].setSelectedIndex(1);
+				
 				team[i].setBounds((screen.width-width)/2+400, (screen.height-height)/2+260+(i*60), 100, 50);
 				team[i].setBorder(null);
 				team[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
@@ -265,6 +291,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 				add(spielerArt[i]);
 				add(team[i]);
 				add(schwierigkeit[i]);
+				add(bild[i]);
 				validate();
 				repaint();
 			}
@@ -278,6 +305,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			this.remove(spielerArt[i]);
 			this.remove(team[i]);
 			this.remove(schwierigkeit[i]);
+			this.remove(bild[i]);
 		}
 	}
 	

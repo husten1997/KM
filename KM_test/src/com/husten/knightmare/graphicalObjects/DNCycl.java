@@ -9,7 +9,7 @@ import java.lang.Math;
 
 public class DNCycl {
 	
-	private double time = Double.parseDouble(Loader.getCfgValue("SETTINGS: Startzeit")); //-12 bis 12
+	private double time = Double.parseDouble(Loader.getCfgValue("SETTINGS: Startzeit"))-1.2; //-12 bis 12
 	private static double breightnes = 1;
 	private int red = 255;
 	private int green = 255;

@@ -2,10 +2,18 @@ package com.matze.knightmare.menues;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -17,22 +25,66 @@ import com.richard.knightmare.util.Optionsframesuperklasse;
 @SuppressWarnings("serial")
 public class Profil extends Optionsframesuperklasse implements ActionListener {
 
+	private JComboBox<String> sprache;
+	private JTextField sprach;
+	private ImageIcon io;
+	
+	private JTextField difficulty;
+	private JComboBox<String> schwierigkei;
+	
+	private String val1[]={"Deutsch", "English"}, val2[] = {"Leicht", "Mittel", "Schwer"};
+	
 	private JTextField name[];
-	private JButton zurück;
+	private JButton zurück, profil;
 
 	protected Profil(boolean inGame, String imgName, String namen) {
 		super(imgName, namen);
 		this.inGame = inGame;
+		
+		//Schwierigkeit
+		difficulty = new JTextField("Schwierigkeit:");
+		difficulty.setEditable(false);
+		difficulty.setBounds(325, 100, 200, 50);
+		add(difficulty);
+		
+		schwierigkei = new JComboBox<String>(val1);
+		schwierigkei.setBounds(325, 150, 200, 50);
+		add(schwierigkei);
+		
+		//Sprache
+		sprach = new JTextField("Sprache:");
+		sprach.setEditable(false);
+		sprach.setBounds(100, 225, 200, 50);
+		add(sprach);
+		
+		sprache = new JComboBox<String>(val2);
+		sprache.setBounds(100, 275, 200, 50);
+		add(sprache);
+		
+		//Profilbild
+		profil = new JButton();
+		System.out.println(Loader.getTexturePath());
+		io = new ImageIcon (Loader.getCfgValue("SETTINGS: Profilbild"));
+		io.setImage(io.getImage().getScaledInstance(200,100,Image.SCALE_SMOOTH));
+		profil.setIcon(io);
+		profil.setBounds(325, 225, 200, 100);
+		profil.addActionListener(this);
+		add(profil);
+		
+		validate();
+		repaint();
+		
+		//Name
 		name = new JTextField[2];
 		name[0] = new JTextField("Gib hier deinen Namen ein:");
 		name[1] = new JTextField(Loader.getCfgValue("SETTINGS: Profilname"));
-		name[0].setBounds((screen.width - width) / 2 + 100, 100, 200, 50);
+		name[0].setBounds(100, 100, 200, 50);
 		name[0].setEditable(false);
 		name[0].setBorder(null);
 		name[0].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 		name[0].setForeground(Color.white);
 		name[0].setHorizontalAlignment(JLabel.CENTER);
-		name[1].setBounds((screen.width - width) / 2 + 320, (screen.height - height) / 2 + 100, 100, 50);
+		name[1].setBounds(100, 150, 200, 50);
 		name[1].setBorder(null);
 		name[1].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 		name[1].setForeground(Color.white);
@@ -42,6 +94,8 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		add(name[0]);
 		add(name[1]);
 
+		
+		//Default
 		zurück = new JButton("Zurück");
 		zurück.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
 		zurück.setFont(new Font("Arial", Font.BOLD, width / 48));
@@ -56,14 +110,33 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
 		if (e.getSource() == zurück) {
-			if (inGame) {
+			if (inGame){
+				InGameOptionen.instance.dispose();
+				InGameOptionen.instance.setUndecorated(isUndecorated());
+				InGameOptionen.instance.setVisible(true);
+				InGameOptionen.instance.setAutoRequestFocus(true);
 				dispose();
 			} else {
-				MainMenue.instance.setUndecorated(isUndecorated());
-				MainMenue.instance.setVisible(true);
-				MainMenue.instance.setAutoRequestFocus(true);
+				Optionen.instance.dispose();
+				Optionen.instance.setUndecorated(isUndecorated());
+				Optionen.instance.setVisible(true);
+				Optionen.instance.setAutoRequestFocus(true);
 				dispose();
 			}
+		}
+		
+		if (e.getSource() == profil){
+			 final JFileChooser fc = new JFileChooser();
+	            fc.showOpenDialog(this);
+
+	            try {
+	                io = new ImageIcon(fc.getSelectedFile().getAbsolutePath());
+	                Loader.changeCfgValue("SETTINGS: Profilbild", fc.getSelectedFile().getAbsolutePath());
+	                io.setImage(io.getImage().getScaledInstance(200,100,Image.SCALE_SMOOTH));
+	                profil.setIcon(io);
+	            } catch (Exception e1){
+	            	
+	            }
 		}
 
 	}
@@ -89,12 +162,14 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
-				if (inGame) {
+				if (inGame){
+					InGameOptionen.instance.dispose();
 					InGameOptionen.instance.setUndecorated(isUndecorated());
 					InGameOptionen.instance.setVisible(true);
 					InGameOptionen.instance.setAutoRequestFocus(true);
 					dispose();
 				} else {
+					Optionen.instance.dispose();
 					Optionen.instance.setUndecorated(isUndecorated());
 					Optionen.instance.setVisible(true);
 					Optionen.instance.setAutoRequestFocus(true);

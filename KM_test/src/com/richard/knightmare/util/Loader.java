@@ -252,6 +252,9 @@ public class Loader {
 			
 			defaultConfigValues.put("SETTINGS: Startzeit", "1");
 			sortedKeys.add("SETTINGS: Startzeit");
+			
+			defaultConfigValues.put("SETTINGS: Profilbild", "src\\resources\\textures\\profil.png");
+			sortedKeys.add("SETTINGS: Profilbild");
 		
 
 			sortedKeys.sort(new Comparator<String>() {
