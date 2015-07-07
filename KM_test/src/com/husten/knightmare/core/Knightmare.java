@@ -1117,13 +1117,13 @@ public class Knightmare extends Widget implements StringConstants {
 	private void setCategory() {
 		for (Button[] button : gebäude) {
 			for (Button button1 : button) {
-				frame.removeChild(button1);
+				removeChild(button1);
 			}
 		}
 		if (category != -1) {
 			for (Button button : gebäude[category]) {
 				if (button != null) {
-					frame.add(button);
+					add(button);
 				}
 			}
 		}
@@ -1351,9 +1351,6 @@ public class Knightmare extends Widget implements StringConstants {
 		frame = new ResizableFrame();
 		frame.setTheme("frame");
 		frame.setTitle("Inventory");
-		for (Button button : categories) {
-			frame.add(button);
-		}
 
 		int width = WIDTH;
 		if (width > 1920) {
@@ -1387,9 +1384,21 @@ public class Knightmare extends Widget implements StringConstants {
 		if (baumenueShowen) {
 			if (getChildIndex(frame) == -1) {
 				add(frame);
+				for (Button button : categories) {
+					add(button);
+				}
+				setCategory();
 			}
 		} else {
 			removeChild(frame);
+			if(category>=0){
+				for(Button geb: gebäude[category]){
+					removeChild(geb);
+				}
+			}
+			for (Button button : categories) {
+				removeChild(button);
+			}
 		}
 
 		gui.handleKeyRepeat();
