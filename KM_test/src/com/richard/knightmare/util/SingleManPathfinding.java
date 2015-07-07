@@ -28,7 +28,7 @@ public class SingleManPathfinding {
 	public SingleManPathfinding(Soldat soldat, com.richard.knightmare.util.Pos ende) {
 		this.soldat = soldat;
 		realStart = soldat.getPosition();
-		realZiel = ende;
+		realZiel = new com.richard.knightmare.util.Pos(ende.getX(), ende.getY());
 		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
 		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
 		LOG.info("Konstruktor gelaufern");
@@ -183,9 +183,10 @@ public class SingleManPathfinding {
 				return;
 			}
 		}
+		//Rechts
 		if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))) {
 			vektoren.add(new Vektor(currentVektorStartPos,
-					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 48, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 48, (int) (currentVektorStartPos.getY() / 32) * 32 +16),
 					soldat));
 			currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
 			recursivVektorProduction(index - 1);

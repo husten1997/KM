@@ -133,6 +133,7 @@ public class Rekrutieren {
 		init_Array(40, 0, 0, 20, 20, 15);
 		t.init(ang, ver, 35, "Hussar", 40, 35, 50, 40, 40, false);
 		t.setTyp(3);
+		t.setSpieler(spieler);
 		return t;
 	}
 
@@ -141,6 +142,7 @@ public class Rekrutieren {
 		init_Array(8, 30, 0, 5, 8, 0);
 		t.init(ang, ver, 15, "Berittener Bogenschütze", 70, 30, 35, 25, 30, false);
 		t.setTyp(3);
+		t.setSpieler(spieler);
 		return t;
 	}
 
@@ -149,6 +151,7 @@ public class Rekrutieren {
 		init_Array(12, 40, 0, 15, 14, 0);
 		t.init(ang, ver, 25, "Schwerer berittener Bogenschütze", 80, 28, 40, 30, 35, false);
 		t.setTyp(3);
+		t.setSpieler(spieler);
 		return t;
 	}
 
@@ -160,6 +163,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 40, "Kanone", 200, 5, 150, 30, -20, false);
 		t.setMann(6);
 		t.setTyp(2);
+		t.setSpieler(spieler);
 		return t;
 	}
 
@@ -169,6 +173,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 0, "Leiternträger", 32, 60, 5, 10, -20, false);
 		t.setMann(1);
 		t.setTyp(2);
+		t.setSpieler(spieler);
 		return t;
 	}
 

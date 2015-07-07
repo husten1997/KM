@@ -4,8 +4,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 
-import org.lwjgl.util.vector.Vector2f;
-
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.worldGen.WorldGenerator;
 import com.matze.knightmare.meshes.Spieler;
@@ -14,18 +12,10 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
-	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id;
+	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id, xz, yz, lastM;
+	protected double k = (32*Math.sqrt(2)-32)/2;
 	protected boolean wasser = false;
-	private Pos hudpos;
 	protected Spieler s;
-
-	public Pos getHudpos() {
-		return hudpos;
-	}
-
-	public void setHudpos(Pos hudpos) {
-		this.hudpos = hudpos;
-	}
 
 	public int getWidth() {
 		return width;
@@ -59,7 +49,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected boolean randomRotation, stretched = true;
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
-	private final Color fColor = new Color(255, 255, 255);
+	protected final Color fColor = new Color(255, 255, 255);
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
@@ -144,7 +134,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		glLoadIdentity();
 		// translate to the right location and prepare to draw
 		
-		glTranslatef((float) position.getX(), (float) position.getY(), 0);
+		glTranslatef((float) position.getX()+xz, (float) position.getY()+yz, 0);
 		glRotatef(45*m_rotation, 0f, 0f, 1f);
 		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness), (float) (fColor.getGreen() / 255 * Knightmare.breightness), (float) (fColor.getBlue() / 255 * Knightmare.breightness));
 		// draw a quad textured to match the sprite
@@ -175,11 +165,11 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 
 	public void moveX(double x) {
-		position.setDX(x);
+		position.setX(position.getX()+x);
 	}
 
 	public void moveY(double y) {
-		position.setDY(y);
+		position.setY(position.getY()+y);
 	}
 
 	public void setHeightCount(double heightCount) {
@@ -231,7 +221,46 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	}
 	
 	public void setMRotation(int m_rotation){
-		this.m_rotation = m_rotation;
+		if(m_rotation==lastM){
+			this.m_rotation = m_rotation;
+			System.out.println(m_rotation);
+			switch (m_rotation) {
+			case 0://Links-Oben
+				xz = 0;
+				yz = 0;
+				break;
+			case 1://oben
+				xz = 0;
+				yz = 0;
+				break;
+			case 2://Rechts
+				xz = 32;
+				yz = 0;
+				break;
+			case 3://Links-Unten
+				xz = (int) k+32;
+				yz = 16;
+				break;
+			case 4://Unten
+				xz = 32;
+				yz = 32;
+				break;
+			case 5://Rechts-Unten
+				xz = 32;
+				yz = 48;
+				break;
+			case 6://Links
+				xz = -32;
+				yz = 32;
+				break;
+			case 7://Rechts-Oben
+				xz = -16;
+				yz = (int)-k+16;
+				break;
+			}
+		}else{
+			lastM = m_rotation;
+		}
 	}
 
 	public void setSpieler(Spieler s){

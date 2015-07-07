@@ -423,7 +423,7 @@ public class Knightmare extends Widget implements StringConstants {
 							if (aktuellesGebäude != -1) {
 								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
 								boolean hilfsboolean = false;
-								if(b!=null){
+								if (b != null) {
 									hilfsboolean = b.getSpieler().hatLager();
 								}
 								System.out.println(hilfsboolean);
@@ -433,14 +433,14 @@ public class Knightmare extends Widget implements StringConstants {
 								} else if (/* handler.place(b) */newHandler.place(b)) {
 									// b.setSort(0);
 									// initRender(b, 1);
-									if(hilfsboolean){
+									if (hilfsboolean) {
 										Bauen.kostenAbziehen(b);
-									}else{
-										//TODO Startrohstoffe
+									} else {
+										// TODO Startrohstoffe
 										b.getSpieler().verteilen(2, 30);
 										b.getSpieler().verteilen(0, 5);
-										b.getSpieler().verteilen(8, 15);
-										
+										b.getSpieler().verteilen(8, 1500);
+
 										b.setKostetWarevonIndex(2, 10);
 										b.setKostetWarevonIndex(8, 5);
 									}
@@ -448,17 +448,24 @@ public class Knightmare extends Widget implements StringConstants {
 							}
 							break;
 						case state.N_TRUPS:
-							Soldat s = Rekrutieren.Hussar(xR * 32, yR * 32, 32, 32, spieler[0]);
+							Soldat s = Rekrutieren.Hussar(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[0]);
 							if (/* handler.place(s) */newHandler.place(s)) {
 								// s.setSort(1);
 								// initRender(s, 1);
 							}
 							break;
 						case state.NF_TROOP:
-							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32, yR * 32, 32, 32, spieler[0]);
-							if (/* handler.place(sf) */newHandler.place(sf)) {
-								// sf.setSort(1);
-								// initRender(sf, 1);
+//							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[0]);
+//							if (/* handler.place(sf) */newHandler.place(sf)) {
+//								// sf.setSort(1);
+//								// initRender(sf, 1);
+//							}
+							Soldat[] sn = new Soldat[8];
+							for(int i = 0; i<8; i++){
+								sn[i] = Rekrutieren.Hussar((xR+i) * 32 + 16, yR * 32 + 16, 32, 32, spieler[0]);
+								newHandler.place(sn[i]);
+								sn[i].setMRotation(i);
+								sn[i].setMRotation(i);
 							}
 							break;
 						case state.S_TRUPS:
@@ -488,8 +495,11 @@ public class Knightmare extends Widget implements StringConstants {
 							if (help instanceof Building) {
 								int[] kosten = ((Building) help).getKostetWarevonArray();
 								for (int i = 0; i < kosten.length; i++) {
-									help.getSpieler().verteilen(i, (int) Math.round(kosten[i]*rückerstattungsanteil));
-//									help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i) + (int) Math.round(kosten[i]*rückerstattungsanteil), i);
+									help.getSpieler().verteilen(i, (int) Math.round(kosten[i] * rückerstattungsanteil));
+									// help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i)
+									// + (int)
+									// Math.round(kosten[i]*rückerstattungsanteil),
+									// i);
 								}
 							}
 
@@ -1146,7 +1156,7 @@ public class Knightmare extends Widget implements StringConstants {
 							resK[i].setFont(helpf);
 						}
 					}
-				}else{
+				} else {
 					resK[i].setText("");
 					if (resK[i].getBackground() != null) {
 						resK[i].setBackground(null);

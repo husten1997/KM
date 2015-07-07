@@ -21,6 +21,7 @@ public class EntityHandler {
 	private HashMap<Soldat, RectangleGraphicalObject> chasing = new HashMap<>();
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	private Spieler[] spieler;
+	private boolean processing = false, ticking = false;
 
 	public EntityHandler(int width, int height, Spieler[] spieler) {
 		this.spieler = spieler;
@@ -65,7 +66,7 @@ public class EntityHandler {
 		}
 		object.initRender();
 		entities.add(object);
-		if(object instanceof Building){
+		if (object instanceof Building) {
 			if (((Building) object).getIndex() == 2) {
 				for (Spieler hansl : spieler) {
 					if (hansl.equals(object.getSpieler())) {
@@ -137,12 +138,22 @@ public class EntityHandler {
 	}
 
 	public void processRightClick(double x, double y) {
+		processing = true;
+		while (ticking) {
+			// Wait
+		}
 		int xPos = (int) x / 32;
 		int yPos = (int) y / 32;
 
 		if (selection.size() == 1) {
 			if (world[xPos][yPos] != null) {
-				if (world[xPos][yPos].getSpieler().getTeam() != selection.get(0).getSpieler().getTeam()) {
+				if (world[xPos][yPos]
+						.getSpieler()
+						.getTeam() != 
+						selection
+						.get(0)
+						.getSpieler()
+						.getTeam()) {
 					chasing.put((Soldat) selection.get(0), world[xPos][yPos]);
 					pathfindTo(x, y, selection.get(0));
 				} else {
@@ -165,9 +176,14 @@ public class EntityHandler {
 				}
 			}
 		}
+		processing = false;
 	}
 
 	public void tick() {
+		if (processing) {
+			return;
+		}
+		ticking = true;
 		if (ticksSinceLastRetry > 20) {
 			ArrayList<Soldat> toRemoveActual = new ArrayList<>();
 			for (Entry<Soldat, Pos> entry : actualDeastination.entrySet()) {
@@ -216,6 +232,7 @@ public class EntityHandler {
 		}
 		ticksSinceLastRetry++;
 		ArrayList<Soldat> toRemove = new ArrayList<>();
+		HashMap<Soldat, SingleManPathfinding> toPut = new HashMap<>();
 		for (Entry<Soldat, SingleManPathfinding> entry : finding.entrySet()) {
 			if (!entry.getValue().move()) {
 				if (entry.getValue().getFinished()) {
@@ -233,7 +250,8 @@ public class EntityHandler {
 					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), new Pos(x, y));
 					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
-						finding.put(entry.getKey(), path);
+						toPut.put(entry.getKey(), path);
+						// finding.put(entry.getKey(), path);
 					} else {
 						// finding.remove(entry.getKey());
 						toRemove.add(entry.getKey());
@@ -248,6 +266,10 @@ public class EntityHandler {
 		for (Soldat soldat : toRemove) {
 			finding.remove(soldat);
 		}
+		for (Entry<Soldat, SingleManPathfinding> entry : toPut.entrySet()) {
+			finding.put(entry.getKey(), entry.getValue());
+		}
+		ticking = false;
 	}
 
 	public void pathfindTo(double x, double y, RectangleGraphicalObject object) {
@@ -279,16 +301,16 @@ public class EntityHandler {
 				world[startW + i][startH + j] = null;
 			}
 		}
-		if(object instanceof Building){
+		if (object instanceof Building) {
 			((Building) object).getTimer().cancel();
-		}
-		if (((Building) object).getIndex() == 4) {
-			((Building) object).getTimer2().cancel();
-		}
-		if (((Building) object).getIndex() == 2) {
-			for (Spieler hansl : spieler) {
-				if (hansl.getIndex()==object.getSpieler().getIndex()) {
-					hansl.removeLager(object);
+			if (((Building) object).getIndex() == 4) {
+				((Building) object).getTimer2().cancel();
+			}
+			if (((Building) object).getIndex() == 2) {
+				for (Spieler hansl : spieler) {
+					if (hansl.getIndex() == object.getSpieler().getIndex()) {
+						hansl.removeLager(object);
+					}
 				}
 			}
 		}
