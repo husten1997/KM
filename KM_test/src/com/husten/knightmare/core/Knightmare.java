@@ -437,9 +437,9 @@ public class Knightmare extends Widget implements StringConstants {
 								System.out.println(hilfsboolean);
 								if (b == null) {
 									if (spieler[0].hatLager()) {
-										labelZuTeuer.setText("Das können wir uns nicht leisten, Sir");
+										labelZuTeuer.setText("Das können wir uns nicht leisten, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									} else {
-										labelZuTeuer.setText("Wir müssen ein Lager plazieren, Sir");
+										labelZuTeuer.setText("Wir müssen ein Lager plazieren, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									}
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
@@ -471,7 +471,7 @@ public class Knightmare extends Widget implements StringConstants {
 										b.setKostetWarevonIndex(8, 5);
 									}
 								} else {
-									labelZuTeuer.setText("Das kann da nicht plaziert werden, Sir");
+									labelZuTeuer.setText("Das kann da nicht plaziert werden, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
 										gednedShown = true;
@@ -519,7 +519,7 @@ public class Knightmare extends Widget implements StringConstants {
 							RectangleGraphicalObject on = newHandler.getOn(xR, yR);
 							if (on instanceof Building) {
 								if (((Building) on).getIndex() == 2 && !(on.getSpieler().hatWievieleLager() > 1)) {
-									labelZuTeuer.setText("Wir können unser letztes Lager nicht abreißen, Sir");
+									labelZuTeuer.setText("Wir können unser letztes Lager nicht abreißen, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
 										gednedShown = true;
@@ -527,7 +527,7 @@ public class Knightmare extends Widget implements StringConstants {
 									break;
 								}
 								if (((Building) on).getIndex() == 14 && !(on.getSpieler().hatWievieleKornspeicher() > 1)) {
-									labelZuTeuer.setText("Wir können unseren letzten Kornspeicher nicht abreißen, Sir");
+									labelZuTeuer.setText("Wir können unseren letzten Kornspeicher nicht abreißen, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
 										gednedShown = true;
@@ -535,7 +535,7 @@ public class Knightmare extends Widget implements StringConstants {
 									break;
 								}
 								if (((Building) on).getIndex() == 15 && !(on.getSpieler().hatWievieleMarktplatz() > 1)) {
-									labelZuTeuer.setText("Wir können unseren letzten Marktplatz nicht abreißen, Sir");
+									labelZuTeuer.setText("Wir können unseren letzten Marktplatz nicht abreißen, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
 										gednedShown = true;
@@ -1452,7 +1452,7 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time = new Label("");
 		l_time.setTheme("label");
 
-		labelZuTeuer = new Label("Das Können wir uns nicht leisten Sir");
+		labelZuTeuer = new Label("Das Können wir uns nicht leisten "+Loader.getCfgValue("SETTINGS: Profilname"));
 
 		for (int i = 0; i < resn.length; i++) {
 			res[i] = new Label();
