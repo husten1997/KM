@@ -6,7 +6,7 @@ import com.richard.knightmare.util.Pos;
 
 public class Bauen {
 	// TODO Timer stopppen wenn abgerissen Weg
-	private static Spieler mutterNatur = new Spieler(-1, "Mama", -1, "KI", "Schwer");
+	private static Spieler mutterNatur = new Spieler(-1, "Mama Natur", -1, "KI", "Schwer");
 	
 	public static Building KohleMine(Pos p, Spieler sp) {
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
@@ -22,10 +22,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -73,10 +75,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -128,10 +132,12 @@ public class Bauen {
 			b.setKostetWarevonIndex(8, 0);
 		}
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -167,10 +173,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -218,10 +226,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -287,10 +297,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -337,10 +349,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -387,10 +401,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -431,10 +447,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -477,10 +495,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -504,10 +524,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -545,10 +567,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -582,10 +606,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -619,10 +645,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -656,10 +684,12 @@ public class Bauen {
 
 		int error = 0;
 
-		for (int i = 0; i < Rohstoffe.maxID(); i++) {
-			if (b.getSpieler().getAmountofResource(i)
-					- b.getKostetWarevonIndex(i) < 0) {
-				error++;
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
 			}
 		}
 
@@ -738,7 +768,6 @@ public class Bauen {
 	}
 
 	public static int[] getKostenvonGeb(int id) {
-		Building b = new Building(0, new Pos(0, 0), 0, 0, "");
 		switch (id) {
 		case 0: {
 			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
