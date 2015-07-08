@@ -264,7 +264,7 @@ public class Bauen {
 								if (b.getSpieler().getAmountofResource(Rohstoffe.Fleisch().getID()) - 2 >= 0){
 									b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), 1);
 									b.getSpieler().verteilen(9, 1);
-									b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 2);
+									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), 2);
 								} else {
 									if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) > 1){
 										b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 1);
