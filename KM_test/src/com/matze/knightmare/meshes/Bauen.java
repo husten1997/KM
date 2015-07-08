@@ -6,11 +6,14 @@ import com.richard.knightmare.util.Pos;
 
 public class Bauen {
 	// TODO Timer stopppen wenn abgerissen Weg
+	private static Spieler mutterNatur = new Spieler(-1, "Mama", -1, "KI", "Schwer");
+	
 	public static Building KohleMine(Pos p, Spieler sp) {
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		b.setSpieler(sp);
 
 		b.setKostetWarevonIndex(2, 10);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
 
 		b.addnichtErlaubt("kohle");
 		b.addnichtErlaubt("stein");
@@ -62,6 +65,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 25);
 		b.setKostetWarevonIndex(8, 10);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.addnichtErlaubt("kohle");
 		b.addnichtErlaubt("eisen");
@@ -152,6 +156,7 @@ public class Bauen {
 
 	public static Building Holzfäller(Pos p, Spieler sp) {
 		Building b = new Building(3, p, 64, 64, "Holz.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
@@ -204,6 +209,7 @@ public class Bauen {
 	public static Building Haus(Pos p, Spieler sp) {
 		Building b = new Building(4, p, 64, 32, "Haus.png");
 		b.setSpieler(sp);
+		
 		b.setKostetWarevonIndex(2, 5);
 
 		b.addnichtErlaubt("baum");
@@ -237,7 +243,11 @@ public class Bauen {
 				public void run() {
 					b.setProduktionProMinute(1);
 					b.WareFertigstellen();
-					b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), 3);
+					
+					if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) - amountBenötigt[0]!= 0){
+						b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 2);
+						b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), 3);
+					}
 					// TODO ppm so ändern dass effektivität pro gebäude um 50%
 					// gesteigert wird, steht es alleine in einem bestimmten
 					// sektor, wird die produktion pro minute um 50% gesenkt
@@ -268,11 +278,12 @@ public class Bauen {
 
 	public static Building Sandschmelze(Pos p, Spieler sp) {
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
-
+		
 		b.addMuss("sand");
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
 		int error = 0;
 
@@ -318,7 +329,10 @@ public class Bauen {
 		Building b = new Building(6, p, 128, 128, "Hof.png");
 
 		b.setSpieler(sp);
+		
 		b.setKostetWarevonIndex(2, 8);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
+		
 		b.addMuss("gras");
 
 		int error = 0;
@@ -365,6 +379,7 @@ public class Bauen {
 		Building b = new Building(7, p, 64, 64, "viecha.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
 		b.addnichtErlaubt("baum");
 		b.addnichtErlaubt("stein");
@@ -410,6 +425,7 @@ public class Bauen {
 		Building b = new Building(8, p, 64, 64, "Steinbruch.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.addMuss("stein");
 
@@ -725,75 +741,89 @@ public class Bauen {
 		Building b = new Building(0, new Pos(0, 0), 0, 0, "");
 		switch (id) {
 		case 0: {
-			b.setKostetWarevonIndex(2, 10);
-			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 1: {
-			b.setKostetWarevonIndex(2, 25);
-			b.setKostetWarevonIndex(8, 10);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 25);
+//			b.setKostetWarevonIndex(8, 10);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 2: {
-			b.setKostetWarevonIndex(2, 10);
-			b.setKostetWarevonIndex(8, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 10);
+//			b.setKostetWarevonIndex(8, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 3: {
-			b.setKostetWarevonIndex(2, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 4: {
-			b.setKostetWarevonIndex(2, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 5: {
-			b.setKostetWarevonIndex(2, 15);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 15);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 6: {
-			b.setKostetWarevonIndex(2, 8);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 8);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 7: {
-			b.setKostetWarevonIndex(2, 15);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 15);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 8: {
-			b.setKostetWarevonIndex(2, 15);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 15);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 9: {
-			b.setKostetWarevonIndex(8, 30);
-			b.setKostetWarevonIndex(2, 10);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(8, 30);
+//			b.setKostetWarevonIndex(2, 10);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 10: {
-			b.setKostetWarevonIndex(8, 8);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(8, 8);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 11: {
-			b.setKostetWarevonIndex(0, 0);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(0, 0);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 12: {
-			b.setKostetWarevonIndex(2, 10);
-			b.setKostetWarevonIndex(8, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 10);
+//			b.setKostetWarevonIndex(8, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 13: {
-			b.setKostetWarevonIndex(2, 10);
-			b.setKostetWarevonIndex(8, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 10);
+//			b.setKostetWarevonIndex(8, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 14: {
-			b.setKostetWarevonIndex(2, 10);
-			b.setKostetWarevonIndex(8, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 10);
+//			b.setKostetWarevonIndex(8, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		case 15: {
-			b.setKostetWarevonIndex(2, 10);
-			b.setKostetWarevonIndex(8, 5);
-			return b.getKostetWarevonArray();
+//			b.setKostetWarevonIndex(2, 10);
+//			b.setKostetWarevonIndex(8, 5);
+//			return b.getKostetWarevonArray();
+			return getBuildingforID(id, new Pos(0,0), mutterNatur).getKostetWarevonArray();
 		}
 		default:
 			return new int[0];
