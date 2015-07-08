@@ -307,4 +307,20 @@ public class Spieler {
 		waffenkammer.remove((Building) rgo);
 	}
 
+	public void addKornspeicher(RectangleGraphicalObject rgo) {
+		kornspeicher.add((Building) rgo);
+	}
+
+	public void removeKornspeicher(RectangleGraphicalObject rgo) {
+		kornspeicher.remove((Building) rgo);
+	}
+
+	public void addMarktplatz(RectangleGraphicalObject rgo) {
+		marktplätze.add((Building) rgo);
+	}
+
+	public void removeMarktplatz(RectangleGraphicalObject rgo) {
+		marktplätze.remove((Building) rgo);
+	}
+
 }
