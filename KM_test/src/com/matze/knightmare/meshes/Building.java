@@ -2,6 +2,7 @@ package com.matze.knightmare.meshes;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
@@ -23,6 +24,7 @@ public class Building extends RectangleGraphicalObject {
 	private Ausruestung[] verbesserungen;
 	private int maxLagerKapazität;
 	private Timer timer = new Timer(true),timer2 = new Timer(true);
+	private TimerTask tt;
 	private ArrayList<String>erlaubt = new ArrayList<>();
 	private ArrayList<String>muss = new ArrayList<>();
 
@@ -216,6 +218,14 @@ public class Building extends RectangleGraphicalObject {
 
 	public void addMuss(String m) {
 		muss.add(m);
+	}
+	
+	public void setTimerTask(TimerTask tt){
+		this.tt = tt;
+	}
+	
+	public void startTimer(int faktor){
+		timer.scheduleAtFixedRate(tt, (long)(60000/ProduktionproMinute), (long)(60000/ProduktionproMinute));
 	}
 
 
