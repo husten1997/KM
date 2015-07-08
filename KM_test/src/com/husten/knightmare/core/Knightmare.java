@@ -446,6 +446,7 @@ public class Knightmare extends Widget implements StringConstants {
 										gednedShown = true;
 									}
 								} else if (/* handler.place(b) */newHandler.place(b)) {
+									b.startTimer();
 									if (b.getIndex() == 15) {
 										if (!hilfsboolean2) {
 											b.getSpieler().verteilen(12, 8);
