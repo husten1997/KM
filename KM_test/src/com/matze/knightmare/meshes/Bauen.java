@@ -47,14 +47,7 @@ public class Bauen {
 
 							@Override
 							public void run() {
-								if ((/* Kohle in der Nähe */true) && (/*
-																	 * Kohle hat
-																	 * ressourcen
-																	 */true) && (!(b
-										.getAmountProduzierterWareAuslesen() == b
-										.getMaxLagerKap()))) {
-									b.WareFertigstellen();
-								}
+								b.getSpieler().verteilen(Rohstoffe.Kohle().getID(), 1);
 							}
 
 						});
@@ -112,11 +105,9 @@ public class Bauen {
 
 							@Override
 							public void run() {
-								if (benötigt[0]
-										.substractWare(amountBenötigt[0])
-										&& (!(b.getAmountProduzierterWareAuslesen() == b
-												.getMaxLagerKap()))) {
-									b.WareFertigstellen();
+								if (b.getBenötigt()[0].getAmount() > 0){
+									b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 1);
+									b.getBenötigt()[0].substractWare(1);
 								}
 							}
 
@@ -206,7 +197,7 @@ public class Bauen {
 							@Override
 							public void run() {
 								
-								Building k = Knightmare.newHandler.gibBaum((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
+								Building k = Knightmare.newHandler.suchBaum((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
 								System.out.println("KKKK"+k);
 								System.out.println(k.getBenötigt()[0].substractWare(1));
 								
@@ -214,7 +205,7 @@ public class Bauen {
 									Pos pk = k.getPosition();
 									Knightmare.newHandler.remove(k);
 									Knightmare.newHandler.place(Baumstumpf(pk));
-									k = Knightmare.newHandler.gibBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
+									k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
 								}
 								if (k != null)
 								b.getSpieler().verteilen(Rohstoffe.Holz().getID(), 1);
