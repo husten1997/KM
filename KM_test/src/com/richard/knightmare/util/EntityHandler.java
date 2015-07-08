@@ -34,6 +34,10 @@ public class EntityHandler {
 			id++;
 		}
 	}
+	
+	public RectangleGraphicalObject getOn(int x, int y){
+		return world[x][y];
+	}
 
 	public void draw() {
 		for (RectangleGraphicalObject entity : entities) {

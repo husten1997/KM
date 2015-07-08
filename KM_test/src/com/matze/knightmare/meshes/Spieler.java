@@ -20,6 +20,10 @@ public class Spieler {
 	public boolean hatLager() {
 		return lager.size() > 0;
 	}
+	
+	public int hatWievieleLager() {
+		return lager.size();
+	}
 
 	public boolean hatMarktplatz() {
 		return maktplätze.size() > 0;

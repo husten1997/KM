@@ -215,7 +215,6 @@ public class Knightmare extends Widget implements StringConstants {
 		initRender(
 				new RectangleGraphicalObject(new Pos(0, 0), 1, 1, "", false), 1);
 		// will versuchen dummy objekt einzufügen damit die buttons gehen
-
 	}
 
 	public void tooggleFullscreen() {
@@ -467,8 +466,10 @@ public class Knightmare extends Widget implements StringConstants {
 									}else{
 										labelZuTeuer.setText("Wir müssen ein Lager plazieren, Sir");
 									}
-									add(labelZuTeuer);
-									gednedShown = true;
+									if(getChildIndex(labelZuTeuer)==-1){
+										add(labelZuTeuer);
+										gednedShown = true;
+									}
 								} else if (/* handler.place(b) */newHandler
 										.place(b)) {
 									// b.setSort(0);
@@ -529,6 +530,18 @@ public class Knightmare extends Widget implements StringConstants {
 							 * RectangleGraphicalObject h = handler.abreißen(xR,
 							 * yR)
 							 */
+							RectangleGraphicalObject on = newHandler.getOn(xR, yR);
+							if(on instanceof Building){
+								if(((Building) on).getIndex()==2&&!(on.getSpieler().hatWievieleLager()>1)){
+									labelZuTeuer.setText("Wir können unser letztes Lager nicht abreißen, Sir");
+									if(getChildIndex(labelZuTeuer)==-1){
+										add(labelZuTeuer);
+										gednedShown = true;
+									}
+									break;
+								}
+							}
+							
 							RectangleGraphicalObject help = newHandler.remove(
 									xR, yR);
 							if (help instanceof Building) {
