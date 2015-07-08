@@ -73,6 +73,7 @@ public class Building extends RectangleGraphicalObject {
 	}
 
 	public Waren getAmountProduzierterWare() {
+		amountProduzierteWare=0;
 		return produziert;
 	}
 	
