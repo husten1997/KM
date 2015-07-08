@@ -54,7 +54,7 @@ import de.matthiasmann.twl.theme.ThemeManager;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1;
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, updateticks;
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
 	private String inGameStat = state.S_TRUPS;
@@ -1197,43 +1197,47 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void showKosten() {
-		if (aktuellesGebäude != -1) {
-			int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
-			if (aktuellesGebäude == 2 && !spieler[0].hatLager()) {
-				help = new int[resK.length];
-			}
-			for (int i = 0; i < resK.length; i++) {
-				if (help[i] != 0) {
-					if (resK[i].getBackground() == null) {
-						resK[i].setBackground(themeManager.getImage("Fenster"));
-					}
-					resK[i].setText(String.valueOf(help[i]));
-					if (help[i] > Integer.parseInt(res[i].getText())) {
-						Font helpf = themeManager.getFont("normalR");
-						if (!resK[i].getFont().equals(helpf)) {
-							resK[i].setFont(helpf);
+		if(updateticks>20){
+			if (aktuellesGebäude != -1) {
+				int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
+				if (aktuellesGebäude == 2 && !spieler[0].hatLager()) {
+					help = new int[resK.length];
+				}
+				for (int i = 0; i < resK.length; i++) {
+					if (help[i] != 0) {
+						if (resK[i].getBackground() == null) {
+							resK[i].setBackground(themeManager.getImage("Fenster"));
+						}
+						resK[i].setText(String.valueOf(help[i]));
+						if (help[i] > Integer.parseInt(res[i].getText())) {
+							Font helpf = themeManager.getFont("normalR");
+							if (!resK[i].getFont().equals(helpf)) {
+								resK[i].setFont(helpf);
+							}
+						} else {
+							Font helpf = themeManager.getFont("normalG");
+							if (!resK[i].getFont().equals(helpf)) {
+								resK[i].setFont(helpf);
+							}
 						}
 					} else {
-						Font helpf = themeManager.getFont("normalG");
-						if (!resK[i].getFont().equals(helpf)) {
-							resK[i].setFont(helpf);
+						resK[i].setText("");
+						if (resK[i].getBackground() != null) {
+							resK[i].setBackground(null);
 						}
 					}
-				} else {
-					resK[i].setText("");
-					if (resK[i].getBackground() != null) {
-						resK[i].setBackground(null);
+				}
+			} else {
+				for (Label label : resK) {
+					label.setText("");
+					if (label.getBackground() != null) {
+						label.setBackground(null);
 					}
 				}
 			}
-		} else {
-			for (Label label : resK) {
-				label.setText("");
-				if (label.getBackground() != null) {
-					label.setBackground(null);
-				}
-			}
+			updateticks=0;
 		}
+		updateticks++;
 	}
 
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
