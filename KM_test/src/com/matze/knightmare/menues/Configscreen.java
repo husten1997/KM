@@ -45,6 +45,7 @@ public class Configscreen extends Optionsframesuperklasse implements
 	private String schwierigkeiten[] = { "Leicht", "Mittel", "Schwer" };
 	private String inhalt[] = { "Spieleranzahl:", "Name:", "Typ:", "Team:",
 			"Schwierigkeit:", "Bild:" };
+	private Color c[] = new Color[8];
 
 	// Worldgen
 	private JLabel[] sett;
@@ -184,6 +185,11 @@ public class Configscreen extends Optionsframesuperklasse implements
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == bild[0]){
+			new Profil(false, "back.png", "Knightmare: Profil", this);
+			setVisible(false);
+		}
+		
 		if (e.getSource() == zurück) {
 			MainMenue.instance.dispose();
 			MainMenue.instance.setUndecorated(isUndecorated());
@@ -248,7 +254,6 @@ public class Configscreen extends Optionsframesuperklasse implements
 				remove();
 			}
 
-			Color c[] = new Color[8];
 			c[1] = Color.white;
 			c[2] = Color.blue;
 			c[3] = Color.gray;
@@ -307,6 +312,8 @@ public class Configscreen extends Optionsframesuperklasse implements
 					schwierigkeit[i].setSelectedIndex(Integer.parseInt(Loader
 							.getCfgValue("SETTINGS: Default difficulty")));
 				}
+				
+				bild[i].addActionListener(this);
 
 				if (i == 0)
 					spielerArt[i].setSelectedIndex(1);
@@ -363,6 +370,23 @@ public class Configscreen extends Optionsframesuperklasse implements
 		Loader.changeCfgValue("SETTINGS: Startzeit", time);
 		System.out.println(Loader.getCfgValue("SETTINGS: Startzeit") + ";");
 		refresh();
+	}
+	
+	public void refreshBild(){
+		for (int i = 0; i < bild.length; i++){
+			if (i != 0) {
+				bild[i].setBackground(c[i]);
+			} else {
+				ic.setImage(ic.getImage().getScaledInstance(
+						bild[i].getWidth(), bild[i].getHeight(),
+						Image.SCALE_SMOOTH));
+				bild[i].setIcon(ic);
+				System.out.println(Integer.parseInt(Loader
+						.getCfgValue("SETTINGS: Default difficulty")));
+				schwierigkeit[i].setSelectedIndex(Integer.parseInt(Loader
+						.getCfgValue("SETTINGS: Default difficulty")));
+			}
+		}
 	}
 
 }

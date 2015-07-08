@@ -31,10 +31,14 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 	
 	private JTextField name[];
 	private JButton zurück, profil;
+	
+	private Configscreen c;
 
-	protected Profil(boolean inGame, String imgName, String namen) {
+	protected Profil(boolean inGame, String imgName, String namen, Configscreen config) {
 		super(imgName, namen);
 		this.inGame = inGame;
+		
+		c = config;
 		
 		//Schwierigkeit
 		difficulty = new JTextField("Schwierigkeit:");
@@ -107,18 +111,26 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
 		Loader.changeCfgValue("SETTINGS: Default difficulty", ""+(schwierigkei.getSelectedIndex()));
 		if (e.getSource() == zurück) {
-			if (inGame){
-				InGameOptionen.instance.dispose();
-				InGameOptionen.instance.setUndecorated(isUndecorated());
-				InGameOptionen.instance.setVisible(true);
-				InGameOptionen.instance.setAutoRequestFocus(true);
-				dispose();
+			if (c != null) {
+				c.setVisible(true);
+				c.refreshBild();
+				c.refresh();
+				c.remove();
+				this.dispose();
 			} else {
-				Optionen.instance.dispose();
-				Optionen.instance.setUndecorated(isUndecorated());
-				Optionen.instance.setVisible(true);
-				Optionen.instance.setAutoRequestFocus(true);
-				dispose();
+				if (inGame) {
+					InGameOptionen.instance.dispose();
+					InGameOptionen.instance.setUndecorated(isUndecorated());
+					InGameOptionen.instance.setVisible(true);
+					InGameOptionen.instance.setAutoRequestFocus(true);
+					dispose();
+				} else {
+					Optionen.instance.dispose();
+					Optionen.instance.setUndecorated(isUndecorated());
+					Optionen.instance.setVisible(true);
+					Optionen.instance.setAutoRequestFocus(true);
+					dispose();
+				}
 			}
 		}
 		
@@ -160,18 +172,26 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
-				if (inGame){
-					InGameOptionen.instance.dispose();
-					InGameOptionen.instance.setUndecorated(isUndecorated());
-					InGameOptionen.instance.setVisible(true);
-					InGameOptionen.instance.setAutoRequestFocus(true);
-					dispose();
+				if (c != null) {
+					c.setVisible(true);
+					c.refreshBild();
+					c.refresh();
+					c.remove();
+					this.dispose();
 				} else {
-					Optionen.instance.dispose();
-					Optionen.instance.setUndecorated(isUndecorated());
-					Optionen.instance.setVisible(true);
-					Optionen.instance.setAutoRequestFocus(true);
-					dispose();
+					if (inGame) {
+						InGameOptionen.instance.dispose();
+						InGameOptionen.instance.setUndecorated(isUndecorated());
+						InGameOptionen.instance.setVisible(true);
+						InGameOptionen.instance.setAutoRequestFocus(true);
+						dispose();
+					} else {
+						Optionen.instance.dispose();
+						Optionen.instance.setUndecorated(isUndecorated());
+						Optionen.instance.setVisible(true);
+						Optionen.instance.setAutoRequestFocus(true);
+						dispose();
+					}
 				}
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))) {
 				Loader.changeCfgValue("CONTROL_KEY: V-Sync", Loader.getCfgValue("CONTROL_KEY: V-Sync").equals("On") ? "Off" : "On");
