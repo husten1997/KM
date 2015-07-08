@@ -162,7 +162,7 @@ public class Optionen extends Optionsframesuperklasse implements ChangeListener,
 		}
 		
 		if (q == optionen[3]){
-			new Profil(inGame, "back.png", "Knightmare: Profileinstellungen", null);
+			new Profil(inGame, "back.png", "Knightmare: Profileinstellungen", false);
 			dispose();
 		}
 

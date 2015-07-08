@@ -186,8 +186,8 @@ public class Configscreen extends Optionsframesuperklasse implements
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bild[0]){
-			new Profil(false, "back.png", "Knightmare: Profil", this);
-			setVisible(false);
+			new Profil(false, "back.png", "Knightmare: Profil", true);
+			this.dispose();
 		}
 		
 		if (e.getSource() == zurück) {

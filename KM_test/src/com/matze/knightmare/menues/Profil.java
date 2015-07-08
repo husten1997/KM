@@ -32,9 +32,9 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 	private JTextField name[];
 	private JButton zurück, profil;
 	
-	private Configscreen c;
+	private boolean c;
 
-	protected Profil(boolean inGame, String imgName, String namen, Configscreen config) {
+	protected Profil(boolean inGame, String imgName, String namen, boolean config) {
 		super(imgName, namen);
 		this.inGame = inGame;
 		
@@ -111,11 +111,8 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
 		Loader.changeCfgValue("SETTINGS: Default difficulty", ""+(schwierigkei.getSelectedIndex()));
 		if (e.getSource() == zurück) {
-			if (c != null) {
-				c.setVisible(true);
-				c.refreshBild();
-				c.refresh();
-				c.remove();
+			if (c) {
+				new Configscreen("back.png", "Knightmare: Configscreen");
 				this.dispose();
 			} else {
 				if (inGame) {
@@ -172,11 +169,8 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Volume +"))) {
 				MoodMusic.changeVolume(+0.5f);
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Escape/Zurück"))) {
-				if (c != null) {
-					c.setVisible(true);
-					c.refreshBild();
-					c.refresh();
-					c.remove();
+				if (c) {
+					new Configscreen("back.png", "Knightmare: Configscreen");
 					this.dispose();
 				} else {
 					if (inGame) {
