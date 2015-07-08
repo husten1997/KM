@@ -14,8 +14,8 @@ public class Spieler {
 	private String name;
 	private ArrayList<Building> lager = new ArrayList<>(),
 			schatzkammern = new ArrayList<>(),
-			waffenkammer = new ArrayList<>(), kornSpeicher = new ArrayList<>(),
-			maktplätze = new ArrayList<>();
+			waffenkammer = new ArrayList<>(), kornspeicher = new ArrayList<>(),
+			marktplätze = new ArrayList<>();
 
 	public boolean hatLager() {
 		return lager.size() > 0;
@@ -26,7 +26,19 @@ public class Spieler {
 	}
 
 	public boolean hatMarktplatz() {
-		return maktplätze.size() > 0;
+		return marktplätze.size() > 0;
+	}
+	
+	public int hatWievieleMarktplatz() {
+		return marktplätze.size();
+	}
+
+	public boolean hatKornspeicher() {
+		return kornspeicher.size() > 0;
+	}
+	
+	public int hatWievieleKornspeicher() {
+		return kornspeicher.size();
 	}
 
 	public Spieler(int SpielerNR, String name, int team, String typ,
@@ -75,7 +87,7 @@ public class Spieler {
 			}
 		}
 		if (warenID == 10) {
-			for (Building k : kornSpeicher) {
+			for (Building k : kornspeicher) {
 				int frei = k.getMaxLagerKap();
 				for (Waren ware : k.getBenötigt()) {
 					frei -= ware.getAmount();
@@ -89,7 +101,7 @@ public class Spieler {
 			}
 		}
 		if (warenID == 12) {
-			for (Building m : maktplätze) {
+			for (Building m : marktplätze) {
 				int frei = m.getMaxLagerKap();
 				for (Waren ware : m.getBenötigt()) {
 					frei -= ware.getAmount();
@@ -143,7 +155,7 @@ public class Spieler {
 			}
 		}
 		if (warenID == 10) {
-			for (Building k : kornSpeicher) {
+			for (Building k : kornspeicher) {
 				int drin = k.getBenötigt()[warenID].getAmount();
 				int abziehen = Math.min(drin, amount);
 				k.deminishWarenAmount(warenID, abziehen);
@@ -154,7 +166,7 @@ public class Spieler {
 			}
 		}
 		if (warenID == 12) {
-			for (Building m : maktplätze) {
+			for (Building m : marktplätze) {
 				int drin = m.getBenötigt()[warenID].getAmount();
 				int abziehen = Math.min(drin, amount);
 				m.deminishWarenAmount(warenID, abziehen);
@@ -201,13 +213,13 @@ public class Spieler {
 			return help;
 		}
 		if (index == 10) {
-			for (Building Kornspeicher : kornSpeicher) {
+			for (Building Kornspeicher : kornspeicher) {
 				help += Kornspeicher.getBenötigt()[index].getAmount();
 			}
 			return help;
 		}
 		if (index == 12) {
-			for (Building marktplatz : maktplätze) {
+			for (Building marktplatz : marktplätze) {
 				help += marktplatz.getBenötigt()[index].getAmount();
 			}
 			return help;

@@ -456,8 +456,12 @@ public class Knightmare extends Widget implements StringConstants {
 										aktuellesGebäude, new Pos(xR * 32,
 												yR * 32), spieler[0]);
 								boolean hilfsboolean = false;
+								boolean hilfsboolean2 = false;
+								boolean hilfsboolean3 = false;
 								if (b != null) {
 									hilfsboolean = b.getSpieler().hatLager();
+									hilfsboolean2 = b.getSpieler().hatMarktplatz();
+									hilfsboolean3 = b.getSpieler().hatKornspeicher();
 								}
 								System.out.println(hilfsboolean);
 								if (b == null) {
@@ -472,6 +476,16 @@ public class Knightmare extends Widget implements StringConstants {
 									}
 								} else if (/* handler.place(b) */newHandler
 										.place(b)) {
+									if(b.getIndex()==15){
+										if(!hilfsboolean2){
+											b.getSpieler().verteilen(12, 8);
+										}
+									}
+									if(b.getIndex()==14){
+										if(!hilfsboolean3){
+											b.getSpieler().verteilen(10, 8);
+										}
+									}
 									// b.setSort(0);
 									// initRender(b, 1);
 									if (hilfsboolean) {
@@ -534,6 +548,22 @@ public class Knightmare extends Widget implements StringConstants {
 							if(on instanceof Building){
 								if(((Building) on).getIndex()==2&&!(on.getSpieler().hatWievieleLager()>1)){
 									labelZuTeuer.setText("Wir können unser letztes Lager nicht abreißen, Sir");
+									if(getChildIndex(labelZuTeuer)==-1){
+										add(labelZuTeuer);
+										gednedShown = true;
+									}
+									break;
+								}
+								if(((Building) on).getIndex()==14&&!(on.getSpieler().hatWievieleKornspeicher()>1)){
+									labelZuTeuer.setText("Wir können unseren letzten Kornspeicher nicht abreißen, Sir");
+									if(getChildIndex(labelZuTeuer)==-1){
+										add(labelZuTeuer);
+										gednedShown = true;
+									}
+									break;
+								}
+								if(((Building) on).getIndex()==15&&!(on.getSpieler().hatWievieleMarktplatz()>1)){
+									labelZuTeuer.setText("Wir können unseren letzten Marktplatz nicht abreißen, Sir");
 									if(getChildIndex(labelZuTeuer)==-1){
 										add(labelZuTeuer);
 										gednedShown = true;
