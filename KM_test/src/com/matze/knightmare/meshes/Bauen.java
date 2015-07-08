@@ -226,7 +226,7 @@ public class Bauen {
 			int[] amountBenötigt = new int[am];
 
 			benötigt[0] = Rohstoffe.Mensch();
-			amountBenötigt[0] = 0;
+			amountBenötigt[0] = 2;
 
 			b.init(30, 1, 0, 0, "Haus", benötigt, amountBenötigt,
 					Rohstoffe.Mensch(), 8);
@@ -237,6 +237,7 @@ public class Bauen {
 				public void run() {
 					b.setProduktionProMinute(1);
 					b.WareFertigstellen();
+					b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), 3);
 					// TODO ppm so ändern dass effektivität pro gebäude um 50%
 					// gesteigert wird, steht es alleine in einem bestimmten
 					// sektor, wird die produktion pro minute um 50% gesenkt
