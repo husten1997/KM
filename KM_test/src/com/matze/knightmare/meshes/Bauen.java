@@ -261,14 +261,15 @@ public class Bauen {
 							public void run() {
 								b.setProduktionProMinute(1);
 
-//								if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())
-//										- amountBenötigt[0] >= 0) {
-									b.getSpieler().verteilen(
-											Rohstoffe.Mensch().getID(), 1);
-//									b.getSpieler().abziehen(
-//											Rohstoffe.Mensch().getID(), 2);
+								if (b.getSpieler().getAmountofResource(Rohstoffe.Fleisch().getID()) - 2 >= 0){
+									b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), 1);
 									b.getSpieler().verteilen(9, 1);
-//								}
+									b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 2);
+								} else {
+									if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) > 1){
+										b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 1);
+									}
+								}
 								
 								// TODO ppm so ändern dass effektivität pro
 								// gebäude um 50%
@@ -397,6 +398,7 @@ public class Bauen {
 										.getAmountProduzierterWareAuslesen() == b
 										.getMaxLagerKap()))) {
 									b.WareFertigstellen();
+									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), 1);
 								}
 							}
 
