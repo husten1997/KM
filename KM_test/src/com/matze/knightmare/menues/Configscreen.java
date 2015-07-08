@@ -185,10 +185,6 @@ public class Configscreen extends Optionsframesuperklasse implements
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == bild[0]){
-			new Profil(false, "back.png", "Knightmare: Profil", true);
-			this.dispose();
-		}
 		
 		if (e.getSource() == zurück) {
 			MainMenue.instance.dispose();
@@ -196,6 +192,13 @@ public class Configscreen extends Optionsframesuperklasse implements
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
+		}
+		
+		if (bild[0].getIcon().toString().equals(Loader.getCfgValue("SETTINGS: Profilbild"))) {
+			if (e.getSource() == bild[0]) {
+				new Profil(false, "back.png", "Knightmare: Profil", true);
+				this.dispose();
+			}
 		}
 
 		if (e.getSource() == random) {
