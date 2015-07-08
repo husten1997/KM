@@ -54,12 +54,16 @@ import de.matthiasmann.twl.theme.ThemeManager;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1;
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */,
+			cursorIndex = 0, category = -1, aktuellesGebäude = -1;
 	@SuppressWarnings("unused")
-	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
+	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5,
+			rückerstattungsanteil = 0.5;
 	private String inGameStat = state.S_TRUPS;
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true;
+	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus")
+			.equals("false"), Vsync = false, running = true,
+			baumenueShowen = true;
 	private Soldat figur;
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
@@ -69,7 +73,8 @@ public class Knightmare extends Widget implements StringConstants {
 	// private ArrayList<RectangleGraphicalObject> selection = new
 	// ArrayList<>();
 	@SuppressWarnings("unchecked")
-	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
+	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen],
+			ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
 	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
 	private int renderD = 5;
@@ -84,9 +89,12 @@ public class Knightmare extends Widget implements StringConstants {
 		this.spieler = spieler;
 		start();
 	}
-	
-	public void setAllWG(int smoothS, double lW, double lS, double lG, double lR, double wE, double wK, float routh, float fallof, float hMulti, int seed){
-		terrain.setAll(smoothS, lW, lS, lG, lR, wE, wK, routh, fallof, hMulti, seed);
+
+	public void setAllWG(int smoothS, double lW, double lS, double lG,
+			double lR, double wE, double wK, float routh, float fallof,
+			float hMulti, int seed) {
+		terrain.setAll(smoothS, lW, lS, lG, lR, wE, wK, routh, fallof, hMulti,
+				seed);
 	}
 
 	private void start() {
@@ -106,9 +114,11 @@ public class Knightmare extends Widget implements StringConstants {
 		setCategory();
 		for (int j = 0; j < categories.length; j++) {
 			if (j != category) {
-				categories[j].getAnimationState().setAnimationState(STATE_DISABLED, true);
+				categories[j].getAnimationState().setAnimationState(
+						STATE_DISABLED, true);
 			} else {
-				categories[j].getAnimationState().setAnimationState(STATE_DISABLED, false);
+				categories[j].getAnimationState().setAnimationState(
+						STATE_DISABLED, false);
 			}
 		}
 
@@ -202,7 +212,8 @@ public class Knightmare extends Widget implements StringConstants {
 			});
 		}
 		DN = new DNCycl();
-		initRender(new RectangleGraphicalObject(new Pos(0, 0), 1, 1, "", false), 1);
+		initRender(
+				new RectangleGraphicalObject(new Pos(0, 0), 1, 1, "", false), 1);
 		// will versuchen dummy objekt einzufügen damit die buttons gehen
 
 	}
@@ -246,7 +257,8 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private int getKeyCode(String k) {
-		return Keyboard.getKeyIndex(DictionaryE.getFullName(Loader.getCfgValue(k)));
+		return Keyboard.getKeyIndex(DictionaryE.getFullName(Loader
+				.getCfgValue(k)));
 	}
 
 	private void pollInput() throws Exception {
@@ -263,7 +275,8 @@ public class Knightmare extends Widget implements StringConstants {
 			guiPollInput();
 			if (Keyboard.getEventKeyState()) {
 
-				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Escape/Zurück").equals(
+						gFN(Keyboard.getEventKey()))) {
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
@@ -274,10 +287,12 @@ public class Knightmare extends Widget implements StringConstants {
 					return;
 				}
 
-				if (getString("CONTROL_KEY: Abreißen").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Abreißen").equals(
+						gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIßEN;
 					if (cursorIndex == 0) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
+						gui.setMouseCursor((MouseCursor) themeManager
+								.getCursor("cursorDel"));
 						cursorIndex = 1;
 					}
 				}
@@ -288,7 +303,8 @@ public class Knightmare extends Widget implements StringConstants {
 					scale = 1f;
 				}
 
-				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Quicksave").equals(
+						gFN(Keyboard.getEventKey()))) {
 					// TODO name
 					Loader.speichern("Test");
 				}
@@ -296,7 +312,8 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
 					inGameStat = state.S_TRUPS;
 					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						gui.setMouseCursor((MouseCursor) themeManager
+								.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
 					System.out.println(inGameStat);
@@ -305,17 +322,20 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_V) {
 					inGameStat = state.S_BUILDINGS;
 					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						gui.setMouseCursor((MouseCursor) themeManager
+								.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
 					System.out.println(inGameStat);
 				}
 
-				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(
+						gFN(Keyboard.getEventKey()))) {
 					baumenueShowen = !baumenueShowen;
 					// inGameStat = state.N_BUILDINGS;
 					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						gui.setMouseCursor((MouseCursor) themeManager
+								.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
 					System.out.println(inGameStat);
@@ -324,7 +344,8 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_N) {
 					inGameStat = state.N_TRUPS;
 					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						gui.setMouseCursor((MouseCursor) themeManager
+								.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
 					System.out.println(inGameStat);
@@ -332,18 +353,22 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_J) {
 					inGameStat = state.NF_TROOP;
 					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+						gui.setMouseCursor((MouseCursor) themeManager
+								.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
 					System.out.println(inGameStat);
 				}
-				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Volume -").equals(
+						gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(-0.5f);
 				}
-				if (getString("CONTROL_KEY: Volume +").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Volume +").equals(
+						gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(0.5f);
 				}
-				if (getString("CONTROL_KEY: V-Sync").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: V-Sync").equals(
+						gFN(Keyboard.getEventKey()))) {
 					Vsync = !Vsync;
 				}
 
@@ -351,11 +376,13 @@ public class Knightmare extends Widget implements StringConstants {
 				// System.out.println(selection.size());
 				// }
 
-				if (getString("CONTROL_KEY: Musik wechseln").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Musik wechseln").equals(
+						gFN(Keyboard.getEventKey()))) {
 					MoodMusic.nextClip();
 				}
 
-				if (getString("CONTROL_KEY: Scrollen -").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Scrollen -").equals(
+						gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
 					scale += zomingSpeed;
@@ -378,7 +405,8 @@ public class Knightmare extends Widget implements StringConstants {
 					}
 
 				}
-				if (getString("CONTROL_KEY: Scrollen +").equals(gFN(Keyboard.getEventKey()))) {
+				if (getString("CONTROL_KEY: Scrollen +").equals(
+						gFN(Keyboard.getEventKey()))) {
 					double width = WIDTH * scale;
 					double height = HEIGHT * scale;
 					scale -= zomingSpeed;
@@ -425,25 +453,33 @@ public class Knightmare extends Widget implements StringConstants {
 						switch (inGameStat) {
 						case state.N_BUILDINGS:
 							if (aktuellesGebäude != -1) {
-								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
+								Building b = Bauen.getBuildingforID(
+										aktuellesGebäude, new Pos(xR * 32,
+												yR * 32), spieler[0]);
 								boolean hilfsboolean = false;
 								if (b != null) {
 									hilfsboolean = b.getSpieler().hatLager();
 								}
 								System.out.println(hilfsboolean);
 								if (b == null) {
+									if(spieler[0].hatLager()){
+										labelZuTeuer.setText("Das können wir uns nicht leisten, Sir");
+									}else{
+										labelZuTeuer.setText("Wir müssen ein Lager plazieren, Sir");
+									}
 									add(labelZuTeuer);
 									gednedShown = true;
-								} else if (/* handler.place(b) */newHandler.place(b)) {
+								} else if (/* handler.place(b) */newHandler
+										.place(b)) {
 									// b.setSort(0);
 									// initRender(b, 1);
 									if (hilfsboolean) {
 										Bauen.kostenAbziehen(b);
 									} else {
 										// TODO Startrohstoffe
-										b.getSpieler().verteilen(2, 30);
+										b.getSpieler().verteilen(2, 300);
 										b.getSpieler().verteilen(0, 5);
-										b.getSpieler().verteilen(8, 1500);
+										b.getSpieler().verteilen(8, 250);
 
 										b.setKostetWarevonIndex(2, 10);
 										b.setKostetWarevonIndex(8, 5);
@@ -452,14 +488,16 @@ public class Knightmare extends Widget implements StringConstants {
 							}
 							break;
 						case state.N_TRUPS:
-							Soldat s = Rekrutieren.Hussar(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[0]);
+							Soldat s = Rekrutieren.Hussar(xR * 32 + 16,
+									yR * 32 + 16, 32, 32, spieler[0]);
 							if (/* handler.place(s) */newHandler.place(s)) {
 								// s.setSort(1);
 								// initRender(s, 1);
 							}
 							break;
 						case state.NF_TROOP:
-							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[1]);
+							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32 + 16,
+									yR * 32 + 16, 32, 32, spieler[1]);
 							if (/* handler.place(sf) */newHandler.place(sf)) {
 								// sf.setSort(1);
 								// initRender(sf, 1);
@@ -468,8 +506,11 @@ public class Knightmare extends Widget implements StringConstants {
 						case state.S_TRUPS:
 							newHandler.search(x, y);
 							if (newHandler.getSelection().size() > 0) {
-								if (newHandler.getSelection().get(newHandler.getSelection().size() - 1) instanceof Soldat) {
-									figur = (Soldat) newHandler.getSelection().get(newHandler.getSelection().size() - 1);
+								if (newHandler.getSelection().get(
+										newHandler.getSelection().size() - 1) instanceof Soldat) {
+									figur = (Soldat) newHandler.getSelection()
+											.get(newHandler.getSelection()
+													.size() - 1);
 								}
 							}
 							// search(x, y);
@@ -488,11 +529,16 @@ public class Knightmare extends Widget implements StringConstants {
 							 * RectangleGraphicalObject h = handler.abreißen(xR,
 							 * yR)
 							 */
-							RectangleGraphicalObject help = newHandler.remove(xR, yR);
+							RectangleGraphicalObject help = newHandler.remove(
+									xR, yR);
 							if (help instanceof Building) {
-								int[] kosten = ((Building) help).getKostetWarevonArray();
+								int[] kosten = ((Building) help)
+										.getKostetWarevonArray();
 								for (int i = 0; i < kosten.length; i++) {
-									help.getSpieler().verteilen(i, (int) Math.round(kosten[i] * rückerstattungsanteil));
+									help.getSpieler().verteilen(
+											i,
+											(int) Math.round(kosten[i]
+													* rückerstattungsanteil));
 									// help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i)
 									// + (int)
 									// Math.round(kosten[i]*rückerstattungsanteil),
@@ -509,7 +555,8 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 
 				if (Mouse.getEventButton() == 2) {
-					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
+					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY
+							+ Mouse.getY() * scale);
 					// ang = new Pos(Mouse.getX(), Mouse.getY());
 				}
 				if (Mouse.getEventButton() == 1) {
@@ -554,7 +601,8 @@ public class Knightmare extends Widget implements StringConstants {
 
 						switch (inGameStat) {
 						case state.S_TRUPS:
-							newHandler.search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
+							newHandler.search(pos1.getX(), pos1.getY(),
+									pos2.getX(), pos2.getY());
 							// for (int i = 0; i < selection.size(); i++) {
 							// if
 							// (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT))
@@ -662,28 +710,32 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera oben"))) {
-			CameraY += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraY += (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
 
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera links"))) {
-			CameraX -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraX -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
 
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera unten"))) {
-			CameraY -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraY -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
 
 		}
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Kamera rechts"))) {
-			CameraX += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraX += (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
@@ -691,28 +743,32 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		if (Mouse.getX() < 32) {
-			CameraX -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraX -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraX < 0) {
 				CameraX = 0;
 			}
 
 		}
 		if (Mouse.getX() > WIDTH - 32) {
-			CameraX += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraX += (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraX > terrain.getWidth() * 32 - WIDTH * scale) {
 				CameraX = terrain.getWidth() * 32 - WIDTH * scale;
 			}
 
 		}
 		if (Mouse.getY() < 32) {
-			CameraY -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraY -= (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraY < 0) {
 				CameraY = 0;
 			}
 
 		}
 		if (Mouse.getY() > HEIGHT - 32) {
-			CameraY += (scrollingSpeed * scale) * gui.getCurrentDeltaTime() * 0.5;
+			CameraY += (scrollingSpeed * scale) * gui.getCurrentDeltaTime()
+					* 0.5;
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
 			}
@@ -868,7 +924,9 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {
 		// return if requested DisplayMode is already set
-		if ((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
+		if ((Display.getDisplayMode().getWidth() == width)
+				&& (Display.getDisplayMode().getHeight() == height)
+				&& (Display.isFullscreen() == fullscreen)) {
 			return;
 		}
 
@@ -882,9 +940,13 @@ public class Knightmare extends Widget implements StringConstants {
 				for (int i = 0; i < modes.length; i++) {
 					DisplayMode current = modes[i];
 
-					if ((current.getWidth() == width) && (current.getHeight() == height)) {
-						if ((targetDisplayMode == null) || (current.getFrequency() >= freq)) {
-							if ((targetDisplayMode == null) || (current.getBitsPerPixel() > targetDisplayMode.getBitsPerPixel())) {
+					if ((current.getWidth() == width)
+							&& (current.getHeight() == height)) {
+						if ((targetDisplayMode == null)
+								|| (current.getFrequency() >= freq)) {
+							if ((targetDisplayMode == null)
+									|| (current.getBitsPerPixel() > targetDisplayMode
+											.getBitsPerPixel())) {
 								targetDisplayMode = current;
 								freq = targetDisplayMode.getFrequency();
 							}
@@ -895,8 +957,10 @@ public class Knightmare extends Widget implements StringConstants {
 						// original display mode then it's probably best to go
 						// for this one
 						// since it's most likely compatible with the monitor
-						if ((current.getBitsPerPixel() == Display.getDesktopDisplayMode().getBitsPerPixel())
-								&& (current.getFrequency() == Display.getDesktopDisplayMode().getFrequency())) {
+						if ((current.getBitsPerPixel() == Display
+								.getDesktopDisplayMode().getBitsPerPixel())
+								&& (current.getFrequency() == Display
+										.getDesktopDisplayMode().getFrequency())) {
 							targetDisplayMode = current;
 							break;
 						}
@@ -907,14 +971,16 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 
 			if (targetDisplayMode == null) {
-				System.out.println("Failed to find value mode: " + width + "x" + height + " fs=" + fullscreen);
+				System.out.println("Failed to find value mode: " + width + "x"
+						+ height + " fs=" + fullscreen);
 				return;
 			}
 
 			Display.setDisplayMode(targetDisplayMode);
 			Display.setFullscreen(fullscreen);
 		} catch (LWJGLException e) {
-			System.out.println("Unable to setup mode " + width + "x" + height + " fullscreen=" + fullscreen + e);
+			System.out.println("Unable to setup mode " + width + "x" + height
+					+ " fullscreen=" + fullscreen + e);
 		}
 	}
 
@@ -963,10 +1029,12 @@ public class Knightmare extends Widget implements StringConstants {
 		if (width > 1920) {
 			width = 1920;
 		}
-		if (x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2 && y > HEIGHT - kopfframe.getHeight()) {
+		if (x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2
+				&& y > HEIGHT - kopfframe.getHeight()) {
 			return true;
 		}
-		return baumenueShowen && x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2 && y < width / 7;
+		return baumenueShowen && x > (WIDTH - width) / 2
+				&& x < (WIDTH + width) / 2 && y < width / 7;
 	}
 
 	private void initUI() {
@@ -982,12 +1050,16 @@ public class Knightmare extends Widget implements StringConstants {
 		try {
 			URL url = null;
 			try {
-				url = new URL(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/menue.xml").toString());
+				url = new URL(new StringBuilder(Loader.getTexturePath()
+						.replace('\\', '/')).append("/menue.xml").toString());
 			} catch (MalformedURLException e) {
 				// Leck mich
 			}
-			URL url2 = MainGUI.class.getResource(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/menue.xml").toString());
-			themeManager = ThemeManager.createThemeManager((url == null ? url2 : url), renderer);
+			URL url2 = MainGUI.class.getResource(new StringBuilder(Loader
+					.getTexturePath().replace('\\', '/')).append("/menue.xml")
+					.toString());
+			themeManager = ThemeManager.createThemeManager((url == null ? url2
+					: url), renderer);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1010,8 +1082,10 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button[][] gebäude = new Button[6][10];
 	private Label[] res = new Label[11];
 	private Label[] resK = new Label[11];
-	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas" };
-	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Glas" };
+	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech",
+			"ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IGlas" };
+	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech",
+			"Sand", "Weizen", "Lehm", "Stein", "Münzen", "Glas" };
 	private boolean removeGedNed = false, gednedShown = false;
 	private int showGedNedSeitWann;
 
@@ -1021,54 +1095,80 @@ public class Knightmare extends Widget implements StringConstants {
 		if (width > 1920) {
 			width = 1920;
 		}
-		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
+		
+		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16,
+				HEIGHT - width / 7 + 75);
 		gebäude[0][0].setSize(64, 64);
 		gebäude[0][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
 		gebäude[0][1].setSize(64, 64);
-		gebäude[0][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		gebäude[0][1].setPosition((int) baustart.getX() + 74,
+				(int) baustart.getY());
 		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
 		gebäude[0][2].setSize(64, 64);
-		gebäude[0][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
+		gebäude[0][2].setPosition((int) baustart.getX() + 148,
+				(int) baustart.getY());
 		gebäude[0][2].setBackground(themeManager.getImage("lager"));
 		gebäude[0][3].setSize(64, 64);
-		gebäude[0][3].setPosition((int) baustart.getX() + 222, (int) baustart.getY());
+		gebäude[0][3].setPosition((int) baustart.getX() + 222,
+				(int) baustart.getY());
 		gebäude[0][3].setBackground(themeManager.getImage("Sandschmelze"));
 
 		gebäude[1][0].setSize(64, 64);
 		gebäude[1][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[1][0].setBackground(themeManager.getImage("Holz"));
 		gebäude[1][1].setSize(64, 64);
-		gebäude[1][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		gebäude[1][1].setPosition((int) baustart.getX() + 74,
+				(int) baustart.getY());
 		gebäude[1][1].setBackground(themeManager.getImage("Steinbruch"));
 
-		gebäude[3][0].setSize(64, 64);
+		gebäude[2][0].setSize(64, 64);
+		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
+		gebäude[2][0].setBackground(themeManager.getImage("Waffenkammer"));
+
+		gebäude[3][0].setSize(32, 32);
 		gebäude[3][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[3][0].setBackground(themeManager.getImage("Hof"));
+		gebäude[3][0].setBackground(themeManager.getImage("Kornspeicher"));
 		gebäude[3][1].setSize(64, 64);
-		gebäude[3][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
-		gebäude[3][1].setBackground(themeManager.getImage("Viecha"));
+		gebäude[3][1].setPosition((int) baustart.getX()+42, (int) baustart.getY());
+		gebäude[3][1].setBackground(themeManager.getImage("Hof"));
+		gebäude[3][2].setSize(64, 64);
+		gebäude[3][2].setPosition((int) baustart.getX() + 116,
+				(int) baustart.getY());
+		gebäude[3][2].setBackground(themeManager.getImage("Viecha"));
 
 		gebäude[4][0].setSize(64, 64);
 		gebäude[4][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[4][0].setBackground(themeManager.getImage("Turm"));
 		gebäude[4][1].setSize(32, 32);
-		gebäude[4][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		gebäude[4][1].setPosition((int) baustart.getX() + 74,
+				(int) baustart.getY());
 		gebäude[4][1].setBackground(themeManager.getImage("Mauer"));
 
 		gebäude[5][0].setSize(64, 32);
 		gebäude[5][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[5][0].setBackground(themeManager.getImage("Haus"));
+		gebäude[5][1].setSize(64, 32);
+		gebäude[5][1].setPosition((int) baustart.getX() + 74,
+				(int) baustart.getY());
+		gebäude[5][1].setBackground(themeManager.getImage("Schatzkammer"));
+		gebäude[5][2].setSize(64, 64);
+		gebäude[5][2].setPosition((int) baustart.getX() + 148,
+				(int) baustart.getY());
+		gebäude[5][2].setBackground(themeManager.getImage("Marktplatz"));
 
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
 		kopfframe.setPosition((WIDTH - width) / 2, 0);
 		kopfframe.setBackground(themeManager.getImageNoWarning("kopfzeile"));
 
-		Pos start = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - 85);
+		Pos start = new Pos((WIDTH - width) / 2 + width / 4 + width / 16,
+				HEIGHT - 85);
 		for (int i = 0; i < categories.length; i++) {
 			categories[i].setSize(40, 40);
-			categories[i].setPosition((int) start.getX() + 40 * i, (int) start.getY());
-			categories[i].setBackground(themeManager.getImageNoWarning(imgs[i]));
+			categories[i].setPosition((int) start.getX() + 40 * i,
+					(int) start.getY());
+			categories[i]
+					.setBackground(themeManager.getImageNoWarning(imgs[i]));
 		}
 
 		menue.setSize(kopfframe.getHeight() * 2 - 7, kopfframe.getHeight() - 12);
@@ -1077,33 +1177,42 @@ public class Knightmare extends Widget implements StringConstants {
 		menue.setFont(themeManager.getFont("normalB"));
 
 		einstellungen.setSize(menue.getHeight(), menue.getHeight());
-		einstellungen.setPosition(menue.getX() - einstellungen.getWidth(), menue.getY());
+		einstellungen.setPosition(menue.getX() - einstellungen.getWidth(),
+				menue.getY());
 		einstellungen.setBackground(themeManager.getImage("cfg"));
 
 		l_fps.adjustSize();
-		l_fps.setPosition((WIDTH - width) / 2 + 7, (kopfframe.getHeight() - l_fps.getHeight()) / 2);
+		l_fps.setPosition((WIDTH - width) / 2 + 7,
+				(kopfframe.getHeight() - l_fps.getHeight()) / 2);
 
 		l_time.adjustSize();
-		l_time.setPosition(WIDTH / 2 - l_time.getWidth() / 2, (kopfframe.getHeight() - l_time.getHeight()) / 2);
+		l_time.setPosition(WIDTH / 2 - l_time.getWidth() / 2,
+				(kopfframe.getHeight() - l_time.getHeight()) / 2);
 
 		labelZuTeuer.adjustSize();
-		labelZuTeuer.setPosition((WIDTH - labelZuTeuer.getWidth()) / 2, (HEIGHT - labelZuTeuer.getHeight()) / 2);
+		labelZuTeuer.setPosition((WIDTH - labelZuTeuer.getWidth()) / 2,
+				(HEIGHT - labelZuTeuer.getHeight()) / 2);
 
 		res[0].setText(String.valueOf(spieler[0].getAmountofResource(0)));
 		res[0].adjustSize();
-		res[0].setSize(Math.max(res[0].getWidth(), res[0].getHeight()), Math.max(res[0].getWidth(), res[0].getHeight()));
-		res[0].setPosition(l_fps.getX() + l_fps.getWidth() + 10, (kopfframe.getHeight() - res[0].getHeight()) / 2);
+		res[0].setSize(Math.max(res[0].getWidth(), res[0].getHeight()),
+				Math.max(res[0].getWidth(), res[0].getHeight()));
+		res[0].setPosition(l_fps.getX() + l_fps.getWidth() + 10,
+				(kopfframe.getHeight() - res[0].getHeight()) / 2);
 		res[0].setBackground(themeManager.getImage("IKohle"));
 		resK[0].setSize(res[0].getWidth(), res[0].getHeight());
 		resK[0].setPosition(res[0].getX(), res[0].getY() + res[0].getHeight());
 		for (int i = 1; i < resn.length; i++) {
 			res[i].setText(String.valueOf(spieler[0].getAmountofResource(i)));
 			res[i].adjustSize();
-			res[i].setSize(Math.max(res[i].getWidth(), res[i].getHeight()), Math.max(res[i].getWidth(), res[i].getHeight()));
-			res[i].setPosition(res[i - 1].getX() + res[i - 1].getWidth() + 10, (kopfframe.getHeight() - res[i].getHeight()) / 2);
+			res[i].setSize(Math.max(res[i].getWidth(), res[i].getHeight()),
+					Math.max(res[i].getWidth(), res[i].getHeight()));
+			res[i].setPosition(res[i - 1].getX() + res[i - 1].getWidth() + 10,
+					(kopfframe.getHeight() - res[i].getHeight()) / 2);
 			res[i].setBackground(themeManager.getImage(resn[i]));
 			resK[i].setSize(res[i].getWidth(), res[i].getHeight());
-			resK[i].setPosition(res[i].getX(), res[i].getY() + res[i].getHeight());
+			resK[i].setPosition(res[i].getX(),
+					res[i].getY() + res[i].getHeight());
 		}
 
 		if (removeGedNed) {
@@ -1136,6 +1245,9 @@ public class Knightmare extends Widget implements StringConstants {
 	private void showKosten() {
 		if (aktuellesGebäude != -1) {
 			int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
+			if(aktuellesGebäude==2&&!spieler[0].hatLager()){
+				help = new int[resK.length];
+			}
 			for (int i = 0; i < resK.length; i++) {
 				if (help[i] != 0) {
 					if (resK[i].getBackground() == null) {
@@ -1170,7 +1282,9 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 	}
 
-	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
+	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = {
+			"Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung",
+			"Zivil" };
 
 	private void GUI() {
 		for (int i = 0; i < 3; i++) {
@@ -1222,10 +1336,33 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		});
 
+		gebäude[2][0] = new Button();
+		Label helpTWa = new Label(Bauen.getBuildingName(13));
+		gebäude[2][0].setTooltipContent(helpTWa);
+		gebäude[2][0].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 13;
+			}
+		});
+
 		gebäude[3][0] = new Button();
-		Label helpTHo = new Label(Bauen.getBuildingName(6));
-		gebäude[3][0].setTooltipContent(helpTHo);
+		Label helpTKo = new Label(Bauen.getBuildingName(14));
+		gebäude[3][0].setTooltipContent(helpTKo);
 		gebäude[3][0].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 14;
+			}
+		});
+		gebäude[3][1] = new Button();
+		Label helpTHo = new Label(Bauen.getBuildingName(6));
+		gebäude[3][1].setTooltipContent(helpTHo);
+		gebäude[3][1].addCallback(new Runnable() {
 
 			@Override
 			public void run() {
@@ -1233,10 +1370,10 @@ public class Knightmare extends Widget implements StringConstants {
 				aktuellesGebäude = 6;
 			}
 		});
-		gebäude[3][1] = new Button();
+		gebäude[3][2] = new Button();
 		Label helpVie = new Label(Bauen.getBuildingName(7));
-		gebäude[3][1].setTooltipContent(helpVie);
-		gebäude[3][1].addCallback(new Runnable() {
+		gebäude[3][2].setTooltipContent(helpVie);
+		gebäude[3][2].addCallback(new Runnable() {
 
 			@Override
 			public void run() {
@@ -1279,6 +1416,28 @@ public class Knightmare extends Widget implements StringConstants {
 				aktuellesGebäude = 4;
 			}
 		});
+		gebäude[5][1] = new Button();
+		Label helpTSch = new Label(Bauen.getBuildingName(12));
+		gebäude[5][1].setTooltipContent(helpTSch);
+		gebäude[5][1].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 12;
+			}
+		});
+		gebäude[5][2] = new Button();
+		Label helpTMa = new Label(Bauen.getBuildingName(15));
+		gebäude[5][2].setTooltipContent(helpTMa);
+		gebäude[5][2].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 15;
+			}
+		});
 
 		for (int i = 0; i < categories.length; i++) {
 			categories[i] = new Button();
@@ -1293,9 +1452,11 @@ public class Knightmare extends Widget implements StringConstants {
 					setCategory();
 					for (int j = 0; j < categories.length; j++) {
 						if (j != help) {
-							categories[j].getAnimationState().setAnimationState(STATE_DISABLED, true);
+							categories[j].getAnimationState()
+									.setAnimationState(STATE_DISABLED, true);
 						} else {
-							categories[j].getAnimationState().setAnimationState(STATE_DISABLED, false);
+							categories[j].getAnimationState()
+									.setAnimationState(STATE_DISABLED, false);
 						}
 					}
 				}
@@ -1369,7 +1530,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 		l_time.setPosition(WIDTH - 200, 10);
 		l_time.setSize(20, 40);
-
+		
 		gui.draw();
 
 		// button.adjustSize(); //Calculate optimal size instead of manually
@@ -1395,8 +1556,8 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		} else {
 			removeChild(frame);
-			if(category>=0){
-				for(Button geb: gebäude[category]){
+			if (category >= 0) {
+				for (Button geb : gebäude[category]) {
 					removeChild(geb);
 				}
 			}
@@ -1415,8 +1576,10 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	public void guiPollInput() {
-		gui.handleKey(Keyboard.getEventKey(), Keyboard.getEventCharacter(), Keyboard.getEventKeyState());
-		gui.handleMouse(Mouse.getEventX(), gui.getHeight() - Mouse.getEventY() - 1, Mouse.getEventButton(), Mouse.getEventButtonState());
+		gui.handleKey(Keyboard.getEventKey(), Keyboard.getEventCharacter(),
+				Keyboard.getEventKeyState());
+		gui.handleMouse(Mouse.getEventX(), gui.getHeight() - Mouse.getEventY()
+				- 1, Mouse.getEventButton(), Mouse.getEventButtonState());
 
 		int wheelDelta = Mouse.getEventDWheel();
 		if (wheelDelta != 0) {

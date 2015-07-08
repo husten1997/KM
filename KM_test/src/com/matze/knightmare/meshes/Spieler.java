@@ -6,19 +6,27 @@ import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 
 public class Spieler {
 
-//	private int amountResourcesOfIndex[] = new int[Rohstoffe.maxID()];
+	// private int amountResourcesOfIndex[] = new int[Rohstoffe.maxID()];
 	private int team;
 	private int index;
 	private String typ;
 	private int difficulty;
 	private String name;
-	private ArrayList<Building> lager = new ArrayList<>();
-	
-	public boolean hatLager(){
-		return lager.size()>0;
+	private ArrayList<Building> lager = new ArrayList<>(),
+			schatzkammern = new ArrayList<>(),
+			waffenkammer = new ArrayList<>(), kornSpeicher = new ArrayList<>(),
+			maktplätze = new ArrayList<>();
+
+	public boolean hatLager() {
+		return lager.size() > 0;
 	}
 
-	public Spieler(int SpielerNR, String name, int team, String typ, String schwierigkeit) {
+	public boolean hatMarktplatz() {
+		return maktplätze.size() > 0;
+	}
+
+	public Spieler(int SpielerNR, String name, int team, String typ,
+			String schwierigkeit) {
 		this.setTeam(team);
 		this.setName(name);
 		this.index = SpielerNR;
@@ -36,52 +44,176 @@ public class Spieler {
 			}
 		}
 
-//		amountResourcesOfIndex[getIndexofResource("Holz")] = 30;
-//		amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
-//		amountResourcesOfIndex[getIndexofResource("Stein")] = 15;
+		// amountResourcesOfIndex[getIndexofResource("Holz")] = 30;
+		// amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
+		// amountResourcesOfIndex[getIndexofResource("Stein")] = 15;
 	}
 
 	// Rohstoffe
-//	public Waren setAmountofResourcewithIndex(int amount, int index) {
-//		amountResourcesOfIndex[index] = amount;
-//		return Rohstoffe.Rohstoff_von_Index(index);
-//	}
+	// public Waren setAmountofResourcewithIndex(int amount, int index) {
+	// amountResourcesOfIndex[index] = amount;
+	// return Rohstoffe.Rohstoff_von_Index(index);
+	// }
 
 	public void verteilen(int warenID, int amount) {
-		for(Building l : lager){
+		if (warenID == 9) {
+			for (Building s : schatzkammern) {
+				int frei = s.getMaxLagerKap();
+				for (Waren ware : s.getBenötigt()) {
+					frei -= ware.getAmount();
+				}
+				int ablegen = Math.min(frei, amount);
+				s.setWarenAmount(warenID, ablegen);
+				amount -= ablegen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		if (warenID == 10) {
+			for (Building k : kornSpeicher) {
+				int frei = k.getMaxLagerKap();
+				for (Waren ware : k.getBenötigt()) {
+					frei -= ware.getAmount();
+				}
+				int ablegen = Math.min(frei, amount);
+				k.setWarenAmount(warenID, ablegen);
+				amount -= ablegen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		if (warenID == 12) {
+			for (Building m : maktplätze) {
+				int frei = m.getMaxLagerKap();
+				for (Waren ware : m.getBenötigt()) {
+					frei -= ware.getAmount();
+				}
+				int ablegen = Math.min(frei, amount);
+				m.setWarenAmount(warenID, ablegen);
+				amount -= ablegen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		if (warenID == 13) {
+			for (Building w : waffenkammer) {
+				int frei = w.getMaxLagerKap();
+				for (Waren ware : w.getBenötigt()) {
+					frei -= ware.getAmount();
+				}
+				int ablegen = Math.min(frei, amount);
+				w.setWarenAmount(warenID, ablegen);
+				amount -= ablegen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		for (Building l : lager) {
 			int frei = l.getMaxLagerKap();
 			for (Waren ware : l.getBenötigt()) {
 				frei -= ware.getAmount();
 			}
 			int ablegen = Math.min(frei, amount);
 			l.setWarenAmount(warenID, ablegen);
-			amount -=ablegen;
-			if(amount==0){
+			amount -= ablegen;
+			if (amount == 0) {
 				break;
 			}
 		}
 	}
-	
-	public void abziehen(int warenID, int amount){
-		for(Building l : lager){
+
+	public void abziehen(int warenID, int amount) {
+		if (warenID == 9) {
+			for (Building s : schatzkammern) {
+				int drin = s.getBenötigt()[warenID].getAmount();
+				int abziehen = Math.min(drin, amount);
+				s.deminishWarenAmount(warenID, abziehen);
+				amount -= abziehen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		if (warenID == 10) {
+			for (Building k : kornSpeicher) {
+				int drin = k.getBenötigt()[warenID].getAmount();
+				int abziehen = Math.min(drin, amount);
+				k.deminishWarenAmount(warenID, abziehen);
+				amount -= abziehen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		if (warenID == 12) {
+			for (Building m : maktplätze) {
+				int drin = m.getBenötigt()[warenID].getAmount();
+				int abziehen = Math.min(drin, amount);
+				m.deminishWarenAmount(warenID, abziehen);
+				amount -= abziehen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		if (warenID == 13) {
+			for (Building w : waffenkammer) {
+				int drin = w.getBenötigt()[warenID].getAmount();
+				int abziehen = Math.min(drin, amount);
+				w.deminishWarenAmount(warenID, abziehen);
+				amount -= abziehen;
+				if (amount == 0) {
+					return;
+				}
+			}
+		}
+		for (Building l : lager) {
 			int drin = l.getBenötigt()[warenID].getAmount();
 			int abziehen = Math.min(drin, amount);
 			l.deminishWarenAmount(warenID, abziehen);
-			amount -=abziehen;
-			if(amount==0){
+			amount -= abziehen;
+			if (amount == 0) {
 				break;
 			}
 		}
 	}
 
-//	public Waren setAmountofResourcewithName(int amount, String name) {
-//		int index = getIndexofResource(name);
-//		amountResourcesOfIndex[index] = amount;
-//		return Rohstoffe.Rohstoff_von_Index(index);
-//	}
+	// public Waren setAmountofResourcewithName(int amount, String name) {
+	// int index = getIndexofResource(name);
+	// amountResourcesOfIndex[index] = amount;
+	// return Rohstoffe.Rohstoff_von_Index(index);
+	// }
 
 	public int getAmountofResource(int index) {
 		int help = 0;
+		if (index == 9) {
+			for (Building Schatzkammer : schatzkammern) {
+				help += Schatzkammer.getBenötigt()[index].getAmount();
+			}
+			return help;
+		}
+		if (index == 10) {
+			for (Building Kornspeicher : kornSpeicher) {
+				help += Kornspeicher.getBenötigt()[index].getAmount();
+			}
+			return help;
+		}
+		if (index == 12) {
+			for (Building marktplatz : maktplätze) {
+				help += marktplatz.getBenötigt()[index].getAmount();
+			}
+			return help;
+		}
+		if (index == 13) {
+			for (Building Waffenkammer : waffenkammer) {
+				help += Waffenkammer.getBenötigt()[index].getAmount();
+			}
+			return help;
+		}
 		for (Building Lager : lager) {
 			help += Lager.getBenötigt()[index].getAmount();
 		}
@@ -136,13 +268,27 @@ public class Spieler {
 	}
 
 	public void addLager(RectangleGraphicalObject rgo) {
-		Building b = (Building) rgo;
-		lager.add(b);
+		lager.add((Building) rgo);
 	}
 
 	public void removeLager(RectangleGraphicalObject rgo) {
-		Building b = (Building) rgo;
-		lager.remove(b);
+		lager.remove((Building) rgo);
+	}
+
+	public void addSchatzkammer(RectangleGraphicalObject rgo) {
+		schatzkammern.add((Building) rgo);
+	}
+
+	public void removeSchatzkammer(RectangleGraphicalObject rgo) {
+		schatzkammern.remove((Building) rgo);
+	}
+
+	public void addWaffenkammer(RectangleGraphicalObject rgo) {
+		waffenkammer.add((Building) rgo);
+	}
+
+	public void removeWaffenkammer(RectangleGraphicalObject rgo) {
+		waffenkammer.remove((Building) rgo);
 	}
 
 }

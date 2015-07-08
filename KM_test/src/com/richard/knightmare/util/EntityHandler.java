@@ -74,6 +74,20 @@ public class EntityHandler {
 					}
 				}
 			}
+			if (((Building) object).getIndex() == 12) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addSchatzkammer(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 13) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addWaffenkammer(object);
+					}
+				}
+			}
 		}
 		return true;
 	}
@@ -310,6 +324,20 @@ public class EntityHandler {
 				for (Spieler hansl : spieler) {
 					if (hansl.getIndex() == object.getSpieler().getIndex()) {
 						hansl.removeLager(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 12) {
+				for (Spieler hansl : spieler) {
+					if (hansl.getIndex() == object.getSpieler().getIndex()) {
+						hansl.removeSchatzkammer(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 13) {
+				for (Spieler hansl : spieler) {
+					if (hansl.getIndex() == object.getSpieler().getIndex()) {
+						hansl.removeWaffenkammer(object);
 					}
 				}
 			}

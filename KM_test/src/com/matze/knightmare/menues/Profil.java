@@ -39,22 +39,22 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		//Schwierigkeit
 		difficulty = new JTextField("Schwierigkeit:");
 		difficulty.setEditable(false);
-		difficulty.setBounds(100, 225, 200, 50);
+		difficulty.setBounds((screen.width - width) / 2 +100, (screen.height-height)/2+225, 200, 50);
 		add(difficulty);
 		
 		schwierigkei = new JComboBox<String>(val1);
-		schwierigkei.setBounds(325, 150, 200, 50);
+		schwierigkei.setBounds((screen.width - width) / 2 +325, (screen.height-height)/2+150, 200, 50);
 		schwierigkei.setSelectedIndex(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 		add(schwierigkei);
 		
 		//Sprache
 		sprach = new JTextField("Sprache:");
 		sprach.setEditable(false);
-		sprach.setBounds(325, 100, 200, 50);
+		sprach.setBounds((screen.width - width) / 2 +325, (screen.height-height)/2+100, 200, 50);
 		add(sprach);
 		
 		sprache = new JComboBox<String>(val2);
-		sprache.setBounds(100, 275, 200, 50);
+		sprache.setBounds((screen.width - width) / 2 +100, (screen.height-height)/2+275, 200, 50);
 		add(sprache);
 		
 		//Profilbild
@@ -63,7 +63,7 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		io = new ImageIcon (Loader.getCfgValue("SETTINGS: Profilbild"));
 		io.setImage(io.getImage().getScaledInstance(200,100,Image.SCALE_SMOOTH));
 		profil.setIcon(io);
-		profil.setBounds(325, 225, 200, 100);
+		profil.setBounds((screen.width - width) / 2 +325,(screen.height-height)/2+ 225, 200, 100);
 		profil.addActionListener(this);
 		add(profil);
 		
@@ -74,13 +74,13 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		name = new JTextField[2];
 		name[0] = new JTextField("Gib hier deinen Namen ein:");
 		name[1] = new JTextField(Loader.getCfgValue("SETTINGS: Profilname"));
-		name[0].setBounds(100, 100, 200, 50);
+		name[0].setBounds((screen.width - width) / 2 +100, (screen.height-height)/2+100, 200, 50);
 		name[0].setEditable(false);
 		name[0].setBorder(null);
 		name[0].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 		name[0].setForeground(Color.white);
 		name[0].setHorizontalAlignment(JLabel.CENTER);
-		name[1].setBounds(100, 150, 200, 50);
+		name[1].setBounds((screen.width - width) / 2 +100, (screen.height-height)/2+150, 200, 50);
 		name[1].setBorder(null);
 		name[1].setBackground(new Color(0, 0.25f, 0.5f, 1f));
 		name[1].setForeground(Color.white);

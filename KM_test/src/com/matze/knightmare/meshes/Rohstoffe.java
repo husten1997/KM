@@ -68,6 +68,11 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Armbrust(){
+		Waren w = new Waren(13,0,"Armbrust", "Armbrust.png");
+		return w;
+	}
+	
 	public static Waren Nothing(){
 		return null;
 	}
@@ -87,6 +92,7 @@ public class Rohstoffe {
 		case 10:{return Fleisch();}
 		case 11:{return Glas();}
 		case 12:{return Mensch();}
+		case 13:{return Armbrust();}
 		default:{return Nothing();}
 		}
 	}
