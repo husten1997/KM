@@ -3,6 +3,7 @@ package com.matze.knightmare.meshes;
 import java.util.TimerTask;
 
 import com.husten.knightmare.constants.StringConstants;
+import com.husten.knightmare.core.Knightmare;
 import com.richard.knightmare.util.Pos;
 
 public class Bauen {
@@ -16,15 +17,11 @@ public class Bauen {
 
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
-
-//		b.addnichtErlaubt("kohle");
-//		b.addnichtErlaubt("stein");
-//		b.addnichtErlaubt("eisen");
-//		b.addnichtErlaubt("baum");
 		
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
 		b.addnichtErlaubt(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 
 		int error = 0;
 
@@ -83,6 +80,7 @@ public class Bauen {
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
 		b.addnichtErlaubt(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 
 		int error = 0;
 
@@ -135,7 +133,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.hatLager()) {
@@ -177,7 +175,7 @@ public class Bauen {
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -198,7 +196,7 @@ public class Bauen {
 			benötigt[0] = Rohstoffe.Holz();
 			amountBenötigt[0] = 0;
 
-			b.init(30, 5, 0, 0, "Holzfäller", benötigt, amountBenötigt,
+			b.init(30, 5, 0, 5, "Holzfäller", benötigt, amountBenötigt,
 					Rohstoffe.Holz(), 20);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -207,11 +205,19 @@ public class Bauen {
 
 							@Override
 							public void run() {
-								if ((/* Baum in der Nähe */true) && (!(b
-										.getAmountProduzierterWareAuslesen() == b
-										.getMaxLagerKap()))) {
-									b.WareFertigstellen();
+								
+								Building k = Knightmare.newHandler.gibBaum((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
+								System.out.println("KKKK"+k);
+								System.out.println(k.getBenötigt()[0].substractWare(1));
+								
+								if (!k.getBenötigt()[0].substractWare(1)){
+									Pos pk = k.getPosition();
+									Knightmare.newHandler.remove(k);
+									Knightmare.newHandler.place(Baumstumpf(pk));
+									k = Knightmare.newHandler.gibBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
 								}
+								if (k != null)
+								b.getSpieler().verteilen(Rohstoffe.Holz().getID(), 1);
 							}
 
 						});
@@ -228,7 +234,7 @@ public class Bauen {
 
 		b.setKostetWarevonIndex(2, 5);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -306,7 +312,7 @@ public class Bauen {
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 
 		b.addMuss(StringConstants.Material_t.SAND);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
@@ -359,7 +365,7 @@ public class Bauen {
 		Building b = new Building(6, p, 128, 128, "Hof.png");
 
 		b.setSpieler(sp);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
@@ -415,7 +421,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.addMuss(StringConstants.Material_t.GRAS);
 
 		int error = 0;
@@ -466,7 +472,7 @@ public class Bauen {
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
 		b.addnichtErlaubt(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -513,7 +519,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(8, 30);
 		b.setKostetWarevonIndex(2, 10);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -542,7 +548,7 @@ public class Bauen {
 		Building b = new Building(10, p, 32, 32, "Mauer.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(8, 8);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -568,9 +574,10 @@ public class Bauen {
 
 	public static Building Baum(Pos p, Spieler sp) {
 		Building b = new Building(11, p, 32, 32, "Baum.png");
-		b.setSpieler(new Spieler(-1, "Mutter Natur", -1, "KI", "Leicht"));
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		b.setSpieler(mutterNatur);
 		Waren w = Rohstoffe.Holz();
-		w.setAmount(50);
+		w.setAmount(1);
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
 		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, w, 50);
@@ -583,7 +590,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -620,7 +627,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -657,7 +664,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -694,7 +701,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -723,6 +730,17 @@ public class Bauen {
 			return b;
 		}
 		return null;
+	}
+	
+	public static Building Baumstumpf(Pos p){
+		Building b = new Building(11, p, 32, 32, "baumstumpf.png");
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		b.setKostetWarevonIndex(Rohstoffe.Geld().getID(), -10);
+		b.setSpieler(mutterNatur);
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, Rohstoffe.Nothing(), 50);
+		return b;
 	}
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
