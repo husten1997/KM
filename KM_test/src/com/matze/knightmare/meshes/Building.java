@@ -223,9 +223,6 @@ public class Building extends RectangleGraphicalObject {
 	}
 
 	public void startTimer() {
-		if (index == 4 && getSpieler().getAmountofResource(12) - amountBenötigt[0] >= 0) {
-			getSpieler().abziehen(Rohstoffe.Mensch().getID(), 2);
-		}
 		if (ProduktionproMinute != 0) {
 			timer.scheduleAtFixedRate(tt, (long) (60000 / ProduktionproMinute), (long) (60000 / ProduktionproMinute));
 		}

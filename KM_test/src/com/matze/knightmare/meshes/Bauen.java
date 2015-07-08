@@ -2,6 +2,7 @@ package com.matze.knightmare.meshes;
 
 import java.util.TimerTask;
 
+import com.husten.knightmare.constants.StringConstants;
 import com.richard.knightmare.util.Pos;
 
 public class Bauen {
@@ -16,10 +17,14 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
 
-		b.addnichtErlaubt("kohle");
-		b.addnichtErlaubt("stein");
-		b.addnichtErlaubt("eisen");
-		b.addnichtErlaubt("baum");
+//		b.addnichtErlaubt("kohle");
+//		b.addnichtErlaubt("stein");
+//		b.addnichtErlaubt("eisen");
+//		b.addnichtErlaubt("baum");
+		
+		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
+		b.addnichtErlaubt(StringConstants.Material_t.SAND);
+		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
 
 		int error = 0;
 
@@ -71,9 +76,13 @@ public class Bauen {
 		b.setKostetWarevonIndex(8, 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
-		b.addnichtErlaubt("kohle");
-		b.addnichtErlaubt("eisen");
-		b.addnichtErlaubt("baum");
+//		b.addnichtErlaubt("kohle");
+//		b.addnichtErlaubt("eisen");
+//		b.addnichtErlaubt("baum");
+		
+		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
+		b.addnichtErlaubt(StringConstants.Material_t.SAND);
+		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
 
 		int error = 0;
 
@@ -127,8 +136,6 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
 
-		b.addnichtErlaubt("baum");
-
 		int error = 0;
 
 		if (!sp.hatLager()) {
@@ -170,10 +177,6 @@ public class Bauen {
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
-
-		b.addnichtErlaubt("baum");
-		b.addnichtErlaubt("stein");
-		b.addnichtErlaubt("eisen");
 
 		int error = 0;
 
@@ -224,10 +227,7 @@ public class Bauen {
 		b.setSpieler(sp);
 
 		b.setKostetWarevonIndex(2, 5);
-
-		b.addnichtErlaubt("baum");
-		b.addnichtErlaubt("stein");
-		b.addnichtErlaubt("eisen");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
 
 		int error = 0;
 
@@ -260,24 +260,16 @@ public class Bauen {
 							@Override
 							public void run() {
 								b.setProduktionProMinute(1);
-								b.WareFertigstellen();
 
-								System.out
-										.println("Tada: "
-												+ (b.getSpieler()
-														.getAmountofResource(
-																Rohstoffe
-																		.Mensch()
-																		.getID()) - amountBenötigt[0]));
-
-								if (b.getSpieler().getAmountofResource(12)
-										- amountBenötigt[0] >= 0) {
+//								if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())
+//										- amountBenötigt[0] >= 0) {
 									b.getSpieler().verteilen(
-											Rohstoffe.Mensch().getID(), 3);
-									b.getSpieler().abziehen(
-											Rohstoffe.Mensch().getID(), 2);
+											Rohstoffe.Mensch().getID(), 1);
+//									b.getSpieler().abziehen(
+//											Rohstoffe.Mensch().getID(), 2);
 									b.getSpieler().verteilen(9, 1);
-								}
+//								}
+								
 								// TODO ppm so ändern dass effektivität pro
 								// gebäude um 50%
 								// gesteigert wird, steht es alleine in einem
@@ -312,7 +304,7 @@ public class Bauen {
 	public static Building Sandschmelze(Pos p, Spieler sp) {
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 
-		b.addMuss("sand");
+		b.addMuss(StringConstants.Material_t.SAND);
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
@@ -370,7 +362,7 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
-		b.addMuss("gras");
+		b.addMuss(StringConstants.Material_t.GRAS);
 
 		int error = 0;
 
@@ -422,9 +414,7 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 15);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
-		b.addnichtErlaubt("baum");
-		b.addnichtErlaubt("stein");
-		b.addnichtErlaubt("eisen");
+		b.addMuss(StringConstants.Material_t.GRAS);
 
 		int error = 0;
 
@@ -471,7 +461,9 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 5);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
-		b.addMuss("stein");
+		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
+		b.addnichtErlaubt(StringConstants.Material_t.SAND);
+		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
 
 		int error = 0;
 
@@ -590,8 +582,6 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
 
-		b.addnichtErlaubt("baum");
-
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -628,8 +618,6 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
-		b.addnichtErlaubt("baum");
 
 		int error = 0;
 
@@ -668,8 +656,6 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
 
-		b.addnichtErlaubt("baum");
-
 		int error = 0;
 
 		if (!sp.getName().equals("Mama Natur")) {
@@ -706,8 +692,6 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(8, 5);
-
-		b.addnichtErlaubt("baum");
 
 		int error = 0;
 
