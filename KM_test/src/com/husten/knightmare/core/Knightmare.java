@@ -69,7 +69,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
 	// private Pathhandler handler;
-	private EntityHandler newHandler;
+	public static EntityHandler newHandler;
 	// private ArrayList<RectangleGraphicalObject> selection = new
 	// ArrayList<>();
 	@SuppressWarnings("unchecked")
@@ -198,10 +198,11 @@ public class Knightmare extends Widget implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
+		newHandler = new EntityHandler(513, 513, spieler);
 		terrain.gen();
 		terrain.initRender();
 		// handler = new Pathhandler(513, 513);
-		newHandler = new EntityHandler(513, 513, spieler);
+		
 		// Sorting
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i].sort(new Comparator<GraphicalObject>() {

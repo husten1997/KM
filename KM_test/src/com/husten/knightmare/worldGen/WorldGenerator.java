@@ -3,10 +3,12 @@ package com.husten.knightmare.worldGen;
 import java.util.Random;
 
 import com.husten.knightmare.constants.StringConstants;
+import com.husten.knightmare.core.Knightmare;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.Vektor;
 import com.husten.knightmare.graphicalObjects.TerrainElement;
 import com.husten.knightmare.graphicalObjects.TerrainRes;
+import com.matze.knightmare.meshes.Bauen;
 
 public class WorldGenerator implements StringConstants {
 	
@@ -18,6 +20,7 @@ public class WorldGenerator implements StringConstants {
 	
 	private double wE = 0.07;
 	private double wK = 0.12;
+	private double wT = 0.07;
 	
 	private float max, min, dif;
 
@@ -113,6 +116,11 @@ public class WorldGenerator implements StringConstants {
 				}
 				if (z > WS && z < WG) {
 					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), z, "gras.png",  Material_t.GRAS);
+					
+					if(x < wT*100){
+						
+						Knightmare.newHandler.place(Bauen.Baum(new Pos(i * 32, j * 32), null));
+					}
 				}
 				if (z > WG && z < WR) {
 					World[i][j] = new TerrainElement(new Pos(i * 32, j * 32), z, "rock.png", Material_t.ROCK);
