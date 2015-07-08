@@ -470,6 +470,12 @@ public class Knightmare extends Widget implements StringConstants {
 										b.setKostetWarevonIndex(2, 10);
 										b.setKostetWarevonIndex(8, 5);
 									}
+								} else {
+									labelZuTeuer.setText("Das kann da nicht plaziert werden, Sir");
+									if (getChildIndex(labelZuTeuer) == -1) {
+										add(labelZuTeuer);
+										gednedShown = true;
+									}
 								}
 							}
 							break;
@@ -1197,7 +1203,7 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void showKosten() {
-		if(updateticks>20){
+		if (updateticks > 20) {
 			if (aktuellesGebäude != -1) {
 				int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
 				if (aktuellesGebäude == 2 && !spieler[0].hatLager()) {
@@ -1235,7 +1241,7 @@ public class Knightmare extends Widget implements StringConstants {
 					}
 				}
 			}
-			updateticks=0;
+			updateticks = 0;
 		}
 		updateticks++;
 	}

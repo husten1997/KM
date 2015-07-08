@@ -34,8 +34,8 @@ public class EntityHandler {
 			id++;
 		}
 	}
-	
-	public RectangleGraphicalObject getOn(int x, int y){
+
+	public RectangleGraphicalObject getOn(int x, int y) {
 		return world[x][y];
 	}
 
@@ -44,11 +44,11 @@ public class EntityHandler {
 			entity.draw();
 		}
 	}
-	
+
 	public void draw(int x, int y, int width, int height) {
-		for(int i = x; i<=Math.min(x+width, world.length-1); i++){
-			for(int j = y; j<=Math.min(y+height, world[x].length-1); j++){
-				if(world[i][j]!=null){
+		for (int i = x; i <= Math.min(x + width, world.length - 1); i++) {
+			for (int j = y; j <= Math.min(y + height, world[x].length - 1); j++) {
+				if (world[i][j] != null) {
 					world[i][j].draw();
 				}
 			}
@@ -68,8 +68,14 @@ public class EntityHandler {
 
 		for (int i = 0; i < w; i++) {
 			for (int j = 0; j < h; j++) {
-				if (isObstractedFor(startW + i, startH + j, object)) {
-					return false;
+				if (object instanceof Soldat) {
+					if (isObstractedFor(startW + i, startH + j, object)) {
+						return false;
+					}
+				} else {
+					if (isObstractedForBuilding(startW + i, startH + j, (Building) object)) {
+						return false;
+					}
 				}
 			}
 		}
@@ -189,13 +195,7 @@ public class EntityHandler {
 
 		if (selection.size() == 1) {
 			if (world[xPos][yPos] != null) {
-				if (world[xPos][yPos]
-						.getSpieler()
-						.getTeam() != 
-						selection
-						.get(0)
-						.getSpieler()
-						.getTeam()) {
+				if (world[xPos][yPos].getSpieler().getTeam() != selection.get(0).getSpieler().getTeam()) {
 					chasing.put((Soldat) selection.get(0), world[xPos][yPos]);
 					pathfindTo(x, y, selection.get(0));
 				} else {
@@ -388,7 +388,7 @@ public class EntityHandler {
 
 	public RectangleGraphicalObject remove(int x, int y) {
 		RectangleGraphicalObject object = world[x][y];
-		if(object!=null){
+		if (object != null) {
 			remove(object);
 		}
 		return object;
@@ -416,6 +416,21 @@ public class EntityHandler {
 				}
 			}
 		}
+	}
+
+	private boolean isObstractedForBuilding(int x, int y, Building building) {
+		if (world[x][y] != null) {
+			return true;
+		}
+		for (String muss : building.getMuss()) {
+			return !Knightmare.terrain.getMeterial(x, y).equals(muss);
+		}
+		for (String darfNicht : building.getnichtErlaubt()) {
+			if (Knightmare.terrain.getMeterial(x, y).equals(darfNicht)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

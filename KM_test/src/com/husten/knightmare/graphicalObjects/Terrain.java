@@ -70,7 +70,7 @@ public class Terrain extends GraphicalObject{
 		if(elements[x][y]==null){
 			return null;
 		}
-		return elements[x][y].getType();
+		return elements[x][y].getMaterial();
 	}
 	
 	public TerrainElement getElement(int x, int y){
