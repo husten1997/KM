@@ -254,13 +254,6 @@ public class Bauen {
 
 			
 			if (!sp.getName().equals("Mama Natur")) {
-
-				if (b.getSpieler().getAmountofResource(12)
-						- amountBenötigt[0] >= 0) {
-					b.getSpieler().abziehen(
-							Rohstoffe.Mensch().getID(), 2);
-					}
-				
 				b.setTimerTask(
 						new TimerTask() {
 							

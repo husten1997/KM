@@ -8,9 +8,9 @@ import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
 public class Building extends RectangleGraphicalObject {
-	
+
 	private Spieler s;
-	
+
 	private int kostetWarevonIndex[];
 	private int health;
 	private int index;
@@ -23,12 +23,11 @@ public class Building extends RectangleGraphicalObject {
 	private int amountProduzierteWare;
 	private Ausruestung[] verbesserungen;
 	private int maxLagerKapazität;
-	private Timer timer = new Timer(true),timer2 = new Timer(true);
+	private Timer timer = new Timer(true), timer2 = new Timer(true);
 	private TimerTask tt;
-	private ArrayList<String>erlaubt = new ArrayList<>();
-	private ArrayList<String>muss = new ArrayList<>();
+	private ArrayList<String> erlaubt = new ArrayList<>();
+	private ArrayList<String> muss = new ArrayList<>();
 
-	
 	public Building(int index, Pos position, int width, int height, String textureName) {
 		super(position, width, height, textureName, false);
 		this.setIndex(index);
@@ -37,9 +36,8 @@ public class Building extends RectangleGraphicalObject {
 		kostetWarevonIndex = new int[Rohstoffe.maxID()];
 	}
 
-	public void init(int health, int ProduktionproMinute, int angriff,
-			int reichweite, String name, Waren[] benötigt,
-			int[] amountBenötigt, Waren produziert, int maxLagerKap) {
+	public void init(int health, int ProduktionproMinute, int angriff, int reichweite, String name, Waren[] benötigt, int[] amountBenötigt, Waren produziert,
+			int maxLagerKap) {
 		this.setHealth(health);
 		this.ProduktionproMinute = ProduktionproMinute;
 		this.setAngriff(angriff);
@@ -61,24 +59,24 @@ public class Building extends RectangleGraphicalObject {
 		produziert.addWare(maxLagerKapazität);
 		amountProduzierteWare++;
 	}
-	
-	public void setWarenAmount(int i, int kap){
-		for (int b = 0; b < kap; b++){
+
+	public void setWarenAmount(int i, int kap) {
+		for (int b = 0; b < kap; b++) {
 			benötigt[i].addWare(maxLagerKapazität);
 		}
 	}
-	
-	public void deminishWarenAmount(int i, int kap){
-		for (int b = 0; b < kap; b++){
-			System.out.println("kann abziehen: "+benötigt[i].substractWare(1));
+
+	public void deminishWarenAmount(int i, int kap) {
+		for (int b = 0; b < kap; b++) {
+			System.out.println("kann abziehen: " + benötigt[i].substractWare(1));
 		}
 	}
 
 	public Waren getAmountProduzierterWare() {
-		amountProduzierteWare=0;
+		amountProduzierteWare = 0;
 		return produziert;
 	}
-	
+
 	public int getAmountProduzierterWareAuslesen() {
 		return amountProduzierteWare;
 	}
@@ -99,13 +97,13 @@ public class Building extends RectangleGraphicalObject {
 		return false;
 
 	}
-	
-	public int getProdperMin(){
+
+	public int getProdperMin() {
 		return ProduktionproMinute;
 	}
 
 	public void changeStats(Ausruestung a) {
-		//int stats = new
+		// int stats = new
 	}
 
 	public int getHealth() {
@@ -139,28 +137,28 @@ public class Building extends RectangleGraphicalObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Waren[] getBenötigt(){
+
+	public Waren[] getBenötigt() {
 		return benötigt;
 	}
-	
-	public int[] getAmountBenötigt(){
+
+	public int[] getAmountBenötigt() {
 		return amountBenötigt;
 	}
-	
-	public Waren getProduziert(){
+
+	public Waren getProduziert() {
 		return produziert;
 	}
-	
-	public int getamountProdzuierteWare(){
+
+	public int getamountProdzuierteWare() {
 		return amountProduzierteWare;
 	}
-	
-	public Ausruestung[] getVerbesserung(){
+
+	public Ausruestung[] getVerbesserung() {
 		return verbesserungen;
 	}
-	
-	public int getMaxLagerKap(){
+
+	public int getMaxLagerKap() {
 		return maxLagerKapazität;
 	}
 
@@ -171,16 +169,16 @@ public class Building extends RectangleGraphicalObject {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
-	public void setProduktionProMinute(int p){
+
+	public void setProduktionProMinute(int p) {
 		ProduktionproMinute = p;
 	}
-	
-	public void setSpieler(Spieler sp){
+
+	public void setSpieler(Spieler sp) {
 		s = sp;
 	}
 
-	public Spieler getSpieler(){
+	public Spieler getSpieler() {
 		return s;
 	}
 
@@ -189,26 +187,26 @@ public class Building extends RectangleGraphicalObject {
 	}
 
 	public void setKostetWarevonIndex(int i, int amount) {
-		kostetWarevonIndex[i]=amount;
+		kostetWarevonIndex[i] = amount;
 	}
-	
+
 	public int[] getKostetWarevonArray() {
 		return kostetWarevonIndex;
 	}
-	
-	public Timer getTimer(){
+
+	public Timer getTimer() {
 		return timer;
 	}
-	
-	public Timer getTimer2(){
+
+	public Timer getTimer2() {
 		return timer2;
 	}
-	
-	public void addnichtErlaubt(String e){
+
+	public void addnichtErlaubt(String e) {
 		erlaubt.add(e);
 	}
-	
-	public ArrayList<String> getnichtErlaubt(){
+
+	public ArrayList<String> getnichtErlaubt() {
 		return erlaubt;
 	}
 
@@ -219,14 +217,18 @@ public class Building extends RectangleGraphicalObject {
 	public void addMuss(String m) {
 		muss.add(m);
 	}
-	
-	public void setTimerTask(TimerTask tt){
+
+	public void setTimerTask(TimerTask tt) {
 		this.tt = tt;
 	}
-	
-	public void startTimer(){
-		timer.scheduleAtFixedRate(tt, (long)(60000/ProduktionproMinute), (long)(60000/ProduktionproMinute));
-	}
 
+	public void startTimer() {
+		if (index == 4 && getSpieler().getAmountofResource(12) - amountBenötigt[0] >= 0) {
+			getSpieler().abziehen(Rohstoffe.Mensch().getID(), 2);
+		}
+		if (ProduktionproMinute != 0) {
+			timer.scheduleAtFixedRate(tt, (long) (60000 / ProduktionproMinute), (long) (60000 / ProduktionproMinute));
+		}
+	}
 
 }
