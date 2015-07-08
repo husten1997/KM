@@ -44,6 +44,16 @@ public class EntityHandler {
 			entity.draw();
 		}
 	}
+	
+	public void draw(int x, int y, int width, int height) {
+		for(int i = x; i<=Math.min(x+width, world.length-1); i++){
+			for(int j = y; j<=Math.min(y+height, world[x].length-1); j++){
+				if(world[i][j]!=null){
+					world[i][j].draw();
+				}
+			}
+		}
+	}
 
 	public ArrayList<RectangleGraphicalObject> getSelection() {
 		return selection;
@@ -378,7 +388,9 @@ public class EntityHandler {
 
 	public RectangleGraphicalObject remove(int x, int y) {
 		RectangleGraphicalObject object = world[x][y];
-		remove(object);
+		if(object!=null){
+			remove(object);
+		}
 		return object;
 	}
 
