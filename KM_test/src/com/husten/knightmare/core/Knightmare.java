@@ -544,7 +544,7 @@ public class Knightmare extends Widget implements StringConstants {
 								}
 							}
 
-							RectangleGraphicalObject help = newHandler.remove(xR, yR);
+							RectangleGraphicalObject help = newHandler.remove(xR, yR, 0);
 							if (help instanceof Building) {
 								int[] kosten = ((Building) help).getKostetWarevonArray();
 								for (int i = 0; i < kosten.length; i++) {
@@ -905,7 +905,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 		for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
 			Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
-			newHandler.remove(krepierd);/*
+			newHandler.die(krepierd);/*
 										 * renderList[1].remove(handler.abreiﬂen
 										 * (krepierd));
 										 */
