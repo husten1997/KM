@@ -17,6 +17,8 @@ public class Bauen {
 
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
+		
+		
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
 		b.addnichtErlaubt(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
@@ -37,7 +39,7 @@ public class Bauen {
 
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
-			b.init(50, 20, 0, 0, "Kohlemine", benötigt, amountBenötigt,
+			b.init(50,2, 0, 0, "Kohlemine", benötigt, amountBenötigt,
 					Rohstoffe.Kohle(), 25);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -61,8 +63,9 @@ public class Bauen {
 		Building b = new Building(1, p, 64, 64, "Eisenerz 1.png");
 
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 25);
+		b.setKostetWarevonIndex(2, 15);
 		b.setKostetWarevonIndex(8, 10);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 5);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
@@ -91,7 +94,7 @@ public class Bauen {
 			benötigt[0] = Rohstoffe.Kohle();
 			amountBenötigt[0] = 1;
 
-			b.init(50, 20, 0, 0, "Eisenmine", benötigt, amountBenötigt,
+			b.init(50, 1, 0, 0, "Eisenmine", benötigt, amountBenötigt,
 					Rohstoffe.Eisen(), 100);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -308,6 +311,7 @@ public class Bauen {
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
 		int error = 0;
@@ -366,7 +370,7 @@ public class Bauen {
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 5);
-		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.addMuss(StringConstants.Material_t.GRAS);
 
@@ -434,7 +438,7 @@ public class Bauen {
 	public static Building Viehstall(Pos p, Spieler sp) {
 		Building b = new Building(7, p, 64, 64, "viecha.png");
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 15);
+		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.addMuss(StringConstants.Material_t.GRAS);
@@ -455,7 +459,7 @@ public class Bauen {
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
 
-			b.init(50, 5, 0, 0, "Viehstall", benötigt, amountBenötigt,
+			b.init(50, 3, 0, 0, "Viehstall", benötigt, amountBenötigt,
 					Rohstoffe.Fleisch(), 25);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -644,8 +648,9 @@ public class Bauen {
 		Building b = new Building(13, p, 64, 64, "Waffenkammer.png");
 
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 10);
-		b.setKostetWarevonIndex(8, 5);
+		b.setKostetWarevonIndex(2, 15);
+		b.setKostetWarevonIndex(8, 8);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 8);
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
@@ -681,7 +686,7 @@ public class Bauen {
 		Building b = new Building(14, p, 32, 32, "Kornspeicher.png");
 
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 10);
+		b.setKostetWarevonIndex(2, 5);
 		b.setKostetWarevonIndex(8, 5);
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
@@ -778,8 +783,8 @@ public class Bauen {
 	public static Building Bäckerei(Pos p, Spieler sp) {
 		Building b = new Building(17, p, 64, 64, "Bäckerei.png");
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 6);
-		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 5);
+		b.setKostetWarevonIndex(2, 12);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
@@ -802,7 +807,7 @@ public class Bauen {
 			benötigt[0] = Rohstoffe.Getreide();
 			amountBenötigt[0] = 3;
 
-			b.init(50, 1, 0, 0, "Bäckerei", benötigt, amountBenötigt,
+			b.init(50, 3, 0, 0, "Bäckerei", benötigt, amountBenötigt,
 					Rohstoffe.Stein(), 75);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -820,7 +825,7 @@ public class Bauen {
 //									b.WareFertigstellen();
 //								}
 								if (b.getSpieler().getAmountofResource(Rohstoffe.Getreide().getID())-3 >= 0){
-									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), 5);
+									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), 1);
 									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 3);
 								}
 						}});
@@ -834,7 +839,7 @@ public class Bauen {
 	public static Building Kaserne(Pos p, Spieler sp) {
 		Building b = new Building(18, p, 64, 64, "Kaserne.png");
 		b.setSpieler(sp);
-		b.setKostetWarevonIndex(2, 5);
+		b.setKostetWarevonIndex(2, 20);
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
 		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 5);
 
@@ -868,7 +873,7 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
-		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 8);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 12);
 
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
@@ -890,7 +895,7 @@ public class Bauen {
 			benötigt[0] = Rohstoffe.Eisen();
 			amountBenötigt[0] = 2;
 
-			b.init(50, 4, 0, 0, "Schmied", benötigt, amountBenötigt,
+			b.init(50, 2, 0, 0, "Schmied", benötigt, amountBenötigt,
 					Rohstoffe.Armbrust(), 75);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -899,9 +904,9 @@ public class Bauen {
 
 							@Override
 							public void run() {
-								if (b.getSpieler().getAmountofResource(benötigt[0].getID())-2 >= 0){
+								if (b.getSpieler().getAmountofResource(benötigt[0].getID())-4 >= 0){
 								b.getSpieler().verteilen(Rohstoffe.Armbrust().getID(), 1);
-								b.getSpieler().abziehen(Rohstoffe.Eisen().getID(), 2);
+								b.getSpieler().abziehen(Rohstoffe.Eisen().getID(), 4);
 								}
 						}});
 			}
