@@ -1345,7 +1345,7 @@ public class Knightmare extends Widget implements StringConstants {
 				Pos h = spieler[0].findFreeNearMarkt();
 				if(h!=null){
 					System.out.println("Rekru");
-					Soldat s = Rekrutieren.Hussar((int)h.getX()*32+16, (int)h.getY()*32+16, 32, 32, spieler[0]);
+					Soldat s = Rekrutieren.Hussar((int)h.getX()*32+16, (int)h.getY()*32+16, spieler[0]);
 					if(s!=null){
 						newHandler.place(s);
 					}

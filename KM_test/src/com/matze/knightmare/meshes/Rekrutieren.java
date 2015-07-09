@@ -128,12 +128,17 @@ public class Rekrutieren {
 		return t;
 	}
 
-	public static Soldat Hussar(int posx, int posy, int w, int he, Spieler spieler) {
-		Kavallerie t = new Kavallerie(60, posx, posy, w, he, "Hussar.png");
-		init_Array(40, 0, 0, 20, 20, 15);
-		t.init(ang, ver, 35, "Hussar", 40, 35, 50, 40, 40, false);
-		t.setTyp(3);
-		t.setSpieler(spieler);
+	public static Soldat Hussar(int posx, int posy, Spieler spieler) {
+		Kavallerie t = null;
+		if(spieler.possibleToRemove(13, 1)&&spieler.possibleToRemove(12, 1)){
+			spieler.abziehen(13, 1);
+			spieler.abziehen(12, 1);
+			t = new Kavallerie(60, posx, posy, 32, 32, "Hussar.png");
+			init_Array(40, 0, 0, 20, 20, 15);
+			t.init(ang, ver, 35, "Hussar", 40, 35, 50, 40, 40, false);
+			t.setTyp(3);
+			t.setSpieler(spieler);
+		}
 		return t;
 	}
 
