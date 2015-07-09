@@ -1111,6 +1111,9 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[3][2].setSize(64, 64);
 		gebäude[3][2].setPosition((int) baustart.getX() + 116, (int) baustart.getY());
 		gebäude[3][2].setBackground(themeManager.getImage("Viecha"));
+		gebäude[3][3].setSize(64, 64);
+		gebäude[3][3].setPosition((int) baustart.getX() + 190, (int) baustart.getY());
+		gebäude[3][3].setBackground(themeManager.getImage("Bäckerei"));
 
 		gebäude[4][0].setSize(64, 64);
 		gebäude[4][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1341,6 +1344,17 @@ public class Knightmare extends Widget implements StringConstants {
 			public void run() {
 				inGameStat = state.N_BUILDINGS;
 				aktuellesGebäude = 7;
+			}
+		});
+		gebäude[3][3] = new Button();
+		Label helpBä = new Label(Bauen.getBuildingName(17));
+		gebäude[3][3].setTooltipContent(helpBä);
+		gebäude[3][3].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 17;
 			}
 		});
 
