@@ -1016,6 +1016,10 @@ public class Bauen {
 			return "Kornspeicher";
 		case 15:
 			return "Martplatz";
+		case 16:
+			return "Baumstumpf";
+		case 17:
+			return "Bäckerei";
 		default:
 			return "TODO";
 		}
