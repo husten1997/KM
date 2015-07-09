@@ -13,6 +13,7 @@ import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
+import com.richard.knightmare.sound.SoundPlayer;
 
 public class EntityHandler {
 
@@ -26,12 +27,16 @@ public class EntityHandler {
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	private Spieler[] spieler;
 	private boolean processing = false, ticking = false;
+	private SoundPlayer battleplayer = new SoundPlayer("Swordclash.WAV");
+	private Timer battletimer;
 
 	public EntityHandler(int width, int height, Spieler[] spieler) {
 		this.spieler = spieler;
 		world = new RectangleGraphicalObject[width][height];
+		battleplayer.setVolume(Float.parseFloat(Loader.getCfgValue("Volume")));
 
-		new Timer(true).scheduleAtFixedRate(new TimerTask() {
+		battletimer = new Timer(true);
+		battletimer.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
@@ -39,25 +44,33 @@ public class EntityHandler {
 					for (int y = 0; y < world[x].length; y++) {
 						if (getOn(x, y) != null) {
 							if (getOn(x, y) instanceof Soldat) {
-								if (getOn(x - 1, y) instanceof Soldat) {
+								if (kannKämpfen((Soldat) getOn(x, y), getOn(x - 1, y))) {
+									battleplayer.start();
 									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x - 1, y), 0);
 									if (looser != null) {
 										die(looser);
+										battleplayer.stop();
 									}
-								} else if (getOn(x, y - 1) instanceof Soldat) {
+								} else if (kannKämpfen((Soldat) getOn(x, y), getOn(x, y - 1))) {
+									battleplayer.start();
 									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x, y - 1), 0);
 									if (looser != null) {
 										die(looser);
+										battleplayer.stop();
 									}
-								} else if (getOn(x + 1, y) instanceof Soldat) {
+								} else if (kannKämpfen((Soldat) getOn(x, y), getOn(x + 1, y))) {
+									battleplayer.start();
 									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x + 1, y), 0);
 									if (looser != null) {
 										die(looser);
+										battleplayer.stop();
 									}
-								} else if (getOn(x, y + 1) instanceof Soldat) {
+								} else if (kannKämpfen((Soldat) getOn(x, y), getOn(x, y + 1))) {
+									battleplayer.start();
 									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x, y + 1), 0);
 									if (looser != null) {
 										die(looser);
+										battleplayer.stop();
 									}
 								}
 							}
@@ -66,6 +79,18 @@ public class EntityHandler {
 				}
 			}
 		}, 0, 1000);
+	}
+	
+	public void shotdown(){
+		battleplayer.stop();
+		battletimer.cancel();
+	}
+
+	private boolean kannKämpfen(Soldat s1, RectangleGraphicalObject s2) {
+		if (s2 instanceof Soldat) {
+			return s1.getSpieler().getTeam() != ((Soldat) s2).getSpieler().getTeam();
+		}
+		return false;
 	}
 
 	private void register(RectangleGraphicalObject object) {
