@@ -927,6 +927,50 @@ public class Bauen {
 		b.init(10, 0, 0, 0, "Feld", benötigt, amountBenötigt, null, 50);
 		return b;
 	}
+	
+	public static Building SandGrube(Pos p, Spieler sp) {
+		Building b = new Building(21, p, 64, 64, "Sandgrube.png");
+		b.setSpieler(sp);
+
+		b.setKostetWarevonIndex(2, 10);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
+		b.addMuss(StringConstants.Material_t.SAND);
+
+		int error = 0;
+
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			Waren[] benötigt = new Waren[1];
+			int[] amountBenötigt = new int[1];
+			b.init(50, 5, 0, 0, "Kohlemine", benötigt, amountBenötigt,
+					Rohstoffe.Sand(), 25);
+
+			if (!sp.getName().equals("Mama Natur")) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								b.getSpieler().verteilen(Rohstoffe.Sand().getID(), 1);
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
 		switch (id) {
@@ -992,6 +1036,9 @@ public class Bauen {
 		}
 		case 20: {
 			return Feld(p, spieler);
+		}
+		case 21: {
+			return SandGrube(p, spieler);
 		}
 		default:
 			return null;
