@@ -453,12 +453,12 @@ public class Knightmare extends Widget implements StringConstants {
 									b.startTimer();
 									if (b.getIndex() == 15) {
 										if (!hilfsboolean2) {
-											b.getSpieler().verteilen(12, 16);
+											b.getSpieler().verteilen(12, 10);
 										}
 									}
 									if (b.getIndex() == 14) {
 										if (!hilfsboolean3) {
-											b.getSpieler().verteilen(10, 8);
+											b.getSpieler().verteilen(10, 12);
 										}
 									}
 									// b.setSort(0);
@@ -467,11 +467,11 @@ public class Knightmare extends Widget implements StringConstants {
 										Bauen.kostenAbziehen(b);
 									} else {
 										// TODO Startrohstoffe
-										b.getSpieler().verteilen(2, 100);
-										b.getSpieler().verteilen(0, 100);
-										b.getSpieler().verteilen(8, 100);
-										b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 100);
-										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 100);
+										b.getSpieler().verteilen(2, 40);
+										//b.getSpieler().verteilen(0, 0);
+										b.getSpieler().verteilen(8, 20);
+										//b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 100);
+										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 0);
 
 										b.setKostetWarevonIndex(2, 10);
 										b.setKostetWarevonIndex(8, 5);
