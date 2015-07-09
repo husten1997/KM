@@ -65,10 +65,6 @@ public class Bauen {
 		b.setKostetWarevonIndex(8, 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
-//		b.addnichtErlaubt("kohle");
-//		b.addnichtErlaubt("eisen");
-//		b.addnichtErlaubt("baum");
-		
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
 		b.addnichtErlaubt(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
@@ -148,7 +144,7 @@ public class Bauen {
 
 		if (error == 0) {
 
-			int am = Rohstoffe.maxID(); // TODO überprüfen
+			int am = Rohstoffe.maxID();
 
 			Waren[] benötigt = new Waren[am];
 			int[] amountBenötigt = new int[am];
@@ -391,7 +387,7 @@ public class Bauen {
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
 
-			b.init(50, 4, 0, 0, "Bauernhof", benötigt, amountBenötigt,
+			b.init(50, 2, 0, 0, "Bauernhof", benötigt, amountBenötigt,
 					Rohstoffe.Getreide(), 36);
 
 			if (!sp.getName().equals("Mama Natur")) {
@@ -410,7 +406,7 @@ public class Bauen {
 //									b.WareFertigstellen();
 //									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), 1);
 //								}
-								b.getSpieler().verteilen(Rohstoffe.Getreide().getID(),8);
+								b.getSpieler().verteilen(Rohstoffe.Getreide().getID(),2);
 							}
 
 						});
