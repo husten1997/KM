@@ -31,6 +31,7 @@ import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
+import com.matze.knightmare.meshes.Rohstoffe;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.sound.MoodMusic;
@@ -449,7 +450,7 @@ public class Knightmare extends Widget implements StringConstants {
 									b.startTimer();
 									if (b.getIndex() == 15) {
 										if (!hilfsboolean2) {
-											b.getSpieler().verteilen(12, 8);
+											b.getSpieler().verteilen(12, 16);
 										}
 									}
 									if (b.getIndex() == 14) {
@@ -463,9 +464,11 @@ public class Knightmare extends Widget implements StringConstants {
 										Bauen.kostenAbziehen(b);
 									} else {
 										// TODO Startrohstoffe
-										b.getSpieler().verteilen(2, 300);
-										b.getSpieler().verteilen(0, 5);
-										b.getSpieler().verteilen(8, 250);
+										b.getSpieler().verteilen(2, 100);
+										b.getSpieler().verteilen(0, 100);
+										b.getSpieler().verteilen(8, 100);
+										b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 100);
+										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 100);
 
 										b.setKostetWarevonIndex(2, 10);
 										b.setKostetWarevonIndex(8, 5);

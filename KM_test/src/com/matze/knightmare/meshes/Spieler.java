@@ -322,5 +322,12 @@ public class Spieler {
 	public void removeMarktplatz(RectangleGraphicalObject rgo) {
 		marktplätze.remove((Building) rgo);
 	}
+	
+	public boolean possibleToRemove(int index, int amount){
+		if (getAmountofResource(index) - amount >= 0){
+			return true;
+		}
+		return false;
+	}
 
 }

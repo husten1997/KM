@@ -17,7 +17,6 @@ public class Bauen {
 
 		b.setKostetWarevonIndex(2, 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
-		
 		b.addnichtErlaubt(StringConstants.Material_t.GRAS);
 		b.addnichtErlaubt(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.MOOR);
@@ -208,11 +207,11 @@ public class Bauen {
 									if (k.getBenötigt()[0].substractWare(1)){
 										b.getSpieler().verteilen(Rohstoffe.Holz().getID(), 1);
 										if (k.getBenötigt()[0].getAmount()==1){
-											Knightmare.newHandler.remove(k);
+											Knightmare.newHandler.die(k);
 										}
 									}else{
 //										Pos pk = k.getPosition();
-										Knightmare.newHandler.remove(k);
+										Knightmare.newHandler.die(k);
 //										Knightmare.newHandler.place(Baumstumpf(pk));//TODO weil ged ned in dem Thread
 //										k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
 									}
@@ -810,7 +809,7 @@ public class Bauen {
 	}
 	
 	public static Building Kaserne(Pos p, Spieler sp) {
-		Building b = new Building(8, p, 64, 64, "Kaserne.png");
+		Building b = new Building(18, p, 64, 64, "Kaserne.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
@@ -835,6 +834,54 @@ public class Bauen {
 
 			b.init(50, 4, 0, 0, "Kaserne", benötigt, amountBenötigt,
 					null, 75);
+
+			return b;
+		}
+		return null;
+	}
+	
+	public static Building Schmied(Pos p, Spieler sp) {
+		Building b = new Building(18, p, 64, 64, "Schmied.png");
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 8);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 8);
+
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.getName().equals("Mama Natur")) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			Waren[] benötigt = new Waren[1];
+			int[] amountBenötigt = new int[1];
+			
+			benötigt[0] = Rohstoffe.Eisen();
+			amountBenötigt[0] = 2;
+
+			b.init(50, 4, 0, 0, "Schmied", benötigt, amountBenötigt,
+					Rohstoffe.Armbrust(), 75);
+
+			if (!sp.getName().equals("Mama Natur")) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().getAmountofResource(benötigt[0].getID())-2 >= 0){
+								b.getSpieler().verteilen(Rohstoffe.Armbrust().getID(), 1);
+								b.getSpieler().abziehen(Rohstoffe.Eisen().getID(), 2);
+								}
+						}});
+			}
 
 			return b;
 		}
@@ -899,6 +946,9 @@ public class Bauen {
 		case 17: {
 			return Bäckerei(p, spieler);
 		}
+		case 18: {
+			return Bäckerei(p, spieler);
+		}
 		default:
 			return null;
 		}
@@ -914,46 +964,7 @@ public class Bauen {
 	}
 
 	public static String getBuildingName(int id) {
-		switch (id) {
-		case 0:
-			return "Kohlemine";
-		case 1:
-			return "Eisenmine";
-		case 2:
-			return "Lager";
-		case 3:
-			return "Holzfäller";
-		case 4:
-			return "Haus";
-		case 5:
-			return "Sandschmelze";
-		case 6:
-			return "Bauernhof";
-		case 7:
-			return "Viehstall";
-		case 8:
-			return "Steinbruch";
-		case 9:
-			return "Turm";
-		case 10:
-			return "Mauern";
-		case 11:
-			return "Baum";
-		case 12:
-			return "Schatzkammer";
-		case 13:
-			return "Waffenkammer";
-		case 14:
-			return "Kornspeicher";
-		case 15:
-			return "Martplatz";
-		case 16:
-			return "Baumstumpf";
-		case 17:
-			return "Bäckerei";
-		default:
-			return "TODO";
-		}
+		return getBuildingforID(id, new Pos(0,0), mutterNatur).getName();
 	}
 
 	public static void kostenAbziehen(Building b) {
