@@ -33,7 +33,7 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 	private String val1[]={"Deutsch", "English"}, val2[] = {"Leicht", "Mittel", "Schwer"};
 	
 	private JTextField name[];
-	private JButton zurück, profil;
+	private JButton zurück, profil, wiki;
 	
 	private boolean c;
 
@@ -111,12 +111,27 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
 		add(zurück);
+		
+		wiki = new JButton("Wiki");
+		wiki.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+		wiki.setFont(new Font("Arial", Font.BOLD, width / 48));
+		wiki.setBounds(screen.width / 2 + 3 * width / 8 - width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
+		wiki.addActionListener(this);
+		wiki.setRolloverEnabled(false);
+		wiki.setFocusable(false);
+		add(wiki);
+		
 		validate();
 		repaint();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource()==wiki){
+			new Wiki("back.png", "Knightmare: Wiki");
+			dispose();
+		}
+		
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
 		Loader.changeCfgValue("SETTINGS: Default difficulty", ""+(schwierigkei.getSelectedIndex()));
 		if (e.getSource() == zurück) {
