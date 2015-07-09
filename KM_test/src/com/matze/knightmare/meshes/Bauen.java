@@ -305,7 +305,6 @@ public class Bauen {
 	public static Building Sandschmelze(Pos p, Spieler sp) {
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 
-		b.addMuss(StringConstants.Material_t.SAND);
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 15);
@@ -347,7 +346,6 @@ public class Bauen {
 //								}
 								
 								if (b.getSpieler().getAmountofResource(b.getBenötigt()[0].getID()) - 3 >= 0){
-									b.getSpieler().verteilen(Rohstoffe.Sand().getID(), 2);
 									b.getSpieler().verteilen(b.getProduziert().getID(), 1);
 									b.getSpieler().abziehen(b.getBenötigt()[0].getID(), 3);
 								}
