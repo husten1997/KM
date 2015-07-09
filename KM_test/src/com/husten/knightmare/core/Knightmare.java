@@ -468,9 +468,10 @@ public class Knightmare extends Widget implements StringConstants {
 									} else {
 										// TODO Startrohstoffe
 										b.getSpieler().verteilen(2, 40);
-										//b.getSpieler().verteilen(0, 0);
+										// b.getSpieler().verteilen(0, 0);
 										b.getSpieler().verteilen(8, 20);
-										//b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 100);
+										// b.getSpieler().verteilen(Rohstoffe.Eisen().getID(),
+										// 100);
 										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 0);
 
 										b.setKostetWarevonIndex(2, 10);
@@ -1189,6 +1190,9 @@ public class Knightmare extends Widget implements StringConstants {
 		rekru[18][0].setSize(64, 64);
 		rekru[18][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		rekru[18][0].setBackground(themeManager.getImage("Armbrust"));
+		rekru[18][1].setSize(64, 64);
+		rekru[18][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
+		rekru[18][1].setBackground(themeManager.getImage("Armbrust"));
 
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
 		kopfframe.setPosition((WIDTH - width) / 2, 0);
@@ -1339,16 +1343,28 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				System.out.println("Rekru Armbrust");
 				Pos h = spieler[0].findFreeNearMarkt();
 				if (h != null) {
-					System.out.println("Rekru");
 					Soldat s = Rekrutieren.Hussar((int) h.getX() * 32 + 16, (int) h.getY() * 32 + 16, spieler[0]);
 					if (s != null) {
 						newHandler.place(s);
 					}
 				}
-				// Rekrutieren.Hussar(posx, posy, w, he, spieler);//TODO
+			}
+		});
+		rekru[18][1] = new Button();
+		rekru[18][1].setTooltipContent(new Label("Speerträger"));
+		rekru[18][1].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				Pos h = spieler[0].findFreeNearMarkt();
+				if (h != null) {
+					Soldat s = Rekrutieren.Speertraeger((int) h.getX() * 32 + 16, (int) h.getY() * 32 + 16, 32, 32, spieler[0]);
+					if (s != null) {
+						newHandler.place(s);
+					}
+				}
 			}
 		});
 
