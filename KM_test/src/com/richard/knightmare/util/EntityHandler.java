@@ -3,7 +3,6 @@ package com.richard.knightmare.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.matze.knightmare.meshes.Bauen;
@@ -159,7 +158,7 @@ public class EntityHandler {
 					if (entities.get(i).getPosition().getX() <= Px1 && entities.get(i).getPosition().getX() >= Px2 && entities.get(i).getPosition().getY() <= Py1
 							&& entities.get(i).getPosition().getY() >= Py2) {
 
-						if (entities.get(i).getType().equals(StringConstants.MeshType.EINHEIT)) {
+						if (entities.get(i) instanceof Soldat) {
 							selection.add((RectangleGraphicalObject) entities.get(i));
 						}
 					}
@@ -178,7 +177,9 @@ public class EntityHandler {
 			for (int i = 0; i < entities.size(); i++) {
 				if (entities.get(i).getPosition().getX() <= x && entities.get(i).getPosition().getX() >= x - 64 && entities.get(i).getPosition().getY() <= y
 						&& entities.get(i).getPosition().getY() >= y - 64) {
-					selection.add(entities.get(i));
+					if(entities.get(i) instanceof Soldat){
+						selection.add(entities.get(i));
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -205,7 +206,7 @@ public class EntityHandler {
 			} else {
 				pathfindTo(x, y, selection.get(0));
 			}
-		} else {
+		} else if (selection.size()>1){
 			for (RectangleGraphicalObject soldat : selection) {
 				if (world[xPos][yPos] != null) {
 					if (world[xPos][yPos].getSpieler().getTeam() != soldat.getSpieler().getTeam()) {

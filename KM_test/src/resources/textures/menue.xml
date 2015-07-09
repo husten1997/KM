@@ -136,6 +136,14 @@
 			<alias ref="im" />
 		</select>
 	</images>
+	<images file="Armbrust.png" format="RGBA">
+		<area name="arm" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
+		<select name="Armbrust">
+			<alias ref="arm" if="disabled" tint="#8fff" />
+			<alias ref="arm" if="armed" tint="#999999" />
+			<alias ref="arm" />
+		</select>
+	</images>
 	<images file="cfg.png" format="RGBA">
 		<area name="cfgall" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="cfg">
@@ -571,6 +579,14 @@
 			<alias ref="bäck" if="disabled" tint="#8fff" />
 			<alias ref="bäck" if="armed" tint="#999999" />
 			<alias ref="bäck" />
+		</select>
+	</images>
+	<images file="Sandgrube.png" format="RGBA">
+		<area name="sandg" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<select name="Sandgrube">
+			<alias ref="sandg" if="disabled" tint="#8fff" />
+			<alias ref="sandg" if="armed" tint="#999999" />
+			<alias ref="sandg" />
 		</select>
 	</images>
 	<images file="KaserneTWL.png" format="RGBA">
