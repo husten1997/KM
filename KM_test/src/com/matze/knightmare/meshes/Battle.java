@@ -1,5 +1,8 @@
 package com.matze.knightmare.meshes;
 
+import com.richard.knightmare.sound.SoundPlayer;
+import com.richard.knightmare.util.Loader;
+
 public class Battle {
 
 	// public static void main(String[] args) {
@@ -52,6 +55,9 @@ public class Battle {
 	 */
 
 	public static Soldat kampf(Soldat b, Soldat a, int modus) {
+		SoundPlayer pl = new SoundPlayer("Swordclash.WAV");
+		pl.setVolume(Float.parseFloat(Loader.getCfgValue("Volume")));
+		pl.start();
 		Soldat looser = null;
 		if (b.getEffektivString().contains(a.getTypString())) {
 			a.health -= (int) (((b.angriff[modus] + b.bonusAng) / a.verteidigung[modus]) + 1);

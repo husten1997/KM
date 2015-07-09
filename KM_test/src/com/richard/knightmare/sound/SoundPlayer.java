@@ -53,7 +53,7 @@ public class SoundPlayer {
 		volume = ctrl.getValue();
 	}
 
-	private void setVolume(Float volume) {
+	public void setVolume(Float volume) {
 		try {
 			ctrl.setValue(volume);
 		} catch (Exception e) {
