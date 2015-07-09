@@ -6,7 +6,7 @@ import com.richard.knightmare.util.Pos;
 public abstract class GraphicalObject implements StringConstants{
 
 	protected int sort = 1;
-	protected String type, toStringString;
+	protected String type;
 	protected Pos position;
 	
 	public abstract void initRender();
@@ -40,9 +40,5 @@ public abstract class GraphicalObject implements StringConstants{
 	
 	public String getType(){
 		return type;
-	}
-	
-	public String toString(){
-		return toStringString;
 	}
 }

@@ -196,19 +196,18 @@ public class Bauen {
 
 							@Override
 							public void run() {
-								
 								Building k = Knightmare.newHandler.suchBaum((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
-								System.out.println("KKKK"+k);
-								System.out.println(k.getBenötigt()[0].substractWare(1));
 								
-								if (!k.getBenötigt()[0].substractWare(1)){
-									Pos pk = k.getPosition();
-									Knightmare.newHandler.remove(k);
-									Knightmare.newHandler.place(Baumstumpf(pk));
-									k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
+								if(k!=null){
+									if (k.getBenötigt()[0].substractWare(1)){
+										b.getSpieler().verteilen(Rohstoffe.Holz().getID(), 1);
+									}else{
+//										Pos pk = k.getPosition();
+										Knightmare.newHandler.remove(k);
+//										Knightmare.newHandler.place(Baumstumpf(pk));//TODO weil ged ned in dem Thread
+//										k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
+									}
 								}
-								if (k != null)
-								b.getSpieler().verteilen(Rohstoffe.Holz().getID(), 1);
 							}
 
 						});
@@ -570,7 +569,9 @@ public class Bauen {
 		Waren w = Rohstoffe.Holz();
 		w.setAmount(1);
 		Waren[] benötigt = new Waren[1];
+		benötigt[0] = Rohstoffe.Holz();
 		int[] amountBenötigt = new int[1];
+		amountBenötigt[0]=1;
 		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, w, 50);
 		return b;
 	}
