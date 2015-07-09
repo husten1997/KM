@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,7 +21,7 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
-public class Profil extends Optionsframesuperklasse implements ActionListener {
+public class Profil extends Optionsframesuperklasse implements ActionListener, ItemListener {
 
 	private JComboBox<String> sprache;
 	private JTextField sprach;
@@ -47,7 +50,11 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		add(difficulty);
 		
 		schwierigkei = new JComboBox<String>(val1);
+		schwierigkei.validate();
 		schwierigkei.setBounds((screen.width - width) / 2 +325, (screen.height-height)/2+150, 200, 50);
+		schwierigkei.validate();
+		schwierigkei.repaint();
+		schwierigkei.addItemListener(this);
 		schwierigkei.setSelectedIndex(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 		add(schwierigkei);
 		
@@ -104,6 +111,8 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 		zurück.setRolloverEnabled(false);
 		zurück.setFocusable(false);
 		add(zurück);
+		validate();
+		repaint();
 	}
 
 	@Override
@@ -150,7 +159,6 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		Loader.changeCfgValue("SETTINGS: Profilname", name[1].getText());
-		Loader.changeCfgValue("SETTINGS: Default difficulty", ""+schwierigkei.getSelectedIndex());
 		if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(getString("CONTROL_KEY: Bestätigen"))) {
 			name[1].setFocusable(false);
 			name[0].setRequestFocusEnabled(true);
@@ -190,6 +198,15 @@ public class Profil extends Optionsframesuperklasse implements ActionListener {
 			} else if (KeyEvent.getKeyText(e.getExtendedKeyCode()).equals(Loader.getCfgValue("CONTROL_KEY: V-Sync"))) {
 				Loader.changeCfgValue("CONTROL_KEY: V-Sync", Loader.getCfgValue("CONTROL_KEY: V-Sync").equals("On") ? "Off" : "On");
 			}
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		// TODO Auto-generated method stub
+		if (arg0.getSource() == schwierigkei.getSelectedItem()){
+			Loader.changeCfgValue("SETTINGS: Default difficulty", ""+schwierigkei.getSelectedIndex());
+			System.out.println("Hallo"+Loader.getCfgValue("SETTINGS: Default difficulty"));
 		}
 	}
 

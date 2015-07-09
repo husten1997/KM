@@ -932,7 +932,7 @@ public class Bauen {
 	}
 	
 	public static Building SandGrube(Pos p, Spieler sp) {
-		Building b = new Building(21, p, 64, 64, "Sandgrube.png");
+		Building b = new Building(21, p, 32, 32, "Sandgrube.png");
 		b.setSpieler(sp);
 
 		b.setKostetWarevonIndex(2, 10);

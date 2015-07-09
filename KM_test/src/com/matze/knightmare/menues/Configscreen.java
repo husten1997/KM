@@ -313,7 +313,7 @@ public class Configscreen extends Optionsframesuperklasse implements
 					bild[i].setIcon(ic);
 					System.out.println(Integer.parseInt(Loader
 							.getCfgValue("SETTINGS: Default difficulty")));
-					schwierigkeit[i].setSelectedIndex(Integer.parseInt(Loader
+					schwierigkeit[0].setSelectedIndex(Integer.parseInt(Loader
 							.getCfgValue("SETTINGS: Default difficulty")));
 				}
 				
