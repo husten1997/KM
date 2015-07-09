@@ -519,5 +519,18 @@ public class EntityHandler {
 		}
 		return null;
 	}
+	public Building suchFeld(int x, int y, int radius) {
+		for (int i = x - radius; i < x + radius; i++) {
+			for (int j = y - radius; j < y + radius; j++) {
+				if (world[i][j] instanceof Building) {
+					if (((Building) world[i][j]).getIndex() == 20) {
+						return (Building) world[i][j];
+					}
+
+				}
+			}
+		}
+		return null;
+	}
 
 }

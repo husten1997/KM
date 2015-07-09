@@ -30,7 +30,7 @@ import com.matze.knightmare.menues.InGameOptionen;
 import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
-import com.matze.knightmare.meshes.Rekrutieren;
+//import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Rohstoffe;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
@@ -58,7 +58,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, updateticks;
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
-	private String inGameStat = state.S_TRUPS;
+	private String inGameStat = state.DEFAULT;// state.S_TRUPS;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true;
 	private Soldat figur;
@@ -127,7 +127,7 @@ public class Knightmare extends Widget implements StringConstants {
 			grafikCycl();
 
 			handlInput();
-			if (!inGameStat.equals(state.N_BUILDINGS)) {
+			if (!inGameStat.equals(state.BAUEN/* N_BUILDINGS */)) {
 				aktuellesGebäude = -1;
 			}
 
@@ -293,24 +293,24 @@ public class Knightmare extends Widget implements StringConstants {
 					// TODO name
 					Loader.speichern("Test");
 				}
-
-				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
-					inGameStat = state.S_TRUPS;
-					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
-						cursorIndex = 0;
-					}
-					System.out.println(inGameStat);
-				}
-
-				if (Keyboard.getEventKey() == Keyboard.KEY_V) {
-					inGameStat = state.S_BUILDINGS;
-					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
-						cursorIndex = 0;
-					}
-					System.out.println(inGameStat);
-				}
+//
+//				if (Keyboard.getEventKey() == Keyboard.KEY_C) {
+//					inGameStat = state.S_TRUPS;
+//					if (cursorIndex == 1) {
+//						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+//						cursorIndex = 0;
+//					}
+//					System.out.println(inGameStat);
+//				}
+//
+//				if (Keyboard.getEventKey() == Keyboard.KEY_V) {
+//					inGameStat = state.S_BUILDINGS;
+//					if (cursorIndex == 1) {
+//						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+//						cursorIndex = 0;
+//					}
+//					System.out.println(inGameStat);
+//				}
 
 				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
 					baumenueShowen = !baumenueShowen;
@@ -321,23 +321,23 @@ public class Knightmare extends Widget implements StringConstants {
 					}
 					System.out.println(inGameStat);
 				}
-
-				if (Keyboard.getEventKey() == Keyboard.KEY_N) {
-					inGameStat = state.N_TRUPS;
-					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
-						cursorIndex = 0;
-					}
-					System.out.println(inGameStat);
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_J) {
-					inGameStat = state.NF_TROOP;
-					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
-						cursorIndex = 0;
-					}
-					System.out.println(inGameStat);
-				}
+//
+//				if (Keyboard.getEventKey() == Keyboard.KEY_N) {
+//					inGameStat = state.N_TRUPS;
+//					if (cursorIndex == 1) {
+//						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+//						cursorIndex = 0;
+//					}
+//					System.out.println(inGameStat);
+//				}
+//				if (Keyboard.getEventKey() == Keyboard.KEY_J) {
+//					inGameStat = state.NF_TROOP;
+//					if (cursorIndex == 1) {
+//						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+//						cursorIndex = 0;
+//					}
+//					System.out.println(inGameStat);
+//				}
 				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(-0.5f);
 				}
@@ -424,7 +424,7 @@ public class Knightmare extends Widget implements StringConstants {
 						int yR = y / 32;
 
 						switch (inGameStat) {
-						case state.N_BUILDINGS:
+						case state.BAUEN/*N_BUILDINGS*/:
 							if (aktuellesGebäude != -1) {
 								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
 								boolean hilfsboolean = false;
@@ -442,6 +442,7 @@ public class Knightmare extends Widget implements StringConstants {
 									} else {
 										labelZuTeuer.setText("Wir müssen ein Lager plazieren, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									}
+									showGedNedSeitWann = 0;
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
 										gednedShown = true;
@@ -475,6 +476,7 @@ public class Knightmare extends Widget implements StringConstants {
 									}
 								} else {
 									labelZuTeuer.setText("Das kann da nicht plaziert werden, "+Loader.getCfgValue("SETTINGS: Profilname"));
+									showGedNedSeitWann = 0;
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
 										gednedShown = true;
@@ -482,37 +484,53 @@ public class Knightmare extends Widget implements StringConstants {
 								}
 							}
 							break;
-						case state.N_TRUPS:
-							Soldat s = Rekrutieren.Hussar(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[0]);
-							if (/* handler.place(s) */newHandler.place(s)) {
-								// s.setSort(1);
-								// initRender(s, 1);
-							}
-							break;
-						case state.NF_TROOP:
-							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[1]);
-							if (/* handler.place(sf) */newHandler.place(sf)) {
-								// sf.setSort(1);
-								// initRender(sf, 1);
-							}
-							break;
-						case state.S_TRUPS:
-							newHandler.search(x, y);
-							if (newHandler.getSelection().size() > 0) {
-								if (newHandler.getSelection().get(newHandler.getSelection().size() - 1) instanceof Soldat) {
-									figur = (Soldat) newHandler.getSelection().get(newHandler.getSelection().size() - 1);
+//						case state.N_TRUPS:
+//							Soldat s = Rekrutieren.Hussar(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[0]);
+//							if (/* handler.place(s) */newHandler.place(s)) {
+//								// s.setSort(1);
+//								// initRender(s, 1);
+//							}
+//							break;
+//						case state.NF_TROOP:
+//							Soldat sf = Rekrutieren.Bogenschuetze(xR * 32 + 16, yR * 32 + 16, 32, 32, spieler[1]);
+//							if (/* handler.place(sf) */newHandler.place(sf)) {
+//								// sf.setSort(1);
+//								// initRender(sf, 1);
+//							}
+//							break;
+//						case state.S_TRUPS:
+//							newHandler.search(x, y);
+//							if (newHandler.getSelection().size() > 0) {
+//								if (newHandler.getSelection().get(newHandler.getSelection().size() - 1) instanceof Soldat) {
+//									figur = (Soldat) newHandler.getSelection().get(newHandler.getSelection().size() - 1);
+//								}
+//							}
+//							// search(x, y);
+//							// if (selection.get(selection.size() - 1)
+//							// instanceof Soldat) {
+//							// figur = (Soldat) selection.get(selection.size() -
+//							// 1);
+//							// }
+//							break;
+						case state.DEFAULT/*S_BUILDINGS*/:
+//							newHandler.search(x, y);
+							// search(x, y);
+							RectangleGraphicalObject object = newHandler.getOn(xR, yR);
+//							System.out.println(object);
+							if(object instanceof Building){
+								if(((Building)  object).getIndex()==6){
+									aktuellesGebäude= 20;
+									inGameStat = state.BAUEN;
+									labelZuTeuer.setText("Plaziert eure Felder, "+Loader.getCfgValue("SETTINGS: Profilname"));
+									showGedNedSeitWann = 0;
+									if (getChildIndex(labelZuTeuer) == -1) {
+										add(labelZuTeuer);
+										gednedShown = true;
+									}
+								}else if(((Building)  object).getIndex()==18){
+									//TODO rekrutiern
 								}
 							}
-							// search(x, y);
-							// if (selection.get(selection.size() - 1)
-							// instanceof Soldat) {
-							// figur = (Soldat) selection.get(selection.size() -
-							// 1);
-							// }
-							break;
-						case state.S_BUILDINGS:
-							newHandler.search(x, y);
-							// search(x, y);
 							break;
 						case state.ABREIßEN:
 							/*
@@ -522,6 +540,7 @@ public class Knightmare extends Widget implements StringConstants {
 							RectangleGraphicalObject on = newHandler.getOn(xR, yR);
 							if (on instanceof Building) {
 								if (((Building) on).getIndex() == 2 && !(on.getSpieler().hatWievieleLager() > 1)) {
+									showGedNedSeitWann = 0;
 									labelZuTeuer.setText("Wir können unser letztes Lager nicht abreißen, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
@@ -530,6 +549,7 @@ public class Knightmare extends Widget implements StringConstants {
 									break;
 								}
 								if (((Building) on).getIndex() == 14 && !(on.getSpieler().hatWievieleKornspeicher() > 1)) {
+									showGedNedSeitWann = 0;
 									labelZuTeuer.setText("Wir können unseren letzten Kornspeicher nicht abreißen, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
@@ -538,6 +558,7 @@ public class Knightmare extends Widget implements StringConstants {
 									break;
 								}
 								if (((Building) on).getIndex() == 15 && !(on.getSpieler().hatWievieleMarktplatz() > 1)) {
+									showGedNedSeitWann = 0;
 									labelZuTeuer.setText("Wir können unseren letzten Marktplatz nicht abreißen, "+Loader.getCfgValue("SETTINGS: Profilname"));
 									if (getChildIndex(labelZuTeuer) == -1) {
 										add(labelZuTeuer);
@@ -580,9 +601,9 @@ public class Knightmare extends Widget implements StringConstants {
 						// Pos p1 = new Pos(x, y); // Ende
 
 						switch (inGameStat) {
-						case state.NOTHING:
-							break;
-						case state.S_TRUPS:
+						/*case state.NOTHING:
+							break;*/
+						case state.DEFAULT/*state.S_TRUPS*/:
 							newHandler.processRightClick(x, y);
 							/*
 							 * Soldat bogi = Rekrutieren.Abgesessener_Ritter(0,
@@ -595,8 +616,8 @@ public class Knightmare extends Widget implements StringConstants {
 							 * angriffe.put(bogi, h); } }
 							 */
 							break;
-						case state.N_BUILDINGS:
-							inGameStat = state.S_TRUPS;
+						default/*case state.N_BUILDINGS*/:
+							inGameStat = state.DEFAULT/*.S_TRUPS*/;
 							break;
 						}
 					}
@@ -612,7 +633,7 @@ public class Knightmare extends Widget implements StringConstants {
 						pos2.setY(y);
 
 						switch (inGameStat) {
-						case state.S_TRUPS:
+						case state.DEFAULT/*state.S_TRUPS*/:
 							newHandler.search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
 							// for (int i = 0; i < selection.size(); i++) {
 							// if
@@ -1105,10 +1126,10 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[2][0].setBackground(themeManager.getImage("Waffenkammer"));
 		gebäude[2][1].setSize(64, 64);
-		gebäude[2][1].setPosition((int) baustart.getX()+74, (int) baustart.getY());
+		gebäude[2][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
 		gebäude[2][1].setBackground(themeManager.getImage("Kaserne"));
 		gebäude[2][2].setSize(32, 32);
-		gebäude[2][2].setPosition((int) baustart.getX()+148, (int) baustart.getY());
+		gebäude[2][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
 		gebäude[2][2].setBackground(themeManager.getImage("Schmiede"));
 
 		gebäude[3][0].setSize(32, 32);
@@ -1269,7 +1290,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				@Override
 				public void run() {
-					inGameStat = state.N_BUILDINGS;
+					inGameStat = state.BAUEN;// state.N_BUILDINGS;
 					aktuellesGebäude = wieso;
 				}
 			});
@@ -1280,7 +1301,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 5;
 			}
 		});
@@ -1291,30 +1312,28 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 3;
 			}
 		});
 		gebäude[1][1] = new Button();
-		Label helpTSt = new Label(Bauen.getBuildingName(8));
-		gebäude[1][1].setTooltipContent(helpTSt);
+		gebäude[1][1].setTooltipContent(new Label(Bauen.getBuildingName(8)));
 		gebäude[1][1].addCallback(new Runnable() {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 8;
 			}
 		});
 
 		gebäude[2][0] = new Button();
-		Label helpTWa = new Label(Bauen.getBuildingName(13));
-		gebäude[2][0].setTooltipContent(helpTWa);
+		gebäude[2][0].setTooltipContent(new Label(Bauen.getBuildingName(13)));
 		gebäude[2][0].addCallback(new Runnable() {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 13;
 			}
 		});
@@ -1324,7 +1343,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 18;
 			}
 		});
@@ -1334,19 +1353,18 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 19;
 			}
 		});
 
 		gebäude[3][0] = new Button();
-		Label helpTKo = new Label(Bauen.getBuildingName(14));
-		gebäude[3][0].setTooltipContent(helpTKo);
+		gebäude[3][0].setTooltipContent(new Label(Bauen.getBuildingName(14)));
 		gebäude[3][0].addCallback(new Runnable() {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 14;
 			}
 		});
@@ -1357,7 +1375,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 6;
 			}
 		});
@@ -1368,7 +1386,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 7;
 			}
 		});
@@ -1379,7 +1397,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 17;
 			}
 		});
@@ -1391,7 +1409,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 9;
 			}
 		});
@@ -1402,7 +1420,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 10;
 			}
 		});
@@ -1414,7 +1432,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 4;
 			}
 		});
@@ -1425,7 +1443,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 12;
 			}
 		});
@@ -1436,7 +1454,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				inGameStat = state.N_BUILDINGS;
+				inGameStat = state.BAUEN;// state.N_BUILDINGS;
 				aktuellesGebäude = 15;
 			}
 		});
@@ -1492,7 +1510,7 @@ public class Knightmare extends Widget implements StringConstants {
 		l_time = new Label("");
 		l_time.setTheme("label");
 
-		labelZuTeuer = new Label("Das Können wir uns nicht leisten "+Loader.getCfgValue("SETTINGS: Profilname"));
+		labelZuTeuer = new Label("Das Können wir uns nicht leisten " + Loader.getCfgValue("SETTINGS: Profilname"));
 
 		for (int i = 0; i < resn.length; i++) {
 			res[i] = new Label();

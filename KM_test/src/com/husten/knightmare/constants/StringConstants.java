@@ -20,13 +20,17 @@ public interface StringConstants {
 	}
 
 	public interface state {
-		public static String NOTHING = "NOTHING";
-		public static String S_BUILDINGS = "S_BUILDINGS";
-		public static String S_TRUPS = "S_TRUPS";
-		public static String N_BUILDINGS = "N_BUILDINGS";
-		public static String N_TRUPS = "N_TRUPS";
+//		public static String NOTHING = "NOTHING";
+//		public static String S_BUILDINGS = "S_BUILDINGS";
+//		public static String S_TRUPS = "S_TRUPS";
+//		public static String N_BUILDINGS = "N_BUILDINGS";
+//		public static String N_TRUPS = "N_TRUPS";
+//		public static String ABREIﬂEN = "Abreiﬂen";
+//		public static String NF_TROOP = "NF_TROOP";
+		
+		public static String DEFAULT = "Default";
 		public static String ABREIﬂEN = "Abreiﬂen";
-		public static String NF_TROOP = "NF_TROOP";
+		public static String BAUEN = "Bauen";
 	}
 	
 	public interface names{
