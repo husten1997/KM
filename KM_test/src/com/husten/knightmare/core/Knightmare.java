@@ -1104,6 +1104,12 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[2][0].setSize(64, 64);
 		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		gebäude[2][0].setBackground(themeManager.getImage("Waffenkammer"));
+		gebäude[2][1].setSize(64, 64);
+		gebäude[2][1].setPosition((int) baustart.getX()+74, (int) baustart.getY());
+		gebäude[2][1].setBackground(themeManager.getImage("Kaserne"));
+		gebäude[2][2].setSize(32, 32);
+		gebäude[2][2].setPosition((int) baustart.getX()+148, (int) baustart.getY());
+		gebäude[2][2].setBackground(themeManager.getImage("Schmiede"));
 
 		gebäude[3][0].setSize(32, 32);
 		gebäude[3][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1257,8 +1263,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private void GUI() {
 		for (int i = 0; i < 3; i++) {
 			gebäude[0][i] = new Button();
-			Label helpT = new Label(Bauen.getBuildingName(i));
-			gebäude[0][i].setTooltipContent(helpT);
+			gebäude[0][i].setTooltipContent(new Label(Bauen.getBuildingName(i)));
 			int wieso = i;
 			gebäude[0][i].addCallback(new Runnable() {
 
@@ -1270,8 +1275,7 @@ public class Knightmare extends Widget implements StringConstants {
 			});
 		}
 		gebäude[0][3] = new Button();
-		Label helpTS = new Label(Bauen.getBuildingName(5));
-		gebäude[0][3].setTooltipContent(helpTS);
+		gebäude[0][3].setTooltipContent(new Label(Bauen.getBuildingName(5)));
 		gebäude[0][3].addCallback(new Runnable() {
 
 			@Override
@@ -1282,8 +1286,7 @@ public class Knightmare extends Widget implements StringConstants {
 		});
 
 		gebäude[1][0] = new Button();
-		Label helpT = new Label(Bauen.getBuildingName(3));
-		gebäude[1][0].setTooltipContent(helpT);
+		gebäude[1][0].setTooltipContent(new Label(Bauen.getBuildingName(3)));
 		gebäude[1][0].addCallback(new Runnable() {
 
 			@Override
@@ -1313,6 +1316,26 @@ public class Knightmare extends Widget implements StringConstants {
 			public void run() {
 				inGameStat = state.N_BUILDINGS;
 				aktuellesGebäude = 13;
+			}
+		});
+		gebäude[2][1] = new Button();
+		gebäude[2][1].setTooltipContent(new Label(Bauen.getBuildingName(18)));
+		gebäude[2][1].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 18;
+			}
+		});
+		gebäude[2][2] = new Button();
+		gebäude[2][2].setTooltipContent(new Label(Bauen.getBuildingName(19)));
+		gebäude[2][2].addCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				inGameStat = state.N_BUILDINGS;
+				aktuellesGebäude = 19;
 			}
 		});
 
