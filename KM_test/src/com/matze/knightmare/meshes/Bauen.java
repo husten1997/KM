@@ -347,6 +347,7 @@ public class Bauen {
 //								}
 								
 								if (b.getSpieler().getAmountofResource(b.getBenötigt()[0].getID()) - 3 >= 0){
+									b.getSpieler().verteilen(Rohstoffe.Sand().getID(), 2);
 									b.getSpieler().verteilen(b.getProduziert().getID(), 1);
 									b.getSpieler().abziehen(b.getBenötigt()[0].getID(), 3);
 								}
@@ -694,6 +695,18 @@ public class Bauen {
 
 			b.init(75, 0, 0, 0, "Kornspeicher", benötigt, amountBenötigt, null,
 					1000);
+			
+			if (!sp.getName().equals("Mama Natur")) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2))){
+									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2));
+								}
+						}});
+			}
 
 			return b;
 		}
@@ -795,6 +808,7 @@ public class Bauen {
 //								}
 								if (b.getSpieler().getAmountofResource(Rohstoffe.Getreide().getID())-3 >= 0){
 									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), 5);
+									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 3);
 								}
 						}});
 			}
@@ -884,7 +898,19 @@ public class Bauen {
 		return null;
 	}
 	
-	
+	public static Building Feld(Pos p, Spieler sp) {
+		Building b = new Building(11, p, 32, 32, "ocka.png");
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		b.setSpieler(mutterNatur);
+		Waren w = Rohstoffe.Holz();
+		w.setAmount(20);
+		Waren[] benötigt = new Waren[1];
+		int[] amountBenötigt = new int[1];
+		amountBenötigt[0]=1;
+		benötigt[0] = w;
+		b.init(10, 0, 0, 0, "Feld", benötigt, amountBenötigt, null, 50);
+		return b;
+	}
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
 		switch (id) {
