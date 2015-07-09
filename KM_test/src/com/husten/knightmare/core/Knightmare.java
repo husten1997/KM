@@ -1110,10 +1110,10 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button[] categories = new Button[6];
 	private Button menue, einstellungen;
 	private Button[][] gebäude = new Button[6][10], rekru = new Button[20][2];
-	private Label[] res = new Label[13];
-	private Label[] resK = new Label[13];
-	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IFleisch", "IGlas", "IPeople" };
-	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Nahrung", "Glas", "Menschen" };
+	private Label[] res = new Label[14];
+	private Label[] resK = new Label[14];
+	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IFleisch", "IGlas", "IPeople" , "Armbrust"};
+	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Nahrung", "Glas", "Menschen", "Armbrust" };
 	private boolean removeGedNed = false, gednedShown = false;
 	private int showGedNedSeitWann;
 
