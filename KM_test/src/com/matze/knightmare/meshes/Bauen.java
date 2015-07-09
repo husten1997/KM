@@ -12,6 +12,12 @@ public class Bauen {
 			"KI", "Schwer");
 
 	public static Building KohleMine(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		b.setSpieler(sp);
 
@@ -48,7 +54,7 @@ public class Bauen {
 
 							@Override
 							public void run() {
-								b.getSpieler().verteilen(Rohstoffe.Kohle().getID(), 1);
+								b.getSpieler().verteilen(Rohstoffe.Kohle().getID(), (int) Math.round(1*hilfsd));
 							}
 
 						});
@@ -60,6 +66,12 @@ public class Bauen {
 	}
 
 	public static Building EisenMine(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(1, p, 64, 64, "Eisenerz 1.png");
 
 		b.setSpieler(sp);
@@ -110,8 +122,8 @@ public class Bauen {
 //								}
 								
 								if (!(b.getSpieler().getAmountofResource(Rohstoffe.Kohle().getID())-1 < 0)){
-									b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 1);
-									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(),1);
+									b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), (int) Math.round(1*hilfsd));
+									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), (int) Math.round(1*hilfsd));
 								}
 							}
 
@@ -165,6 +177,12 @@ public class Bauen {
 	}
 
 	public static Building Holzfäller(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(3, p, 64, 64, "Holz.png");
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
@@ -204,7 +222,7 @@ public class Bauen {
 								
 								if(k!=null){
 									if (k.getBenötigt()[0].substractWare(1)){
-										b.getSpieler().verteilen(Rohstoffe.Holz().getID(), 1);
+										b.getSpieler().verteilen(Rohstoffe.Holz().getID(), (int) Math.round(1*hilfsd));
 										if (k.getBenötigt()[0].getAmount()==1){
 											Knightmare.newHandler.die(k);
 										}
@@ -226,6 +244,12 @@ public class Bauen {
 	}
 
 	public static Building Haus(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(4, p, 64, 32, "Haus.png");
 		b.setSpieler(sp);
 
@@ -265,8 +289,8 @@ public class Bauen {
 								b.setProduktionProMinute(1);
 
 								if (b.getSpieler().getAmountofResource(Rohstoffe.Fleisch().getID()) - 2 >= 0){
-									b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), 1);
-									b.getSpieler().verteilen(9, 1);
+									b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), (int) Math.round(1*hilfsd));
+									b.getSpieler().verteilen(9, (int) Math.round(1*hilfsd));
 									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), 3);
 								} else {
 									if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) > 1){
@@ -306,6 +330,13 @@ public class Bauen {
 	}
 
 	public static Building Sandschmelze(Pos p, Spieler sp) {
+		//TODO Sandschmelze
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
@@ -364,6 +395,12 @@ public class Bauen {
 	}
 
 	public static Building Bauernhof(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(6, p, 128, 128, "Hof.png");
 
 		b.setSpieler(sp);
@@ -436,6 +473,12 @@ public class Bauen {
 	}
 
 	public static Building Viehstall(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(7, p, 64, 64, "viecha.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
@@ -484,6 +527,12 @@ public class Bauen {
 	}
 
 	public static Building Steinbruch(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(8, p, 64, 64, "Steinbruch.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
@@ -536,6 +585,12 @@ public class Bauen {
 	}
 
 	public static Building Turm(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(9, p, 64, 64, "Turm.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(8, 30);
@@ -566,6 +621,12 @@ public class Bauen {
 	}
 
 	public static Building Mauern(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(10, p, 32, 32, "Mauer.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(8, 8);
@@ -594,6 +655,12 @@ public class Bauen {
 	}
 
 	public static Building Baum(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(11, p, 32, 32, "Baum.png");
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setSpieler(mutterNatur);
@@ -608,6 +675,12 @@ public class Bauen {
 	}
 
 	public static Building Schatzkammer(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(12, p, 64, 32, "Schatzkammer.png");
 
 		b.setSpieler(sp);
@@ -645,6 +718,12 @@ public class Bauen {
 	}
 
 	public static Building Waffenkammer(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(13, p, 64, 64, "Waffenkammer.png");
 
 		b.setSpieler(sp);
@@ -683,6 +762,12 @@ public class Bauen {
 	}
 
 	public static Building Kornspeicher(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(14, p, 32, 32, "Kornspeicher.png");
 
 		b.setSpieler(sp);
@@ -732,6 +817,12 @@ public class Bauen {
 	}
 
 	public static Building Marktplatz(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(15, p, 64, 64, "Marktplatz.png");
 
 		b.setSpieler(sp);
@@ -781,6 +872,12 @@ public class Bauen {
 	
 	
 	public static Building Bäckerei(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(17, p, 64, 64, "Bäckerei.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 12);
@@ -837,6 +934,12 @@ public class Bauen {
 	}
 	
 	public static Building Kaserne(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(18, p, 64, 64, "Kaserne.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 20);
@@ -869,6 +972,12 @@ public class Bauen {
 	}
 	
 	public static Building Schmied(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(19, p, 32, 32, "Schmied.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
@@ -917,6 +1026,12 @@ public class Bauen {
 	}
 	
 	public static Building Feld(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(20, p, 32, 32, "ocka.png");
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setKostetWarevonIndex(Rohstoffe.Getreide().getID(), 2);
@@ -932,6 +1047,12 @@ public class Bauen {
 	}
 	
 	public static Building SandGrube(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		double hilfsd = d;
 		Building b = new Building(21, p, 32, 32, "Sandgrube.png");
 		b.setSpieler(sp);
 

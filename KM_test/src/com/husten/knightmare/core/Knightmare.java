@@ -450,15 +450,20 @@ public class Knightmare extends Widget implements StringConstants {
 										gednedShown = true;
 									}
 								} else if (/* handler.place(b) */newHandler.place(b)) {
+									double d = b.getSpieler().getDifficulty();
+									d = 2-d;
+									if(d==0){
+										d=0.5;
+									}
 									b.startTimer();
 									if (b.getIndex() == 15) {
 										if (!hilfsboolean2) {
-											b.getSpieler().verteilen(12, 10);
+											b.getSpieler().verteilen(12, (int) (10*d));
 										}
 									}
 									if (b.getIndex() == 14) {
 										if (!hilfsboolean3) {
-											b.getSpieler().verteilen(10, 12);
+											b.getSpieler().verteilen(10, (int) (12*d));
 										}
 									}
 									// b.setSort(0);
@@ -467,15 +472,15 @@ public class Knightmare extends Widget implements StringConstants {
 										Bauen.kostenAbziehen(b);
 									} else {
 										// TODO Startrohstoffe
-										b.getSpieler().verteilen(2, 40);
+										b.getSpieler().verteilen(2, (int) (40*d));
 										// b.getSpieler().verteilen(0, 0);
-										b.getSpieler().verteilen(8, 20);
+										b.getSpieler().verteilen(8, (int) (20*d));
 										// b.getSpieler().verteilen(Rohstoffe.Eisen().getID(),
 										// 100);
-										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 0);
+//										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 0);
 
-										b.setKostetWarevonIndex(2, 10);
-										b.setKostetWarevonIndex(8, 5);
+										b.setKostetWarevonIndex(2, (int) (10*d));
+										b.setKostetWarevonIndex(8, (int) (5*d));
 									}
 								} else {
 									labelZuTeuer.setText("Das kann da nicht plaziert werden, " + Loader.getCfgValue("SETTINGS: Profilname"));
@@ -1511,6 +1516,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (getChildIndex(rekrutieren) == -1) {
 				add(rekrutieren);
 				add(rekru[18][0]);
+				add(rekru[18][1]);
 			}
 
 			// TODO
