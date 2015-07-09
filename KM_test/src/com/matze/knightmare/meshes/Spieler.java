@@ -2,7 +2,9 @@ package com.matze.knightmare.meshes;
 
 import java.util.ArrayList;
 
+import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
+import com.richard.knightmare.util.Pos;
 
 public class Spieler {
 
@@ -330,4 +332,45 @@ public class Spieler {
 		return false;
 	}
 
+	public Pos findFreeNearMarkt(){
+		for(Building markt: marktplätze){
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32)-1)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32)-1);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32))==null){
+				return new Pos((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32));
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32)+1)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32)+1);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32)+2)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)-1, (int)(markt.getPosition().getY()/32)+2);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32), (int)(markt.getPosition().getY()/32)+2)==null){
+				return new Pos((int)(markt.getPosition().getX()/32), (int)(markt.getPosition().getY()/32)+2);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)+1, (int)(markt.getPosition().getY()/32)+2)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)+1, (int)(markt.getPosition().getY()/32)+2);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32)+2)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32)+2);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32)+1)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32)+1);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32))==null){
+				return new Pos((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32));
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32)-1)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)+2, (int)(markt.getPosition().getY()/32)-1);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32)+1, (int)(markt.getPosition().getY()/32)-1)==null){
+				return new Pos((int)(markt.getPosition().getX()/32)+1, (int)(markt.getPosition().getY()/32)-1);
+			}
+			if(Knightmare.newHandler.getOn((int)(markt.getPosition().getX()/32), (int)(markt.getPosition().getY()/32)-1)==null){
+				return new Pos((int)(markt.getPosition().getX()/32), (int)(markt.getPosition().getY()/32)-1);
+			}
+		}
+		return null;
+	}
 }

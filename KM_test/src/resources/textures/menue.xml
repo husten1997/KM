@@ -582,7 +582,7 @@
 		</select>
 	</images>
 	<images file="Sandgrube.png" format="RGBA">
-		<area name="sandg" xywh="0,0,64,64" splitx="L0,R0" splity="T0,B0" />
+		<area name="sandg" xywh="0,0,32,32" splitx="L0,R0" splity="T0,B0" />
 		<select name="Sandgrube">
 			<alias ref="sandg" if="disabled" tint="#8fff" />
 			<alias ref="sandg" if="armed" tint="#999999" />

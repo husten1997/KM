@@ -1144,6 +1144,9 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[1][1].setSize(64, 64);
 		gebäude[1][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
 		gebäude[1][1].setBackground(themeManager.getImage("Steinbruch"));
+		gebäude[1][2].setSize(32, 32);
+		gebäude[1][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
+		gebäude[1][2].setBackground(themeManager.getImage("Sandgrube"));
 
 		gebäude[2][0].setSize(64, 64);
 		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1308,7 +1311,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 	private int[] idsInC0 = { 0, 1, 2, 5 };
-	private int[] idsInC1 = { 3, 8 };
+	private int[] idsInC1 = { 3, 8 ,21};
 	private int[] idsInC2 = { 13, 18, 19 };
 	private int[] idsInC3 = { 14, 6, 7, 17 };
 	private int[] idsInC4 = { 9, 10 };
@@ -1339,6 +1342,14 @@ public class Knightmare extends Widget implements StringConstants {
 			@Override
 			public void run() {
 				System.out.println("Rekru Armbrust");
+				Pos h = spieler[0].findFreeNearMarkt();
+				if(h!=null){
+					System.out.println("Rekru");
+					Soldat s = Rekrutieren.Hussar((int)h.getX()*32+16, (int)h.getY()*32+16, 32, 32, spieler[0]);
+					if(s!=null){
+						newHandler.place(s);
+					}
+				}
 //				Rekrutieren.Hussar(posx, posy, w, he, spieler);//TODO
 			}
 		});
