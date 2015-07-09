@@ -58,11 +58,19 @@ public class Rekrutieren {
 	}
 
 	public static Soldat Speertraeger(int posx, int posy, int w, int he, Spieler spieler) {
-		Infanterie t = new Infanterie(30, posx, posy, w, he, "Speerträger.png");
+		Infanterie t = null;
+		if(spieler.possibleToRemove(13, 1)&&spieler.possibleToRemove(12, 1)&&spieler.possibleToRemove(Rohstoffe.Geld().getID(), 5)){
+			spieler.abziehen(13, 1);
+			spieler.abziehen(12, 1);
+			spieler.abziehen(Rohstoffe.Geld().getID(), 5);
+		t = new Infanterie(30, posx, posy, w, he, "Soldat_Nah.png");
 		init_Array(15, 0, 0, 15, 5, 2);
 		t.init(ang, ver, 40, "Speerträger", 32, 10, 12, 20, 20, false);
 		t.setTyp(0);
 		t.setSpieler(spieler);
+		t.setTimerTask(5,1);
+		
+		}
 		return t;
 	}
 
@@ -130,14 +138,16 @@ public class Rekrutieren {
 
 	public static Soldat Hussar(int posx, int posy, Spieler spieler) {
 		Kavallerie t = null;
-		if(spieler.possibleToRemove(13, 1)&&spieler.possibleToRemove(12, 1)){
+		if(spieler.possibleToRemove(13, 1)&&spieler.possibleToRemove(12, 1)&&spieler.possibleToRemove(Rohstoffe.Geld().getID(), 5)){
 			spieler.abziehen(13, 1);
 			spieler.abziehen(12, 1);
+			spieler.abziehen(Rohstoffe.Geld().getID(), 5);
 			t = new Kavallerie(60, posx, posy, 32, 32, "Hussar.png");
 			init_Array(40, 0, 0, 20, 20, 15);
 			t.init(ang, ver, 35, "Hussar", 40, 35, 50, 40, 40, false);
 			t.setTyp(3);
 			t.setSpieler(spieler);
+			t.setTimerTask(5,2);
 		}
 		return t;
 	}

@@ -2,8 +2,12 @@ package com.matze.knightmare.meshes;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
+import com.richard.knightmare.util.EntityHandler;
 import com.richard.knightmare.util.Pos;
 
 public class Soldat extends RectangleGraphicalObject {
@@ -19,6 +23,8 @@ public class Soldat extends RectangleGraphicalObject {
 	protected int health;
 	protected int team;
 	protected Spieler sp;
+	protected Timer t = new Timer(true);
+	protected TimerTask tt;
 
 	// TODO Inventory
 	public Soldat(int h, Pos position, int width, int height, String textureName) {
@@ -260,6 +266,26 @@ public class Soldat extends RectangleGraphicalObject {
 		
 		glPopMatrix();
 
+	}
+	
+	public void setTimerTask(int Sold, int nahrung){
+		tt = new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (getSpieler().possibleToRemove(Rohstoffe.Geld().getID(), Sold) && getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), nahrung)){
+					getSpieler().abziehen(Rohstoffe.Geld().getID(), Sold);
+					moral = 100;
+				} else {
+					if (!getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), nahrung)|| moral == 1)
+						Knightmare.newHandler.die(Soldat.this);
+					moral = 1;
+				}
+			}
+		};
+		
+		t.scheduleAtFixedRate(tt, 60000, 60000);
 	}
 
 
