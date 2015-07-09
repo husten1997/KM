@@ -192,7 +192,7 @@ public class Configscreen extends Optionsframesuperklasse implements
 			MainMenue.instance.setVisible(true);
 			MainMenue.instance.setAutoRequestFocus(true);
 			dispose();
-		}
+		} else {
 		
 		if (bild[0].getIcon().toString().equals(Loader.getCfgValue("SETTINGS: Profilbild"))) {
 			if (e.getSource() == bild[0]) {
@@ -242,6 +242,7 @@ public class Configscreen extends Optionsframesuperklasse implements
 					km.loop();
 				}
 			}, 0);
+		}
 		}
 
 	}
