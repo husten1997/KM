@@ -837,7 +837,7 @@ public class Bauen {
 	}
 	
 	public static Building Schmied(Pos p, Spieler sp) {
-		Building b = new Building(19, p, 64, 64, "Schmied.png");
+		Building b = new Building(19, p, 32, 32, "Schmied.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
