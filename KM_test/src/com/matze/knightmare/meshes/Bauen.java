@@ -841,7 +841,7 @@ public class Bauen {
 	}
 	
 	public static Building Schmied(Pos p, Spieler sp) {
-		Building b = new Building(18, p, 64, 64, "Schmied.png");
+		Building b = new Building(19, p, 64, 64, "Schmied.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
@@ -947,7 +947,10 @@ public class Bauen {
 			return Bäckerei(p, spieler);
 		}
 		case 18: {
-			return Bäckerei(p, spieler);
+			return Kaserne(p, spieler);
+		}
+		case 19: {
+			return Schmied(p, spieler);
 		}
 		default:
 			return null;
