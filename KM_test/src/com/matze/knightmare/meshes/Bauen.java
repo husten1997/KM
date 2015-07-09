@@ -899,7 +899,7 @@ public class Bauen {
 	}
 	
 	public static Building Feld(Pos p, Spieler sp) {
-		Building b = new Building(11, p, 32, 32, "ocka.png");
+		Building b = new Building(20, p, 32, 32, "ocka.png");
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		b.setSpieler(mutterNatur);
 		Waren w = Rohstoffe.Holz();
@@ -973,6 +973,9 @@ public class Bauen {
 		}
 		case 19: {
 			return Schmied(p, spieler);
+		}
+		case 20: {
+			return Feld(p, spieler);
 		}
 		default:
 			return null;
