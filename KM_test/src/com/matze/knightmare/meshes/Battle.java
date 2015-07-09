@@ -59,7 +59,9 @@ public class Battle {
 				looser = a;
 			}
 		} else {
-			a.health -= (int) ((b.angriff[modus] / a.verteidigung[modus]) + 1);
+			a.health -= 
+					(int) ((b.angriff[modus] 
+							/ a.verteidigung[modus]) + 1);
 			if (a.health <= 0) {
 				looser = a;
 			}

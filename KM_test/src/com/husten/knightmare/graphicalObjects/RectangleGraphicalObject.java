@@ -50,6 +50,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	protected Texture texture;
 	protected double widthCount = 1, heightCount = 1;
 	protected final Color fColor = new Color(255, 255, 255);
+	public int health;
 
 	public RectangleGraphicalObject(Pos position, int width, int height, boolean randomRotation) {
 		super(position, MeshType.GROUND);
@@ -269,6 +270,16 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	
 	public Spieler getSpieler(){
 		return s;
+	}
+
+	public String getEffektivString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public CharSequence getTypString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

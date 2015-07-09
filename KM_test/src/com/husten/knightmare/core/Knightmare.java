@@ -10,8 +10,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Map.Entry;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -27,7 +25,6 @@ import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.menues.InGameOptionen;
-import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
@@ -61,7 +58,8 @@ public class Knightmare extends Widget implements StringConstants {
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
 	private String inGameStat = state.DEFAULT;// state.S_TRUPS;
 	public static int WIDTH = 1600, HEIGHT = 900;
-	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true, rekrutriernShown = false;
+	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true,
+			rekrutriernShown = false;
 	private Soldat figur;
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
@@ -73,7 +71,6 @@ public class Knightmare extends Widget implements StringConstants {
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
-	private HashMap<Soldat, Soldat> angriffe = new HashMap<>();
 	private int renderD = 5;
 	private Spieler[] spieler;
 
@@ -619,30 +616,30 @@ public class Knightmare extends Widget implements StringConstants {
 
 						// Pos p1 = new Pos(x, y); // Ende
 
-//						switch (inGameStat) {
-//							/*
-//							 * case state.NOTHING: break;
-//							 */
-//						case state.DEFAULT/* state.S_TRUPS */:
-//							newHandler.processRightClick(x, y);
-//							/*
-//							 * Soldat bogi = Rekrutieren.Abgesessener_Ritter(0,
-//							 * 0, 32, 32, "Spieler 2", 1); for (int i = 0; i <
-//							 * selection.size(); i++) { if
-//							 * (selection.get(i).getType().equals(
-//							 * StringConstants.MeshType.EINHEIT)) { Soldat h =
-//							 * (Soldat) selection.get(i); handler.handle(h, p1,
-//							 * selection.size() + 2); angriffe.put(h, bogi);
-//							 * angriffe.put(bogi, h); } }
-//							 */
-//							break;
-//						default/* case state.N_BUILDINGS */:
-//							inGameStat = state.DEFAULT/* .S_TRUPS */;
-//							System.out.println("Schow Baumenü");
-//							rekrutriernShown = false;
-//							baumenueShowen = true;
-//							break;
-//						}
+						// switch (inGameStat) {
+						// /*
+						// * case state.NOTHING: break;
+						// */
+						// case state.DEFAULT/* state.S_TRUPS */:
+						// newHandler.processRightClick(x, y);
+						// /*
+						// * Soldat bogi = Rekrutieren.Abgesessener_Ritter(0,
+						// * 0, 32, 32, "Spieler 2", 1); for (int i = 0; i <
+						// * selection.size(); i++) { if
+						// * (selection.get(i).getType().equals(
+						// * StringConstants.MeshType.EINHEIT)) { Soldat h =
+						// * (Soldat) selection.get(i); handler.handle(h, p1,
+						// * selection.size() + 2); angriffe.put(h, bogi);
+						// * angriffe.put(bogi, h); } }
+						// */
+						// break;
+						// default/* case state.N_BUILDINGS */:
+						// inGameStat = state.DEFAULT/* .S_TRUPS */;
+						// System.out.println("Schow Baumenü");
+						// rekrutriernShown = false;
+						// baumenueShowen = true;
+						// break;
+						// }
 					}
 				}
 			} else {
@@ -950,22 +947,22 @@ public class Knightmare extends Widget implements StringConstants {
 		// handler.move();
 		newHandler.tick();
 
-		for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
-			Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
-			newHandler.die(krepierd);/*
-										 * renderList[1].remove(handler.abreißen
-										 * (krepierd));
-										 */
-			if (krepierd != null) {
-				angriffe.remove(entry.getKey());
-				angriffe.remove(krepierd);
-				for (Entry<Soldat, Soldat> entry2 : angriffe.entrySet()) {
-					if (entry2.getValue().equals(krepierd)) {
-						angriffe.remove(entry2.getKey());
-					}
-				}
-			}
-		}
+		// for (Entry<Soldat, Soldat> entry : angriffe.entrySet()) {
+		// Soldat krepierd = Battle.kampf(entry.getKey(), entry.getValue(), 0);
+		// newHandler.die(krepierd);/*
+		// * renderList[1].remove(handler.abreißen
+		// * (krepierd));
+		// */
+		// if (krepierd != null) {
+		// angriffe.remove(entry.getKey());
+		// angriffe.remove(krepierd);
+		// for (Entry<Soldat, Soldat> entry2 : angriffe.entrySet()) {
+		// if (entry2.getValue().equals(krepierd)) {
+		// angriffe.remove(entry2.getKey());
+		// }
+		// }
+		// }
+		// }
 	}
 
 	public void setDisplayMode(int width, int height, boolean fullscreen) {
@@ -1068,7 +1065,7 @@ public class Knightmare extends Widget implements StringConstants {
 		if (x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2 && y > HEIGHT - kopfframe.getHeight()) {
 			return true;
 		}
-		return (baumenueShowen||rekrutriernShown) && x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2 && y < width / 7;
+		return (baumenueShowen || rekrutriernShown) && x > (WIDTH - width) / 2 && x < (WIDTH + width) / 2 && y < width / 7;
 	}
 
 	private void initUI() {
@@ -1112,7 +1109,8 @@ public class Knightmare extends Widget implements StringConstants {
 	private Button[][] gebäude = new Button[6][10], rekru = new Button[20][2];
 	private Label[] res = new Label[14];
 	private Label[] resK = new Label[14];
-	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IFleisch", "IGlas", "IPeople" , "Armbrust"};
+	private String[] resn = { "IKohle", "IEisen", "IHolz", "IDiamant", "IPech", "ISand", "IWeizen", "ILehm", "IStein", "IMünze", "IFleisch", "IGlas", "IPeople",
+			"Armbrust" };
 	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Nahrung", "Glas", "Menschen", "Armbrust" };
 	private boolean removeGedNed = false, gednedShown = false;
 	private int showGedNedSeitWann;
@@ -1191,7 +1189,7 @@ public class Knightmare extends Widget implements StringConstants {
 		rekru[18][0].setSize(64, 64);
 		rekru[18][0].setPosition((int) baustart.getX(), (int) baustart.getY());
 		rekru[18][0].setBackground(themeManager.getImage("Armbrust"));
-		
+
 		kopfframe.setSize(width, 2 * HEIGHT / 45);
 		kopfframe.setPosition((WIDTH - width) / 2, 0);
 		kopfframe.setBackground(themeManager.getImageNoWarning("kopfzeile"));
@@ -1311,7 +1309,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 	private int[] idsInC0 = { 0, 1, 2, 5 };
-	private int[] idsInC1 = { 3, 8 ,21};
+	private int[] idsInC1 = { 3, 8, 21 };
 	private int[] idsInC2 = { 13, 18, 19 };
 	private int[] idsInC3 = { 14, 6, 7, 17 };
 	private int[] idsInC4 = { 9, 10 };
@@ -1343,14 +1341,14 @@ public class Knightmare extends Widget implements StringConstants {
 			public void run() {
 				System.out.println("Rekru Armbrust");
 				Pos h = spieler[0].findFreeNearMarkt();
-				if(h!=null){
+				if (h != null) {
 					System.out.println("Rekru");
-					Soldat s = Rekrutieren.Hussar((int)h.getX()*32+16, (int)h.getY()*32+16, spieler[0]);
-					if(s!=null){
+					Soldat s = Rekrutieren.Hussar((int) h.getX() * 32 + 16, (int) h.getY() * 32 + 16, spieler[0]);
+					if (s != null) {
 						newHandler.place(s);
 					}
 				}
-//				Rekrutieren.Hussar(posx, posy, w, he, spieler);//TODO
+				// Rekrutieren.Hussar(posx, posy, w, he, spieler);//TODO
 			}
 		});
 
@@ -1493,14 +1491,14 @@ public class Knightmare extends Widget implements StringConstants {
 				removeChild(button);
 			}
 		}
-		if(rekrutriernShown){
+		if (rekrutriernShown) {
 			if (getChildIndex(rekrutieren) == -1) {
 				add(rekrutieren);
 				add(rekru[18][0]);
 			}
-			
-			//TODO
-		}else{
+
+			// TODO
+		} else {
 			removeChild(rekrutieren);
 			removeChild(rekru[18][0]);
 		}

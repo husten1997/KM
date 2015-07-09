@@ -3,8 +3,12 @@ package com.richard.knightmare.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
+import com.matze.knightmare.meshes.Battle;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
@@ -26,6 +30,42 @@ public class EntityHandler {
 	public EntityHandler(int width, int height, Spieler[] spieler) {
 		this.spieler = spieler;
 		world = new RectangleGraphicalObject[width][height];
+
+		new Timer(true).scheduleAtFixedRate(new TimerTask() {
+
+			@Override
+			public void run() {
+				for (int x = 0; x < world.length; x++) {
+					for (int y = 0; y < world[x].length; y++) {
+						if (getOn(x, y) != null) {
+							if (getOn(x, y) instanceof Soldat) {
+								if (getOn(x - 1, y) instanceof Soldat) {
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x - 1, y), 0);
+									if (looser != null) {
+										die(looser);
+									}
+								} else if (getOn(x, y - 1) instanceof Soldat) {
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x, y - 1), 0);
+									if (looser != null) {
+										die(looser);
+									}
+								} else if (getOn(x + 1, y) instanceof Soldat) {
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x + 1, y), 0);
+									if (looser != null) {
+										die(looser);
+									}
+								} else if (getOn(x, y + 1) instanceof Soldat) {
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x, y + 1), 0);
+									if (looser != null) {
+										die(looser);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}, 0, 1000);
 	}
 
 	private void register(RectangleGraphicalObject object) {
@@ -36,7 +76,10 @@ public class EntityHandler {
 	}
 
 	public RectangleGraphicalObject getOn(int x, int y) {
-		return world[x][y];
+		if (x > 0 && x < world.length && y > 0 && y < world.length) {
+			return world[x][y];
+		}
+		return null;
 	}
 
 	public void draw() {
@@ -177,7 +220,7 @@ public class EntityHandler {
 			for (int i = 0; i < entities.size(); i++) {
 				if (entities.get(i).getPosition().getX() <= x && entities.get(i).getPosition().getX() >= x - 64 && entities.get(i).getPosition().getY() <= y
 						&& entities.get(i).getPosition().getY() >= y - 64) {
-					if(entities.get(i) instanceof Soldat){
+					if (entities.get(i) instanceof Soldat) {
 						selection.add(entities.get(i));
 					}
 				}
@@ -206,7 +249,7 @@ public class EntityHandler {
 			} else {
 				pathfindTo(x, y, selection.get(0));
 			}
-		} else if (selection.size()>1){
+		} else if (selection.size() > 1) {
 			for (RectangleGraphicalObject soldat : selection) {
 				if (world[xPos][yPos] != null) {
 					if (world[xPos][yPos].getSpieler().getTeam() != soldat.getSpieler().getTeam()) {
@@ -508,8 +551,8 @@ public class EntityHandler {
 	}
 
 	public Building suchBaum(int x, int y, int radius) {
-		for (int i = x - radius; i < x + radius; i++) {
-			for (int j = y - radius; j < y + radius; j++) {
+		for (int i = Math.max(x - radius, 0); i < Math.min(x + radius, world.length); i++) {
+			for (int j = Math.max(y - radius, 0); j < Math.max(y + radius, world[x].length); j++) {
 				if (world[i][j] instanceof Building) {
 					if (((Building) world[i][j]).getIndex() == 11) {
 						return (Building) world[i][j];
@@ -520,9 +563,10 @@ public class EntityHandler {
 		}
 		return null;
 	}
+
 	public Building suchFeld(int x, int y, int radius) {
-		for (int i = x - radius; i < x + radius; i++) {
-			for (int j = y - radius; j < y + radius; j++) {
+		for (int i = Math.max(x - radius, 0); i < Math.min(x + radius, world.length); i++) {
+			for (int j = Math.max(y - radius, 0); j < Math.max(y + radius, world[x].length); j++) {
 				if (world[i][j] instanceof Building) {
 					if (((Building) world[i][j]).getIndex() == 20) {
 						return (Building) world[i][j];
