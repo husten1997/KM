@@ -42,6 +42,30 @@ public class Spieler {
 	public int hatWievieleKornspeicher() {
 		return kornspeicher.size();
 	}
+	
+	public void setAmountofResource(int index, int am){
+		if (index == 9) {
+			for (Building Schatzkammer : schatzkammern) {
+				Schatzkammer.getBenötigt()[index].setAmount(am);
+			}		}
+		if (index == 10) {
+			for (Building Kornspeicher : kornspeicher) {
+				Kornspeicher.getBenötigt()[index].setAmount(am);
+			}		}
+		if (index == 12) {
+			for (Building marktplatz : marktplätze) {
+				marktplatz.getBenötigt()[index].setAmount(am);
+			}
+		}
+		if (index == 13) {
+			for (Building Waffenkammer : waffenkammer) {
+				Waffenkammer.getBenötigt()[index].setAmount(am);
+			}
+		}
+		for (Building Lager : lager) {
+			Lager.getBenötigt()[index].setAmount(am);
+		}
+	}
 
 	public Spieler(int SpielerNR, String name, int team, String typ,
 			String schwierigkeit) {
