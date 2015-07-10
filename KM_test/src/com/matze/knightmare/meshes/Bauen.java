@@ -827,7 +827,7 @@ public class Bauen {
 		b.setSpieler(mutterNatur);
 		Waren[] benötigt = new Waren[1];
 		int[] amountBenötigt = new int[1];
-		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, Rohstoffe.Nothing(), 50);
+		b.init(10, 0, 0, 0, "Baumstumpf", benötigt, amountBenötigt, Rohstoffe.Nothing(), 50);
 		return b;
 	}
 	
