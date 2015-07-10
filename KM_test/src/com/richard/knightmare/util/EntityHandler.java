@@ -475,6 +475,10 @@ public class EntityHandler {
 	}
 
 	public boolean die(RectangleGraphicalObject object) {
+		if(object instanceof Soldat){
+			((Soldat) object).stirb();
+		}
+		
 		int w = object.getWidth() / 32;
 		int h = object.getHeight() / 32;
 		int startW = (int) (object.getPosition().getX() / 32);

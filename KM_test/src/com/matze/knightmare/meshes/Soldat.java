@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
-import com.richard.knightmare.util.EntityHandler;
 import com.richard.knightmare.util.Pos;
 
 public class Soldat extends RectangleGraphicalObject {
@@ -67,40 +66,40 @@ public class Soldat extends RectangleGraphicalObject {
 	public int getTyp() {
 		return typ;
 	}
-	
+
 	public String getTypString() {
-		return typ+"";
+		return typ + "";
 	}
-	
-	public void setTyp(int i){
+
+	public void setTyp(int i) {
 		typ = i;
 	}
 
 	public String getEffektivString() {
 		effektiv = 0;
-		switch (typ){
-			case 0: {
-				effektiv = 321;
-				break;
-			}
-			case 1:{
-				effektiv = 0;
-				break;
-			}
-			case 2: {
-				effektiv = 310;
-				break;
-			}
-			case 3:{
-				effektiv = 10;
-				break;
-			}
-			case 4: {
-				effektiv = 3210;
-				break;
-			}
+		switch (typ) {
+		case 0: {
+			effektiv = 321;
+			break;
 		}
-		return effektiv+"";
+		case 1: {
+			effektiv = 0;
+			break;
+		}
+		case 2: {
+			effektiv = 310;
+			break;
+		}
+		case 3: {
+			effektiv = 10;
+			break;
+		}
+		case 4: {
+			effektiv = 3210;
+			break;
+		}
+		}
+		return effektiv + "";
 	}
 
 	public int ausdauerBerechnen(int a, int einheitenFreundlich, int einheitenFeindlich) { // int
@@ -202,7 +201,7 @@ public class Soldat extends RectangleGraphicalObject {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String n) {
 		name = n;
 	}
@@ -215,11 +214,11 @@ public class Soldat extends RectangleGraphicalObject {
 		return health;
 	}
 
-	public void setSpieler(Spieler spieler){
+	public void setSpieler(Spieler spieler) {
 		sp = spieler;
 	}
-	
-	public Spieler getSpieler(){
+
+	public Spieler getSpieler() {
 		return sp;
 	}
 
@@ -228,7 +227,7 @@ public class Soldat extends RectangleGraphicalObject {
 		// store the current model matrix
 		glPushMatrix();
 		// bind to the appropriate texture for this sprite
-		
+
 		texture.bind();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
@@ -237,12 +236,13 @@ public class Soldat extends RectangleGraphicalObject {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		// translate to the right location and prepare to draw
-		
-		glTranslatef((float) position.getX()+xz-16, (float) position.getY()+yz-16, 0);
-		glRotatef(45*m_rotation, 0f, 0f, 1f);
-		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness), (float) (fColor.getGreen() / 255 * Knightmare.breightness), (float) (fColor.getBlue() / 255 * Knightmare.breightness));
+
+		glTranslatef((float) position.getX() + xz - 16, (float) position.getY() + yz - 16, 0);
+		glRotatef(45 * m_rotation, 0f, 0f, 1f);
+		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness), (float) (fColor.getGreen() / 255 * Knightmare.breightness),
+				(float) (fColor.getBlue() / 255 * Knightmare.breightness));
 		// draw a quad textured to match the sprite
-		
+
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f((float) widthCount, 0);
@@ -259,34 +259,37 @@ public class Soldat extends RectangleGraphicalObject {
 
 		}
 		glEnd();
-		
-		
-		
+
 		// restore the model view matrix to prevent contamination
-		
+
 		glPopMatrix();
 
 	}
-	
-	public void setTimerTask(int Sold, int nahrung){
+
+	public void setTimerTask(int Sold, int nahrung) {
 		tt = new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				if (getSpieler().possibleToRemove(Rohstoffe.Geld().getID(), Sold) && getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), nahrung)){
+				if (getSpieler().possibleToRemove(Rohstoffe.Geld().getID(), Sold) && getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), nahrung)) {
 					getSpieler().abziehen(Rohstoffe.Geld().getID(), Sold);
 					moral = 100;
 				} else {
-					if (!getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), nahrung)|| moral == 1)
+					if (!getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), nahrung) || moral == 1) {
 						Knightmare.newHandler.die(Soldat.this);
+						t.cancel();
+					}
 					moral = 1;
 				}
 			}
 		};
-		
+
 		t.scheduleAtFixedRate(tt, 60000, 60000);
 	}
-
+	
+	public void stirb(){
+		t.cancel();
+	}
 
 }

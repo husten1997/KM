@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,7 +24,6 @@ import com.husten.knightmare.graphicalObjects.GraphicalObject;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.menues.MainGUI;
-import com.matze.knightmare.menues.InGameOptionen;
 import com.matze.knightmare.menues.Optionen;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
@@ -277,6 +275,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (getString("CONTROL_KEY: Abreiﬂen").equals(gFN(Keyboard.getEventKey()))) {
 					inGameStat = state.ABREIﬂEN;
+					newHandler.selClear();
 					if (cursorIndex == 0) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
 						cursorIndex = 1;
@@ -557,6 +556,7 @@ public class Knightmare extends Widget implements StringConstants {
 								if (((Building) object).getIndex() == 6) {
 									aktuellesGeb‰ude = 20;
 									inGameStat = state.BAUEN;
+									newHandler.selClear();
 									labelZuTeuer.setText("Plaziert eure Felder, " + Loader.getCfgValue("SETTINGS: Profilname"));
 									showGedNedSeitWann = 0;
 									if (getChildIndex(labelZuTeuer) == -1) {
@@ -652,6 +652,7 @@ public class Knightmare extends Widget implements StringConstants {
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						newHandler.processRightClick(x, y);
 						inGameStat = state.DEFAULT/* .S_TRUPS */;
+						newHandler.selClear();
 						rekrutriernShown = false;
 						baumenueShowen = true;
 						buildingSelected = -1;
