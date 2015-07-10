@@ -234,20 +234,20 @@ public class Building extends RectangleGraphicalObject {
 		a[0] = "";
 		for (int i = 0; i < ben.length; i++) {
 			if (!getName().equals("Kornspeicher")
-					|| !getName().equals("Waffenkammer")
-					|| !getName().equals("Lager")
-					|| !getName().equals("Schatzkammer") || produziert == null) {
+					&& !getName().equals("Waffenkammer")
+					&& !getName().equals("Lager")
+					&& !getName().equals("Schatzkammer") && produziert != null) {
 				ben[i] = amountBenötigt[i] + " " + getBenötigt()[i].getName();
 			} else {
 				ben[i] = getBenötigt()[i].getAmount() + " "
 						+ getBenötigt()[i].getName();
 			}
-			a[0] = a[0] + "; " + ben[i] + "; ";
+			a[0] = a[0] + ben[i] + "; ";
 		}
 		if (!getName().equals("Kornspeicher")
-				|| !getName().equals("Waffenkammer")
-				|| !getName().equals("Lager")
-				|| !getName().equals("Schatzkammer") || produziert == null) {
+				&& !getName().equals("Waffenkammer")
+				&& !getName().equals("Lager")
+				&& !getName().equals("Schatzkammer") && produziert != null) {
 			a[0] = "Dieses Gebäude benötigt: " + a[0] + "um "
 					+ produziert.getName() + " zu erstellen";
 		} else {

@@ -501,6 +501,9 @@ public class Knightmare extends Widget implements StringConstants {
 
 										b.setKostetWarevonIndex(2, (int) (10 * d));
 										b.setKostetWarevonIndex(8, (int) (5 * d));
+										for (int i  = 0; i < b.getAttribute().length; i++){
+											System.out.println(b.getAttribute()[i]);
+										}
 									}
 								} else {
 									labelZuTeuer.setText("Das kann da nicht plaziert werden, " + Loader.getCfgValue("SETTINGS: Profilname"));
