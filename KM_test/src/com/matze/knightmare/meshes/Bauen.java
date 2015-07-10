@@ -1050,7 +1050,7 @@ public class Bauen {
 			d=0.5;
 		}
 		Building b = new Building(22, p, 32, 32, "Förster.png");
-		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 2);
 
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 10);
@@ -1076,7 +1076,7 @@ public class Bauen {
 			benötigt[0] = Rohstoffe.Holz();
 			amountBenötigt[0] = 1;
 
-			b.init(30, d, 0, 5, "Förster", benötigt, amountBenötigt,
+			b.init(30, d, 0, 4, "Förster", benötigt, amountBenötigt,
 					Rohstoffe.Holz(), 20);
 
 			if (!sp.equals(mutterNatur)) {
@@ -1088,8 +1088,9 @@ public class Bauen {
 								Pos pos = Knightmare.newHandler.suchFrei((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
 								
 								if(pos!=null){
-									if (b.getSpieler().getAmountofResource(benötigt[0].getID())-1 >= 0){
+									if (b.getSpieler().possibleToRemove(Rohstoffe.Holz().getID(), 1) && b.getSpieler().possibleToRemove(Rohstoffe.Geld().getID(), 5)){
 										b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 1);
+										b.getSpieler().abziehen(Rohstoffe.Geld().getID(), 5);
 										Knightmare.newHandler.place(Bauen.Baum(pos, mutterNatur));
 									}
 								}
@@ -1226,6 +1227,8 @@ public class Bauen {
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 5);
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
 		b.addMuss(StringConstants.Material_t.WATER);
 		int error = 0;
 
@@ -1277,7 +1280,7 @@ public class Bauen {
 		if(d==0){
 			d=0.5;
 		}
-		Building b = new Building(25, p, 32, 32, "pechgrube.png");
+		Building b = new Building(26, p, 32, 32, "pechgrube.png");
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.setSpieler(sp);
@@ -1285,6 +1288,7 @@ public class Bauen {
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
 		b.setKostetWarevonIndex(Rohstoffe.Ziegel().getID(), 10);
 		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 5);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
 		b.addMuss(StringConstants.Material_t.WATER);
 		int error = 0;
 
@@ -1308,7 +1312,7 @@ public class Bauen {
 			amountBenötigt[0] = 5;
 			amountBenötigt[1] = 1;
 
-			b.init(30, d, 0, 5, "Lehmgrube", benötigt, amountBenötigt,
+			b.init(30, d, 0, 5, "Pechgrube", benötigt, amountBenötigt,
 					Rohstoffe.Holz(), 20);
 
 			if (!sp.equals(mutterNatur)) {
@@ -1410,6 +1414,12 @@ public class Bauen {
 		}
 		case 24: {
 			return Kirche(p, spieler);
+		}
+		case 25: {
+			return Lehmgrube(p, spieler);
+		}
+		case 26: {
+			return Pechgrube(p, spieler);
 		}
 		default:
 			return null;
