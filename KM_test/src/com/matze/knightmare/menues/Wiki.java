@@ -20,7 +20,6 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 
 	private JList<String> list;
 	private JButton zurück;
-	private String[] data = new String[22];
 	private String[] erklärung = {
 			"Produziert Kohle",
 			"Produziert Eisen, benötigt Kohle",
@@ -42,13 +41,18 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 			"Produziert aus 3 Weizen 1 Brot", "Ermöglicht Rekrutrierung",
 			"Stellt Waffen her",
 			"Wird von einem Bauernhof zum Bewirtschaften benötigt",
-			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum" };
+			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum"};
+	private String spielzüge[] = {" ", "Wichtige Schritte zum Erfolgreichen Abschluss des Spiels:", "     Zu Beginn muss ein Lagerhaus platziert werden", "     Danach muss ein Marktplatz errichtet werden", "     Jetzt braucht man nur noch ein Haus und einen Holzfäller", "     Jetzt muss ein Viehstall errichtet werden", "     Wichtig zu wissen ist, dass freie Bevölkerung 0.5 Nahrung pro Tag verbraucht"};
+	private String[] data = new String[erklärung.length+spielzüge.length];
 
 	public Wiki(String s, String b) {
 		super(s, b);
 
-		for (int i = 0; i < data.length; i++) {
+		for (int i = 0; i < erklärung.length; i++) {
 			data[i] = Bauen.getBuildingName(i) + ": " + erklärung[i];
+		} 
+		for (int i = erklärung.length; i < data.length; i++){
+			data[i] = spielzüge[i-erklärung.length];
 		}
 
 		list = new JList<>(data);
