@@ -78,6 +78,11 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Ziegel(){
+		Waren w = new Waren(15,0,"Ziegel", "zeigel.png");
+		return w;
+	}
+	
 	public static Waren Nothing(){
 		return null;
 	}
@@ -99,6 +104,7 @@ public class Rohstoffe {
 		case 12:{return Mensch();}
 		case 13:{return Armbrust();}
 		case 14:{return Gebildeter_Mensch();}
+		case 15:{return Ziegel();}
 		default:{return Nothing();}
 		}
 	}

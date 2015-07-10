@@ -1214,6 +1214,125 @@ public class Bauen {
 		return null;
 	}
 	
+	public static Building Lehmgrube(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(25, p, 32, 32, "lehmgrube.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 5);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
+		b.addMuss(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Sand();
+			amountBenötigt[0] = 5;
+
+			b.init(30, d, 0, 5, "Lehmgrube", benötigt, amountBenötigt,
+					Rohstoffe.Holz(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Sand().getID(), 6)){
+									b.getSpieler().abziehen(Rohstoffe.Stein().getID(), 6);
+									b.getSpieler().verteilen(Rohstoffe.Lehm().getID(), 3);
+								}
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	
+	public static Building Pechgrube(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(25, p, 32, 32, "pechgrube.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 10);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Ziegel().getID(), 10);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 5);
+		b.addMuss(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 2;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Holz();
+			benötigt[1] = Rohstoffe.Kohle();
+			amountBenötigt[0] = 5;
+			amountBenötigt[1] = 1;
+
+			b.init(30, d, 0, 5, "Lehmgrube", benötigt, amountBenötigt,
+					Rohstoffe.Holz(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Holz().getID(), 5) && b.getSpieler().possibleToRemove(Rohstoffe.Kohle().getID(), 1)){
+									b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 5);
+									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), 1);
+									b.getSpieler().verteilen(Rohstoffe.Pech().getID(), 1);
+								}
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
 		switch (id) {

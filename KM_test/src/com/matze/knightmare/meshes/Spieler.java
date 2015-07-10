@@ -18,6 +18,7 @@ public class Spieler {
 			schatzkammern = new ArrayList<>(),
 			waffenkammer = new ArrayList<>(), kornspeicher = new ArrayList<>(),
 			marktplätze = new ArrayList<>();
+	private ArrayList<Forschung> forschung = new ArrayList<>();
 
 	public boolean hatLager() {
 		return lager.size() > 0;
@@ -270,6 +271,20 @@ public class Spieler {
 		}
 		System.out.println(name + ": Resource nicht vorhanden");
 		return -1;
+	}
+	
+	public void addForschung(Forschung f){
+		forschung.add(f);
+	}
+	
+	public boolean hatForschung(Forschung f){
+		for (Forschung a: forschung){
+			if (a.equals(f)){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	// getter und setter
