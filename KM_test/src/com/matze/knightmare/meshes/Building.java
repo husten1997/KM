@@ -227,5 +227,44 @@ public class Building extends RectangleGraphicalObject {
 			timer.scheduleAtFixedRate(tt, (long) (60000 / ProduktionproMinute), (long) (60000 / ProduktionproMinute));
 		}
 	}
+	
+	public String[] getAttribute(){
+		String[] a = new String[4];
+		String[] ben = new String[getBenötigt().length];
+		a[0] = "";
+		for (int i = 0; i < ben.length; i++) {
+			if (!getName().equals("Kornspeicher")
+					|| !getName().equals("Waffenkammer")
+					|| !getName().equals("Lager")
+					|| !getName().equals("Schatzkammer") || produziert == null) {
+				ben[i] = amountBenötigt[i] + " " + getBenötigt()[i].getName();
+			} else {
+				ben[i] = getBenötigt()[i].getAmount() + " "
+						+ getBenötigt()[i].getName();
+			}
+			a[0] = a[0] + "; " + ben[i] + "; ";
+		}
+		if (!getName().equals("Kornspeicher")
+				|| !getName().equals("Waffenkammer")
+				|| !getName().equals("Lager")
+				|| !getName().equals("Schatzkammer") || produziert == null) {
+			a[0] = "Dieses Gebäude benötigt: " + a[0] + "um "
+					+ produziert.getName() + " zu erstellen";
+		} else {
+			a[0] = "Dieses Gebäude lagert: " + a[0];
+		}
+		
+		a[1] = "Gesundheit: " + getHealth();
+		
+		if (produziert != null){
+			a[2] = "Produziert " + getProdperMin() + " " + produziert.getName() + " pro Tag";
+		} else {
+			a[2] = "Dieses Gebäude produziert nichts";
+		}
+		
+		a[3] = "Maximaler Lagerplatz: " + getMaxLagerKap();
+		
+		return a;
+	}
 
 }
