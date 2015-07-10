@@ -451,11 +451,12 @@ public class Bauen {
 								if(k!=null){
 									if (k.getBenötigt()[0].substractWare((int) Math.round(1*hilfsd))){
 										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), (int) Math.round(1*hilfsd));
-										if (k.getBenötigt()[0].getAmount()==(int) Math.round(1*hilfsd)){
+										if (k.getBenötigt()[0].getAmount()==0){
 											Knightmare.newHandler.die(k);
 										}
 									}else{
 //										Pos pk = k.getPosition();
+										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), k.getBenötigt()[0].getAmount());
 										Knightmare.newHandler.die(k);
 //										Knightmare.newHandler.place(Baumstumpf(pk));//TODO weil ged ned in dem Thread
 //										k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
@@ -981,7 +982,7 @@ public class Bauen {
 	
 	public static Building Feld(Pos p, Spieler sp) {
 		Building b = new Building(20, p, 32, 32, "ocka.png");
-		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		b.addMuss(StringConstants.Material_t.GRAS);
 		b.setKostetWarevonIndex(Rohstoffe.Getreide().getID(), 2);
 		b.setSpieler(sp);
 		Waren w = Rohstoffe.Holz();

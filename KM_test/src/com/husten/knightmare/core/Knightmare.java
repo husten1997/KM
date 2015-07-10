@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -25,6 +26,7 @@ import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
 import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.menues.InGameOptionen;
+import com.matze.knightmare.menues.Optionen;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
@@ -1417,7 +1419,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				new InGameOptionen(Knightmare.this);
+				new Optionen(true);
 			}
 		});
 
