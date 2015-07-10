@@ -762,21 +762,6 @@ public class Bauen {
 
 			b.init(75, 0, 0, 0, "Kornspeicher", benötigt, amountBenötigt, null,
 					1000);
-			
-			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2))){
-									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2));
-								} else {
-									b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
-									b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/4));
-								}
-						}});
-			}
 
 			return b;
 		}

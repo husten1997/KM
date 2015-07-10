@@ -466,6 +466,20 @@ public class Knightmare extends Widget implements StringConstants {
 									if (b.getIndex() == 14) {
 										if (!hilfsboolean3) {
 											b.getSpieler().verteilen(10, (int) (12*d));
+											if (!b.getSpieler().equals(Bauen.getMutterNatur())) {
+												b.setTimerTask(
+														new TimerTask() {
+
+															@Override
+															public void run() {
+																if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2))){
+																	b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2));
+																} else {
+																	b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
+																	b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/4));
+																}
+														}});
+											}
 										}
 									}
 									// b.setSort(0);
@@ -477,6 +491,7 @@ public class Knightmare extends Widget implements StringConstants {
 										b.getSpieler().verteilen(2, (int) (40*d));
 										// b.getSpieler().verteilen(0, 0);
 										b.getSpieler().verteilen(8, (int) (20*d));
+										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), (int) (5*d));
 										// b.getSpieler().verteilen(Rohstoffe.Eisen().getID(),
 										// 100);
 //										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 0);
