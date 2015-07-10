@@ -426,7 +426,7 @@ public class Bauen {
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
 
-			b.init(50, 2, 5, 0, "Bauernhof", benötigt, amountBenötigt,
+			b.init(50, 2, 0, 5, "Bauernhof", benötigt, amountBenötigt,
 					Rohstoffe.Getreide(), 36);
 
 			if (!sp.equals(mutterNatur)) {
