@@ -80,8 +80,12 @@ public class EntityHandler {
 			}
 		}, 0, 1000);
 	}
-	
-	public void shotdown(){
+
+	public void selClear() {
+		selection.clear();
+	}
+
+	public void shotdown() {
 		battleplayer.stop();
 		battletimer.cancel();
 	}
@@ -565,10 +569,10 @@ public class EntityHandler {
 			return true;
 		}
 		for (String muss : building.getMuss()) {
-			return !Knightmare.terrain.getMeterial(x, y).equals(muss);
+			return !muss.equals(Knightmare.terrain.getMeterial(x, y));
 		}
 		for (String darfNicht : building.getnichtErlaubt()) {
-			if (Knightmare.terrain.getMeterial(x, y).equals(darfNicht)) {
+			if (darfNicht.equals(Knightmare.terrain.getMeterial(x, y))) {
 				return true;
 			}
 		}
@@ -592,8 +596,8 @@ public class EntityHandler {
 	public Pos suchFrei(int x, int y, int radius) {
 		for (int i = Math.max(x - radius, 0); i < Math.min(x + radius, world.length); i++) {
 			for (int j = Math.max(y - radius, 0); j < Math.max(y + radius, world[x].length); j++) {
-				if (world[i][j] == null) {
-					return new Pos(i, j);
+				if (world[i][j] == null && Knightmare.terrain.getElement(i, j) != null) {
+					return new Pos(i*32, j*32);
 
 				}
 			}

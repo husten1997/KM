@@ -453,32 +453,35 @@ public class Knightmare extends Widget implements StringConstants {
 									}
 								} else if (/* handler.place(b) */newHandler.place(b)) {
 									double d = b.getSpieler().getDifficulty();
-									d = 2-d;
-									if(d==0){
-										d=0.5;
+									d = 2 - d;
+									if (d == 0) {
+										d = 0.5;
 									}
 									b.startTimer();
 									if (b.getIndex() == 15) {
 										if (!hilfsboolean2) {
-											b.getSpieler().verteilen(12, (int) (10*d));
+											b.getSpieler().verteilen(12, (int) (10 * d));
 										}
 									}
 									if (b.getIndex() == 14) {
 										if (!hilfsboolean3) {
-											b.getSpieler().verteilen(10, (int) (12*d));
+											b.getSpieler().verteilen(10, (int) (12 * d));
 											if (!b.getSpieler().equals(Bauen.getMutterNatur())) {
-												b.setTimerTask(
-														new TimerTask() {
+												b.setTimerTask(new TimerTask() {
 
-															@Override
-															public void run() {
-																if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2))){
-																	b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2));
-																} else {
-																	b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
-																	b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/4));
-																}
-														}});
+													@Override
+													public void run() {
+														if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(),
+																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2))) {
+															b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(),
+																	(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2));
+														} else {
+															b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
+															b.getSpieler().abziehen(Rohstoffe.Mensch().getID(),
+																	(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 4));
+														}
+													}
+												});
 											}
 										}
 									}
@@ -488,16 +491,17 @@ public class Knightmare extends Widget implements StringConstants {
 										Bauen.kostenAbziehen(b);
 									} else {
 										// TODO Startrohstoffe
-										b.getSpieler().verteilen(2, (int) (40*d));
+										b.getSpieler().verteilen(2, (int) (40 * d));
 										// b.getSpieler().verteilen(0, 0);
-										b.getSpieler().verteilen(8, (int) (20*d));
-										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), (int) (5*d));
+										b.getSpieler().verteilen(8, (int) (20 * d));
+										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), (int) (5 * d));
 										// b.getSpieler().verteilen(Rohstoffe.Eisen().getID(),
 										// 100);
-//										b.getSpieler().verteilen(Rohstoffe.Glas().getID(), 0);
+										// b.getSpieler().verteilen(Rohstoffe.Glas().getID(),
+										// 0);
 
-										b.setKostetWarevonIndex(2, (int) (10*d));
-										b.setKostetWarevonIndex(8, (int) (5*d));
+										b.setKostetWarevonIndex(2, (int) (10 * d));
+										b.setKostetWarevonIndex(8, (int) (5 * d));
 									}
 								} else {
 									labelZuTeuer.setText("Das kann da nicht plaziert werden, " + Loader.getCfgValue("SETTINGS: Profilname"));
@@ -629,6 +633,21 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Mouse.getEventButton() == 1) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
+
+//					if (!isOn(Mouse.getX(), Mouse.getY())) {
+//						switch (inGameStat) {
+//						case state.DEFAULT:
+//							newHandler.processRightClick(x, y);
+//							break;
+//
+//						default:
+//							inGameStat = state.DEFAULT/* .S_TRUPS */;
+//							rekrutriernShown = false;
+//							baumenueShowen = true;
+//							buildingSelected = -1;
+//							break;
+//						}
+//					}
 
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						newHandler.processRightClick(x, y);
@@ -1338,7 +1357,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 	private int[] idsInC0 = { 0, 1, 2, 5 };
-	private int[] idsInC1 = { 3, 8, 21 , 22};
+	private int[] idsInC1 = { 3, 8, 21, 22 };
 	private int[] idsInC2 = { 13, 18, 19 };
 	private int[] idsInC3 = { 14, 6, 7, 17 };
 	private int[] idsInC4 = { 9, 10 };

@@ -1035,7 +1035,6 @@ public class Bauen {
 		if(d==0){
 			d=0.5;
 		}
-		double hilfsd = d;
 		Building b = new Building(22, p, 32, 32, "Förster.png");
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
