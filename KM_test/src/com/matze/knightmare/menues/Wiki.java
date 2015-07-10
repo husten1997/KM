@@ -42,7 +42,7 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 			"Stellt Waffen her",
 			"Wird von einem Bauernhof zum Bewirtschaften benötigt",
 			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum"};
-	private String spielzüge[] = {" ", "Wichtige Schritte zum Erfolgreichen Abschluss des Spiels:", "     Zu Beginn muss ein Lagerhaus platziert werden", "     Danach muss ein Marktplatz errichtet werden", "     Jetzt braucht man nur noch ein Haus und einen Holzfäller", "     Jetzt muss ein Viehstall errichtet werden", "     Wichtig zu wissen ist, dass freie Bevölkerung 0.5 Nahrung pro Tag verbraucht"};
+	private String spielzüge[] = {" ", "Wichtige Schritte zum Erfolgreichen Abschluss des Spiels:", "     Zu Beginn muss ein Lagerhaus platziert werden", "     Danach muss ein Marktplatz errichtet werden", "     Freie Bevölkerung verbraucht 0.5 Nahrung pro Tag"};
 	private String[] data = new String[erklärung.length+spielzüge.length];
 
 	public Wiki(String s, String b) {

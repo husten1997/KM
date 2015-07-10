@@ -769,7 +769,10 @@ public class Bauen {
 							@Override
 							public void run() {
 								if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2))){
-									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2));
+									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID())/2));
+								} else {
+									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), b.getSpieler().getAmountofResource(Rohstoffe.Fleisch().getID()));
+									b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), (int)(b.getSpieler().getAmountofResource(Rohstoffe.Fleisch().getID())/2));
 								}
 						}});
 			}
