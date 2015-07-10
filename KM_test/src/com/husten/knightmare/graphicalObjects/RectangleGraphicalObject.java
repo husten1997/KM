@@ -137,7 +137,7 @@ public class RectangleGraphicalObject extends GraphicalObject {
 		
 		glTranslatef((float) position.getX()+xz, (float) position.getY()+yz, 0);
 		glRotatef(45*m_rotation, 0f, 0f, 1f);
-		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness), (float) (fColor.getGreen() / 255 * Knightmare.breightness), (float) (fColor.getBlue() / 255 * Knightmare.breightness));
+		glColor3f((float) (fColor.getRed() / 255 * Knightmare.breightness * DNCycl.red), (float) (fColor.getGreen() / 255 * Knightmare.breightness * DNCycl.green), (float) (fColor.getBlue() / 255 * Knightmare.breightness * DNCycl.blue));
 		// draw a quad textured to match the sprite
 		
 		glBegin(GL_QUADS);

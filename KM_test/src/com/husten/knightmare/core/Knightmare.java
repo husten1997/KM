@@ -1151,6 +1151,9 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[1][2].setSize(32, 32);
 		gebäude[1][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
 		gebäude[1][2].setBackground(themeManager.getImage("Sandgrube"));
+		gebäude[1][3].setSize(32, 32);
+		gebäude[1][3].setPosition((int) baustart.getX() + 190, (int) baustart.getY());
+		gebäude[1][3].setBackground(themeManager.getImage("Förster"));
 
 		gebäude[2][0].setSize(64, 64);
 		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1318,7 +1321,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 	private int[] idsInC0 = { 0, 1, 2, 5 };
-	private int[] idsInC1 = { 3, 8, 21 };
+	private int[] idsInC1 = { 3, 8, 21 , 22};
 	private int[] idsInC2 = { 13, 18, 19 };
 	private int[] idsInC3 = { 14, 6, 7, 17 };
 	private int[] idsInC4 = { 9, 10 };
@@ -1523,6 +1526,7 @@ public class Knightmare extends Widget implements StringConstants {
 		} else {
 			removeChild(rekrutieren);
 			removeChild(rekru[18][0]);
+			removeChild(rekru[18][1]);
 		}
 	}
 

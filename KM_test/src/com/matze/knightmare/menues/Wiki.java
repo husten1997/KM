@@ -6,35 +6,55 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import com.matze.knightmare.meshes.Bauen;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
-public class Wiki extends Optionsframesuperklasse implements ActionListener{
+@SuppressWarnings("serial")
+public class Wiki extends Optionsframesuperklasse implements ActionListener {
 
-	private JList list;
+	private JList<String> list;
 	private JButton zurück;
-	private String[] data = new String[21];
-	private String[] erklärung = {"Produziert Kohle", "Produziert Eisen, benötigt Kohle", "Lagerplatz für einige Waren, wenn voll werden die Waren an Arme verschenkt", "Holzt Bäume in der Nähe ab, bis er keine mehr findet", "Benötigt zwei Menschen und produziert ab dann 1/min, verbraucht Nahrung, bringt Steuern", "Benötigt Sand, produziert Glas", "Braucht Felder, die ein Getreide kosten um daraus 20 Getreide zu erstellen", "Produziert Nahrung", "Produziert Stein", "Verteidigt deine Stadt", "Verteidigt deine Stadt", "Beinhaltet 20 Holz", "Lagert dein Einkommen, wenn es voll ist wird dein Einkommen an Arme verschenkt", "Lagert Waffen, wenn voll werden die Waffen an die Bauern verschenkt", "Lagert Nahrung, wenn voll wird eine doppelte Ration ausgegeben", "Muss platziert werden um die 1. Bevölkerung zu erhalten und um zu Handeln", "Kann durch Förster zu einem Baum ausgebaut werden", "Produziert aus 3 Weizen 1 Brot", "Ermöglicht Rekrutrierung", "Stellt Waffen her", "Wird von einem Bauernhof zum Bewirtschaften benötigt", "Produziert Sand"};
-	
-	public Wiki(String s, String b){
-		super(s,b);
-		
-		for (int i = 0; i < data.length;i++){
-			data[i] = Bauen.getBuildingName(i)+": " + erklärung[i];
+	private String[] data = new String[22];
+	private String[] erklärung = {
+			"Produziert Kohle",
+			"Produziert Eisen, benötigt Kohle",
+			"Lagerplatz für einige Waren, wenn voll werden die Waren an Arme verschenkt",
+			"Holzt Bäume in der Nähe ab, bis er keine mehr findet",
+			"Benötigt zwei Menschen und produziert ab dann 1/min, verbraucht Nahrung, bringt Steuern",
+			"Benötigt Sand, produziert Glas",
+			"Braucht Felder, die einen Samen(Getreide) zum anpflanzen benötigen um daraus 20 Getreide zu erstellen",
+			"Produziert Nahrung",
+			"Produziert Stein",
+			"Verteidigt deine Stadt",
+			"Verteidigt deine Stadt",
+			"Beinhaltet 20 Holz",
+			"Lagert dein Einkommen, wenn es voll ist wird dein Einkommen an Arme verschenkt",
+			"Lagert Waffen, wenn voll werden die Waffen an die Bauern verschenkt",
+			"Lagert Nahrung, wenn voll wird eine doppelte Ration ausgegeben",
+			"Muss platziert werden um die 1. Bevölkerung zu erhalten und um zu Handeln",
+			"Kann durch Förster zu einem Baum ausgebaut werden",
+			"Produziert aus 3 Weizen 1 Brot", "Ermöglicht Rekrutrierung",
+			"Stellt Waffen her",
+			"Wird von einem Bauernhof zum Bewirtschaften benötigt",
+			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum" };
+
+	public Wiki(String s, String b) {
+		super(s, b);
+
+		for (int i = 0; i < data.length; i++) {
+			data[i] = Bauen.getBuildingName(i) + ": " + erklärung[i];
 		}
-		
+
 		list = new JList<>(data);
 		list.setSize(new Dimension(width, height));
-		list.setBounds((screen.width - width) / 2 + width / 8, (screen.height - height) / 2, 3 * width / 4, height);
+		list.setBounds((screen.width - width) / 2 + width / 8,
+				(screen.height - height) / 2, 3 * width / 4, height);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBackground(new Color(0, 0, 0.25f, 0.25f));
 		list.setForeground(Color.white);
@@ -45,33 +65,40 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener{
 		list.setFocusable(false);
 		list.setOpaque(false);
 		add(list);
-		//((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
+		// ((DefaultListCellRenderer)
+		// list.getCellRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
 		JScrollPane scroll = new JScrollPane(list);
-		scroll.setBounds((screen.width - width) / 2 + width / 8, (screen.height - height) / 2, 3 * width / 4, height);
+		scroll.setBounds((screen.width - width) / 2 + width / 8,
+				(screen.height - height) / 2, 3 * width / 4, height);
 		scroll.setBorder(null);
-		scroll.getVerticalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getVerticalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getHorizontalScrollBar().setBackground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getHorizontalScrollBar().setForeground(new Color(0, 0, 0.25f, 0.25f));
-		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {@Override
+		scroll.getVerticalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setBackground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getHorizontalScrollBar().setForeground(
+				new Color(0, 0, 0.25f, 0.25f));
+		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
 			protected JButton createDecreaseButton(int orientation) {
-			JButton b = new JButton();
-			b.setPreferredSize(new Dimension(0, 0));
-			return b;
-		}
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+				return b;
+			}
 
-		@Override
-		protected JButton createIncreaseButton(int orientation) {
-			JButton b = new JButton();
-			b.setPreferredSize(new Dimension(0, 0));
-			return b;
-		}
+			@Override
+			protected JButton createIncreaseButton(int orientation) {
+				JButton b = new JButton();
+				b.setPreferredSize(new Dimension(0, 0));
+				return b;
+			}
 
-		@Override
-		protected void configureScrollBarColors() {
-			this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
-		}
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0, 0, 0.25f, 0.25f);
+			}
 		});
 		scroll.getHorizontalScrollBar().setFocusable(false);
 		scroll.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {

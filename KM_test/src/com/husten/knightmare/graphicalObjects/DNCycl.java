@@ -11,9 +11,9 @@ public class DNCycl {
 	
 	private double time = Double.parseDouble(Loader.getCfgValue("SETTINGS: Startzeit")); //-12 bis 12
 	private static double breightnes = 1;
-	private int red = 255;
-	private int green = 255;
-	private int blue = 255;
+	public static double red = 1;
+	public static double green = 1;
+	public static double blue = 1;
 	
 	private double inter = 0.1; //Intervall --> 0.1x entspricht 1h
 	private double gamespeed = 200; //durchläufe p sec
@@ -34,6 +34,7 @@ public class DNCycl {
 			double interv = inter/(secph*gamespeed);
 			cTime(interv);
 			breightnes = funkt3();
+//			setGB();
 			set();
 //			debug();
 
@@ -74,7 +75,7 @@ public class DNCycl {
 	}
 	
 	private double funkt3(){
-		double min = 0.09;
+		double min = 0.12;
 		return (0.5- min/2) * Math.sin(time * Math.PI/1.2 + Math.PI/0.75) + (0.5 + min/2);
 	}
 	
@@ -120,5 +121,24 @@ public class DNCycl {
 		DNCycl.breightnes = breightnes;
 	}
 	
+	private double funkGBM(double x){
+		return (Math.pow(x-0.75, 2))*240 - 0.6;
+	}
+	
+	private double funkGBA(double x){
+		return (Math.pow(x-2.5, 2))*240 - 0.6;
+	}
+	
+	public void setGB(){
+		if(time >= 0.7 && time <= 0.8){
+			green = 1 - funkGBM(time);
+			blue = 1 - funkGBM(time);
+		}
+		if(time >= 2.0 && time <= 2.1){
+			green = 1 - funkGBA(time);
+			blue = 1 - funkGBA(time);
+			System.out.println("green: " +  green + " blue: " + blue);
+		}
+	}
 	
 }

@@ -14,7 +14,7 @@ public class Building extends RectangleGraphicalObject {
 	private int kostetWarevonIndex[];
 	private int health;
 	private int index;
-	private int ProduktionproMinute;
+	private double ProduktionproMinute;
 	private int angriff, reichweite;
 	private String name;
 	private Waren[] benötigt;
@@ -36,10 +36,10 @@ public class Building extends RectangleGraphicalObject {
 		kostetWarevonIndex = new int[Rohstoffe.maxID()];
 	}
 
-	public void init(int health, int ProduktionproMinute, int angriff, int reichweite, String name, Waren[] benötigt, int[] amountBenötigt, Waren produziert,
+	public void init(int health, double d, int angriff, int reichweite, String name, Waren[] benötigt, int[] amountBenötigt, Waren produziert,
 			int maxLagerKap) {
 		this.setHealth(health);
-		this.ProduktionproMinute = ProduktionproMinute;
+		this.ProduktionproMinute = d;
 		this.setAngriff(angriff);
 		this.setReichweite(reichweite);
 		this.setName(name);
@@ -98,7 +98,7 @@ public class Building extends RectangleGraphicalObject {
 
 	}
 
-	public int getProdperMin() {
+	public double getProdperMin() {
 		return ProduktionproMinute;
 	}
 

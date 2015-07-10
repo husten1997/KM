@@ -589,6 +589,18 @@ public class EntityHandler {
 		return null;
 	}
 
+	public Pos suchFrei(int x, int y, int radius) {
+		for (int i = Math.max(x - radius, 0); i < Math.min(x + radius, world.length); i++) {
+			for (int j = Math.max(y - radius, 0); j < Math.max(y + radius, world[x].length); j++) {
+				if (world[i][j] == null) {
+					return new Pos(i, j);
+
+				}
+			}
+		}
+		return null;
+	}
+
 	public Building suchFeld(int x, int y, int radius) {
 		for (int i = Math.max(x - radius, 0); i < Math.min(x + radius, world.length); i++) {
 			for (int j = Math.max(y - radius, 0); j < Math.max(y + radius, world[x].length); j++) {
