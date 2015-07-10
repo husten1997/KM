@@ -23,7 +23,7 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 	private String vvor = "Gebäudebeschreibungen:";
 	private String[] erklärung = {
 			"Produziert Kohle",
-			"Produziert Eisen, benötigt Kohle",
+			"Produziert Eisen, benötigt Kohle um es das Eisen zu schmelzen",
 			"Lagerplatz für einige Waren, wenn voll werden die Waren an Arme verschenkt",
 			"Holzt Bäume in der Nähe ab, bis er keine mehr findet",
 			"Benötigt zwei Menschen und produziert ab dann 1/min, verbraucht Nahrung, bringt Steuern",
@@ -144,6 +144,13 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 		zurück.setFocusable(false);
 		add(zurück);
 
+	}
+	
+	public void setSelectedIndexOn(int id){
+		list.setFocusable(true);
+		list.setSelectedIndex(id+1);
+		repaint();
+		validate();
 	}
 
 	@Override
