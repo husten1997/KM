@@ -72,6 +72,34 @@ public class EntityHandler {
 										die(looser);
 										battleplayer.stop();
 									}
+								} else if (kannKämpfenGeb((Soldat) getOn(x, y), getOn(x - 1, y))) {
+									battleplayer.start();
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x - 1, y), 2);
+									if (looser != null) {
+										die(looser);
+										battleplayer.stop();
+									}
+								} else if (kannKämpfenGeb((Soldat) getOn(x, y), getOn(x, y - 1))) {
+									battleplayer.start();
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x, y - 1), 2);
+									if (looser != null) {
+										die(looser);
+										battleplayer.stop();
+									}
+								} else if (kannKämpfenGeb((Soldat) getOn(x, y), getOn(x + 1, y))) {
+									battleplayer.start();
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x + 1, y), 2);
+									if (looser != null) {
+										die(looser);
+										battleplayer.stop();
+									}
+								} else if (kannKämpfenGeb((Soldat) getOn(x, y), getOn(x, y + 1))) {
+									battleplayer.start();
+									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x, y + 1), 2);
+									if (looser != null) {
+										die(looser);
+										battleplayer.stop();
+									}
 								}
 							}
 						}
@@ -92,7 +120,18 @@ public class EntityHandler {
 
 	private boolean kannKämpfen(Soldat s1, RectangleGraphicalObject s2) {
 		if (s2 instanceof Soldat) {
-			return s1.getSpieler().getTeam() != ((Soldat) s2).getSpieler().getTeam();
+			if (s2.getSpieler().getTeam() != -1) {
+				return s1.getSpieler().getTeam() != ((Soldat) s2).getSpieler().getTeam();
+			}
+		}
+		return false;
+	}
+
+	private boolean kannKämpfenGeb(Soldat s1, RectangleGraphicalObject s2) {
+		if (s2 instanceof Building) {
+			if (s2.getSpieler().getTeam() != -1) {
+				return s1.getSpieler().getTeam() != ((Building) s2).getSpieler().getTeam();
+			}
 		}
 		return false;
 	}
@@ -475,10 +514,10 @@ public class EntityHandler {
 	}
 
 	public boolean die(RectangleGraphicalObject object) {
-		if(object instanceof Soldat){
+		if (object instanceof Soldat) {
 			((Soldat) object).stirb();
 		}
-		
+
 		int w = object.getWidth() / 32;
 		int h = object.getHeight() / 32;
 		int startW = (int) (object.getPosition().getX() / 32);
@@ -601,7 +640,7 @@ public class EntityHandler {
 		for (int i = Math.max(x - radius, 0); i < Math.min(x + radius, world.length); i++) {
 			for (int j = Math.max(y - radius, 0); j < Math.max(y + radius, world[x].length); j++) {
 				if (world[i][j] == null && Knightmare.terrain.getElement(i, j) != null) {
-					return new Pos(i*32, j*32);
+					return new Pos(i * 32, j * 32);
 
 				}
 			}
