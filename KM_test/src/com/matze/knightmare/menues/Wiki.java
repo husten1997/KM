@@ -147,6 +147,7 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 	}
 	
 	public void setSelectedIndexOn(int id){
+		inGame = true;
 		list.setFocusable(true);
 		list.setSelectedIndex(id+1);
 		repaint();
