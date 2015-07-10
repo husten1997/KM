@@ -471,7 +471,7 @@ public class Knightmare extends Widget implements StringConstants {
 													@Override
 													public void run() {
 														if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(),
-																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2))) {
+																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2))){
 															b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(),
 																	(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2));
 														} else {
