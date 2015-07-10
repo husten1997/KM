@@ -426,7 +426,7 @@ public class Bauen {
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
 
-			b.init(50, 2, 0, 0, "Bauernhof", benötigt, amountBenötigt,
+			b.init(50, 2, 5, 0, "Bauernhof", benötigt, amountBenötigt,
 					Rohstoffe.Getreide(), 36);
 
 			if (!sp.equals(mutterNatur)) {
@@ -970,6 +970,19 @@ public class Bauen {
 		b.addMuss(StringConstants.Material_t.GRAS);
 		b.setKostetWarevonIndex(Rohstoffe.Getreide().getID(), 2);
 		b.setSpieler(sp);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
 		Waren w = Rohstoffe.Holz();
 		w.setAmount(20);
 		Waren[] benötigt = new Waren[1];
@@ -977,7 +990,8 @@ public class Bauen {
 		amountBenötigt[0]=1;
 		benötigt[0] = w;
 		b.init(10, 0, 0, 0, "Feld", benötigt, amountBenötigt, null, 50);
-		return b;
+		return b;}
+		return null;
 	}
 	
 	public static Building SandGrube(Pos p, Spieler sp) {
