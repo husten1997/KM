@@ -549,6 +549,7 @@ public class Knightmare extends Widget implements StringConstants {
 						case state.DEFAULT/* S_BUILDINGS */:
 							// newHandler.search(x, y);
 							// search(x, y);
+							newHandler.selClear();
 							RectangleGraphicalObject object = newHandler.getOn(xR, yR);
 							// System.out.println(object);
 							if (object instanceof Building) {
@@ -652,7 +653,7 @@ public class Knightmare extends Widget implements StringConstants {
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						newHandler.processRightClick(x, y);
 						inGameStat = state.DEFAULT/* .S_TRUPS */;
-						newHandler.selClear();
+//						newHandler.selClear();
 						rekrutriernShown = false;
 						baumenueShowen = true;
 						buildingSelected = -1;
