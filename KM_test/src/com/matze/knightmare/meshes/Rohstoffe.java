@@ -73,6 +73,11 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Gebildeter_Mensch(){
+		Waren w = new Waren(14,0,"Gebildeter", "people.png");
+		return w;
+	}
+	
 	public static Waren Nothing(){
 		return null;
 	}
@@ -93,6 +98,7 @@ public class Rohstoffe {
 		case 11:{return Glas();}
 		case 12:{return Mensch();}
 		case 13:{return Armbrust();}
+		case 14:{return Gebildeter_Mensch();}
 		default:{return Nothing();}
 		}
 	}

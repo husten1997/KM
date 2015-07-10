@@ -42,7 +42,8 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 			"Produziert aus 3 Weizen 1 Brot", "Ermöglicht Rekrutrierung",
 			"Stellt Waffen her",
 			"Wird von einem Bauernhof zum Bewirtschaften benötigt",
-			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum"};
+			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum", "Bildet eure Bürger aus, benötigt jeden Tag eine zufällige Ressource um zu forschen, ist diese nicht vorhanden kann keiner ausgebildet werden",
+			"Bekehrt dir Leute zum Glauben, die Kirche gewährt dir einen Steuerbonus"};
 	private String spielzüge[] = {" ", "Wichtige Schritte zum Erfolgreichen Abschluss des Spiels:", "     Zu Beginn muss ein Lagerhaus platziert werden", "     Danach muss ein Marktplatz errichtet werden", "     Freie Bevölkerung verbraucht 0.5 Nahrung pro Tag"};
 	private String[] data = new String[1+erklärung.length+spielzüge.length];
 

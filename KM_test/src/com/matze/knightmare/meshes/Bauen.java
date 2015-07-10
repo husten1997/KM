@@ -7,7 +7,6 @@ import com.husten.knightmare.core.Knightmare;
 import com.richard.knightmare.util.Pos;
 
 public class Bauen {
-	// TODO Timer stopppen wenn abgerissen Weg
 	private static Spieler mutterNatur = new Spieler(-1, "Mama Natur", -1,
 			"KI", "Schwer");
 
@@ -761,7 +760,7 @@ public class Bauen {
 			}
 
 			b.init(75, 0, 0, 0, "Kornspeicher", benötigt, amountBenötigt, null,
-					1000);
+					150);
 
 			return b;
 		}
@@ -829,6 +828,7 @@ public class Bauen {
 		b.setKostetWarevonIndex(2, 12);
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 10);
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 20);
 
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
@@ -868,7 +868,7 @@ public class Bauen {
 //									b.WareFertigstellen();
 //								}
 								if (b.getSpieler().getAmountofResource(Rohstoffe.Getreide().getID())-3 >= 0){
-									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), (int) Math.round(1*hilfsd));
+									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), (int) Math.round(2*hilfsd));
 									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 3);
 								}
 						}});
@@ -1103,6 +1103,117 @@ public class Bauen {
 		return null;
 	}
 	
+	
+	public static Building Schule(Pos p, Spieler sp) {//erforscht Kirche => nur gebildete Leute können Pfarrer werden
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(23, p, 32, 32, "Schule.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 20);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 25);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 20);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Mensch();
+			amountBenötigt[0] = 5;
+
+			b.init(80, d, 0, 5, "Schule", benötigt, amountBenötigt,
+					Rohstoffe.Gebildeter_Mensch(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Mensch().getID(), 1)){
+									if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), 5)){
+										int zufall = (int) Math.random()*3;
+										int zufall2 = (int) Math.random()*3;
+										if (b.getSpieler().possibleToRemove(zufall, zufall2)){
+											b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 1);
+											b.getSpieler().verteilen(Rohstoffe.Gebildeter_Mensch().getID(), 1);
+											b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), 5);
+											b.getSpieler().abziehen(zufall, zufall2);
+								}
+							}
+						}
+					}
+
+				});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	
+	public static Building Kirche(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(24, p, 32, 32, "Schule.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 35);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 45);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 1);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Mensch();
+			amountBenötigt[0] = 5;
+
+			b.init(30, d, 0, 5, "Kirche", benötigt, amountBenötigt,
+					Rohstoffe.Nothing(), 0);
+
+			return b;
+		}
+		return null;
+	}
+	
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
 		switch (id) {
@@ -1174,6 +1285,12 @@ public class Bauen {
 		}
 		case 22: {
 			return Förster(p, spieler);
+		}
+		case 23: {
+			return Schule(p, spieler);
+		}
+		case 24: {
+			return Kirche(p, spieler);
 		}
 		default:
 			return null;
