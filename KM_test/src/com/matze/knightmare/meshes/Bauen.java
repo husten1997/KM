@@ -1479,7 +1479,7 @@ public class Bauen {
 			benötigt[0] = Rohstoffe.Lehm();
 			amountBenötigt[0] =  4;
 
-			b.init(30, d, 0, 5, "Theater", benötigt, amountBenötigt,
+			b.init(30, d, 0, 5, "Ziegelbrennerei", benötigt, amountBenötigt,
 					Rohstoffe.Ziegel(), 20);
 
 			if (!sp.equals(mutterNatur)) {

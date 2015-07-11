@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import com.matze.knightmare.meshes.Bauen;
+import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
 
 @SuppressWarnings("serial")
@@ -43,8 +44,14 @@ public class Wiki extends Optionsframesuperklasse implements ActionListener {
 			"Stellt Waffen her",
 			"Wird von einem Bauernhof zum Bewirtschaften benötigt",
 			"Produziert Sand", "Benötigt einen Setzling(Holz) und pflanzt damit einen Baum", "Bildet eure Bürger aus, benötigt jeden Tag eine zufällige Ressource um zu forschen, ist diese nicht vorhanden kann keiner ausgebildet werden",
-			"Bekehrt dir Leute zum Glauben, die Kirche gewährt dir einen Steuerbonus"};
-	private String spielzüge[] = {" ", "Wichtige Schritte zum Erfolgreichen Abschluss des Spiels:", "     Zu Beginn muss ein Lagerhaus platziert werden", "     Danach muss ein Marktplatz errichtet werden", "     Freie Bevölkerung verbraucht 0.5 Nahrung pro Tag"};
+			"Bekehrt dir Leute zum Glauben, die Kirche gewährt dir einen Steuerbonus",
+			"Muss auf Wasser platziert werden, benötigt Sand um Lehm herzustellen",
+			"Produziert aus Holz und Kohle Pech", "Produziert aus Eisen und Kohle Werkzeuge",
+			"Steigert die Zufriedenheit der Leute",
+			"Benötigt Lehm und produziert daraus Ziegel",
+			"Züchtet Tiere, benötigt Getreide",
+			"Tötet Tiere um daraus Leder zu gerben"};
+	private String spielzüge[] = {" ", "Wichtige Schritte zum Erfolgreichen Abschluss des Spiels:", "     Zu Beginn muss ein Lagerhaus platziert werden", "     Danach muss ein Marktplatz errichtet werden", "     Jetz braucht man noch einen Kornspeicher", "     Beginne jetzt mit deiner Nahrungsproduktion. Freie Bevölkerung verbraucht 0.5 Nahrung pro Tag", "     Ab hier musst du deine eigenen Strategien entwickeln!", " ", "Viel Spaß mit Knightmare, " + Loader.getCfgValue("SETTINGS: Profilname") + "!"};
 	private String[] data = new String[1+erklärung.length+spielzüge.length];
 
 	public Wiki(String s, String b) {
