@@ -1616,7 +1616,7 @@ public class Bauen {
 	
 	
 	public static Building Hafen(Pos p, Spieler sp) {
-		Building b = new Building(18, p, 64, 64, "Kaserne.png");
+		Building b = new Building(18, p, 64, 64, "Hafen.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 50);
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 30);
@@ -1641,7 +1641,7 @@ public class Bauen {
 			Waren[] benötigt = new Waren[1];
 			int[] amountBenötigt = new int[1];
 
-			b.init(50, 4, 0, 0, "Kaserne", benötigt, amountBenötigt,
+			b.init(50, 4, 0, 0, "Hafen", benötigt, amountBenötigt,
 					Rohstoffe.Nothing(), 75);
 
 			return b;
