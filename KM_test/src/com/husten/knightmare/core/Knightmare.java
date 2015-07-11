@@ -466,17 +466,21 @@ public class Knightmare extends Widget implements StringConstants {
 										if (!hilfsboolean2) {
 											b.getSpieler().verteilen(12, (int) (10 * d));
 
+											Bauen.setGesBev(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()));
+											
 											b.setTimerTask(new TimerTask() {
 												@Override
 												public void run() {
 													if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(),
-															(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2))) {
+															(int)(Bauen.getGesBev() / 2))) {
 														b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(),
-																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2));
+																(int) (Bauen.getGesBev() / 2));
 													} else {
 														b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
+														if (b.getSpieler().possibleToRemove(12, (int) (Bauen.getGesBev() / 8))){
 														b.getSpieler().abziehen(Rohstoffe.Mensch().getID(),
-																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 4));
+																(int) (Bauen.getGesBev() / 10));
+														}														
 													}
 												}
 											});

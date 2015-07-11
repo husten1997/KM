@@ -345,6 +345,18 @@ public class Rekrutieren {
 		return t;
 	}
 	
+	
+	public static Soldat Transporter(int posx, int posy, int width, int height, Spieler spieler) {
+		Vehicle t = new Vehicle(20, posx, posy, width, height, "Manfred Schritt 1.png");
+		init_Array(0, 0, 0, 0, 0, 0);
+		t.init(ang, ver, 0, "Kurier", 0, 20, 15, 10, 30, false);
+		t.setSlots(5, 50);
+		t.setTyp(4);
+		t.setID(29);
+		t.setSpieler(spieler);
+		return t;
+	}
+	
 	public static Soldat getSoldatforID(int id, int x, int y, Spieler spieler){
 		switch (id){
 		case 0: return Bogenschuetze(x, y, 32, 32, spieler);
@@ -376,6 +388,7 @@ public class Rekrutieren {
 		case 26: return Kutsche(x, y, 32, 32, spieler);
 		case 27: return Handelskarren(x, y, 32, 32, spieler);
 		case 28: return Transportkarren(x, y, 32, 32, spieler);
+		case 29: return Transporter(x, y, 32, 32, spieler);
 			default: return null;
 		}
 	}
