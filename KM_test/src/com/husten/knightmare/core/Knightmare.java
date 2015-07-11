@@ -38,17 +38,21 @@ import com.richard.knightmare.util.DictionaryE;
 import com.richard.knightmare.util.EntityHandler;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
+import com.richard.knightmare.util.TWLImage;
 import com.richard.knightmare.util.Texturloader;
 
 import de.matthiasmann.twl.Button;
+import de.matthiasmann.twl.Color;
 import de.matthiasmann.twl.GUI;
 import de.matthiasmann.twl.Label;
 import de.matthiasmann.twl.ResizableFrame;
 import de.matthiasmann.twl.Widget;
 import de.matthiasmann.twl.renderer.Font;
+import de.matthiasmann.twl.renderer.Image;
 import de.matthiasmann.twl.renderer.MouseCursor;
 import de.matthiasmann.twl.renderer.lwjgl.LWJGLRenderer;
 import de.matthiasmann.twl.theme.ThemeManager;
+import de.matthiasmann.twl.utils.TintAnimator;
 
 public class Knightmare extends Widget implements StringConstants {
 
@@ -1138,6 +1142,7 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		gui.applyTheme(themeManager);
+		TWLImage.setRenderer(gui.getRenderer());
 		gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 
 		GUI();
@@ -1160,6 +1165,23 @@ public class Knightmare extends Widget implements StringConstants {
 	private String[] resnT = { "Kohle", "Eisen", "Holz", "Diamanten", "Pech", "Sand", "Weizen", "Lehm", "Stein", "Münzen", "Nahrung", "Glas", "Menschen", "Armbrust" };
 	private boolean removeGedNed = false, gednedShown = false;
 	private int showGedNedSeitWann;
+	private String[] texInC0 = { buildings.images.KohleMine, buildings.images.EisenMine, buildings.images.Lager, buildings.images.Sandschmelze };
+	private String[] texInC1 = { buildings.images.Holzfäller, buildings.images.Steinbruch, buildings.images.SandGrube, buildings.images.Förster,
+			buildings.images.Lehmgrube, buildings.images.Pechgrube };
+	private String[] texInC2 = { buildings.images.Waffenkammer, buildings.images.Kaserne, buildings.images.Schmied };
+	private String[] texInC3 = { buildings.images.Kornspeicher, buildings.images.Bauernhof, buildings.images.Viehstall, buildings.images.Bäckerei };
+	private String[] texInC4 = { buildings.images.Turm, buildings.images.Mauern };
+	private String[] texInC5 = { buildings.images.Haus, buildings.images.Schatzkammer, buildings.images.Marktplatz, buildings.images.Schule };
+	private String[][] cInTexes = { texInC0, texInC1, texInC2, texInC3, texInC4, texInC5 };
+	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
+	private int[] idsInC0 = { buildings.ids.KohleMine, buildings.ids.EisenMine, buildings.ids.Lager, buildings.ids.Sandschmelze };
+	private int[] idsInC1 = { buildings.ids.Holzfäller, buildings.ids.Steinbruch, buildings.ids.SandGrube, buildings.ids.Förster, buildings.ids.Lehmgrube,
+			buildings.ids.Pechgrube };
+	private int[] idsInC2 = { buildings.ids.Waffenkammer, buildings.ids.Kaserne, buildings.ids.Schmied };
+	private int[] idsInC3 = { buildings.ids.Kornspeicher, buildings.ids.Bauernhof, buildings.ids.Viehstall, buildings.ids.Bäckerei };
+	private int[] idsInC4 = { buildings.ids.Turm, buildings.ids.Mauern };
+	private int[] idsInC5 = { buildings.ids.Haus, buildings.ids.Schatzkammer, buildings.ids.Marktplatz, buildings.ids.Schule };
+	private int[][] cIndexes = { idsInC0, idsInC1, idsInC2, idsInC3, idsInC4, idsInC5 };
 
 	@Override
 	protected void layout() {
@@ -1169,77 +1191,23 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
-		gebäude[0][0].setSize(64, 64);
-		gebäude[0][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[0][0].setBackground(themeManager.getImage("kohlemine"));
-		gebäude[0][1].setSize(64, 64);
-		gebäude[0][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
-		gebäude[0][1].setBackground(themeManager.getImage("eisenmine"));
-		gebäude[0][2].setSize(64, 64);
-		gebäude[0][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
-		gebäude[0][2].setBackground(themeManager.getImage("lager"));
-		gebäude[0][3].setSize(64, 64);
-		gebäude[0][3].setPosition((int) baustart.getX() + 222, (int) baustart.getY());
-		gebäude[0][3].setBackground(themeManager.getImage("Sandschmelze"));
-
-		gebäude[1][0].setSize(64, 64);
-		gebäude[1][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[1][0].setBackground(themeManager.getImage("Holz"));
-		gebäude[1][1].setSize(64, 64);
-		gebäude[1][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
-		gebäude[1][1].setBackground(themeManager.getImage("Steinbruch"));
-		gebäude[1][2].setSize(32, 32);
-		gebäude[1][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
-		gebäude[1][2].setBackground(themeManager.getImage("Sandgrube"));
-		gebäude[1][3].setSize(32, 32);
-		gebäude[1][3].setPosition((int) baustart.getX() + 190, (int) baustart.getY());
-		gebäude[1][3].setBackground(themeManager.getImage("Förster"));
-		gebäude[1][4].setSize(32, 32);
-		gebäude[1][4].setPosition((int) baustart.getX() + 232, (int) baustart.getY());
-		gebäude[1][4].setBackground(themeManager.getImage("Lehmgrube"));
-		gebäude[1][5].setSize(64, 64);
-		gebäude[1][5].setPosition((int) baustart.getX() + 274, (int) baustart.getY());
-		gebäude[1][5].setBackground(themeManager.getImage("Pechfabrik"));
-
-		gebäude[2][0].setSize(64, 64);
-		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[2][0].setBackground(themeManager.getImage("Waffenkammer"));
-		gebäude[2][1].setSize(64, 64);
-		gebäude[2][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
-		gebäude[2][1].setBackground(themeManager.getImage("Kaserne"));
-		gebäude[2][2].setSize(32, 32);
-		gebäude[2][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
-		gebäude[2][2].setBackground(themeManager.getImage("Schmiede"));
-
-		gebäude[3][0].setSize(32, 32);
-		gebäude[3][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[3][0].setBackground(themeManager.getImage("Kornspeicher"));
-		gebäude[3][1].setSize(64, 64);
-		gebäude[3][1].setPosition((int) baustart.getX() + 42, (int) baustart.getY());
-		gebäude[3][1].setBackground(themeManager.getImage("Hof"));
-		gebäude[3][2].setSize(64, 64);
-		gebäude[3][2].setPosition((int) baustart.getX() + 116, (int) baustart.getY());
-		gebäude[3][2].setBackground(themeManager.getImage("Viecha"));
-		gebäude[3][3].setSize(64, 64);
-		gebäude[3][3].setPosition((int) baustart.getX() + 190, (int) baustart.getY());
-		gebäude[3][3].setBackground(themeManager.getImage("Bäckerei"));
-
-		gebäude[4][0].setSize(64, 64);
-		gebäude[4][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[4][0].setBackground(themeManager.getImage("Turm"));
-		gebäude[4][1].setSize(32, 32);
-		gebäude[4][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
-		gebäude[4][1].setBackground(themeManager.getImage("Mauer"));
-
-		gebäude[5][0].setSize(64, 32);
-		gebäude[5][0].setPosition((int) baustart.getX(), (int) baustart.getY());
-		gebäude[5][0].setBackground(themeManager.getImage("Haus"));
-		gebäude[5][1].setSize(64, 32);
-		gebäude[5][1].setPosition((int) baustart.getX() + 74, (int) baustart.getY());
-		gebäude[5][1].setBackground(themeManager.getImage("Schatzkammer"));
-		gebäude[5][2].setSize(64, 64);
-		gebäude[5][2].setPosition((int) baustart.getX() + 148, (int) baustart.getY());
-		gebäude[5][2].setBackground(themeManager.getImage("Marktplatz"));
+		for (int x = 0; x < cInTexes.length; x++) {
+			for (int y = 0; y < cInTexes[x].length; y++) {
+				System.out.println(cInTexes[x][y]);
+				Image img = TWLImage.getImage(cInTexes[x][y]);
+				double fact = (double) Math.max(img.getHeight(), img.getWidth()) / (double) 64;
+				if (y == 0) {
+					gebäude[x][y].setSize((int) (img.getWidth() / fact), (int) (img.getHeight() / fact));
+					System.out.println(gebäude[x][y].getWidth() + "|" + gebäude[x][y].getHeight());
+					gebäude[x][y].setPosition((int) baustart.getX(), (int) baustart.getY());
+					gebäude[x][y].setBackground(img);
+				} else {
+					gebäude[x][y].setSize((int) (img.getWidth() / fact), (int) (img.getHeight() / fact));
+					gebäude[x][y].setPosition((int) gebäude[x][y - 1].getX() + gebäude[x][y - 1].getWidth() + 10, (int) baustart.getY());
+					gebäude[x][y].setBackground(img);
+				}
+			}
+		}
 
 		rekru[18][0].setSize(64, 64);
 		rekru[18][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1365,15 +1333,6 @@ public class Knightmare extends Widget implements StringConstants {
 		updateticks++;
 	}
 
-	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
-	private int[] idsInC0 = { 0, 1, 2, 5 };
-	private int[] idsInC1 = { 3, 8, 21, 22, 25, 26 };
-	private int[] idsInC2 = { 13, 18, 19 };
-	private int[] idsInC3 = { 14, 6, 7, 17 };
-	private int[] idsInC4 = { 9, 10 };
-	private int[] idsInC5 = { 4, 12, 15 };
-	private int[][] cIndexes = { idsInC0, idsInC1, idsInC2, idsInC3, idsInC4, idsInC5 };
-
 	private void GUI() {
 		for (int x = 0; x < cIndexes.length; x++) {
 			for (int y = 0; y < cIndexes[x].length; y++) {
@@ -1385,8 +1344,10 @@ public class Knightmare extends Widget implements StringConstants {
 
 					@Override
 					public void run() {
+						gebäude[helpX][helpY].setTintAnimator(new TintAnimator(gebäude[helpX][helpY], Color.GRAY));
 						inGameStat = state.BAUEN;// state.N_BUILDINGS;
 						aktuellesGebäude = cIndexes[helpX][helpY];
+						gebäude[helpX][helpY].getTintAnimator().fadeTo(Color.WHITE, 100);
 					}
 				});
 			}
