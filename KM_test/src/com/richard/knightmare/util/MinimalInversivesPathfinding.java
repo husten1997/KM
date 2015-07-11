@@ -389,11 +389,7 @@ public class MinimalInversivesPathfinding {
 	private boolean isObstracted(Pos p) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
-				if (EntityHandler.worldFieWarenTransport[p.x][p.y] != null) {
-					return EntityHandler.worldFieWarenTransport[p.x][p.y].getID() != soldat.getID();
-				} else {
-					return false;
-				}
+				return EntityHandler.world[p.x][p.y]!=null;
 			} else {
 				return true;
 			}
@@ -401,11 +397,7 @@ public class MinimalInversivesPathfinding {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
 			} else {
-				if (EntityHandler.worldFieWarenTransport[p.x][p.y] != null) {
-					return EntityHandler.worldFieWarenTransport[p.x][p.y].getID() != soldat.getID();
-				} else {
-					return false;
-				}
+				return EntityHandler.world[p.x][p.y]!=null;
 			}
 		}
 	}

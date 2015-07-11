@@ -829,11 +829,7 @@ public class EntityHandler {
 	private boolean isObstractedForWaren(int x, int y, RectangleGraphicalObject soldat) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(x, y) == null) {
-				if (worldFieWarenTransport[x][y] != null) {
-					return worldFieWarenTransport[x][y].getID() != soldat.getID();
-				} else {
-					return false;
-				}
+				return world[x][y]!=null;
 			} else {
 				return true;
 			}
@@ -841,11 +837,7 @@ public class EntityHandler {
 			if (Knightmare.terrain.getMeterial(x, y) == null) {
 				return true;
 			} else {
-				if (worldFieWarenTransport[x][y] != null) {
-					return worldFieWarenTransport[x][y].getID() != soldat.getID();
-				} else {
-					return false;
-				}
+				return world[x][y] != null;
 			}
 		}
 	}
@@ -866,7 +858,7 @@ public class EntityHandler {
 	}
 
 	private boolean isObstractedForBuildingWaren(int x, int y, Building building) {
-		if (worldFieWarenTransport[x][y] != null) {
+		if (world[x][y] != null) {
 			return true;
 		}
 		for (String muss : building.getMuss()) {
