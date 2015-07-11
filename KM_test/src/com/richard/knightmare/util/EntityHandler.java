@@ -23,8 +23,10 @@ public class EntityHandler {
 	private int id = 1, idWaren = 1, ticksSinceLastRetry, ticksSinceLastRetryWaren;
 	private HashMap<Soldat, SingleManPathfinding> finding = new HashMap<>();
 	private HashMap<Soldat, MinimalInversivesPathfinding> findingFianWarnHansl = new HashMap<>();
-	private HashMap<Soldat, Pos> actualDeastination = new HashMap<>(), replacedDestination = new HashMap<>(), actualWaren = new HashMap<>(), replacedWaren = new HashMap<>();
-	private HashMap<Soldat, Integer> triesOnActual = new HashMap<>(), triesOnReplaced = new HashMap<>(), triesActualWaren = new HashMap<>(), triesReplacedWaren = new HashMap<>();
+	private HashMap<Soldat, Pos> actualDeastination = new HashMap<>(), replacedDestination = new HashMap<>(), actualWaren = new HashMap<>(),
+			replacedWaren = new HashMap<>();
+	private HashMap<Soldat, Integer> triesOnActual = new HashMap<>(), triesOnReplaced = new HashMap<>(), triesActualWaren = new HashMap<>(),
+			triesReplacedWaren = new HashMap<>();
 	private HashMap<Soldat, RectangleGraphicalObject> chasing = new HashMap<>(), chasingWaren = new HashMap<>();
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	private Spieler[] spieler;
@@ -47,8 +49,8 @@ public class EntityHandler {
 					for (int y = 0; y < world[x].length; y++) {
 						if (getOn(x, y) != null) {
 							if (getOn(x, y) instanceof Soldat) {
-								if(worldFieWarenTransport[x][y]!=null){
-									if(((Soldat)getOn(x, y)).getSpieler().getTeam() != ((Soldat) worldFieWarenTransport[x][y]).getSpieler().getTeam()){
+								if (worldFieWarenTransport[x][y] != null) {
+									if (((Soldat) getOn(x, y)).getSpieler().getTeam() != ((Soldat) worldFieWarenTransport[x][y]).getSpieler().getTeam()) {
 										dieWarenHansl(x, y);
 									}
 								}
@@ -150,6 +152,7 @@ public class EntityHandler {
 			id++;
 		}
 	}
+
 	private void registerWaren(RectangleGraphicalObject object) {
 		if (object.getID() == 0) {
 			object.register(idWaren);
@@ -257,6 +260,7 @@ public class EntityHandler {
 		}
 		return true;
 	}
+
 	public boolean placeWaren(RectangleGraphicalObject object) {
 		registerWaren(object);
 		int w = object.getWidth() / 32;
@@ -356,7 +360,7 @@ public class EntityHandler {
 					if (entities.get(i).getPosition().getX() <= Px1 && entities.get(i).getPosition().getX() >= Px2 && entities.get(i).getPosition().getY() <= Py1
 							&& entities.get(i).getPosition().getY() >= Py2) {
 
-						if (entities.get(i) instanceof Soldat) {
+						if (entities.get(i) instanceof Soldat && entities.get(i).getSpieler().equals(spieler[0])) {
 							selection.add((RectangleGraphicalObject) entities.get(i));
 						}
 					}
@@ -375,7 +379,7 @@ public class EntityHandler {
 			for (int i = 0; i < entities.size(); i++) {
 				if (entities.get(i).getPosition().getX() <= x && entities.get(i).getPosition().getX() >= x - 64 && entities.get(i).getPosition().getY() <= y
 						&& entities.get(i).getPosition().getY() >= y - 64) {
-					if (entities.get(i) instanceof Soldat) {
+					if (entities.get(i) instanceof Soldat && entities.get(i).getSpieler().equals(spieler[0])) {
 						selection.add(entities.get(i));
 					}
 				}
@@ -514,7 +518,8 @@ public class EntityHandler {
 		tickWaren();
 		ticking = false;
 	}
-	private void tickWaren(){
+
+	private void tickWaren() {
 		if (ticksSinceLastRetryWaren > 20) {
 			ArrayList<Soldat> toRemoveActual = new ArrayList<>();
 			for (Entry<Soldat, Pos> entry : actualWaren.entrySet()) {
@@ -618,6 +623,7 @@ public class EntityHandler {
 			triesOnReplaced.put((Soldat) object, 0);
 		}
 	}
+
 	public void pathfindToWarenHansl(double x, double y, RectangleGraphicalObject object) {
 		if (findingFianWarnHansl.containsKey(object)) {
 			findingFianWarnHansl.get(object).stop();
@@ -707,7 +713,7 @@ public class EntityHandler {
 	public boolean die(RectangleGraphicalObject object) {
 		if (object instanceof Soldat) {
 			((Soldat) object).stirb();
-			if(finding.containsKey(object)){
+			if (finding.containsKey(object)) {
 				finding.get(object).stop();
 			}
 			finding.remove(object);
@@ -781,10 +787,10 @@ public class EntityHandler {
 		}
 		return object;
 	}
-	
-	public void dieWarenHansl(int x, int y){
+
+	public void dieWarenHansl(int x, int y) {
 		RectangleGraphicalObject object = worldFieWarenTransport[x][y];
-		if(findingFianWarnHansl.containsKey(object)){
+		if (findingFianWarnHansl.containsKey(object)) {
 			findingFianWarnHansl.get(object).stop();
 		}
 		findingFianWarnHansl.remove(object);
@@ -793,7 +799,7 @@ public class EntityHandler {
 		triesReplacedWaren.remove(object);
 		replacedWaren.remove(object);
 		entitiesWaren.remove(object);
-		worldFieWarenTransport[x][y]=null;
+		worldFieWarenTransport[x][y] = null;
 	}
 
 	private boolean isObstractedFor(int x, int y, RectangleGraphicalObject soldat) {
@@ -819,6 +825,7 @@ public class EntityHandler {
 			}
 		}
 	}
+
 	private boolean isObstractedForWaren(int x, int y, RectangleGraphicalObject soldat) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(x, y) == null) {
@@ -848,24 +855,25 @@ public class EntityHandler {
 			return true;
 		}
 		for (String muss : building.getMuss()) {
-			return !muss.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)));
+			return !muss.equals((Knightmare.terrain.getMeterial(x, y) == null ? StringConstants.Material_t.WATER : Knightmare.terrain.getMeterial(x, y)));
 		}
 		for (String darfNicht : building.getnichtErlaubt()) {
-			if (darfNicht.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)))) {
+			if (darfNicht.equals((Knightmare.terrain.getMeterial(x, y) == null ? StringConstants.Material_t.WATER : Knightmare.terrain.getMeterial(x, y)))) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 	private boolean isObstractedForBuildingWaren(int x, int y, Building building) {
 		if (worldFieWarenTransport[x][y] != null) {
 			return true;
 		}
 		for (String muss : building.getMuss()) {
-			return !muss.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)));
+			return !muss.equals((Knightmare.terrain.getMeterial(x, y) == null ? StringConstants.Material_t.WATER : Knightmare.terrain.getMeterial(x, y)));
 		}
 		for (String darfNicht : building.getnichtErlaubt()) {
-			if (darfNicht.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)))) {
+			if (darfNicht.equals((Knightmare.terrain.getMeterial(x, y) == null ? StringConstants.Material_t.WATER : Knightmare.terrain.getMeterial(x, y)))) {
 				return true;
 			}
 		}
