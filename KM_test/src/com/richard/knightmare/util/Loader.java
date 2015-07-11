@@ -19,7 +19,6 @@ import javax.sound.sampled.Clip;
 public class Loader {
 
 	private static File saves, configs, resourcepacks, cfgFile, resCfgFile, texturesRes;
-	private static HashMap<String, Clip> sounds = new HashMap<>();
 	private static Speicher speicher = new Speicher();
 
 	public static void initLoader(String firmenname, String spielname) {
@@ -170,7 +169,6 @@ public class Loader {
 
 		Cfg.loadConfigs();
 		ResCfg.loadConfigs();
-		load();
 	}
 
 	private static class Cfg {
@@ -233,10 +231,10 @@ public class Loader {
 
 			defaultConfigValues.put("CONTROL_KEY: Abreißen", "Entf");
 			sortedKeys.add("CONTROL_KEY: Abreißen");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Quicksave", "Q");
 			sortedKeys.add("CONTROL_KEY: Quicksave");
-			
+
 			defaultConfigValues.put("CONTROL_KEY: Baumenü ein/aus", "B");
 			sortedKeys.add("CONTROL_KEY: Baumenü ein/aus");
 
@@ -246,19 +244,18 @@ public class Loader {
 
 			defaultConfigValues.put("SETTINGS: Fenstermodus", "false");
 			sortedKeys.add("SETTINGS: Fenstermodus");
-			
+
 			defaultConfigValues.put("SETTINGS: Profilname", "Lord Siegmund");
 			sortedKeys.add("SETTINGS: Profilname");
-			
+
 			defaultConfigValues.put("SETTINGS: Startzeit", "1.0");
 			sortedKeys.add("SETTINGS: Startzeit");
-			
+
 			defaultConfigValues.put("SETTINGS: Profilbild", "src\\resources\\textures\\profil.png");
 			sortedKeys.add("SETTINGS: Profilbild");
-			
+
 			defaultConfigValues.put("SETTINGS: Default difficulty", "1");
 			sortedKeys.add("SETTINGS: Default difficulty");
-		
 
 			sortedKeys.sort(new Comparator<String>() {
 
@@ -453,10 +450,6 @@ public class Loader {
 		}
 	}
 
-	private static void load() {
-		loadSounds();
-	}
-
 	private static void DicAddEntry(String deutsch, String englisch) {
 		Dictionary.addEntry(englisch, deutsch);
 		Dictionary.addEntry(deutsch, deutsch);
@@ -467,36 +460,34 @@ public class Loader {
 		DictionaryE.addEntry(englisch, englisch);
 	}
 
-	private static void loadSounds() {
-		File sounds = new File("src\\resources\\sounds");
-		String[] names = sounds.list();
-		for (int i = 0; i < names.length; i++) {
-			if (getCfgValue("Resourcepack").equals("Default")) {
+	public static Clip getSound(String name) {
+		if (getCfgValue("Resourcepack").equals("Default")) {
+			try {
+				Clip clip = AudioSystem.getClip();
+				clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder("src\\resources\\sounds").append("\\").append(name).toString())));
+				return clip;
+			} catch (Exception e1) {
+				// Just stop trying
+			}
+		} else {
+			try {
+				Clip clip = AudioSystem.getClip();
+				clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack"))
+						.append("\\Sounds\\").append(name).toString())));
+				return clip;
+			} catch (Exception e) {
+				// Didn't work, trying default
 				try {
 					Clip clip = AudioSystem.getClip();
-					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder("src\\resources\\sounds").append("\\").append(names[i]).toString())));
-					Loader.sounds.put(names[i], clip);
+					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder("src\\resources\\sounds").append("\\").append(name).toString())));
+					return clip;
 				} catch (Exception e1) {
 					// Just stop trying
 				}
-			} else {
-				try {
-					Clip clip = AudioSystem.getClip();
-					clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder(resourcepacks.getAbsolutePath()).append("\\").append(getCfgValue("Resourcepack"))
-							.append("\\Sounds\\").append(names[i]).toString())));
-					Loader.sounds.put(names[i], clip);
-				} catch (Exception e) {
-					// Didn't work, trying default
-					try {
-						Clip clip = AudioSystem.getClip();
-						clip.open(AudioSystem.getAudioInputStream(new File(new StringBuilder("src\\resources\\sounds").append("\\").append(names[i]).toString())));
-						Loader.sounds.put(names[i], clip);
-					} catch (Exception e1) {
-						// Just stop trying
-					}
-				}
 			}
 		}
+		return null;
+
 	}
 
 	public static Clip getMusic(String name) {
@@ -530,10 +521,6 @@ public class Loader {
 
 	public static File getSavesDir() {
 		return saves;
-	}
-
-	public static Clip getSound(String name) {
-		return sounds.get(name);
 	}
 
 	public static String[] getMusicList() {
@@ -580,10 +567,10 @@ public class Loader {
 		}
 	}
 
-	public static File getTexturesRes(){
+	public static File getTexturesRes() {
 		return texturesRes;
 	}
-	
+
 	public static String getCfgValue(String key) {
 		if (Cfg.sortedKeys.contains(key)) {
 			return Cfg.configValues.get(key);
@@ -641,11 +628,11 @@ public class Loader {
 		}
 		return null;
 	}
-	
-	public static String getTexturePath(){
+
+	public static String getTexturePath() {
 		if (getCfgValue("Resourcepack").equals("Default")) {
 			return "/resources/textures";
-		}else{
+		} else {
 			return new StringBuilder("file:/").append(texturesRes.getAbsolutePath()).toString();
 		}
 	}
