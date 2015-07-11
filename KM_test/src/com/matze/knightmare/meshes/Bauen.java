@@ -9,6 +9,7 @@ import com.richard.knightmare.util.Pos;
 public class Bauen {
 	private static Spieler mutterNatur = new Spieler(-1, "Mama Natur", -1,
 			"KI", "Schwer");
+	private static int gesBev = 0;
 
 	public static Building KohleMine(Pos p, Spieler sp) {
 		double d = sp.getDifficulty();
@@ -291,9 +292,11 @@ public class Bauen {
 									b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), (int) Math.round(1*hilfsd));
 									b.getSpieler().verteilen(9, (int) Math.round(1*hilfsd));
 									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), 3);
+									gesBev += 1;
 								} else {
 									if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) > 1){
 										b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 1);
+										gesBev -= 1;
 									}
 								}
 								
@@ -1768,6 +1771,14 @@ public class Bauen {
 
 	public static String getBuildingName(int id) {
 		return getBuildingforID(id, new Pos(0,0), mutterNatur).getName();
+	}
+	
+	public static void setGesBev(int gB){
+		gesBev = gB;
+	}
+	
+	public static int getGesBev(){
+		return gesBev;
 	}
 
 	public static void kostenAbziehen(Building b) {
