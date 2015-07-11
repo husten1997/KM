@@ -1616,7 +1616,7 @@ public class Bauen {
 	
 	
 	public static Building Hafen(Pos p, Spieler sp) {
-		Building b = new Building(18, p, 64, 64, "Hafen.png");
+		Building b = new Building(32, p, 64, 64, "Hafen.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 50);
 		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 30);
@@ -1748,6 +1748,9 @@ public class Bauen {
 		}
 		case 31: {
 			return Gerberei(p, spieler);
+		}
+		case 32: {
+			return Hafen(p, spieler);
 		}
 		default:
 			return null;
