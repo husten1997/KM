@@ -750,14 +750,12 @@ public class Bauen {
 
 		if (error == 0) {
 
-			int am = Rohstoffe.maxID(); // TODO überprüfen
+			int am = 1;
 
 			Waren[] benötigt = new Waren[am];
 			int[] amountBenötigt = new int[am];
 
-			for (int i = 0; i < am; i++) {
-				benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
-			}
+			benötigt[0] = Rohstoffe.Fleisch();
 
 			b.init(75, 0, 0, 0, "Kornspeicher", benötigt, amountBenötigt, null,
 					150);

@@ -241,7 +241,7 @@ public class Spieler {
 		}
 		if (index == 10) {
 			for (Building Kornspeicher : kornspeicher) {
-				help += Kornspeicher.getBenötigt()[index].getAmount();
+				help += Kornspeicher.getBenötigt()[0].getAmount();
 			}
 			return help;
 		}
