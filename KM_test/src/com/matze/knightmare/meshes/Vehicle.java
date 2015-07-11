@@ -52,4 +52,7 @@ public class Vehicle extends Soldat {
 		}
 		return ware;
 	}
+	public Waren[] getSlots(){
+		return slots;
+	}
 }
