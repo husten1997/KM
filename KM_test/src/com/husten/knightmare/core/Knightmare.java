@@ -460,22 +460,22 @@ public class Knightmare extends Widget implements StringConstants {
 									if (b.getIndex() == 15) {
 										if (!hilfsboolean2) {
 											b.getSpieler().verteilen(12, (int) (10 * d));
-											
-											b.setTimerTask(new TimerTask(){
-											@Override
-											public void run() {
-												if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(),
-														(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2))){
-													b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(),
-															(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2));
-												} else {
-													b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
-													b.getSpieler().abziehen(Rohstoffe.Mensch().getID(),
-															(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 4));
+
+											b.setTimerTask(new TimerTask() {
+												@Override
+												public void run() {
+													if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(),
+															(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2))) {
+														b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(),
+																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 2));
+													} else {
+														b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
+														b.getSpieler().abziehen(Rohstoffe.Mensch().getID(),
+																(int) (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) / 4));
+													}
 												}
-											}
-										});
-											
+											});
+
 										}
 									}
 									if (b.getIndex() == 14) {
@@ -500,7 +500,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 										b.setKostetWarevonIndex(2, (int) (10 * d));
 										b.setKostetWarevonIndex(8, (int) (5 * d));
-										for (int i  = 0; i < b.getAttribute().length; i++){
+										for (int i = 0; i < b.getAttribute().length; i++) {
 											System.out.println(b.getAttribute()[i]);
 										}
 									}
@@ -637,25 +637,25 @@ public class Knightmare extends Widget implements StringConstants {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-//					if (!isOn(Mouse.getX(), Mouse.getY())) {
-//						switch (inGameStat) {
-//						case state.DEFAULT:
-//							newHandler.processRightClick(x, y);
-//							break;
-//
-//						default:
-//							inGameStat = state.DEFAULT/* .S_TRUPS */;
-//							rekrutriernShown = false;
-//							baumenueShowen = true;
-//							buildingSelected = -1;
-//							break;
-//						}
-//					}
+					// if (!isOn(Mouse.getX(), Mouse.getY())) {
+					// switch (inGameStat) {
+					// case state.DEFAULT:
+					// newHandler.processRightClick(x, y);
+					// break;
+					//
+					// default:
+					// inGameStat = state.DEFAULT/* .S_TRUPS */;
+					// rekrutriernShown = false;
+					// baumenueShowen = true;
+					// buildingSelected = -1;
+					// break;
+					// }
+					// }
 
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						newHandler.processRightClick(x, y);
 						inGameStat = state.DEFAULT/* .S_TRUPS */;
-//						newHandler.selClear();
+						// newHandler.selClear();
 						rekrutriernShown = false;
 						baumenueShowen = true;
 						buildingSelected = -1;
@@ -1194,6 +1194,12 @@ public class Knightmare extends Widget implements StringConstants {
 		gebäude[1][3].setSize(32, 32);
 		gebäude[1][3].setPosition((int) baustart.getX() + 190, (int) baustart.getY());
 		gebäude[1][3].setBackground(themeManager.getImage("Förster"));
+		gebäude[1][4].setSize(32, 32);
+		gebäude[1][4].setPosition((int) baustart.getX() + 232, (int) baustart.getY());
+		gebäude[1][4].setBackground(themeManager.getImage("Lehmgrube"));
+		gebäude[1][5].setSize(64, 64);
+		gebäude[1][5].setPosition((int) baustart.getX() + 274, (int) baustart.getY());
+		gebäude[1][5].setBackground(themeManager.getImage("Pechfabrik"));
 
 		gebäude[2][0].setSize(64, 64);
 		gebäude[2][0].setPosition((int) baustart.getX(), (int) baustart.getY());
@@ -1361,7 +1367,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 	private int[] idsInC0 = { 0, 1, 2, 5 };
-	private int[] idsInC1 = { 3, 8, 21, 22 };
+	private int[] idsInC1 = { 3, 8, 21, 22, 25, 26 };
 	private int[] idsInC2 = { 13, 18, 19 };
 	private int[] idsInC3 = { 14, 6, 7, 17 };
 	private int[] idsInC4 = { 9, 10 };

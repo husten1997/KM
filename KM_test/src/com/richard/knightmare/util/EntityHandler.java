@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.matze.knightmare.meshes.Battle;
@@ -612,10 +613,10 @@ public class EntityHandler {
 			return true;
 		}
 		for (String muss : building.getMuss()) {
-			return !muss.equals(Knightmare.terrain.getMeterial(x, y));
+			return !muss.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)));
 		}
 		for (String darfNicht : building.getnichtErlaubt()) {
-			if (darfNicht.equals(Knightmare.terrain.getMeterial(x, y))) {
+			if (darfNicht.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)))) {
 				return true;
 			}
 		}
