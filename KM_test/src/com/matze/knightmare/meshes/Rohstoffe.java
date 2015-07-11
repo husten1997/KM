@@ -83,6 +83,26 @@ public class Rohstoffe {
 		return w;
 	}
 	
+	public static Waren Werkzeug(){
+		Waren w = new Waren(16,0,"Werkzeug", "werkzeug.png");
+		return w;
+	}
+	
+	public static Waren Zufriedenheit(){
+		Waren w = new Waren(17,0,"Zufriedenheit", "zufriedenheit.png");
+		return w;
+	}
+	
+	public static Waren Tiere(){
+		Waren w = new Waren(18,0,"Tiere", "tiere.png");
+		return w;
+	}
+	
+	public static Waren Leder(){
+		Waren w = new Waren(19,0,"Leder", "leder.png");
+		return w;
+	}
+	
 	public static Waren Nothing(){
 		return null;
 	}
@@ -105,6 +125,10 @@ public class Rohstoffe {
 		case 13:{return Armbrust();}
 		case 14:{return Gebildeter_Mensch();}
 		case 15:{return Ziegel();}
+		case 16:{return Werkzeug();}
+		case 17:{return Zufriedenheit();}
+		case 18:{return Tiere();}
+		case 19:{return Tiere();}
 		default:{return Nothing();}
 		}
 	}

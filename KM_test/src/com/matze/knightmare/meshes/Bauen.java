@@ -167,7 +167,7 @@ public class Bauen {
 				benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
 			}
 
-			b.init(75, 0, 0, 0, "Lagerhaus", benötigt, amountBenötigt, null,
+			b.init(75, 0, 0, 0, "Lagerhaus", benötigt, amountBenötigt, Rohstoffe.Nothing(),
 					1000);
 
 			return b;
@@ -651,7 +651,7 @@ public class Bauen {
 		int[] amountBenötigt = new int[1];
 		amountBenötigt[0]=1;
 		benötigt[0] = w;
-		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, null, 50);
+		b.init(10, 0, 0, 0, "Baum", benötigt, amountBenötigt, Rohstoffe.Nothing(), 50);
 		return b;
 	}
 
@@ -684,7 +684,7 @@ public class Bauen {
 				benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
 			}
 
-			b.init(75, 0, 0, 0, "Schatzkammer", benötigt, amountBenötigt, null,
+			b.init(75, 0, 0, 0, "Schatzkammer", benötigt, amountBenötigt, Rohstoffe.Nothing(),
 					1000);
 
 			return b;
@@ -722,7 +722,7 @@ public class Bauen {
 				benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
 			}
 
-			b.init(75, 0, 0, 0, "Waffenkammer", benötigt, amountBenötigt, null,
+			b.init(75, 0, 0, 0, "Waffenkammer", benötigt, amountBenötigt, Rohstoffe.Nothing(),
 					1000);
 
 			return b;
@@ -757,7 +757,7 @@ public class Bauen {
 
 			benötigt[0] = Rohstoffe.Fleisch();
 
-			b.init(75, 0, 0, 0, "Kornspeicher", benötigt, amountBenötigt, null,
+			b.init(75, 0, 0, 0, "Kornspeicher", benötigt, amountBenötigt, Rohstoffe.Nothing(),
 					150);
 
 			return b;
@@ -794,7 +794,7 @@ public class Bauen {
 				benötigt[i] = Rohstoffe.Rohstoff_von_Index(i);
 			}
 
-			b.init(75, 0, 0, 0, "Marktplatz", benötigt, amountBenötigt, null,
+			b.init(75, 0, 0, 0, "Marktplatz", benötigt, amountBenötigt, Rohstoffe.Nothing(),
 					1000);
 
 			return b;
@@ -849,7 +849,7 @@ public class Bauen {
 			amountBenötigt[0] = 3;
 
 			b.init(50, 3, 0, 0, "Bäckerei", benötigt, amountBenötigt,
-					Rohstoffe.Stein(), 75);
+					Rohstoffe.Fleisch(), 75);
 
 			if (!sp.equals(mutterNatur)) {
 				b.setTimerTask(
@@ -902,7 +902,7 @@ public class Bauen {
 			int[] amountBenötigt = new int[1];
 
 			b.init(50, 4, 0, 0, "Kaserne", benötigt, amountBenötigt,
-					null, 75);
+					Rohstoffe.Nothing(), 75);
 
 			return b;
 		}
@@ -987,7 +987,7 @@ public class Bauen {
 		int[] amountBenötigt = new int[1];
 		amountBenötigt[0]=1;
 		benötigt[0] = w;
-		b.init(10, 0, 0, 0, "Feld", benötigt, amountBenötigt, null, 50);
+		b.init(10, 0, 0, 0, "Feld", benötigt, amountBenötigt, Rohstoffe.Nothing(), 50);
 		return b;}
 		return null;
 	}
@@ -1075,7 +1075,7 @@ public class Bauen {
 			amountBenötigt[0] = 1;
 
 			b.init(30, d, 0, 4, "Förster", benötigt, amountBenötigt,
-					Rohstoffe.Holz(), 20);
+					Rohstoffe.Nothing(), 20);
 
 			if (!sp.equals(mutterNatur)) {
 				b.setTimerTask(
@@ -1206,7 +1206,7 @@ public class Bauen {
 			amountBenötigt[0] = 5;
 
 			b.init(30, d, 0, 5, "Kirche", benötigt, amountBenötigt,
-					Rohstoffe.Nothing(), 0);
+					Rohstoffe.Zufriedenheit(), 0);
 
 			return b;
 		}
@@ -1249,7 +1249,7 @@ public class Bauen {
 			amountBenötigt[0] = 5;
 
 			b.init(30, d, 0, 5, "Lehmgrube", benötigt, amountBenötigt,
-					Rohstoffe.Holz(), 20);
+					Rohstoffe.Lehm(), 20);
 
 			if (!sp.equals(mutterNatur)) {
 				b.setTimerTask(
@@ -1311,7 +1311,7 @@ public class Bauen {
 			amountBenötigt[1] = 1;
 
 			b.init(30, d, 0, 5, "Pechgrube", benötigt, amountBenötigt,
-					Rohstoffe.Holz(), 20);
+					Rohstoffe.Pech(), 20);
 
 			if (!sp.equals(mutterNatur)) {
 				b.setTimerTask(
@@ -1323,6 +1323,285 @@ public class Bauen {
 									b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 5);
 									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), 1);
 									b.getSpieler().verteilen(Rohstoffe.Pech().getID(), 1);
+								}
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	public static Building Werkstatt(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(27, p, 32, 32, "werkstatt.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 20);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 25);
+		b.setKostetWarevonIndex(Rohstoffe.Ziegel().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 10);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 2;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			benötigt[0] = Rohstoffe.Holz();
+			benötigt[1] = Rohstoffe.Kohle();
+			amountBenötigt[0] = 5;
+			amountBenötigt[1] = 2;
+
+			b.init(30, d, 0, 5, "Werkstatt", benötigt, amountBenötigt,
+					Rohstoffe.Werkzeug(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Eisen().getID(), 5) && b.getSpieler().possibleToRemove(Rohstoffe.Kohle().getID(), 2)){
+									b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 5);
+									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), 2);
+									b.getSpieler().verteilen(Rohstoffe.Werkzeug().getID(), 1);
+								}
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	public static Building Theater(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(28, p, 32, 32, "theater.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 4);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 30);
+		b.setKostetWarevonIndex(Rohstoffe.Ziegel().getID(), 20);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 15);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 2;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+
+			b.init(30, d, 0, 5, "Theater", benötigt, amountBenötigt,
+					Rohstoffe.Zufriedenheit(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	public static Building Ziegelbrennerei(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(29, p, 32, 32, "theater.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 8);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 20);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+			benötigt[0] = Rohstoffe.Lehm();
+			amountBenötigt[0] =  4;
+
+			b.init(30, d, 0, 5, "Theater", benötigt, amountBenötigt,
+					Rohstoffe.Ziegel(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Lehm().getID(), 4)){
+									b.getSpieler().abziehen(Rohstoffe.Lehm().getID(), 4);
+									b.getSpieler().verteilen(Rohstoffe.Ziegel().getID(), 2);
+								}
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	
+	public static Building Viehzucht(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(30, p, 32, 32, "viehzucht.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 8);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 5);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+			benötigt[0] = Rohstoffe.Getreide();
+			amountBenötigt[0] =  2;
+
+			b.init(30, d, 0, 5, "Viehzucht", benötigt, amountBenötigt,
+					Rohstoffe.Tiere(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Getreide().getID(), 2)){
+									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 2);
+									b.getSpieler().verteilen(Rohstoffe.Tiere().getID(), 1);
+								}
+							}
+
+						});
+			}
+
+			return b;
+		}
+		return null;
+	}
+	
+	public static Building Gerberei(Pos p, Spieler sp) {
+		double d = sp.getDifficulty();
+		d = 2-d;
+		if(d==0){
+			d=0.5;
+		}
+		Building b = new Building(31, p, 32, 32, "gerberei.png");
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
+
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(Rohstoffe.Holz().getID(), 15);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 8);
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			int am = 1;
+			Waren[] benötigt = new Waren[am];
+			int[] amountBenötigt = new int[am];
+			benötigt[0] = Rohstoffe.Tiere();
+			amountBenötigt[0] =  1;
+
+			b.init(30, d, 0, 5, "Gerberei", benötigt, amountBenötigt,
+					Rohstoffe.Leder(), 20);
+
+			if (!sp.equals(mutterNatur)) {
+				b.setTimerTask(
+						new TimerTask() {
+
+							@Override
+							public void run() {
+								if (b.getSpieler().possibleToRemove(Rohstoffe.Tiere().getID(), 2)){
+									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 2);
+									b.getSpieler().verteilen(Rohstoffe.Tiere().getID(), 1);
 								}
 							}
 
@@ -1418,6 +1697,21 @@ public class Bauen {
 		}
 		case 26: {
 			return Pechgrube(p, spieler);
+		}
+		case 27: {
+			return Werkstatt(p, spieler);
+		}
+		case 28: {
+			return Theater(p, spieler);
+		}
+		case 29: {
+			return Ziegelbrennerei(p, spieler);
+		}
+		case 30: {
+			return Viehzucht(p, spieler);
+		}
+		case 31: {
+			return Gerberei(p, spieler);
 		}
 		default:
 			return null;
