@@ -29,7 +29,7 @@ public class TWLImage {
 		} catch (IOException e) {
 			// Nope
 		}
-		return t.getImage(0, 0, t.getWidth(), t.getHeight(), Color.WHITE, false, Texture.Rotation.NONE);
+		return t.getImage(0, 0, t.getWidth(), t.getHeight(), Color.WHITE, false, Texture.Rotation.CLOCKWISE_180);
 	}
 
 	public static void setRenderer(Renderer renderer) {
