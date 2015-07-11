@@ -1615,6 +1615,41 @@ public class Bauen {
 	}
 	
 	
+	public static Building Hafen(Pos p, Spieler sp) {
+		Building b = new Building(18, p, 64, 64, "Kaserne.png");
+		b.setSpieler(sp);
+		b.setKostetWarevonIndex(2, 50);
+		b.setKostetWarevonIndex(Rohstoffe.Stein().getID(), 30);
+		b.setKostetWarevonIndex(Rohstoffe.Glas().getID(), 28);
+		b.setKostetWarevonIndex(Rohstoffe.Ziegel().getID(), 20);
+		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 20);
+
+		b.addnichtErlaubt(StringConstants.Material_t.WATER);
+		int error = 0;
+
+		if (!sp.equals(mutterNatur)) {
+			for (int i = 0; i < Rohstoffe.maxID(); i++) {
+				if (b.getSpieler().getAmountofResource(i)
+						- b.getKostetWarevonIndex(i) < 0) {
+					error++;
+				}
+			}
+		}
+
+		if (error == 0) {
+
+			Waren[] benötigt = new Waren[1];
+			int[] amountBenötigt = new int[1];
+
+			b.init(50, 4, 0, 0, "Kaserne", benötigt, amountBenötigt,
+					Rohstoffe.Nothing(), 75);
+
+			return b;
+		}
+		return null;
+	}
+	
+	
 
 	public static Building getBuildingforID(int id, Pos p, Spieler spieler) {
 		switch (id) {
