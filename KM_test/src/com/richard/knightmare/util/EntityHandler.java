@@ -19,6 +19,7 @@ import com.richard.knightmare.sound.SoundPlayer;
 public class EntityHandler {
 
 	public static RectangleGraphicalObject[][] world;
+	public static RectangleGraphicalObject[][] worldFieWarenTransport;
 	private ArrayList<RectangleGraphicalObject> entities = new ArrayList<>();
 	private int id = 1, ticksSinceLastRetry;
 	private HashMap<Soldat, SingleManPathfinding> finding = new HashMap<>();
