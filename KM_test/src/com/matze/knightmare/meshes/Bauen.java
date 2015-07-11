@@ -142,7 +142,7 @@ public class Bauen {
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
 		int error = 0;
 
-		if (!sp.hatLager()) {
+		if (!sp.hatLager()&&!sp.equals(mutterNatur)) {
 			b.setKostetWarevonIndex(2, 0);
 			b.setKostetWarevonIndex(8, 0);
 		}

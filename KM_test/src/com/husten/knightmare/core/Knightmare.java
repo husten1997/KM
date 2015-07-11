@@ -57,7 +57,8 @@ import de.matthiasmann.twl.utils.TintAnimator;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, updateticks, buildingSelected = -1;
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, zuletztAktuellesGebäude = -1,
+			buildingSelected = -1;
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
 	private String inGameStat = state.DEFAULT;// state.S_TRUPS;
@@ -1193,12 +1194,10 @@ public class Knightmare extends Widget implements StringConstants {
 		Pos baustart = new Pos((WIDTH - width) / 2 + width / 4 + width / 16, HEIGHT - width / 7 + 75);
 		for (int x = 0; x < cInTexes.length; x++) {
 			for (int y = 0; y < cInTexes[x].length; y++) {
-				System.out.println(cInTexes[x][y]);
 				Image img = TWLImage.getImage(cInTexes[x][y]);
 				double fact = (double) Math.max(img.getHeight(), img.getWidth()) / (double) 64;
 				if (y == 0) {
 					gebäude[x][y].setSize((int) (img.getWidth() / fact), (int) (img.getHeight() / fact));
-					System.out.println(gebäude[x][y].getWidth() + "|" + gebäude[x][y].getHeight());
 					gebäude[x][y].setPosition((int) baustart.getX(), (int) baustart.getY());
 					gebäude[x][y].setBackground(img);
 				} else {
@@ -1290,8 +1289,15 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void showKosten() {
-		if (updateticks > 20) {
-			if (aktuellesGebäude != -1) {
+//		for (int x = 0; x < cIndexes.length; x++) {
+//			for (int y = 0; y < cIndexes[x].length; y++) {
+//				if (gebäude[x][y].getAnimationState().getAnimationState(Button.STATE_HOVER)) {
+//					System.out.println("Hovering");
+//				}
+//			}
+//		}
+		if (aktuellesGebäude != -1) {
+			if(aktuellesGebäude != zuletztAktuellesGebäude){
 				int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
 				if (aktuellesGebäude == 2 && !spieler[0].hatLager()) {
 					help = new int[resK.length];
@@ -1320,17 +1326,16 @@ public class Knightmare extends Widget implements StringConstants {
 						}
 					}
 				}
-			} else {
-				for (Label label : resK) {
-					label.setText("");
-					if (label.getBackground() != null) {
-						label.setBackground(null);
-					}
+				zuletztAktuellesGebäude = aktuellesGebäude;
+			}
+		} else {
+			for (Label label : resK) {
+				label.setText("");
+				if (label.getBackground() != null) {
+					label.setBackground(null);
 				}
 			}
-			updateticks = 0;
 		}
-		updateticks++;
 	}
 
 	private void GUI() {
