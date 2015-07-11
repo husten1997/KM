@@ -14,6 +14,8 @@ import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
+import com.matze.knightmare.meshes.Vehicle;
+import com.matze.knightmare.meshes.Waren;
 import com.richard.knightmare.sound.SoundPlayer;
 
 public class EntityHandler {
@@ -531,6 +533,11 @@ public class EntityHandler {
 						// actualDeastination.remove(entry.getKey());
 						toRemoveActual.add(entry.getKey());
 						chasingWaren.remove(entry.getKey());
+						Waren[] w = ((Vehicle) entry.getKey()).getSlots();
+						for(Waren waren: w){
+							entry.getKey().getSpieler().verteilen(waren.getID(), waren.getAmount());
+						}
+						dieWarenHansl((int) entry.getKey().getPosition().getX() / 32, (int) entry.getKey().getPosition().getY() / 32);
 					} else {
 						MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), replacedWaren.get(entry.getKey()));
 						com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
@@ -829,7 +836,7 @@ public class EntityHandler {
 	private boolean isObstractedForWaren(int x, int y, RectangleGraphicalObject soldat) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(x, y) == null) {
-				return world[x][y]!=null;
+				return world[x][y] != null;
 			} else {
 				return true;
 			}
