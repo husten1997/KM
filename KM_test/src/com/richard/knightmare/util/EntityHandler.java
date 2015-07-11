@@ -18,14 +18,14 @@ import com.richard.knightmare.sound.SoundPlayer;
 
 public class EntityHandler {
 
-	public static RectangleGraphicalObject[][] world;
-	public static RectangleGraphicalObject[][] worldFieWarenTransport;
-	private ArrayList<RectangleGraphicalObject> entities = new ArrayList<>();
-	private int id = 1, ticksSinceLastRetry;
+	public static RectangleGraphicalObject[][] world, worldFieWarenTransport;
+	private ArrayList<RectangleGraphicalObject> entities = new ArrayList<>(), entitiesWaren = new ArrayList<>();
+	private int id = 1, idWaren = 1, ticksSinceLastRetry, ticksSinceLastRetryWaren;
 	private HashMap<Soldat, SingleManPathfinding> finding = new HashMap<>();
-	private HashMap<Soldat, Pos> actualDeastination = new HashMap<>(), replacedDestination = new HashMap<>();
-	private HashMap<Soldat, Integer> triesOnActual = new HashMap<>(), triesOnReplaced = new HashMap<>();
-	private HashMap<Soldat, RectangleGraphicalObject> chasing = new HashMap<>();
+	private HashMap<Soldat, MinimalInversivesPathfinding> findingFianWarnHansl = new HashMap<>();
+	private HashMap<Soldat, Pos> actualDeastination = new HashMap<>(), replacedDestination = new HashMap<>(), actualWaren = new HashMap<>(), replacedWaren = new HashMap<>();
+	private HashMap<Soldat, Integer> triesOnActual = new HashMap<>(), triesOnReplaced = new HashMap<>(), triesActualWaren = new HashMap<>(), triesReplacedWaren = new HashMap<>();
+	private HashMap<Soldat, RectangleGraphicalObject> chasing = new HashMap<>(), chasingWaren = new HashMap<>();
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	private Spieler[] spieler;
 	private boolean processing = false, ticking = false;
@@ -35,6 +35,7 @@ public class EntityHandler {
 	public EntityHandler(int width, int height, Spieler[] spieler) {
 		this.spieler = spieler;
 		world = new RectangleGraphicalObject[width][height];
+		worldFieWarenTransport = new RectangleGraphicalObject[width][height];
 		battleplayer.setVolume(Float.parseFloat(Loader.getCfgValue("Volume")));
 
 		battletimer = new Timer(true);
@@ -46,6 +47,11 @@ public class EntityHandler {
 					for (int y = 0; y < world[x].length; y++) {
 						if (getOn(x, y) != null) {
 							if (getOn(x, y) instanceof Soldat) {
+								if(worldFieWarenTransport[x][y]!=null){
+									if(((Soldat)getOn(x, y)).getSpieler().getTeam() != ((Soldat) worldFieWarenTransport[x][y]).getSpieler().getTeam()){
+										dieWarenHansl(x, y);
+									}
+								}
 								if (kannKämpfen((Soldat) getOn(x, y), getOn(x - 1, y))) {
 									battleplayer.start();
 									Soldat looser = Battle.kampf((Soldat) getOn(x, y), (Soldat) getOn(x - 1, y), 0);
@@ -144,6 +150,12 @@ public class EntityHandler {
 			id++;
 		}
 	}
+	private void registerWaren(RectangleGraphicalObject object) {
+		if (object.getID() == 0) {
+			object.register(idWaren);
+			idWaren++;
+		}
+	}
 
 	public RectangleGraphicalObject getOn(int x, int y) {
 		if (x > 0 && x < world.length && y > 0 && y < world.length) {
@@ -159,6 +171,13 @@ public class EntityHandler {
 	}
 
 	public void draw(int x, int y, int width, int height) {
+		for (int i = x; i <= Math.min(x + width, worldFieWarenTransport.length - 1); i++) {
+			for (int j = y; j <= Math.min(y + height, worldFieWarenTransport[x].length - 1); j++) {
+				if (worldFieWarenTransport[i][j] != null) {
+					worldFieWarenTransport[i][j].draw();
+				}
+			}
+		}
 		for (int i = x; i <= Math.min(x + width, world.length - 1); i++) {
 			for (int j = y; j <= Math.min(y + height, world[x].length - 1); j++) {
 				if (world[i][j] != null) {
@@ -199,6 +218,72 @@ public class EntityHandler {
 		}
 		object.initRender();
 		entities.add(object);
+		if (object instanceof Building) {
+			if (((Building) object).getIndex() == 2) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addLager(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 12) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addSchatzkammer(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 13) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addWaffenkammer(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 14) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addKornspeicher(object);
+					}
+				}
+			}
+			if (((Building) object).getIndex() == 15) {
+				for (Spieler hansl : spieler) {
+					if (hansl.equals(object.getSpieler())) {
+						hansl.addMarktplatz(object);
+					}
+				}
+			}
+		}
+		return true;
+	}
+	public boolean placeWaren(RectangleGraphicalObject object) {
+		registerWaren(object);
+		int w = object.getWidth() / 32;
+		int h = object.getHeight() / 32;
+		int startW = (int) (object.getPosition().getX() / 32);
+		int startH = (int) (object.getPosition().getY() / 32);
+
+		for (int i = 0; i < w; i++) {
+			for (int j = 0; j < h; j++) {
+				if (object instanceof Soldat) {
+					if (isObstractedForWaren(startW + i, startH + j, object)) {
+						return false;
+					}
+				} else {
+					if (isObstractedForBuildingWaren(startW + i, startH + j, (Building) object)) {
+						return false;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < w; i++) {
+			for (int j = 0; j < h; j++) {
+				worldFieWarenTransport[startW + i][startH + j] = object;
+			}
+		}
+		object.initRender();
+		entitiesWaren.add(object);
 		if (object instanceof Building) {
 			if (((Building) object).getIndex() == 2) {
 				for (Spieler hansl : spieler) {
@@ -426,7 +511,95 @@ public class EntityHandler {
 		for (Entry<Soldat, SingleManPathfinding> entry : toPut.entrySet()) {
 			finding.put(entry.getKey(), entry.getValue());
 		}
+		tickWaren();
 		ticking = false;
+	}
+	private void tickWaren(){
+		if (ticksSinceLastRetryWaren > 20) {
+			ArrayList<Soldat> toRemoveActual = new ArrayList<>();
+			for (Entry<Soldat, Pos> entry : actualWaren.entrySet()) {
+				if (triesActualWaren.get(entry.getKey()) > 5) {
+					if (triesReplacedWaren.get(entry.getKey()) > 5) {
+						triesReplacedWaren.remove(entry.getKey());
+						replacedWaren.remove(entry.getKey());
+						triesActualWaren.remove(entry.getKey());
+						// actualDeastination.remove(entry.getKey());
+						toRemoveActual.add(entry.getKey());
+						chasingWaren.remove(entry.getKey());
+					} else {
+						MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), replacedWaren.get(entry.getKey()));
+						com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
+						if (alternative == null) {
+							findingFianWarnHansl.put(entry.getKey(), path);
+							triesReplacedWaren.remove(entry.getKey());
+							replacedWaren.remove(entry.getKey());
+							triesActualWaren.remove(entry.getKey());
+							// actualDeastination.remove(entry.getKey());
+							toRemoveActual.add(entry.getKey());
+						} else {
+							replacedWaren.put(entry.getKey(), new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
+							triesReplacedWaren.put(entry.getKey(), triesReplacedWaren.get(entry.getKey()) + 1);
+						}
+					}
+				} else {
+					MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), actualWaren.get(entry.getKey()));
+					com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
+					if (alternative == null) {
+						findingFianWarnHansl.put(entry.getKey(), path);
+						triesReplacedWaren.remove(entry.getKey());
+						replacedWaren.remove(entry.getKey());
+						triesActualWaren.remove(entry.getKey());
+						// actualDeastination.remove(entry.getKey());
+						toRemoveActual.add(entry.getKey());
+					} else {
+						triesActualWaren.put(entry.getKey(), triesActualWaren.get(entry.getKey()) + 1);
+					}
+				}
+			}
+			for (Soldat soldat : toRemoveActual) {
+				actualWaren.remove(soldat);
+			}
+			ticksSinceLastRetryWaren = 0;
+		}
+		ticksSinceLastRetryWaren++;
+		ArrayList<Soldat> toRemove = new ArrayList<>();
+		HashMap<Soldat, MinimalInversivesPathfinding> toPut = new HashMap<>();
+		for (Entry<Soldat, MinimalInversivesPathfinding> entry : findingFianWarnHansl.entrySet()) {
+			if (!entry.getValue().move()) {
+				if (entry.getValue().getFinished()) {
+					// finding.remove(entry.getKey());
+					toRemove.add(entry.getKey());
+					if (chasingWaren.containsKey(entry.getKey())) {
+						chasingWaren.remove(entry.getKey());
+						// TODO is already near?
+					}
+				} else {
+					findingFianWarnHansl.get(entry.getKey()).stop();
+					// pathfindTo(entry.getValue().getZiel().getX()*32+16,
+					// entry.getValue().getZiel().getY()*32+16, entry.getKey());
+					double x = entry.getValue().getZiel().getX() * 32 + 16, y = entry.getValue().getZiel().getY() * 32 + 16;
+					MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), new Pos(x, y));
+					com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
+					if (alternative == null) {
+						toPut.put(entry.getKey(), path);
+						// finding.put(entry.getKey(), path);
+					} else {
+						// finding.remove(entry.getKey());
+						toRemove.add(entry.getKey());
+						actualWaren.put(entry.getKey(), new Pos(x, y));
+						triesActualWaren.put(entry.getKey(), 1);
+						replacedWaren.put(entry.getKey(), new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
+						triesReplacedWaren.put(entry.getKey(), 0);
+					}
+				}
+			}
+		}
+		for (Soldat soldat : toRemove) {
+			findingFianWarnHansl.remove(soldat);
+		}
+		for (Entry<Soldat, MinimalInversivesPathfinding> entry : toPut.entrySet()) {
+			findingFianWarnHansl.put(entry.getKey(), entry.getValue());
+		}
 	}
 
 	public void pathfindTo(double x, double y, RectangleGraphicalObject object) {
@@ -443,6 +616,22 @@ public class EntityHandler {
 			triesOnActual.put((Soldat) object, 1);
 			replacedDestination.put((Soldat) object, new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
 			triesOnReplaced.put((Soldat) object, 0);
+		}
+	}
+	public void pathfindToWarenHansl(double x, double y, RectangleGraphicalObject object) {
+		if (findingFianWarnHansl.containsKey(object)) {
+			findingFianWarnHansl.get(object).stop();
+		}
+		findingFianWarnHansl.remove(object);
+		MinimalInversivesPathfinding path = new MinimalInversivesPathfinding((Soldat) object, new Pos(x, y));
+		com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
+		if (alternative == null) {
+			findingFianWarnHansl.put((Soldat) object, path);
+		} else {
+			actualWaren.put((Soldat) object, new Pos(x, y));
+			triesActualWaren.put((Soldat) object, 1);
+			replacedWaren.put((Soldat) object, new Pos(alternative.x * 32 + 16, alternative.y * 32 + 16));
+			triesReplacedWaren.put((Soldat) object, 0);
 		}
 	}
 
@@ -518,6 +707,14 @@ public class EntityHandler {
 	public boolean die(RectangleGraphicalObject object) {
 		if (object instanceof Soldat) {
 			((Soldat) object).stirb();
+			if(finding.containsKey(object)){
+				finding.get(object).stop();
+			}
+			finding.remove(object);
+			actualDeastination.remove(object);
+			triesOnActual.remove(object);
+			triesOnReplaced.remove(object);
+			replacedDestination.remove(object);
 		}
 
 		int w = object.getWidth() / 32;
@@ -584,6 +781,20 @@ public class EntityHandler {
 		}
 		return object;
 	}
+	
+	public void dieWarenHansl(int x, int y){
+		RectangleGraphicalObject object = worldFieWarenTransport[x][y];
+		if(findingFianWarnHansl.containsKey(object)){
+			findingFianWarnHansl.get(object).stop();
+		}
+		findingFianWarnHansl.remove(object);
+		actualWaren.remove(object);
+		triesActualWaren.remove(object);
+		triesReplacedWaren.remove(object);
+		replacedWaren.remove(object);
+		entitiesWaren.remove(object);
+		worldFieWarenTransport[x][y]=null;
+	}
 
 	private boolean isObstractedFor(int x, int y, RectangleGraphicalObject soldat) {
 		if (soldat.isWaterproof()) {
@@ -608,9 +819,46 @@ public class EntityHandler {
 			}
 		}
 	}
+	private boolean isObstractedForWaren(int x, int y, RectangleGraphicalObject soldat) {
+		if (soldat.isWaterproof()) {
+			if (Knightmare.terrain.getMeterial(x, y) == null) {
+				if (worldFieWarenTransport[x][y] != null) {
+					return worldFieWarenTransport[x][y].getID() != soldat.getID();
+				} else {
+					return false;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			if (Knightmare.terrain.getMeterial(x, y) == null) {
+				return true;
+			} else {
+				if (worldFieWarenTransport[x][y] != null) {
+					return worldFieWarenTransport[x][y].getID() != soldat.getID();
+				} else {
+					return false;
+				}
+			}
+		}
+	}
 
 	private boolean isObstractedForBuilding(int x, int y, Building building) {
 		if (world[x][y] != null) {
+			return true;
+		}
+		for (String muss : building.getMuss()) {
+			return !muss.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)));
+		}
+		for (String darfNicht : building.getnichtErlaubt()) {
+			if (darfNicht.equals((Knightmare.terrain.getMeterial(x, y)==null? StringConstants.Material_t.WATER:Knightmare.terrain.getMeterial(x, y)))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean isObstractedForBuildingWaren(int x, int y, Building building) {
+		if (worldFieWarenTransport[x][y] != null) {
 			return true;
 		}
 		for (String muss : building.getMuss()) {

@@ -28,7 +28,7 @@ public class MinimalInversivesPathfinding {
 	public MinimalInversivesPathfinding(Soldat soldat, com.richard.knightmare.util.Pos ende) {
 		this.soldat = soldat;
 		realStart = soldat.getPosition();
-		realZiel = ende;
+		realZiel = new com.richard.knightmare.util.Pos(ende.getX(), ende.getY());
 		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
 		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
 		LOG.info("Konstruktor gelaufern");
@@ -56,8 +56,8 @@ public class MinimalInversivesPathfinding {
 			if (!vektoren.get(0).isAlreadyMoved()) {
 				if (!finishedmoving && continueing
 						&& !isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32)))) {
-					EntityHandler.world[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
-					EntityHandler.world[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
+					EntityHandler.worldFieWarenTransport[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
+					EntityHandler.worldFieWarenTransport[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
 				} else {
 					return false;
 				}
@@ -183,9 +183,10 @@ public class MinimalInversivesPathfinding {
 				return;
 			}
 		}
+		//Rechts
 		if (compare(path.get(index - 1).point, translatePos(path.get(index).point, 1, 0))) {
 			vektoren.add(new Vektor(currentVektorStartPos,
-					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 48, (int) (currentVektorStartPos.getY() / 32) * 32 + 16),
+					new com.richard.knightmare.util.Pos((int) (currentVektorStartPos.getX() / 32) * 32 + 48, (int) (currentVektorStartPos.getY() / 32) * 32 +16),
 					soldat));
 			currentVektorStartPos = vektoren.get(vektoren.size() - 1).getEnde();
 			recursivVektorProduction(index - 1);
@@ -219,8 +220,8 @@ public class MinimalInversivesPathfinding {
 
 	public Pos pathfind() {
 		currentVektorStartPos = realStart;
-		pointsInGrid = new PathObject[EntityHandler.world.length][EntityHandler.world[0].length];
-		possiblePointsInGrid = new PathObject[EntityHandler.world.length][EntityHandler.world[0].length];
+		pointsInGrid = new PathObject[EntityHandler.worldFieWarenTransport.length][EntityHandler.worldFieWarenTransport[0].length];
+		possiblePointsInGrid = new PathObject[EntityHandler.worldFieWarenTransport.length][EntityHandler.worldFieWarenTransport[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
 		possiblePointsInGrid[start.x][start.y] = startObjt;
 		pointsInGrid[start.x][start.y] = startObjt;
@@ -382,14 +383,14 @@ public class MinimalInversivesPathfinding {
 	}
 
 	private boolean isValid(Pos p) {
-		return p.x < EntityHandler.world.length && p.x >= 0 && p.y < EntityHandler.world[0].length && p.y >= 0;
+		return p.x < EntityHandler.worldFieWarenTransport.length && p.x >= 0 && p.y < EntityHandler.worldFieWarenTransport[0].length && p.y >= 0;
 	}
 
 	private boolean isObstracted(Pos p) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
-				if (EntityHandler.world[p.x][p.y] != null) {
-					return EntityHandler.world[p.x][p.y].getID() != soldat.getID();
+				if (EntityHandler.worldFieWarenTransport[p.x][p.y] != null) {
+					return EntityHandler.worldFieWarenTransport[p.x][p.y].getID() != soldat.getID();
 				} else {
 					return false;
 				}
@@ -400,8 +401,8 @@ public class MinimalInversivesPathfinding {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
 			} else {
-				if (EntityHandler.world[p.x][p.y] != null) {
-					return EntityHandler.world[p.x][p.y].getID() != soldat.getID();
+				if (EntityHandler.worldFieWarenTransport[p.x][p.y] != null) {
+					return EntityHandler.worldFieWarenTransport[p.x][p.y].getID() != soldat.getID();
 				} else {
 					return false;
 				}
