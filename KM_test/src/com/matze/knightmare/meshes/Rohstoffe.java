@@ -128,7 +128,7 @@ public class Rohstoffe {
 		case 16:{return Werkzeug();}
 		case 17:{return Zufriedenheit();}
 		case 18:{return Tiere();}
-		case 19:{return Tiere();}
+		case 19:{return Leder();}
 		default:{return Nothing();}
 		}
 	}
