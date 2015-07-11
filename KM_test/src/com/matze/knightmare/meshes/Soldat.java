@@ -24,6 +24,7 @@ public class Soldat extends RectangleGraphicalObject {
 	protected Spieler sp;
 	protected Timer t = new Timer(true);
 	protected TimerTask tt;
+	protected int id;
 
 	// TODO Inventory
 	public Soldat(int h, Pos position, int width, int height, String textureName) {
@@ -286,6 +287,14 @@ public class Soldat extends RectangleGraphicalObject {
 		};
 
 		t.scheduleAtFixedRate(tt, 60000, 60000);
+	}
+	
+	public int getID(){
+		return id;
+	}
+	
+	public void setID(int i){
+		id = i;
 	}
 	
 	public void stirb(){

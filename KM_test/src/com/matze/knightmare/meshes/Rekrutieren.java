@@ -27,6 +27,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 12, "Bogenschütze", 73, 20, 15, 25, 50, false);
 		t.setTyp(1);
 		t.setSpieler(spieler);
+		t.setID(0);
 		return t;
 	}
 
@@ -36,6 +37,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 15, "Abgesessener Ritter", 32, 15, 25, 30, 15, false);
 		t.setTyp(0);;
 		t.setSpieler(spieler);
+		t.setID(1);
 		return t;
 	}
 
@@ -45,6 +47,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 10, "Kolbenträger", 32, 23, 18, 23, 40, false);
 		t.setTyp(0);
 		t.setSpieler(spieler);
+		t.setID(2);
 		return t;
 	}
 
@@ -54,6 +57,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 20, "Armbrustschütze", 90, 20, 30, 30, 45, false);
 		t.setTyp(1);
 		t.setSpieler(spieler);
+		t.setID(3);
 		return t;
 	}
 
@@ -69,6 +73,7 @@ public class Rekrutieren {
 		t.setTyp(0);
 		t.setSpieler(spieler);
 		t.setTimerTask(5,1);
+		t.setID(4);
 		
 		}
 		return t;
@@ -79,7 +84,7 @@ public class Rekrutieren {
 		init_Array(15, 0, 0, 20, 15, 10);
 		t.init(ang, ver, 25, "Pikenier", 32, 12, 25, 20, 30, false);
 		t.setTyp(0);
-		
+		t.setID(5);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -89,7 +94,7 @@ public class Rekrutieren {
 		init_Array(10, 0, 0, 5, 5, 0);
 		t.init(ang, ver, 50, "Hoplit", 32, 24, 18, 24, 30, false);
 		t.setTyp(0);
-		
+		t.setID(6);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -101,7 +106,7 @@ public class Rekrutieren {
 		init_Array(25, 0, 0, 10, 8, 2);
 		t.init(ang, ver, 30, "Leichter Reiter", 32, 28, 30, 40, 50, false);
 		t.setTyp(3);
-		
+		t.setID(7);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -111,7 +116,7 @@ public class Rekrutieren {
 		init_Array(35, 0, 0, 15, 13, 5);
 		t.init(ang, ver, 50, "Schwerer Reiter", 32, 28, 40, 50, 40, false);
 		t.setTyp(3);
-		
+		t.setID(8);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -121,7 +126,7 @@ public class Rekrutieren {
 		init_Array(20, 0, 0, 5, 5, 0);
 		t.init(ang, ver, 20, "Leichter Lanzreiter", 40, 40, 25, 20, 50, false);
 		t.setTyp(3);
-		
+		t.setID(9);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -131,7 +136,7 @@ public class Rekrutieren {
 		init_Array(30, 0, 0, 15, 10, 5);
 		t.init(ang, ver, 24, "Schwerer Lanzreiter", 42, 38, 30, 23, 40, false);
 		t.setTyp(3);
-		
+		t.setID(10);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -148,6 +153,7 @@ public class Rekrutieren {
 			t.setTyp(3);
 			t.setSpieler(spieler);
 			t.setTimerTask(5,2);
+			t.setID(11);
 		}
 		return t;
 	}
@@ -158,6 +164,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 15, "Berittener Bogenschütze", 70, 30, 35, 25, 30, false);
 		t.setTyp(3);
 		t.setSpieler(spieler);
+		t.setID(12);
 		return t;
 	}
 
@@ -167,6 +174,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 25, "Schwerer berittener Bogenschütze", 80, 28, 40, 30, 35, false);
 		t.setTyp(3);
 		t.setSpieler(spieler);
+		t.setID(13);
 		return t;
 	}
 
@@ -179,6 +187,7 @@ public class Rekrutieren {
 		t.setMann(6);
 		t.setTyp(2);
 		t.setSpieler(spieler);
+		t.setID(14);
 		return t;
 	}
 
@@ -189,6 +198,7 @@ public class Rekrutieren {
 		t.setMann(1);
 		t.setTyp(2);
 		t.setSpieler(spieler);
+		t.setID(15);
 		return t;
 	}
 
@@ -198,7 +208,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 20, "Katapult", 350, 15, 80, 0, -5, false);
 		t.setMann(4);
 		t.setTyp(2);
-		
+		t.setID(16);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -209,7 +219,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 5, "Rammbock", 40, 20, 60, 0, -5, false);
 		t.setMann(4);
 		t.setTyp(2);
-		
+		t.setID(17);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -220,7 +230,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 0, "Schild", 0, 30, 50, 4, -2, false);
 		t.setMann(1);
 		t.setTyp(2);
-		
+		t.setID(18);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -231,7 +241,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 10, "Baliste", 380, 30, 80, 10, -10, false);
 		t.setMann(4);
 		t.setTyp(2);
-		
+		t.setID(19);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -242,7 +252,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 2, "Tribok", 800, 10, 200, 30, -20, false);
 		t.setMann(8);
 		t.setTyp(2);
-		
+		t.setID(20);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -255,7 +265,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 0, "Handelsschiff", 0, 60, 120, 20, 100, true);
 		t.setSlots(4, 20);
 		t.setTyp(4);
-		
+		t.setID(21);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -266,7 +276,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 0, "Großes Handelsschiff", 0, 50, 150, 20, 100, true);
 		t.setSlots(4, 40);
 		t.setTyp(4);
-		
+		t.setID(22);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -277,7 +287,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 10, "Bewaffnetes Handelsschiff", 400, 130, 180, 40, 100, true);
 		t.setSlots(3, 25);
 		t.setTyp(4);
-		
+		t.setID(23);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -288,7 +298,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 15, "Kleines Kriegsschiff", 600, 100, 180, 60, 100, true);
 		t.setSlots(2, 10);
 		t.setTyp(4);
-		
+		t.setID(24);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -298,7 +308,7 @@ public class Rekrutieren {
 		init_Array(60, 240, 50, 40, 50, 40);
 		t.init(ang, ver, 30, "Großes Kriegsschiff", 800, 80, 240, 70, 100, true);
 		t.setSlots(2, 15);
-		
+		t.setID(25);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -309,7 +319,7 @@ public class Rekrutieren {
 		t.init(ang, ver, 0, "Kutsche", 0, 50, 50, 0, 60, false);
 		t.setSlots(2, 10);
 		t.setTyp(4);
-		
+		t.setID(26);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -319,7 +329,7 @@ public class Rekrutieren {
 		init_Array(0, 0, 0, 7, 7, 0);
 		t.init(ang, ver, 0, "Hanndelskarren", 0, 20, 10, 0, 10, false);
 		t.setSlots(2, 12);
-		
+		t.setID(27);
 		t.setSpieler(spieler);
 		return t;
 	}
@@ -330,9 +340,44 @@ public class Rekrutieren {
 		t.init(ang, ver, 0, "Transportkarren", 0, 20, 15, 10, 30, false);
 		t.setSlots(2, 20);
 		t.setTyp(4);
-		
+		t.setID(28);
 		t.setSpieler(spieler);
 		return t;
+	}
+	
+	public static Soldat getSoldatforID(int id, int x, int y, Spieler spieler){
+		switch (id){
+		case 0: return Bogenschuetze(x, y, 32, 32, spieler);
+		case 1: return Abgesessener_Ritter(x, y, 32, 32, spieler);
+		case 2: return Kolbentraeger(x, y, 32, 32, spieler);
+		case 3: return Armbrustschuetze(x, y, 32, 32, spieler);
+		case 4: return Speertraeger(x, y, 32, 32, spieler);
+		case 5: return Pikenier(x, y, 32, 32, spieler);
+		case 6: return Hoplit(x, y, 32, 32, spieler);
+		case 7: return Leichter_Reiter(x, y, 32, 32, spieler);
+		case 8: return Schwerer_Reiter(x, y, 32, 32, spieler);
+		case 9: return Leichter_Lanz_Reiter(x, y, 32, 32, spieler);
+		case 10: return Schwerer_Lanz_Reiter(x, y, 32, 32, spieler);
+		case 11: return Hussar(x, y, spieler);
+		case 12: return Leichter_Fernkampf_Reiter(x, y, 32, 32, spieler);
+		case 13: return Schwerer_Fernkampf_Reiter(x, y, 32, 32, spieler);
+		case 14: return Kanone(x, y, 32, 32, spieler);
+		case 15: return Leiter(x, y, 32, 32, spieler);
+		case 16: return Katapult(x, y, 32, 32, spieler);
+		case 17: return Rammbock(x, y, 32, 32, spieler);
+		case 18: return Schild(x, y, 32, 32, spieler);
+		case 19: return Baliste(x, y, 32, 32, spieler);
+		case 20: return Tribok(x, y, 32, 32, spieler);
+		case 21: return Kleines_Handelsschiff(x, y, 32, 32, spieler);
+		case 22: return Großes_Handelsschiff(x, y, 32, 32, spieler);
+		case 23: return Bewaffnetes_Handelsschiff(x, y, 32, 32, spieler);
+		case 24: return Kleines_Kriegsschiff(x, y, 32, 32, spieler);
+		case 25: return Großes_Kriegsschiff(x, y, 32, 32, spieler);
+		case 26: return Kutsche(x, y, 32, 32, spieler);
+		case 27: return Handelskarren(x, y, 32, 32, spieler);
+		case 28: return Transportkarren(x, y, 32, 32, spieler);
+			default: return null;
+		}
 	}
 
 }
