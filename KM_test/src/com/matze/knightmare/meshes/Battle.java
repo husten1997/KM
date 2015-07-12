@@ -1,8 +1,6 @@
 package com.matze.knightmare.meshes;
 
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
-import com.richard.knightmare.sound.SoundPlayer;
-import com.richard.knightmare.util.Loader;
 
 public class Battle {
 

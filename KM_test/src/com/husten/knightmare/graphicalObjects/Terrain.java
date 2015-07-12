@@ -6,6 +6,10 @@ import com.richard.knightmare.util.Pos;
 
 public class Terrain extends GraphicalObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7822705044960602587L;
 	private TerrainElement waterPlane, elements[][];
 	private int width, height;
 	private WorldGenerator WG;

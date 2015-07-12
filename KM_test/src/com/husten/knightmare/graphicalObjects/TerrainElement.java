@@ -7,6 +7,10 @@ public class TerrainElement extends RectangleGraphicalObject {
 	
 	//Nicht löschen ist wichtig für die verwaltung von zb Ertzen!!
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4213324615954665305L;
 	Vector3f position;
 	String Material;
 	

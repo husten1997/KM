@@ -12,6 +12,10 @@ import com.richard.knightmare.util.Texturloader;
 
 public class RectangleGraphicalObject extends GraphicalObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2931926991975814186L;
 	protected int width = 0, height = 0, t_rotation = 0, m_rotation = 0, id, xz, yz, lastM;
 	protected double k = (32*Math.sqrt(2)-32)/2;
 	protected boolean wasser = false;

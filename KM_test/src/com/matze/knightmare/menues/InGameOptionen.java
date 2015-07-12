@@ -12,11 +12,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-
 import com.husten.knightmare.core.Knightmare;
-import com.husten.knightmare.core.MainMenue;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Optionsframesuperklasse;
@@ -30,6 +26,7 @@ public class InGameOptionen extends Optionsframesuperklasse implements ChangeLis
 	private JButton optionen[];
 	private String[] text = { "Grafikeinstellungen", "Resourcepacks", "Tastenbelegung"};
 	public static Optionsframesuperklasse instance;
+	@SuppressWarnings("unused")
 	private Knightmare kn;
 
 	public InGameOptionen(Knightmare m) {

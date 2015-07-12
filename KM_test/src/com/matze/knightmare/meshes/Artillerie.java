@@ -4,6 +4,10 @@ import com.richard.knightmare.util.Pos;
 
 public class Artillerie extends Soldat {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4303156782095984835L;
 	private int benötigteMann;
 	private int mann;
 	

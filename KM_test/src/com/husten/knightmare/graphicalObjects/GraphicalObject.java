@@ -1,10 +1,16 @@
 package com.husten.knightmare.graphicalObjects;
 
+import java.io.Serializable;
+
 import com.husten.knightmare.constants.StringConstants;
 import com.richard.knightmare.util.Pos;
 
-public abstract class GraphicalObject implements StringConstants{
+public abstract class GraphicalObject implements StringConstants, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7765674744947961929L;
 	protected int sort = 1;
 	protected String type;
 	protected Pos position;

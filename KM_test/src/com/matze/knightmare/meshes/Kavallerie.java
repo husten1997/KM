@@ -4,6 +4,10 @@ import com.richard.knightmare.util.Pos;
 
 public class Kavallerie extends Soldat {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8001404513551036671L;
 	protected boolean hatpferd;
 
 	public Kavallerie(int h, int posx, int posy, int w, int he, String tex) {

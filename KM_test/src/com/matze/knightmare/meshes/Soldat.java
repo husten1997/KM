@@ -10,6 +10,10 @@ import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
 public class Soldat extends RectangleGraphicalObject {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8303289313627505214L;
 	protected int[] angriff, verteidigung; // [0] entspricht nahkampf [1]
 	// entspricht fernkampf, [2]
 	// entspricht gegen Gebäude;

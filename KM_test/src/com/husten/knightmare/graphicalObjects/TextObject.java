@@ -23,6 +23,10 @@ import com.richard.knightmare.util.Texturloader;
 
 public class TextObject extends RectangleGraphicalObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8261856611373028118L;
 	private Color color;
 	private Font font;
 

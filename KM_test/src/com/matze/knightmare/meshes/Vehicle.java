@@ -4,7 +4,13 @@ import com.richard.knightmare.util.Pos;
 
 public class Vehicle extends Soldat {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5973691387257683336L;
+	@SuppressWarnings("unused")
 	private Soldat[] beladen;
+	@SuppressWarnings("unused")
 	private int[] anzahl;
 	private int slotGrösse;
 	private Waren[] slots;
@@ -22,6 +28,7 @@ public class Vehicle extends Soldat {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public Waren addWare(Waren ware) {
 		for (int i = 0; i < slots.length; i++) {
 			if (ware.getID() == slots[i].getID()) {

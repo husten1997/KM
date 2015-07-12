@@ -19,7 +19,6 @@ import javax.sound.sampled.Clip;
 public class Loader {
 
 	private static File saves, configs, resourcepacks, cfgFile, resCfgFile, texturesRes;
-	private static Speicher speicher = new Speicher();
 
 	public static void initLoader(String firmenname, String spielname) {
 		String path = new StringBuilder("C:\\Users\\").append(System.getProperty("user.name")).append("\\AppData\\Roaming\\").append(firmenname).append("\\")
@@ -613,10 +612,6 @@ public class Loader {
 
 	public static void resetCfgValue(String key) {
 		changeCfgValue(key, getDefaultCfgValue(key));
-	}
-
-	public static void speichern(String name) {
-		speicher.speichern(name);
 	}
 
 	private static String getDefaultCfgValue(String key) {

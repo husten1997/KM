@@ -125,6 +125,7 @@ public class Speicherer {
 								
 								currentWriter.write(building.getBenötigt().length);
 								currentWriter.newLine();
+								currentWriter.close();
 								
 								
 							} catch (IOException e) {

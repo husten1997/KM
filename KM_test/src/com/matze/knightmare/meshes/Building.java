@@ -9,6 +9,11 @@ import com.richard.knightmare.util.Pos;
 
 public class Building extends RectangleGraphicalObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -981478998399012244L;
+
 	private Spieler s;
 
 	private int kostetWarevonIndex[];

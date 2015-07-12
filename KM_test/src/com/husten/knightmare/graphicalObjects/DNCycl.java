@@ -1,7 +1,5 @@
 package com.husten.knightmare.graphicalObjects;
 
-import java.awt.Color;
-
 import com.husten.knightmare.core.Knightmare;
 import com.richard.knightmare.util.Loader;
 
@@ -111,12 +109,14 @@ public class DNCycl {
 			System.out.println("DayNight Cycle" + (run? " started":" stoped"));
 	}
 	
+	@SuppressWarnings("unused")
 	private double funkt1(){
 		double h1 = Math.pow(time, 2);
 		double h2 = -(h1/1.8);
 		return Math.pow(Math.E, h2);
 	}
 	
+	@SuppressWarnings("unused")
 	private double funkt2(){
 		return 0.5 * Math.sin(Math.cos(1.3 * time + 1.59) * 0.87 * Math.PI + 1.5 * Math.PI) + 0.54;
 	}
@@ -189,6 +189,7 @@ public class DNCycl {
 		return "Heute ist der " + d + "." + m + "."+ jahr + " um " + h + ":" + min + " Uhr";
 	}
 	
+	@SuppressWarnings("unused")
 	private void debug(){
 		System.out.println("Time: " + getTimeS() + " b: " + breightnes);
 	}

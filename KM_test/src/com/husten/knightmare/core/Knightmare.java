@@ -57,8 +57,8 @@ import de.matthiasmann.twl.utils.TintAnimator;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, zuletztAktuellesGebäude = -1,
-			buildingSelected = -1;
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, zuletztAktuellesGebäude = -1/*,
+			buildingSelected = -1*/;//TODO
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
 	private String inGameStat = state.DEFAULT;// state.S_TRUPS;
@@ -295,7 +295,6 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
 					// TODO name
-					Loader.speichern("Test");
 				}
 				//
 				// if (Keyboard.getEventKey() == Keyboard.KEY_C) {
@@ -564,7 +563,7 @@ public class Knightmare extends Widget implements StringConstants {
 							RectangleGraphicalObject object = newHandler.getOn(xR, yR);
 							// System.out.println(object);
 							if (object instanceof Building) {
-								buildingSelected = ((Building) object).getIndex();
+//								buildingSelected = ((Building) object).getIndex();TODO
 								if (((Building) object).getIndex() == 6) {
 									aktuellesGebäude = 20;
 									inGameStat = state.BAUEN;
@@ -667,7 +666,7 @@ public class Knightmare extends Widget implements StringConstants {
 						// newHandler.selClear();
 						rekrutriernShown = false;
 						baumenueShowen = true;
-						buildingSelected = -1;
+//						buildingSelected = -1;TODO
 
 						// Pos p1 = new Pos(x, y); // Ende
 
