@@ -1180,7 +1180,7 @@ public class Bauen {
 		if(d==0){
 			d=0.5;
 		}
-		Building b = new Building(24, p, 32, 32, "Schule.png");
+		Building b = new Building(24, p, 32, 32, "Kirche.png");
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
 		b.setSpieler(sp);

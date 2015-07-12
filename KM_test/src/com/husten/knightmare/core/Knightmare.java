@@ -1176,7 +1176,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private String[] texInC2 = { buildings.images.Waffenkammer, buildings.images.Kaserne, buildings.images.Schmied };
 	private String[] texInC3 = { buildings.images.Kornspeicher, buildings.images.Bauernhof, buildings.images.Viehstall, buildings.images.Bäckerei };
 	private String[] texInC4 = { buildings.images.Turm, buildings.images.Mauern };
-	private String[] texInC5 = { buildings.images.Haus, buildings.images.Schatzkammer, buildings.images.Marktplatz, buildings.images.Schule };
+	private String[] texInC5 = { buildings.images.Haus, buildings.images.Schatzkammer, buildings.images.Marktplatz, buildings.images.Schule, buildings.images.Kirche };
 	private String[][] cInTexes = { texInC0, texInC1, texInC2, texInC3, texInC4, texInC5 };
 	private String[] imgs = { "cP", "cR", "cM", "cN", "cV", "cZ" }, names = { "Produktion", "Resourcen", "Militär", "Nahrung", "Verteidigung", "Zivil" };
 	private int[] idsInC0 = { buildings.ids.KohleMine, buildings.ids.EisenMine, buildings.ids.Lager, buildings.ids.Sandschmelze };
@@ -1185,7 +1185,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private int[] idsInC2 = { buildings.ids.Waffenkammer, buildings.ids.Kaserne, buildings.ids.Schmied };
 	private int[] idsInC3 = { buildings.ids.Kornspeicher, buildings.ids.Bauernhof, buildings.ids.Viehstall, buildings.ids.Bäckerei };
 	private int[] idsInC4 = { buildings.ids.Turm, buildings.ids.Mauern };
-	private int[] idsInC5 = { buildings.ids.Haus, buildings.ids.Schatzkammer, buildings.ids.Marktplatz, buildings.ids.Schule };
+	private int[] idsInC5 = { buildings.ids.Haus, buildings.ids.Schatzkammer, buildings.ids.Marktplatz, buildings.ids.Schule, buildings.ids.Kirche };
 	private int[][] cIndexes = { idsInC0, idsInC1, idsInC2, idsInC3, idsInC4, idsInC5 };
 
 	@Override

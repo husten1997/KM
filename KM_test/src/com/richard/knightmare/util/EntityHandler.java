@@ -183,8 +183,15 @@ public class EntityHandler {
 				}
 			}
 		}
-		for (int i = x; i <= Math.min(x + width, world.length - 1); i++) {
-			for (int j = y; j <= Math.min(y + height, world[x].length - 1); j++) {
+//		for (int i = x; i <= Math.min(x + width, world.length - 1); i++) {
+//			for (int j = y; j <= Math.min(y + height, world[x].length - 1); j++) {
+//				if (world[i][j] != null) {
+//					world[i][j].draw();
+//				}
+//			}
+//		}
+		for (int i = Math.min(x + width, world.length - 1); i >= x; i--) {
+			for (int j = Math.min(y + height, world[x].length - 1); j >= y; j--) {
 				if (world[i][j] != null) {
 					world[i][j].draw();
 				}
@@ -534,7 +541,7 @@ public class EntityHandler {
 						toRemoveActual.add(entry.getKey());
 						chasingWaren.remove(entry.getKey());
 						Waren[] w = ((Vehicle) entry.getKey()).getSlots();
-						for(Waren waren: w){
+						for (Waren waren : w) {
 							entry.getKey().getSpieler().verteilen(waren.getID(), waren.getAmount());
 						}
 						dieWarenHansl((int) entry.getKey().getPosition().getX() / 32, (int) entry.getKey().getPosition().getY() / 32);
