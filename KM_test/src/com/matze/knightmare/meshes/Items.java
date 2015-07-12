@@ -8,6 +8,10 @@ public class Items {
 		id = iD;
 	}
 	
+	public Items(){
+		
+	}
+	
 	public int getID(){
 		return id;
 	}

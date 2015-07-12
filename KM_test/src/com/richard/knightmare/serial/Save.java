@@ -32,6 +32,7 @@ public class Save {
 			fileIn.close();
 			return obj;
 		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

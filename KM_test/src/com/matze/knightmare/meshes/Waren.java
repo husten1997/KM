@@ -20,6 +20,10 @@ public class Waren extends Items implements Serializable{
 		textur = t;
 	}
 	
+	public Waren(){
+		super();
+	}
+	
 	public boolean addWare(int maxLagerKapazität){
 		if (maxLagerKapazität == amount){
 			return false;
