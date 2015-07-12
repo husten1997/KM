@@ -1,7 +1,13 @@
 package com.matze.knightmare.meshes;
 
-public class Waren extends Items{
+import java.io.Serializable;
 
+public class Waren extends Items implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2446031232468137386L;
 	private int amount;
 	private String typ;
 	private String textur;

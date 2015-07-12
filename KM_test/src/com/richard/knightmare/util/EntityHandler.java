@@ -1,5 +1,6 @@
 package com.richard.knightmare.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -18,8 +19,12 @@ import com.matze.knightmare.meshes.Vehicle;
 import com.matze.knightmare.meshes.Waren;
 import com.richard.knightmare.sound.SoundPlayer;
 
-public class EntityHandler {
+public class EntityHandler implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1624519500467505785L;
 	public static RectangleGraphicalObject[][] world, worldFieWarenTransport;
 	private ArrayList<RectangleGraphicalObject> entities = new ArrayList<>(), entitiesWaren = new ArrayList<>();
 	private int id = 1, idWaren = 1, ticksSinceLastRetry, ticksSinceLastRetryWaren;
@@ -33,8 +38,8 @@ public class EntityHandler {
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	private Spieler[] spieler;
 	private boolean processing = false, ticking = false;
-	private SoundPlayer battleplayer = new SoundPlayer("Swordclash.WAV");
-	private Timer battletimer;
+	private transient SoundPlayer battleplayer = new SoundPlayer("Swordclash.WAV");
+	private transient Timer battletimer;
 
 	public EntityHandler(int width, int height, Spieler[] spieler) {
 		this.spieler = spieler;

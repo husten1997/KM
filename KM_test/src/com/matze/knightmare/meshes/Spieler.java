@@ -1,13 +1,18 @@
 package com.matze.knightmare.meshes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.richard.knightmare.util.Pos;
 
-public class Spieler {
+public class Spieler implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6857734496210559804L;
 	// private int amountResourcesOfIndex[] = new int[Rohstoffe.maxID()];
 	private int team;
 	private int index;

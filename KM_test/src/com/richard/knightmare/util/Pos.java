@@ -1,7 +1,13 @@
 package com.richard.knightmare.util;
 
-public class Pos {
+import java.io.Serializable;
 
+public class Pos implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2766801952370805318L;
 	private double x, y;
 
 	public Pos(double x, double y) {

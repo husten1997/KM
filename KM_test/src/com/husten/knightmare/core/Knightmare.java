@@ -32,6 +32,7 @@ import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Rohstoffe;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
+import com.richard.knightmare.serial.Save;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
@@ -292,8 +293,12 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
-
+				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
+					newHandler = (EntityHandler) Save.load(Loader.getSavesDir().getAbsolutePath()+"//Handler.ser");
+				}
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
+					System.out.println("Saving");
+					Save.save(Loader.getSavesDir().getAbsolutePath()+"//Handler.ser", newHandler);
 					// TODO name
 				}
 				//

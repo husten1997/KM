@@ -1,11 +1,16 @@
 package com.matze.knightmare.meshes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 
-public class Forschung {
+public class Forschung implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3594729536845339543L;
 	private int kostet[];
 	private int id;
 	private ArrayList<Forschung> setztFVoraus;

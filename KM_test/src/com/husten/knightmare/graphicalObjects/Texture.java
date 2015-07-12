@@ -33,6 +33,8 @@ package com.husten.knightmare.graphicalObjects;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.Serializable;
+
 /**
  * A texture to be bound within OpenGL. This object is responsible for keeping
  * track of a given OpenGL texture and for calculating the texturing mapping
@@ -45,7 +47,12 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Kevin Glass
  * @author Brian Matzon
  */
-public class Texture {
+public class Texture implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2268220649968721425L;
 
 	/** The GL target type */
 	private int target;

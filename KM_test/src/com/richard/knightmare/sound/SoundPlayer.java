@@ -1,5 +1,6 @@
 package com.richard.knightmare.sound;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -9,8 +10,12 @@ import javax.sound.sampled.FloatControl;
 
 import com.richard.knightmare.util.Loader;
 
-public class SoundPlayer {
+public class SoundPlayer implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 624057972174408680L;
 	private Clip clip;
 	private FloatControl ctrl;
 	private Float volume;

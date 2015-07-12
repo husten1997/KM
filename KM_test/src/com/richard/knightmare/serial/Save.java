@@ -18,6 +18,7 @@ public class Save {
 			fileOut.close();
 			return true;
 		} catch (IOException e) {
+			e.printStackTrace();
 			return false;
 		}	
 	}
