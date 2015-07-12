@@ -8,7 +8,7 @@ import com.richard.knightmare.util.Pos;
 
 public class Bauen {
 	private static Spieler mutterNatur = new Spieler(-1, "Mama Natur", -1,
-			"KI", "Schwer");
+			"KI", "Schwer", 0);
 	private static int gesBev = 0;
 
 	public static Building KohleMine(Pos p, Spieler sp) {

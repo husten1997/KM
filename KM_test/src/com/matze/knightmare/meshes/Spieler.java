@@ -19,6 +19,7 @@ public class Spieler {
 			waffenkammer = new ArrayList<>(), kornspeicher = new ArrayList<>(),
 			marktplätze = new ArrayList<>();
 	private ArrayList<Forschung> forschung = new ArrayList<>();
+	private int gesinnung[];
 
 	public boolean hatLager() {
 		return lager.size() > 0;
@@ -69,7 +70,7 @@ public class Spieler {
 	}
 
 	public Spieler(int SpielerNR, String name, int team, String typ,
-			String schwierigkeit) {
+			String schwierigkeit, int an) {
 		this.setTeam(team);
 		this.setName(name);
 		this.index = SpielerNR;
@@ -86,10 +87,25 @@ public class Spieler {
 				setDifficulty(2);
 			}
 		}
+		
+		gesinnung = new int[an];
+		gesinnung[0]  = 100;
 
 		// amountResourcesOfIndex[getIndexofResource("Holz")] = 30;
 		// amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
 		// amountResourcesOfIndex[getIndexofResource("Stein")] = 15;
+	}
+	
+	public int getGesinnungGegenüberVonSpieler(int id){
+		return gesinnung[id];
+	}
+	
+	public void setGesinnungGegenüberVonSpieler(int id, int ges){
+		gesinnung[id] = ges;
+	}
+	
+	public void ändernGesinnungGegenüberVonSpieler(int id, int ges){
+		gesinnung[id] += ges;
 	}
 
 	// Rohstoffe

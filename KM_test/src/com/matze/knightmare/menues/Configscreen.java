@@ -218,7 +218,7 @@ public class Configscreen extends Optionsframesuperklasse implements
 				}
 				spieler[i] = new Spieler(i, name[i].getText(), teamer,
 						spielerArt[i].getSelectedItem().toString(),
-						schwierigkeit[i].getSelectedItem().toString());
+						schwierigkeit[i].getSelectedItem().toString(), anzahl);
 			}
 			dispose();
 			new Timer(false).schedule(new TimerTask() {
