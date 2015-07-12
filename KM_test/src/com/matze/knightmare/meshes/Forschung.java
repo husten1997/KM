@@ -8,7 +8,9 @@ public class Forschung {
 
 	private int kostet[];
 	private int id;
-	private double faktor;
+	private ArrayList<Forschung> setztFVoraus;
+	private ArrayList<RectangleGraphicalObject> setztGVoraus;
+	private double faktor; // = timer beeinflussung schneller langsamer usw...
 	private ArrayList<RectangleGraphicalObject> bestimmt;
 	
 	public Forschung(int id, double faktor){
@@ -29,8 +31,8 @@ public class Forschung {
 		return kostet[index];
 	}
 
-	public void setKostet(int index, int kostetR) {
-		kostet[index] = kostetR;
+	public void setKostet(Waren ware, int kostetR) {
+		kostet[ware.getID()] = kostetR;
 	}
 
 	public int getId() {
@@ -55,6 +57,30 @@ public class Forschung {
 
 	public void setFaktor(double faktor2) {
 		this.faktor = faktor2;
+	}
+
+	public ArrayList<Forschung> getSetztVoraus() {
+		return setztFVoraus;
+	}
+
+	public void setSetztVoraus(ArrayList<Forschung> setztVoraus) {
+		this.setztFVoraus = setztVoraus;
+	}
+	
+	public void setSetztVoraus(Forschung setztVoraus) {
+		this.setztFVoraus.add(setztVoraus);
+	}
+	
+	public ArrayList<RectangleGraphicalObject> getSetztVorausGEb() {
+		return setztGVoraus;
+	}
+
+	public void setSetztVorausGeb(ArrayList<RectangleGraphicalObject> setztVoraus) {
+		this.setztGVoraus = setztVoraus;
+	}
+	
+	public void setSetztVorausGeb(RectangleGraphicalObject setztVoraus) {
+		this.setztGVoraus.add(setztVoraus);
 	}
 	
 	
