@@ -16,7 +16,16 @@ public class DNCycl {
 	public static double blue = 1;
 	private static int monat[] = new int[12];
 	private static int tag = 0, aktuMon = 0;
-	private static int jahr = 1000;
+	private static int jahr = 1100;
+	
+	private static boolean erstesMal = true;
+	
+	private double inter = 0.1; //Intervall --> 0.1x entspricht 1h
+	private double gamespeed = 200; //durchläufe p sec
+	
+	private boolean run = true;
+	
+	private long time_v = 0;
 	
 	public static int getAktuMon() {
 		return aktuMon;
@@ -49,16 +58,6 @@ public class DNCycl {
 	public static void setJahr(int jahr) {
 		DNCycl.jahr = jahr;
 	}
-
-	private static boolean erstesMal = true;
-	
-	private double inter = 0.1; //Intervall --> 0.1x entspricht 1h
-	private double gamespeed = 50; //durchläufe p sec
-	
-	private boolean run = true;
-	
-	private long time_v = 0;
-	
 	
 	
 	public DNCycl(){
