@@ -14,9 +14,46 @@ public class DNCycl {
 	public static double red = 1;
 	public static double green = 1;
 	public static double blue = 1;
+	private static int monat[] = new int[12];
+	private static int tag = 0, aktuMon = 0;
+	private static int jahr = 1100;
+	
+	public static int getAktuMon() {
+		return aktuMon;
+	}
+
+	public static void setAktuMon(int aktuMon) {
+		DNCycl.aktuMon = aktuMon;
+	}
+
+	public static int[] getMonat() {
+		return monat;
+	}
+
+	public static void setMonat(int[] monat) {
+		DNCycl.monat = monat;
+	}
+
+	public static int getTag() {
+		return tag;
+	}
+
+	public static void setTag(int tag) {
+		DNCycl.tag = tag;
+	}
+
+	public static int getJahr() {
+		return jahr;
+	}
+
+	public static void setJahr(int jahr) {
+		DNCycl.jahr = jahr;
+	}
+
+	private static boolean erstesMal = true;
 	
 	private double inter = 0.1; //Intervall --> 0.1x entspricht 1h
-	private double gamespeed = 200; //durchläufe p sec
+	private double gamespeed = 50; //durchläufe p sec
 	
 	private boolean run = true;
 	
@@ -41,6 +78,12 @@ public class DNCycl {
 		}
 	}
 	
+	public void initDate(){
+		String m[] = {"31","28","31","30","31","30", "31", "31", "30", "31", "30", "31"};
+		for (int i = 0; i < 12;i++){
+			monat[i] = Integer.parseInt(m[i]);
+		}
+	}
 	
 	
 	private void cTime(double i){
@@ -88,6 +131,7 @@ public class DNCycl {
 	}
 	
 	public String getTimeS(){
+		initDate();
 		int h;
 		double time_div;
 		int mini;
@@ -106,7 +150,39 @@ public class DNCycl {
 		} else{
 			min = "" + mini;
 		}
-		return "" + h + ":" + min;
+		
+		if (h == 1){
+			erstesMal = true;
+		}
+		
+		if (erstesMal) {
+			if (h == 0 && min.equals("00")) {
+				tag++;
+				erstesMal = false;
+			}
+			if (monat[aktuMon] == tag) {
+				tag = 0;
+				aktuMon++;
+				erstesMal = false;
+			}
+			if (aktuMon > 11 && tag == 0) {
+				aktuMon = 0;
+				jahr++;
+				erstesMal = false;
+			}
+		}
+		
+		String d = ""+(tag+1);
+		String m = ""+(aktuMon+1);
+		
+		if (d.length()==1){
+			d = "0"+d;
+		}
+		if (m.length()==1){
+			m = "0"+m;
+		}
+
+		return "Heute ist der " + d + "." + m + "."+ jahr + " um " + h + ":" + min + " Uhr";
 	}
 	
 	private void debug(){
