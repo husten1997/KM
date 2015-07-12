@@ -16,7 +16,7 @@ public class DNCycl {
 	public static double blue = 1;
 	private static int monat[] = new int[12];
 	private static int tag = 0, aktuMon = 0;
-	private static int jahr = 1100;
+	private static int jahr = 1000;
 	
 	public static int getAktuMon() {
 		return aktuMon;
@@ -80,6 +80,11 @@ public class DNCycl {
 	
 	public void initDate(){
 		String m[] = {"31","28","31","30","31","30", "31", "31", "30", "31", "30", "31"};
+		
+		if (jahr%4 == 0){
+			m[1] = "29";
+		}
+		
 		for (int i = 0; i < 12;i++){
 			monat[i] = Integer.parseInt(m[i]);
 		}
