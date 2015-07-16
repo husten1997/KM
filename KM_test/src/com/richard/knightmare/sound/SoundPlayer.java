@@ -1,6 +1,5 @@
 package com.richard.knightmare.sound;
 
-import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -10,18 +9,14 @@ import javax.sound.sampled.FloatControl;
 
 import com.richard.knightmare.util.Loader;
 
-public class SoundPlayer implements Serializable{
+public class SoundPlayer {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 624057972174408680L;
 	private Clip clip;
 	private FloatControl ctrl;
 	private Float volume;
 
 	public SoundPlayer(String name) {
-		clip = /*Environment.getSound(name);*/ Loader.getSound(name);
+		clip = /* Environment.getSound(name); */ Loader.getSound(name);
 		ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		volume = ctrl.getValue();
 	}
@@ -68,7 +63,7 @@ public class SoundPlayer implements Serializable{
 
 	public void changeClip(String name) {
 		stop();
-		clip = /*Environment.getSound(name);*/ Loader.getSound(name);
+		clip = /* Environment.getSound(name); */ Loader.getSound(name);
 		ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		setVolume(volume);
 	}

@@ -19,13 +19,13 @@ import com.matze.knightmare.meshes.Vehicle;
 import com.matze.knightmare.meshes.Waren;
 import com.richard.knightmare.sound.SoundPlayer;
 
-public class EntityHandler implements Serializable{
+public class EntityHandler implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1624519500467505785L;
-	public static RectangleGraphicalObject[][] world, worldFieWarenTransport;
+	private RectangleGraphicalObject[][] world, worldFieWarenTransport;
 	private ArrayList<RectangleGraphicalObject> entities = new ArrayList<>(), entitiesWaren = new ArrayList<>();
 	private int id = 1, idWaren = 1, ticksSinceLastRetry, ticksSinceLastRetryWaren;
 	private HashMap<Soldat, SingleManPathfinding> finding = new HashMap<>();
@@ -38,15 +38,12 @@ public class EntityHandler implements Serializable{
 	private ArrayList<RectangleGraphicalObject> selection = new ArrayList<>();
 	private Spieler[] spieler;
 	private boolean processing = false, ticking = false;
-	private transient SoundPlayer battleplayer = new SoundPlayer("Swordclash.WAV");
+	private transient SoundPlayer battleplayer;
 	private transient Timer battletimer;
 
-	public EntityHandler(int width, int height, Spieler[] spieler) {
-		this.spieler = spieler;
-		world = new RectangleGraphicalObject[width][height];
-		worldFieWarenTransport = new RectangleGraphicalObject[width][height];
+	public void load(){
+		battleplayer = new SoundPlayer("Swordclash.WAV");
 		battleplayer.setVolume(Float.parseFloat(Loader.getCfgValue("Volume")));
-
 		battletimer = new Timer(true);
 		battletimer.scheduleAtFixedRate(new TimerTask() {
 
@@ -125,6 +122,13 @@ public class EntityHandler implements Serializable{
 			}
 		}, 0, 1000);
 	}
+	
+	public EntityHandler(int width, int height, Spieler[] spieler) {
+		this.spieler = spieler;
+		world = new RectangleGraphicalObject[width][height];
+		worldFieWarenTransport = new RectangleGraphicalObject[width][height];
+		load();
+	}
 
 	public void selClear() {
 		selection.clear();
@@ -188,13 +192,14 @@ public class EntityHandler implements Serializable{
 				}
 			}
 		}
-//		for (int i = x; i <= Math.min(x + width, world.length - 1); i++) {
-//			for (int j = y; j <= Math.min(y + height, world[x].length - 1); j++) {
-//				if (world[i][j] != null) {
-//					world[i][j].draw();
-//				}
-//			}
-//		}
+		// for (int i = x; i <= Math.min(x + width, world.length - 1); i++) {
+		// for (int j = y; j <= Math.min(y + height, world[x].length - 1); j++)
+		// {
+		// if (world[i][j] != null) {
+		// world[i][j].draw();
+		// }
+		// }
+		// }
 		for (int i = Math.min(x + width, world.length - 1); i >= x; i--) {
 			for (int j = Math.min(y + height, world[x].length - 1); j >= y; j--) {
 				if (world[i][j] != null) {
@@ -456,7 +461,7 @@ public class EntityHandler implements Serializable{
 						toRemoveActual.add(entry.getKey());
 						chasing.remove(entry.getKey());
 					} else {
-						SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), replacedDestination.get(entry.getKey()));
+						SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), replacedDestination.get(entry.getKey()), world);
 						com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 						if (alternative == null) {
 							finding.put(entry.getKey(), path);
@@ -471,7 +476,7 @@ public class EntityHandler implements Serializable{
 						}
 					}
 				} else {
-					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), actualDeastination.get(entry.getKey()));
+					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), actualDeastination.get(entry.getKey()), world);
 					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
 						finding.put(entry.getKey(), path);
@@ -507,7 +512,7 @@ public class EntityHandler implements Serializable{
 					// pathfindTo(entry.getValue().getZiel().getX()*32+16,
 					// entry.getValue().getZiel().getY()*32+16, entry.getKey());
 					double x = entry.getValue().getZiel().getX() * 32 + 16, y = entry.getValue().getZiel().getY() * 32 + 16;
-					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), new Pos(x, y));
+					SingleManPathfinding path = new SingleManPathfinding(entry.getKey(), new Pos(x, y), world);
 					com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
 						toPut.put(entry.getKey(), path);
@@ -551,7 +556,7 @@ public class EntityHandler implements Serializable{
 						}
 						dieWarenHansl((int) entry.getKey().getPosition().getX() / 32, (int) entry.getKey().getPosition().getY() / 32);
 					} else {
-						MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), replacedWaren.get(entry.getKey()));
+						MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), replacedWaren.get(entry.getKey()),worldFieWarenTransport,world);
 						com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
 						if (alternative == null) {
 							findingFianWarnHansl.put(entry.getKey(), path);
@@ -566,7 +571,7 @@ public class EntityHandler implements Serializable{
 						}
 					}
 				} else {
-					MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), actualWaren.get(entry.getKey()));
+					MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), actualWaren.get(entry.getKey()),worldFieWarenTransport,world);
 					com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
 						findingFianWarnHansl.put(entry.getKey(), path);
@@ -602,7 +607,7 @@ public class EntityHandler implements Serializable{
 					// pathfindTo(entry.getValue().getZiel().getX()*32+16,
 					// entry.getValue().getZiel().getY()*32+16, entry.getKey());
 					double x = entry.getValue().getZiel().getX() * 32 + 16, y = entry.getValue().getZiel().getY() * 32 + 16;
-					MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), new Pos(x, y));
+					MinimalInversivesPathfinding path = new MinimalInversivesPathfinding(entry.getKey(), new Pos(x, y),worldFieWarenTransport,world);
 					com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
 					if (alternative == null) {
 						toPut.put(entry.getKey(), path);
@@ -631,7 +636,7 @@ public class EntityHandler implements Serializable{
 			finding.get(object).stop();
 		}
 		finding.remove(object);
-		SingleManPathfinding path = new SingleManPathfinding((Soldat) object, new Pos(x, y));
+		SingleManPathfinding path = new SingleManPathfinding((Soldat) object, new Pos(x, y), world);
 		com.richard.knightmare.util.SingleManPathfinding.Pos alternative = path.pathfind();
 		if (alternative == null) {
 			finding.put((Soldat) object, path);
@@ -648,7 +653,7 @@ public class EntityHandler implements Serializable{
 			findingFianWarnHansl.get(object).stop();
 		}
 		findingFianWarnHansl.remove(object);
-		MinimalInversivesPathfinding path = new MinimalInversivesPathfinding((Soldat) object, new Pos(x, y));
+		MinimalInversivesPathfinding path = new MinimalInversivesPathfinding((Soldat) object, new Pos(x, y),worldFieWarenTransport,world);
 		com.richard.knightmare.util.MinimalInversivesPathfinding.Pos alternative = path.pathfind();
 		if (alternative == null) {
 			findingFianWarnHansl.put((Soldat) object, path);

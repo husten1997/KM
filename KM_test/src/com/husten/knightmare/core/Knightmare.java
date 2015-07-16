@@ -32,7 +32,7 @@ import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Rohstoffe;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
-import com.richard.knightmare.serial.Save;
+import com.richard.knightmare.serial.LoadSaveHandler;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
@@ -62,10 +62,10 @@ public class Knightmare extends Widget implements StringConstants {
 			buildingSelected = -1*/;//TODO
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
-	private String inGameStat = state.DEFAULT;// state.S_TRUPS;
+	private String inGameStat = state.DEFAULT,savePath;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true,
-			rekrutriernShown = false;
+			rekrutriernShown = false, loaded;
 	private Soldat figur;
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
@@ -84,7 +84,9 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private DNCycl DN;
 
-	public Knightmare(Spieler[] spieler) {
+	public Knightmare(Spieler[] spieler, boolean loaded, String savePath) {
+		this.savePath = savePath;
+		this.loaded = loaded;
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
 		this.spieler = spieler;
 		start();
@@ -193,9 +195,15 @@ public class Knightmare extends Widget implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
-		newHandler = new EntityHandler(513, 513, spieler);
-		terrain.gen();
-		terrain.initRender();
+		if(loaded){
+			Object[] save = LoadSaveHandler.load(savePath);
+			newHandler = (EntityHandler) save[0];
+			terrain = (Terrain) save[1];
+		}else{
+			newHandler = new EntityHandler(513, 513, spieler);
+			terrain.gen();
+			terrain.initRender();
+		}
 		// handler = new Pathhandler(513, 513);
 
 		// Sorting
@@ -293,13 +301,9 @@ public class Knightmare extends Widget implements StringConstants {
 				if (Keyboard.getEventKey() == Keyboard.KEY_R) {
 					scale = 1f;
 				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_L) {
-					newHandler = (EntityHandler) Save.load(Loader.getSavesDir().getAbsolutePath()+"//Handler.ser");
-				}
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
 					System.out.println("Saving");
-					Save.save(Loader.getSavesDir().getAbsolutePath()+"//Handler.ser", newHandler);
-					// TODO name
+					LoadSaveHandler.save("Test", newHandler, terrain); //TODO rename
 				}
 				//
 				// if (Keyboard.getEventKey() == Keyboard.KEY_C) {

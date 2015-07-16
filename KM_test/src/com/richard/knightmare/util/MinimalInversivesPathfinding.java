@@ -6,10 +6,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.husten.knightmare.core.Knightmare;
+import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.matze.knightmare.meshes.Soldat;
 
 public class MinimalInversivesPathfinding {
 
+	private RectangleGraphicalObject[][] worldFieWarenTransport, world;
 	private ArrayList<PathObject> points = new ArrayList<>(), possiblePoints = new ArrayList<>(), path = new ArrayList<>();
 	private ArrayList<Vektor> vektoren = new ArrayList<>();
 	private PathObject[][] pointsInGrid, possiblePointsInGrid;
@@ -25,7 +27,9 @@ public class MinimalInversivesPathfinding {
 
 	private static Logger LOG = LogManager.getLogger(MinimalInversivesPathfinding.class);
 
-	public MinimalInversivesPathfinding(Soldat soldat, com.richard.knightmare.util.Pos ende) {
+	public MinimalInversivesPathfinding(Soldat soldat, com.richard.knightmare.util.Pos ende, RectangleGraphicalObject worldFieWarenTransport[][], RectangleGraphicalObject world[][]) {
+		this.world = world;
+		this.worldFieWarenTransport = worldFieWarenTransport;
 		this.soldat = soldat;
 		realStart = soldat.getPosition();
 		realZiel = new com.richard.knightmare.util.Pos(ende.getX(), ende.getY());
@@ -56,8 +60,8 @@ public class MinimalInversivesPathfinding {
 			if (!vektoren.get(0).isAlreadyMoved()) {
 				if (!finishedmoving && continueing
 						&& !isObstracted(new Pos((int) (vektoren.get(0).getEnde().getX() / 32), (int) (vektoren.get(0).getEnde().getY() / 32)))) {
-					EntityHandler.worldFieWarenTransport[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
-					EntityHandler.worldFieWarenTransport[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
+					worldFieWarenTransport[(int) (vektoren.get(0).getStart().getX() / 32)][(int) (vektoren.get(0).getStart().getY() / 32)] = null;
+					worldFieWarenTransport[(int) (vektoren.get(0).getEnde().getX() / 32)][(int) (vektoren.get(0).getEnde().getY() / 32)] = soldat;
 				} else {
 					return false;
 				}
@@ -220,8 +224,8 @@ public class MinimalInversivesPathfinding {
 
 	public Pos pathfind() {
 		currentVektorStartPos = realStart;
-		pointsInGrid = new PathObject[EntityHandler.worldFieWarenTransport.length][EntityHandler.worldFieWarenTransport[0].length];
-		possiblePointsInGrid = new PathObject[EntityHandler.worldFieWarenTransport.length][EntityHandler.worldFieWarenTransport[0].length];
+		pointsInGrid = new PathObject[worldFieWarenTransport.length][worldFieWarenTransport[0].length];
+		possiblePointsInGrid = new PathObject[worldFieWarenTransport.length][worldFieWarenTransport[0].length];
 		PathObject startObjt = new PathObject(esteem(start), 0, esteem(start), null, start);
 		possiblePointsInGrid[start.x][start.y] = startObjt;
 		pointsInGrid[start.x][start.y] = startObjt;
@@ -383,13 +387,13 @@ public class MinimalInversivesPathfinding {
 	}
 
 	private boolean isValid(Pos p) {
-		return p.x < EntityHandler.worldFieWarenTransport.length && p.x >= 0 && p.y < EntityHandler.worldFieWarenTransport[0].length && p.y >= 0;
+		return p.x < worldFieWarenTransport.length && p.x >= 0 && p.y < worldFieWarenTransport[0].length && p.y >= 0;
 	}
 
 	private boolean isObstracted(Pos p) {
 		if (soldat.isWaterproof()) {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
-				return EntityHandler.world[p.x][p.y]!=null;
+				return world[p.x][p.y]!=null;
 			} else {
 				return true;
 			}
@@ -397,7 +401,7 @@ public class MinimalInversivesPathfinding {
 			if (Knightmare.terrain.getMeterial(p.x, p.y) == null) {
 				return true;
 			} else {
-				return EntityHandler.world[p.x][p.y]!=null;
+				return world[p.x][p.y]!=null;
 			}
 		}
 	}
