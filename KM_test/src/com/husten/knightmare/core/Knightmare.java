@@ -305,6 +305,12 @@ public class Knightmare extends Widget implements StringConstants {
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
 					System.out.println("Saving");
 					LoadSaveHandler.save("Test", newHandler, terrain); //TODO rename
+					labelZuTeuer.setText("Saving complete");
+					showGedNedSeitWann = 0;
+					if (getChildIndex(labelZuTeuer) == -1) {
+						add(labelZuTeuer);
+						gednedShown = true;
+					}
 				}
 				//
 				// if (Keyboard.getEventKey() == Keyboard.KEY_C) {

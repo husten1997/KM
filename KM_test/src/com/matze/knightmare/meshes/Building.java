@@ -29,7 +29,7 @@ public class Building extends RectangleGraphicalObject {
 	private Ausruestung[] verbesserungen;
 	private int maxLagerKapazität;
 	private transient Timer timer = new Timer(true), timer2 = new Timer(true);
-	private TimerTask tt;
+	private transient TimerTask tt;
 	private ArrayList<String> erlaubt = new ArrayList<>();
 	private ArrayList<String> muss = new ArrayList<>();
 
