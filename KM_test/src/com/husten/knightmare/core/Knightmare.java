@@ -199,6 +199,7 @@ public class Knightmare extends Widget implements StringConstants {
 			Object[] save = LoadSaveHandler.load(savePath);
 			newHandler = (EntityHandler) save[0];
 			terrain = (Terrain) save[1];
+			spieler = newHandler.getSpieler();
 		}else{
 			newHandler = new EntityHandler(513, 513, spieler);
 			terrain.gen();

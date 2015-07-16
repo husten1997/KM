@@ -935,5 +935,9 @@ public class EntityHandler implements Serializable {
 		}
 		return null;
 	}
+	
+	public Spieler[] getSpieler(){
+		return spieler;
+	}
 
 }

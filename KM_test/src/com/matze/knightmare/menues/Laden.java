@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -20,6 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import com.husten.knightmare.core.Knightmare;
 import com.husten.knightmare.core.MainMenue;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Loader;
@@ -33,7 +36,7 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	private String[] data;
 	private File[] removeAble;
 	private String defaultText[] = { "Keine Speicherstände vorhanden. Neues Spiel?"};
-	private JButton löschen;
+	private JButton löschen, laden;
 	private boolean speichVorhanden, open = false;
 	
 	public Laden() {
@@ -222,6 +225,15 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 		zurück.setFocusable(false);
 		add(zurück);
 
+		laden = new JButton("Laden");
+		laden.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+		laden.setFont(new Font("Arial", Font.BOLD, width / 48));
+		laden.setBounds(screen.width / 2 + 3 * width / 8 - width / 8, (screen.height - height) / 2 + height - width / 24, width / 8, width / 24);
+		laden.addActionListener(this);
+		laden.setRolloverEnabled(false);
+		laden.setFocusable(false);
+		add(laden);
+
 		list.addKeyListener(this);
 		list.addListSelectionListener(this);
 	}
@@ -326,6 +338,20 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 			recursicDelete(removeAble[list.getSelectedIndex()]);
 			new Laden();
 			dispose();
+		}
+		if(arg0.getSource() == laden&&list.getSelectedIndex()>=0){
+			dispose();
+			new Timer(false).schedule(new TimerTask() {
+
+				@Override
+				public void run() {
+					Loadscreen l = new Loadscreen();
+					Knightmare km = new Knightmare(null, true, new StringBuilder(Loader.getSavesDir().getAbsolutePath()).append("//").append(list.getSelectedValue()).toString());
+					MoodMusic.changeMood("Default");
+					l.dispose();
+					km.loop();
+				}
+			}, 0);
 		}
 	}
 }
