@@ -110,6 +110,6 @@ public interface StringConstants {
 		}
 	}
 	
-	public static String VERSION = "a0.1.0";
+	public static String VERSION = "a1.0.0";
 
 }
