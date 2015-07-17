@@ -249,7 +249,7 @@ public class Spieler implements Serializable{
 		}
 		if (index == 10) {
 			for (Building Kornspeicher : kornspeicher) {
-				help += Kornspeicher.getBenötigt()[0].getAmount();
+				help += Kornspeicher.getBenötigt()[index].getAmount();
 			}
 			return help;
 		}
