@@ -17,11 +17,13 @@ public class TimerTaskDistributer {
 			((Building)object).setTimerTask(getTimerTask((Building) object));
 			((Building)object).startTimer();
 		} else if (object instanceof Soldat) {
-			((Soldat) object).setTimerTask(((Soldat) object).getSold(), ((Soldat) object).getNahrung());
+			if(!object.getSpieler().equals(Bauen.getMutterNatur())){
+				((Soldat) object).setTimerTask(((Soldat) object).getSold(), ((Soldat) object).getNahrung());
+			}
 		}
 	}
 
-	private static TimerTask getTimerTask(Building b) {
+	public static TimerTask getTimerTask(Building b) {
 		double d = b.getSpieler().getDifficulty();
 		d = 2 - d;
 		if (d == 0) {

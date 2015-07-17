@@ -1,9 +1,7 @@
 package com.matze.knightmare.meshes;
 
-import java.util.TimerTask;
-
 import com.husten.knightmare.constants.StringConstants;
-import com.husten.knightmare.core.Knightmare;
+import com.richard.knightmare.serial.TimerTaskDistributer;
 import com.richard.knightmare.util.Pos;
 
 public class Bauen {
@@ -12,12 +10,6 @@ public class Bauen {
 	private static int gesBev = 0;
 
 	public static Building KohleMine(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(0, p, 64, 64, "Kohlemine.png");
 		b.setSpieler(sp);
 
@@ -49,15 +41,7 @@ public class Bauen {
 					Rohstoffe.Kohle(), 25);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								b.getSpieler().verteilen(Rohstoffe.Kohle().getID(), (int) Math.round(1*hilfsd));
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -66,12 +50,6 @@ public class Bauen {
 	}
 
 	public static Building EisenMine(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(1, p, 64, 64, "Eisenerz 1.png");
 
 		b.setSpieler(sp);
@@ -110,24 +88,7 @@ public class Bauen {
 					Rohstoffe.Eisen(), 100);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-//								if (b.getBenötigt()[0].getAmount() > 0){
-//									b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), 1);
-//									//b.getBenötigt()[0].substractWare(1);
-//									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(),1);
-//								}
-								
-								if (!(b.getSpieler().getAmountofResource(Rohstoffe.Kohle().getID())-1 < 0)){
-									b.getSpieler().verteilen(Rohstoffe.Eisen().getID(), (int) Math.round(1*hilfsd));
-									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), (int) Math.round(1*hilfsd));
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 			return b;
 		}
@@ -177,12 +138,6 @@ public class Bauen {
 	}
 
 	public static Building Holzfäller(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(3, p, 64, 64, "Holz.png");
 		b.setKostetWarevonIndex(Rohstoffe.Mensch().getID(), 3);
 
@@ -213,29 +168,7 @@ public class Bauen {
 					Rohstoffe.Holz(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								Building k = Knightmare.newHandler.suchBaum((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
-								
-								if(k!=null){
-									if (k.getBenötigt()[0].substractWare((int) Math.round(1*hilfsd))){
-										b.getSpieler().verteilen(Rohstoffe.Holz().getID(), (int) Math.round(1*hilfsd));
-										if (k.getBenötigt()[0].getAmount()==(int) Math.round(1*hilfsd)){
-											Knightmare.newHandler.die(k);
-										}
-									}else{
-//										Pos pk = k.getPosition();
-										Knightmare.newHandler.die(k);
-//										Knightmare.newHandler.place(Baumstumpf(pk));//TODO weil ged ned in dem Thread
-//										k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
-									}
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -244,12 +177,6 @@ public class Bauen {
 	}
 
 	public static Building Haus(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(4, p, 64, 32, "Haus.png");
 		b.setSpieler(sp);
 
@@ -281,36 +208,7 @@ public class Bauen {
 
 			
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-							
-							@Override
-							public void run() {
-								b.setProduktionProMinute(1);
-
-								if (b.getSpieler().getAmountofResource(Rohstoffe.Fleisch().getID()) - 2 >= 0){
-									b.getSpieler().verteilen(Rohstoffe.Mensch().getID(), (int) Math.round(1*hilfsd));
-									b.getSpieler().verteilen(9, (int) Math.round(1*hilfsd));
-									b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), 3);
-									gesBev += 1;
-								} else {
-									if (b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()) > 1){
-										b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 1);
-										gesBev -= 1;
-									}
-								}
-								
-								// TODO ppm so ändern dass effektivität pro
-								// gebäude um 50%
-								// gesteigert wird, steht es alleine in einem
-								// bestimmten
-								// sektor, wird die produktion pro minute um 50%
-								// gesenkt
-								// (auch negativ möglich, dann sterben die
-								// leute)
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			// @Override
@@ -332,12 +230,6 @@ public class Bauen {
 	}
 
 	public static Building Sandschmelze(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(5, p, 64, 64, "Sandschmeiz.png");
 
 		b.addnichtErlaubt(StringConstants.Material_t.WATER);
@@ -369,25 +261,7 @@ public class Bauen {
 					Rohstoffe.Glas(), 9);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-//								if (benötigt[0]
-//										.substractWare(amountBenötigt[0])
-//										&& (!(b.getAmountProduzierterWareAuslesen() == b
-//												.getMaxLagerKap()))) {
-//									b.WareFertigstellen();
-//								}
-								
-								if (b.getSpieler().getAmountofResource(b.getBenötigt()[0].getID()) - 3 >= 0){
-									b.getSpieler().verteilen(b.getProduziert().getID(), (int) Math.round(1*hilfsd));
-									b.getSpieler().abziehen(b.getBenötigt()[0].getID(), 3);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -396,12 +270,6 @@ public class Bauen {
 	}
 
 	public static Building Bauernhof(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(6, p, 128, 128, "Hof.png");
 
 		b.setSpieler(sp);
@@ -432,41 +300,7 @@ public class Bauen {
 					Rohstoffe.Getreide(), 36);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-//								if ((/* Felder in der Nähe */true) && (/*
-//																	 * Felder
-//																	 * hat
-//																	 * ressourcen
-//																	 */true) && (!(b
-//										.getAmountProduzierterWareAuslesen() == b
-//										.getMaxLagerKap()))) {
-//									b.WareFertigstellen();
-//									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), 1);
-//								}
-								
-								Building k = Knightmare.newHandler.suchFeld((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
-								
-								if(k!=null){
-									if (k.getBenötigt()[0].substractWare((int) Math.round(1*hilfsd))){
-										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), (int) Math.round(1*hilfsd));
-										if (k.getBenötigt()[0].getAmount()==0){
-											Knightmare.newHandler.die(k);
-										}
-									}else{
-//										Pos pk = k.getPosition();
-										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), k.getBenötigt()[0].getAmount());
-										Knightmare.newHandler.die(k);
-//										Knightmare.newHandler.place(Baumstumpf(pk));//TODO weil ged ned in dem Thread
-//										k = Knightmare.newHandler.suchBaum((int)p.getX(), (int)p.getY(), b.getReichweite());
-									}
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -475,12 +309,6 @@ public class Bauen {
 	}
 
 	public static Building Viehstall(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(7, p, 64, 64, "viecha.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
@@ -508,19 +336,7 @@ public class Bauen {
 					Rohstoffe.Fleisch(), 25);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-//								if (!(b.getAmountProduzierterWareAuslesen() == b
-//										.getMaxLagerKap())) {
-//									b.WareFertigstellen();
-//								}
-								b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), (int) Math.round(1*hilfsd));
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -529,12 +345,6 @@ public class Bauen {
 	}
 
 	public static Building Steinbruch(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(8, p, 64, 64, "Steinbruch.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 5);
@@ -564,21 +374,7 @@ public class Bauen {
 					Rohstoffe.Stein(), 75);
 
 			if (!sp.getName().equals("Mama Natur")) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-//								if ((/* Stein in der Nähe */true) && (/*
-//																	 * Stein hat
-//																	 * ressourcen
-//																	 */true) && (!(b
-//										.getAmountProduzierterWareAuslesen() == b
-//										.getMaxLagerKap()))) {
-//									b.WareFertigstellen();
-//								}
-								b.getSpieler().verteilen(Rohstoffe.Stein().getID(), (int) Math.round(2*hilfsd));
-						}});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -819,12 +615,6 @@ public class Bauen {
 	
 	
 	public static Building Bäckerei(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(17, p, 64, 64, "Bäckerei.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 12);
@@ -856,24 +646,7 @@ public class Bauen {
 					Rohstoffe.Fleisch(), 75);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-//								if ((/* Stein in der Nähe */true) && (/*
-//																	 * Stein hat
-//																	 * ressourcen
-//																	 */true) && (!(b
-//										.getAmountProduzierterWareAuslesen() == b
-//										.getMaxLagerKap()))) {
-//									b.WareFertigstellen();
-//								}
-								if (b.getSpieler().getAmountofResource(Rohstoffe.Getreide().getID())-3 >= 0){
-									b.getSpieler().verteilen(Rohstoffe.Fleisch().getID(), (int) Math.round(2*hilfsd));
-									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 3);
-								}
-						}});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -914,12 +687,6 @@ public class Bauen {
 	}
 	
 	public static Building Schmied(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(19, p, 32, 32, "Schmied.png");
 		b.setSpieler(sp);
 		b.setKostetWarevonIndex(2, 8);
@@ -950,16 +717,7 @@ public class Bauen {
 					Rohstoffe.Armbrust(), 75);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().getAmountofResource(benötigt[0].getID())-4 >= 0){
-								b.getSpieler().verteilen(Rohstoffe.Armbrust().getID(), (int) Math.round(1*hilfsd));
-								b.getSpieler().abziehen(Rohstoffe.Eisen().getID(), 4);
-								}
-						}});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -997,12 +755,6 @@ public class Bauen {
 	}
 	
 	public static Building SandGrube(Pos p, Spieler sp) {
-		double d = sp.getDifficulty();
-		d = 2-d;
-		if(d==0){
-			d=0.5;
-		}
-		double hilfsd = d;
 		Building b = new Building(21, p, 32, 32, "Sandgrube.png");
 		b.setSpieler(sp);
 
@@ -1029,15 +781,7 @@ public class Bauen {
 					Rohstoffe.Sand(), 25);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								b.getSpieler().verteilen(Rohstoffe.Sand().getID(), (int) Math.round(1*hilfsd));
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1082,23 +826,7 @@ public class Bauen {
 					Rohstoffe.Nothing(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								Pos pos = Knightmare.newHandler.suchFrei((int)(p.getX()/32), (int)(p.getY()/32), b.getReichweite());
-								
-								if(pos!=null){
-									if (b.getSpieler().possibleToRemove(Rohstoffe.Holz().getID(), 1) && b.getSpieler().possibleToRemove(Rohstoffe.Geld().getID(), 5)){
-										b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 1);
-										b.getSpieler().abziehen(Rohstoffe.Geld().getID(), 5);
-										Knightmare.newHandler.place(Bauen.Baum(pos, mutterNatur));
-									}
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1146,26 +874,7 @@ public class Bauen {
 					Rohstoffe.Gebildeter_Mensch(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Mensch().getID(), 1)){
-									if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), 5)){
-										int zufall = (int) Math.random()*3;
-										int zufall2 = (int) Math.random()*3;
-										if (b.getSpieler().possibleToRemove(zufall, zufall2)){
-											b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), 1);
-											b.getSpieler().verteilen(Rohstoffe.Gebildeter_Mensch().getID(), 1);
-											b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), 5);
-											b.getSpieler().abziehen(zufall, zufall2);
-								}
-							}
-						}
-					}
-
-				});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1256,18 +965,7 @@ public class Bauen {
 					Rohstoffe.Lehm(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Sand().getID(), 6)){
-									b.getSpieler().abziehen(Rohstoffe.Stein().getID(), 6);
-									b.getSpieler().verteilen(Rohstoffe.Lehm().getID(), 3);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1318,19 +1016,7 @@ public class Bauen {
 					Rohstoffe.Pech(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Holz().getID(), 5) && b.getSpieler().possibleToRemove(Rohstoffe.Kohle().getID(), 1)){
-									b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 5);
-									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), 1);
-									b.getSpieler().verteilen(Rohstoffe.Pech().getID(), 1);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1379,19 +1065,7 @@ public class Bauen {
 					Rohstoffe.Werkzeug(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Eisen().getID(), 5) && b.getSpieler().possibleToRemove(Rohstoffe.Kohle().getID(), 2)){
-									b.getSpieler().abziehen(Rohstoffe.Holz().getID(), 5);
-									b.getSpieler().abziehen(Rohstoffe.Kohle().getID(), 2);
-									b.getSpieler().verteilen(Rohstoffe.Werkzeug().getID(), 1);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1435,15 +1109,7 @@ public class Bauen {
 					Rohstoffe.Zufriedenheit(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1487,18 +1153,7 @@ public class Bauen {
 					Rohstoffe.Ziegel(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Lehm().getID(), 4)){
-									b.getSpieler().abziehen(Rohstoffe.Lehm().getID(), 4);
-									b.getSpieler().verteilen(Rohstoffe.Ziegel().getID(), 2);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1543,18 +1198,7 @@ public class Bauen {
 					Rohstoffe.Tiere(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Getreide().getID(), 2)){
-									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 2);
-									b.getSpieler().verteilen(Rohstoffe.Tiere().getID(), 1);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
@@ -1598,18 +1242,7 @@ public class Bauen {
 					Rohstoffe.Leder(), 20);
 
 			if (!sp.equals(mutterNatur)) {
-				b.setTimerTask(
-						new TimerTask() {
-
-							@Override
-							public void run() {
-								if (b.getSpieler().possibleToRemove(Rohstoffe.Tiere().getID(), 2)){
-									b.getSpieler().abziehen(Rohstoffe.Getreide().getID(), 2);
-									b.getSpieler().verteilen(Rohstoffe.Tiere().getID(), 1);
-								}
-							}
-
-						});
+				b.setTimerTask(TimerTaskDistributer.getTimerTask(b));
 			}
 
 			return b;
