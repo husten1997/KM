@@ -228,7 +228,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 	public void setMRotation(int m_rotation){
 		if(m_rotation==lastM){
 			this.m_rotation = m_rotation;
-			System.out.println(m_rotation);
 			switch (m_rotation) {
 			case 0://Oben
 				xz = 0;

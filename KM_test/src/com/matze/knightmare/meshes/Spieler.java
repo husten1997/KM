@@ -273,7 +273,6 @@ public class Spieler implements Serializable{
 				return i;
 			}
 		}
-		System.out.println(name + ": Resource nicht vorhanden");
 		return -1;
 	}
 	

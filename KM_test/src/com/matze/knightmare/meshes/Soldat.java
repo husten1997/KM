@@ -163,10 +163,6 @@ public class Soldat extends RectangleGraphicalObject {
 
 	}
 
-	public void say() {
-		System.out.println("Ich bin da");
-	}
-
 	public double getSpeed() {
 		return geschwindigkeit;
 	}

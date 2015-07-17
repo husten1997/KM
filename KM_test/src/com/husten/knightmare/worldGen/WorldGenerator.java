@@ -69,13 +69,9 @@ public class WorldGenerator implements StringConstants {
 	public void gen() {
 		rand = new Random(seed);
 		generator = new RandomGenerator(rand, hMulti, -1);
-		long Zvor = System.currentTimeMillis();
 		genHM(seed, routh);
 		set();
 		trans();
-		long Znach = System.currentTimeMillis();
-		long time = Znach - Zvor;
-		System.out.println("Done in: " + time + "ms");
 	}
 
 	public void genHM(int seed, float r) {

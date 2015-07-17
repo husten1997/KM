@@ -16,7 +16,7 @@ public class SoundPlayer {
 	private Float volume;
 
 	public SoundPlayer(String name) {
-		clip = /* Environment.getSound(name); */ Loader.getSound(name);
+		clip = Loader.getSound(name);
 		ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		volume = ctrl.getValue();
 	}

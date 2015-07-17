@@ -23,12 +23,10 @@ import com.husten.knightmare.graphicalObjects.DNCycl;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
 import com.husten.knightmare.graphicalObjects.RectangleGraphicalObject;
 import com.husten.knightmare.graphicalObjects.Terrain;
-import com.husten.knightmare.menues.MainGUI;
 import com.matze.knightmare.menues.Optionen;
 import com.matze.knightmare.meshes.Bauen;
 import com.matze.knightmare.meshes.Building;
 import com.matze.knightmare.meshes.Rekrutieren;
-//import com.matze.knightmare.meshes.Rekrutieren;
 import com.matze.knightmare.meshes.Rohstoffe;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
@@ -70,10 +68,7 @@ public class Knightmare extends Widget implements StringConstants {
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
-	// private Pathhandler handler;
 	public static EntityHandler newHandler;
-	// private ArrayList<RectangleGraphicalObject> selection = new
-	// ArrayList<>();
 	@SuppressWarnings("unchecked")
 	private ArrayList<GraphicalObject> renderList[] = new ArrayList[ebenen], ObjectList[] = new ArrayList[ebenen];
 	private Timer timer = new Timer(true);
@@ -472,9 +467,6 @@ public class Knightmare extends Widget implements StringConstants {
 
 										b.setKostetWarevonIndex(2, (int) (10 * d));
 										b.setKostetWarevonIndex(8, (int) (5 * d));
-										for (int i = 0; i < b.getAttribute().length; i++) {
-											System.out.println(b.getAttribute()[i]);
-										}
 									}
 									forceUpdate = true;
 								} else {
@@ -655,9 +647,6 @@ public class Knightmare extends Widget implements StringConstants {
 		}
 
 		// TODO JJDK
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			System.out.println("Space is down");
-		}
 
 		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Vorwärts"))) {
 			if (figur != null) {
@@ -951,7 +940,6 @@ public class Knightmare extends Widget implements StringConstants {
 
 	public void initDisplay() {
 		setDisplayMode(WIDTH, HEIGHT, fullscreen);
-		System.out.println("H: " + HEIGHT + " W: " + WIDTH);
 		initUI();
 	}
 
@@ -1004,7 +992,7 @@ public class Knightmare extends Widget implements StringConstants {
 			} catch (MalformedURLException e) {
 				// Leck mich
 			}
-			URL url2 = MainGUI.class.getResource(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/menue.xml").toString());
+			URL url2 = Knightmare.class.getResource(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/menue.xml").toString());
 			themeManager = ThemeManager.createThemeManager((url == null ? url2 : url), renderer);
 		} catch (IOException e) {
 			e.printStackTrace();

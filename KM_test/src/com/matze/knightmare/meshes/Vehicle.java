@@ -52,7 +52,6 @@ public class Vehicle extends Soldat {
 					}
 					return ware;
 				} else {
-					System.out.println("Kann nichts ablegen");
 					return ware;
 				}
 			}

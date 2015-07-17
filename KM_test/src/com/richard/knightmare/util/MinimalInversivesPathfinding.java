@@ -36,7 +36,6 @@ public class MinimalInversivesPathfinding {
 		start = new Pos((int) (realStart.getX() / 32), (int) (realStart.getY() / 32));
 		ziel = new Pos((int) (ende.getX() / 32), (int) (ende.getY() / 32));
 		LOG.info("Konstruktor gelaufern");
-		// System.out.println("constuktor");
 	}
 
 	public void setContinuing() {
@@ -265,7 +264,6 @@ public class MinimalInversivesPathfinding {
 			path.add(currenObject);
 		}
 		recursivVektorProduction(path.size() - 1);
-		// System.out.println("finished pathfinding");
 		moveable = true;
 		return ersatzziel;
 	}

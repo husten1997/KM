@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.husten.knightmare.menues.MainGUI;
-
 import de.matthiasmann.twl.Color;
 import de.matthiasmann.twl.renderer.Image;
 import de.matthiasmann.twl.renderer.Renderer;
@@ -22,7 +20,7 @@ public class TWLImage {
 		} catch (MalformedURLException e) {
 			// Leck mich
 		}
-		URL url2 = MainGUI.class.getResource(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/").append(name).toString());
+		URL url2 = TWLImage.class.getResource(new StringBuilder(Loader.getTexturePath().replace('\\', '/')).append("/").append(name).toString());
 		Texture t = null;
 		try {
 			t = render.loadTexture((url == null ? url2 : url), "COLOR", "LINEAR");

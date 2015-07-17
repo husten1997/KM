@@ -204,7 +204,6 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			}
 
 			if (e.getSource() == spielStarten) {
-				System.out.println("Loader" + Loader.getCfgValue("SETTINGS: Startzeit"));
 				for (int i = 0; i < anzahl; i++) {
 					int teamer = 0;
 					for (int s = 1; s < anzahl + 1; s++) {
@@ -295,7 +294,6 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 				} else {
 					ic.setImage(ic.getImage().getScaledInstance(bild[i].getWidth(), bild[i].getHeight(), Image.SCALE_SMOOTH));
 					bild[i].setIcon(ic);
-					System.out.println(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 					schwierigkeit[0].setSelectedIndex(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 				}
 
@@ -351,7 +349,6 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			time = time.substring(0, 1) + "." + time.substring(1, 2);
 		}
 		Loader.changeCfgValue("SETTINGS: Startzeit", time);
-		System.out.println(Loader.getCfgValue("SETTINGS: Startzeit") + ";");
 		refresh();
 	}
 
@@ -362,7 +359,6 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			} else {
 				ic.setImage(ic.getImage().getScaledInstance(bild[i].getWidth(), bild[i].getHeight(), Image.SCALE_SMOOTH));
 				bild[i].setIcon(ic);
-				System.out.println(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 				schwierigkeit[i].setSelectedIndex(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
 			}
 		}

@@ -84,7 +84,6 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 		
 		//Profilbild
 		profil = new JButton();
-		System.out.println(Loader.getTexturePath());
 		io = new ImageIcon (Loader.getCfgValue("SETTINGS: Profilbild"));
 		io.setImage(io.getImage().getScaledInstance(200,100,Image.SCALE_SMOOTH));
 		profil.setIcon(io);
@@ -229,10 +228,8 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
-		// TODO Auto-generated method stub
 		if (arg0.getSource() == schwierigkei.getSelectedItem()){
 			Loader.changeCfgValue("SETTINGS: Default difficulty", ""+schwierigkei.getSelectedIndex());
-			System.out.println("Hallo"+Loader.getCfgValue("SETTINGS: Default difficulty"));
 		}
 	}
 

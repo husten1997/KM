@@ -239,7 +239,6 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 	}
 
 	private void performAction(int x) {
-		System.out.println("Hier at" + System.currentTimeMillis());
 		if (!open && speichVorhanden == false && list.getSelectedIndex() == 0 && list.getSelectedValue().equals("Keine Speicherstände vorhanden. Neues Spiel?")) {
 			new Configscreen("back.png","Configscreen");
 			open = true;

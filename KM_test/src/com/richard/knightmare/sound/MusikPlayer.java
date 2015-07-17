@@ -16,7 +16,7 @@ public class MusikPlayer {
 	private Float volume;
 
 	public MusikPlayer(String name) {
-		clip = /*Environment.getMusic(name);*/ Loader.getMusic(name);
+		clip = Loader.getMusic(name);
 		ctrl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		volume = ctrl.getValue();
 	}

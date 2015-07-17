@@ -23,8 +23,6 @@ public class DNCycl {
 	
 	private boolean run = true;
 	
-	private long time_v = 0;
-	
 	public static int getAktuMon() {
 		return aktuMon;
 	}
@@ -91,8 +89,6 @@ public class DNCycl {
 	private void cTime(double i){
 		double h = time += i;
 		if(h > 2.4){
-			System.out.println("Dauer des tages: " +(System.currentTimeMillis() - time_v)/1000 + " sec");
-			time_v = System.currentTimeMillis();
 			time = 0;
 			time += i;
 		} else{
@@ -106,7 +102,6 @@ public class DNCycl {
 	
 	public void toggle(){
 			run = !run;
-			System.out.println("DayNight Cycle" + (run? " started":" stoped"));
 	}
 	
 	@SuppressWarnings("unused")
@@ -188,11 +183,6 @@ public class DNCycl {
 
 		return "Heute ist der " + d + "." + m + "."+ jahr + " um " + h + ":" + min + " Uhr";
 	}
-	
-	@SuppressWarnings("unused")
-	private void debug(){
-		System.out.println("Time: " + getTimeS() + " b: " + breightnes);
-	}
 
 	public static double getBreightnes() {
 		return breightnes;
@@ -218,7 +208,6 @@ public class DNCycl {
 		if(time >= 2.0 && time <= 2.1){
 			green = 1 - funkGBA(time);
 			blue = 1 - funkGBA(time);
-			System.out.println("green: " +  green + " blue: " + blue);
 		}
 	}
 	
