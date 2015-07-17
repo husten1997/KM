@@ -84,7 +84,14 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 				sett[i].setBounds((screen.width - width) / 2 + 1300, (screen.height - height) / 2 + 100 + (75 * (i - (setNames.length / 2))) - 35, 200, 50);
 				settings[i].setBounds((screen.width - width) / 2 + 1300, (screen.height - height) / 2 + 100 + (75 * (i - (setNames.length / 2))), 200, 50);
 			}
+			sett[i].setBorder(null);
+			sett[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+			sett[i].setForeground(Color.white);
+			sett[i].setHorizontalAlignment(JLabel.CENTER);
 			add(sett[i]);
+			settings[i].setBorder(null);
+			settings[i].setBackground(new Color(0, 0.25f, 0.5f, 1f));
+			settings[i].setForeground(Color.white);
 			add(settings[i]);
 		}
 
@@ -92,7 +99,15 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		settings[setNames.length - 1].setMinimum(0);
 		settings[setNames.length - 1].setValue(10);
 
+		random.setBorder(null);
+		random.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		random.setForeground(Color.white);
+		random.setHorizontalAlignment(JLabel.CENTER);
 		add(random);
+		seed.setBorder(null);
+		seed.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		seed.setForeground(Color.white);
+		seed.setHorizontalAlignment(JLabel.CENTER);
 		add(seed);
 
 		settings[0].setValue(71);
@@ -174,10 +189,12 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 			dispose();
 		} else {
 
-			if (bild[0].getIcon().toString().equals(Loader.getCfgValue("SETTINGS: Profilbild"))) {
+			if(bild!=null){
 				if (e.getSource() == bild[0]) {
-					new Profil(false, "back.png", "Knightmare: Profil", true);
-					this.dispose();
+					if (bild[0].getIcon().toString().equals(Loader.getCfgValue("SETTINGS: Profilbild"))) {
+						new Profil(false, "back.png", "Knightmare: Profil", true);
+						this.dispose();
+					}
 				}
 			}
 

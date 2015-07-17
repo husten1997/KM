@@ -47,6 +47,10 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 		difficulty = new JTextField("Schwierigkeit:");
 		difficulty.setEditable(false);
 		difficulty.setBounds((screen.width - width) / 2 +100, (screen.height-height)/2+225, 200, 50);
+		difficulty.setBorder(null);
+		difficulty.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		difficulty.setForeground(Color.white);
+		difficulty.setHorizontalAlignment(JLabel.CENTER);
 		add(difficulty);
 		
 		schwierigkei = new JComboBox<String>(val1);
@@ -56,16 +60,26 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 		schwierigkei.repaint();
 		schwierigkei.addItemListener(this);
 		schwierigkei.setSelectedIndex(Integer.parseInt(Loader.getCfgValue("SETTINGS: Default difficulty")));
+		schwierigkei.setBorder(null);
+		schwierigkei.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		schwierigkei.setForeground(Color.white);
 		add(schwierigkei);
 		
 		//Sprache
 		sprach = new JTextField("Sprache:");
 		sprach.setEditable(false);
 		sprach.setBounds((screen.width - width) / 2 +325, (screen.height-height)/2+100, 200, 50);
+		sprach.setBorder(null);
+		sprach.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		sprach.setForeground(Color.white);
+		sprach.setHorizontalAlignment(JLabel.CENTER);
 		add(sprach);
 		
 		sprache = new JComboBox<String>(val2);
 		sprache.setBounds((screen.width - width) / 2 +100, (screen.height-height)/2+275, 200, 50);
+		sprache.setBorder(null);
+		sprache.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		sprache.setForeground(Color.white);
 		add(sprache);
 		
 		//Profilbild
@@ -146,10 +160,7 @@ public class Profil extends Optionsframesuperklasse implements ActionListener, I
 					InGameOptionen.instance.setAutoRequestFocus(true);
 					dispose();
 				} else {
-					Optionen.instance.dispose();
-					Optionen.instance.setUndecorated(isUndecorated());
-					Optionen.instance.setVisible(true);
-					Optionen.instance.setAutoRequestFocus(true);
+					new Optionen(false);
 					dispose();
 				}
 			}
