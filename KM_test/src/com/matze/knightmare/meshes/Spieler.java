@@ -122,6 +122,7 @@ public class Spieler implements Serializable{
 					return;
 				}
 			}
+			return;
 		}
 		if (warenID == 10) {
 			for (Building k : kornspeicher) {
@@ -136,6 +137,7 @@ public class Spieler implements Serializable{
 					return;
 				}
 			}
+			return;
 		}
 		if (warenID == 12) {
 			for (Building m : marktplätze) {
@@ -150,6 +152,7 @@ public class Spieler implements Serializable{
 					return;
 				}
 			}
+			return;
 		}
 		if (warenID == 13) {
 			for (Building w : waffenkammer) {
@@ -164,6 +167,7 @@ public class Spieler implements Serializable{
 					return;
 				}
 			}
+			return;
 		}
 		for (Building l : lager) {
 			int frei = l.getMaxLagerKap();
