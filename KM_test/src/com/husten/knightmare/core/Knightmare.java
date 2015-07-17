@@ -403,7 +403,7 @@ public class Knightmare extends Widget implements StringConstants {
 						int yR = y / 32;
 
 						switch (inGameStat) {
-						case state.BAUEN/* N_BUILDINGS */:
+						case state.BAUEN:
 							if (aktuellesGebäude != -1) {
 								Building b = Bauen.getBuildingforID(aktuellesGebäude, new Pos(xR * 32, yR * 32), spieler[0]);
 								boolean hilfsboolean = false;
@@ -462,8 +462,6 @@ public class Knightmare extends Widget implements StringConstants {
 											b.getSpieler().verteilen(10, (int) (12 * d));
 										}
 									}
-									// b.setSort(0);
-									// initRender(b, 1);
 									if (hilfsboolean) {
 										Bauen.kostenAbziehen(b);
 									} else {

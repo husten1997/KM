@@ -264,7 +264,7 @@ public class Spieler implements Serializable{
 		for (Building Lager : lager) {
 			help += Lager.getBenötigt()[index].getAmount();
 		}
-		return help;/* amountResourcesOfIndex[index]; */
+		return help;
 	}
 
 	public int getIndexofResource(String name) {
