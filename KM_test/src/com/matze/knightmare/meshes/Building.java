@@ -73,7 +73,7 @@ public class Building extends RectangleGraphicalObject {
 
 	public void deminishWarenAmount(int i, int kap) {
 		for (int b = 0; b < kap; b++) {
-			System.out.println("kann abziehen: " + benötigt[i].substractWare(1));
+			benötigt[i].substractWare(1);
 		}
 	}
 

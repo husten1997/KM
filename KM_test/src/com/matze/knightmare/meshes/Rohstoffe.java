@@ -109,27 +109,27 @@ public class Rohstoffe {
 	
 	public static Waren Rohstoff_von_Index(int index){
 		switch(index){
-		case 0:{return Kohle();}
-		case 1:{return Eisen();}
-		case 2:{return Holz();}
-		case 3:{return Diamant();}
-		case 4:{return Pech();}
-		case 5:{return Sand();}
-		case 6:{return Getreide();}
-		case 7:{return Lehm();}
-		case 8:{return Stein();}
-		case 9:{return Geld();}
-		case 10:{return Fleisch();}
-		case 11:{return Glas();}
-		case 12:{return Mensch();}
-		case 13:{return Armbrust();}
-		case 14:{return Gebildeter_Mensch();}
-		case 15:{return Ziegel();}
-		case 16:{return Werkzeug();}
-		case 17:{return Zufriedenheit();}
-		case 18:{return Tiere();}
-		case 19:{return Leder();}
-		default:{return Nothing();}
+		case 0: return Kohle();
+		case 1: return Eisen();
+		case 2: return Holz();
+		case 3: return Diamant();
+		case 4: return Pech();
+		case 5: return Sand();
+		case 6: return Getreide();
+		case 7: return Lehm();
+		case 8: return Stein();
+		case 9: return Geld();
+		case 10: return Fleisch();
+		case 11: return Glas();
+		case 12: return Mensch();
+		case 13: return Armbrust();
+		case 14: return Gebildeter_Mensch();
+		case 15: return Ziegel();
+		case 16: return Werkzeug();
+		case 17: return Zufriedenheit();
+		case 18: return Tiere();
+		case 19: return Leder();
+		default: return Nothing();
 		}
 	}
 	
