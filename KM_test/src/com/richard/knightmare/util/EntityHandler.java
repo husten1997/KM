@@ -17,6 +17,7 @@ import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
 import com.matze.knightmare.meshes.Vehicle;
 import com.matze.knightmare.meshes.Waren;
+import com.richard.knightmare.serial.TimerTaskDistributer;
 import com.richard.knightmare.sound.SoundPlayer;
 
 public class EntityHandler implements Serializable {
@@ -946,6 +947,12 @@ public class EntityHandler implements Serializable {
 		}
 		for(RectangleGraphicalObject obj: entitiesWaren){
 			obj.initRender();
+		}
+	}
+	
+	public void reInitTimer(){
+		for(RectangleGraphicalObject obj: entities){
+			TimerTaskDistributer.distribute(obj);
 		}
 	}
 

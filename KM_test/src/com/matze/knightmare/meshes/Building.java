@@ -228,6 +228,7 @@ public class Building extends RectangleGraphicalObject {
 	}
 
 	public void startTimer() {
+		timer = new Timer(true);
 		if (ProduktionproMinute != 0 && tt!=null) {
 			timer.scheduleAtFixedRate(tt, (long) (60000 / ProduktionproMinute), (long) (60000 / ProduktionproMinute));
 		}

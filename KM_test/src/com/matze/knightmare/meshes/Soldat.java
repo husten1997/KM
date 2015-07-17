@@ -23,7 +23,7 @@ public class Soldat extends RectangleGraphicalObject {
 	protected String name;
 	protected int effektiv, typ;
 	protected Ausruestung ausruestung[];
-	protected int health;
+	protected int health, sold, nahrung;
 	protected int team;
 	protected Spieler sp;
 	protected Timer t = new Timer(true);
@@ -223,6 +223,22 @@ public class Soldat extends RectangleGraphicalObject {
 		return sp;
 	}
 
+	public int getSold() {
+		return sold;
+	}
+
+	public void setSold(int sold) {
+		this.sold = sold;
+	}
+
+	public int getNahrung() {
+		return nahrung;
+	}
+
+	public void setNahrung(int nahrung) {
+		this.nahrung = nahrung;
+	}
+
 	@Override
 	public void draw() {
 		// store the current model matrix
@@ -268,6 +284,8 @@ public class Soldat extends RectangleGraphicalObject {
 	}
 
 	public void setTimerTask(int Sold, int nahrung) {
+		this.sold = Sold;
+		this.nahrung = nahrung;
 		tt = new TimerTask() {
 
 			@Override
@@ -285,7 +303,7 @@ public class Soldat extends RectangleGraphicalObject {
 				}
 			}
 		};
-
+		t = new Timer(true);
 		t.scheduleAtFixedRate(tt, 60000, 60000);
 	}
 	
