@@ -13,7 +13,6 @@ public class Spieler implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6857734496210559804L;
-	// private int amountResourcesOfIndex[] = new int[Rohstoffe.maxID()];
 	private int team;
 	private int index;
 	private String typ;
@@ -95,10 +94,6 @@ public class Spieler implements Serializable{
 		
 		gesinnung = new int[an];
 		gesinnung[0]  = 100;
-
-		// amountResourcesOfIndex[getIndexofResource("Holz")] = 30;
-		// amountResourcesOfIndex[getIndexofResource("Kohle")] = 5;
-		// amountResourcesOfIndex[getIndexofResource("Stein")] = 15;
 	}
 	
 	public int getGesinnungGegenüberVonSpieler(int id){
@@ -112,12 +107,6 @@ public class Spieler implements Serializable{
 	public void ändernGesinnungGegenüberVonSpieler(int id, int ges){
 		gesinnung[id] += ges;
 	}
-
-	// Rohstoffe
-	// public Waren setAmountofResourcewithIndex(int amount, int index) {
-	// amountResourcesOfIndex[index] = amount;
-	// return Rohstoffe.Rohstoff_von_Index(index);
-	// }
 
 	public void verteilen(int warenID, int amount) {
 		if (warenID == 9) {
@@ -245,12 +234,6 @@ public class Spieler implements Serializable{
 			}
 		}
 	}
-
-	// public Waren setAmountofResourcewithName(int amount, String name) {
-	// int index = getIndexofResource(name);
-	// amountResourcesOfIndex[index] = amount;
-	// return Rohstoffe.Rohstoff_von_Index(index);
-	// }
 
 	public int getAmountofResource(int index) {
 		int help = 0;

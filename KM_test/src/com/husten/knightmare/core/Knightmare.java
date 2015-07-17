@@ -305,7 +305,6 @@ public class Knightmare extends Widget implements StringConstants {
 					scale = 1f;
 				}
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
-					System.out.println("Saving");
 					LoadSaveHandler.save("Test", newHandler, terrain); //TODO rename
 					labelZuTeuer.setText("Saving complete");
 					showGedNedSeitWann = 0;
@@ -314,55 +313,14 @@ public class Knightmare extends Widget implements StringConstants {
 						gednedShown = true;
 					}
 				}
-				//
-				// if (Keyboard.getEventKey() == Keyboard.KEY_C) {
-				// inGameStat = state.S_TRUPS;
-				// if (cursorIndex == 1) {
-				// gui.setMouseCursor((MouseCursor)
-				// themeManager.getCursor("cursor1"));
-				// cursorIndex = 0;
-				// }
-				// System.out.println(inGameStat);
-				// }
-				//
-				// if (Keyboard.getEventKey() == Keyboard.KEY_V) {
-				// inGameStat = state.S_BUILDINGS;
-				// if (cursorIndex == 1) {
-				// gui.setMouseCursor((MouseCursor)
-				// themeManager.getCursor("cursor1"));
-				// cursorIndex = 0;
-				// }
-				// System.out.println(inGameStat);
-				// }
 
 				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
 					baumenueShowen = !baumenueShowen;
-					// inGameStat = state.N_BUILDINGS;
 					if (cursorIndex == 1) {
 						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
 						cursorIndex = 0;
 					}
-					System.out.println(inGameStat);
 				}
-				//
-				// if (Keyboard.getEventKey() == Keyboard.KEY_N) {
-				// inGameStat = state.N_TRUPS;
-				// if (cursorIndex == 1) {
-				// gui.setMouseCursor((MouseCursor)
-				// themeManager.getCursor("cursor1"));
-				// cursorIndex = 0;
-				// }
-				// System.out.println(inGameStat);
-				// }
-				// if (Keyboard.getEventKey() == Keyboard.KEY_J) {
-				// inGameStat = state.NF_TROOP;
-				// if (cursorIndex == 1) {
-				// gui.setMouseCursor((MouseCursor)
-				// themeManager.getCursor("cursor1"));
-				// cursorIndex = 0;
-				// }
-				// System.out.println(inGameStat);
-				// }
 				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(-0.5f);
 				}
@@ -372,10 +330,6 @@ public class Knightmare extends Widget implements StringConstants {
 				if (getString("CONTROL_KEY: V-Sync").equals(gFN(Keyboard.getEventKey()))) {
 					Vsync = !Vsync;
 				}
-
-				// if (Keyboard.getEventKey() == Keyboard.KEY_NUMPAD0) {
-				// System.out.println(selection.size());
-				// }
 
 				if (getString("CONTROL_KEY: Musik wechseln").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.nextClip();
@@ -460,7 +414,6 @@ public class Knightmare extends Widget implements StringConstants {
 									hilfsboolean2 = b.getSpieler().hatMarktplatz();
 									hilfsboolean3 = b.getSpieler().hatKornspeicher();
 								}
-								System.out.println(hilfsboolean);
 								if (b == null) {
 									if (spieler[0].hatLager()) {
 										labelZuTeuer.setText("Das können wir uns nicht leisten, " + Loader.getCfgValue("SETTINGS: Profilname"));
@@ -472,7 +425,7 @@ public class Knightmare extends Widget implements StringConstants {
 										add(labelZuTeuer);
 										gednedShown = true;
 									}
-								} else if (/* handler.place(b) */newHandler.place(b)) {
+								} else if (newHandler.place(b)) {
 									double d = b.getSpieler().getDifficulty();
 									d = 2 - d;
 									if (d == 0) {
@@ -516,13 +469,8 @@ public class Knightmare extends Widget implements StringConstants {
 									} else {
 										// TODO Startrohstoffe
 										b.getSpieler().verteilen(2, (int) (40 * d));
-										// b.getSpieler().verteilen(0, 0);
 										b.getSpieler().verteilen(8, (int) (20 * d));
 										b.getSpieler().verteilen(Rohstoffe.Getreide().getID(), (int) (5 * d));
-										// b.getSpieler().verteilen(Rohstoffe.Eisen().getID(),
-										// 100);
-										// b.getSpieler().verteilen(Rohstoffe.Glas().getID(),
-										// 0);
 
 										b.setKostetWarevonIndex(2, (int) (10 * d));
 										b.setKostetWarevonIndex(8, (int) (5 * d));
@@ -541,46 +489,9 @@ public class Knightmare extends Widget implements StringConstants {
 								}
 							}
 							break;
-						// case state.N_TRUPS:
-						// Soldat s = Rekrutieren.Hussar(xR * 32 + 16, yR * 32 +
-						// 16, 32, 32, spieler[0]);
-						// if (/* handler.place(s) */newHandler.place(s)) {
-						// // s.setSort(1);
-						// // initRender(s, 1);
-						// }
-						// break;
-						// case state.NF_TROOP:
-						// Soldat sf = Rekrutieren.Bogenschuetze(xR * 32 + 16,
-						// yR * 32 + 16, 32, 32, spieler[1]);
-						// if (/* handler.place(sf) */newHandler.place(sf)) {
-						// // sf.setSort(1);
-						// // initRender(sf, 1);
-						// }
-						// break;
-						// case state.S_TRUPS:
-						// newHandler.search(x, y);
-						// if (newHandler.getSelection().size() > 0) {
-						// if
-						// (newHandler.getSelection().get(newHandler.getSelection().size()
-						// - 1) instanceof Soldat) {
-						// figur = (Soldat)
-						// newHandler.getSelection().get(newHandler.getSelection().size()
-						// - 1);
-						// }
-						// }
-						// // search(x, y);
-						// // if (selection.get(selection.size() - 1)
-						// // instanceof Soldat) {
-						// // figur = (Soldat) selection.get(selection.size() -
-						// // 1);
-						// // }
-						// break;
-						case state.DEFAULT/* S_BUILDINGS */:
-							// newHandler.search(x, y);
-							// search(x, y);
+						case state.DEFAULT:
 							newHandler.selClear();
 							RectangleGraphicalObject object = newHandler.getOn(xR, yR);
-							// System.out.println(object);
 							if (object instanceof Building) {
 //								buildingSelected = ((Building) object).getIndex();TODO
 								if (((Building) object).getIndex() == 6) {
@@ -601,10 +512,6 @@ public class Knightmare extends Widget implements StringConstants {
 							}
 							break;
 						case state.ABREIßEN:
-							/*
-							 * RectangleGraphicalObject h = handler.abreißen(xR,
-							 * yR)
-							 */
 							RectangleGraphicalObject on = newHandler.getOn(xR, yR);
 							if (on instanceof Building) {
 								if (((Building) on).getIndex() == 2 && !(on.getSpieler().hatWievieleLager() > 1)) {
@@ -641,16 +548,8 @@ public class Knightmare extends Widget implements StringConstants {
 								int[] kosten = ((Building) help).getKostetWarevonArray();
 								for (int i = 0; i < kosten.length; i++) {
 									help.getSpieler().verteilen(i, (int) Math.round(kosten[i] * rückerstattungsanteil));
-									// help.getSpieler().setAmountofResourcewithIndex(help.getSpieler().getAmountofResource(i)
-									// + (int)
-									// Math.round(kosten[i]*rückerstattungsanteil),
-									// i);
 								}
 							}
-
-							// if (h != null) {
-							// renderList[1].remove(h);
-							// }
 							break;
 						}
 					}
@@ -658,61 +557,17 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (Mouse.getEventButton() == 2) {
 					ang = new Pos(CameraX + Mouse.getX() * scale, CameraY + Mouse.getY() * scale);
-					// ang = new Pos(Mouse.getX(), Mouse.getY());
 				}
 				if (Mouse.getEventButton() == 1) {
 					int x = (int) (Mouse.getX() * scale + CameraX);
 					int y = (int) (Mouse.getY() * scale + CameraY);
 
-					// if (!isOn(Mouse.getX(), Mouse.getY())) {
-					// switch (inGameStat) {
-					// case state.DEFAULT:
-					// newHandler.processRightClick(x, y);
-					// break;
-					//
-					// default:
-					// inGameStat = state.DEFAULT/* .S_TRUPS */;
-					// rekrutriernShown = false;
-					// baumenueShowen = true;
-					// buildingSelected = -1;
-					// break;
-					// }
-					// }
-
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						newHandler.processRightClick(x, y);
-						inGameStat = state.DEFAULT/* .S_TRUPS */;
-						// newHandler.selClear();
+						inGameStat = state.DEFAULT;
 						rekrutriernShown = false;
 						baumenueShowen = true;
 //						buildingSelected = -1;TODO
-
-						// Pos p1 = new Pos(x, y); // Ende
-
-						// switch (inGameStat) {
-						// /*
-						// * case state.NOTHING: break;
-						// */
-						// case state.DEFAULT/* state.S_TRUPS */:
-						// newHandler.processRightClick(x, y);
-						// /*
-						// * Soldat bogi = Rekrutieren.Abgesessener_Ritter(0,
-						// * 0, 32, 32, "Spieler 2", 1); for (int i = 0; i <
-						// * selection.size(); i++) { if
-						// * (selection.get(i).getType().equals(
-						// * StringConstants.MeshType.EINHEIT)) { Soldat h =
-						// * (Soldat) selection.get(i); handler.handle(h, p1,
-						// * selection.size() + 2); angriffe.put(h, bogi);
-						// * angriffe.put(bogi, h); } }
-						// */
-						// break;
-						// default/* case state.N_BUILDINGS */:
-						// inGameStat = state.DEFAULT/* .S_TRUPS */;
-						// System.out.println("Schow Baumenü");
-						// rekrutriernShown = false;
-						// baumenueShowen = true;
-						// break;
-						// }
 					}
 				}
 			} else {
@@ -726,15 +581,8 @@ public class Knightmare extends Widget implements StringConstants {
 						pos2.setY(y);
 
 						switch (inGameStat) {
-						case state.DEFAULT/* state.S_TRUPS */:
+						case state.DEFAULT:
 							newHandler.search(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
-							// for (int i = 0; i < selection.size(); i++) {
-							// if
-							// (selection.get(i).getType().equals(StringConstants.MeshType.EINHEIT))
-							// {
-							// ((Soldat) selection.get(i)).say();
-							// }
-							// }
 							break;
 						}
 					}
@@ -1314,7 +1162,7 @@ public class Knightmare extends Widget implements StringConstants {
 //		for (int x = 0; x < cIndexes.length; x++) {
 //			for (int y = 0; y < cIndexes[x].length; y++) {
 //				if (gebäude[x][y].getAnimationState().getAnimationState(Button.STATE_HOVER)) {
-//					System.out.println("Hovering");
+//					System.out.println("Hovering");TODO
 //				}
 //			}
 //		}
