@@ -345,7 +345,8 @@ public class Laden extends Optionsframesuperklasse implements ActionListener, Li
 				@Override
 				public void run() {
 					Loadscreen l = new Loadscreen();
-					Knightmare km = new Knightmare(null, true, new StringBuilder(Loader.getSavesDir().getAbsolutePath()).append("//").append(list.getSelectedValue()).toString());
+					Knightmare km = new Knightmare(null, true, new StringBuilder(Loader.getSavesDir().getAbsolutePath()).append("//").append(list.getSelectedValue()).toString(),
+							list.getSelectedValue().substring(5, list.getSelectedValue().length()-20));
 					MoodMusic.changeMood("Default");
 					l.dispose();
 					km.loop();

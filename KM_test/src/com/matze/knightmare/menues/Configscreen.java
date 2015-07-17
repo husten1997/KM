@@ -49,7 +49,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 	private JLabel[] sett;
 	private JSlider[] settings;
 	private int seedValue;
-	private JTextField seed;
+	private JTextField seed, Spielname;
 	private JButton random;
 	private String[] setNames = { "Smoothing", "Wasserlevel", "Sandlevel", "Graslevel", "Steinlevel", "Eisenwahrscheinlichkeit", "Kohlewahrscheinlichkeit", "Routhness",
 			"Falloff", "Uhrzeit" };
@@ -156,6 +156,16 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		cB.setBackground(new Color(0, 0.25f, 0.5f, 1f));
 		cB.setForeground(Color.white);
 		add(cB);
+		
+		Spielname = new JTextField("Name des Spielstandes");
+		Spielname.setEditable(true);
+		Spielname.setFocusable(false);
+		Spielname.setBounds((screen.width - width) / 2 + 400, (screen.height - height) / 2 + 100, (int) Spielname.getPreferredSize().getWidth(), 50);
+		Spielname.setBorder(null);
+		Spielname.setBackground(new Color(0, 0.25f, 0.5f, 1f));
+		Spielname.setForeground(Color.white);
+		Spielname.setHorizontalAlignment(JLabel.CENTER);
+		add(Spielname);
 
 		// Buttons:
 		zurück = new JButton("Zurück");
@@ -220,7 +230,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 					@Override
 					public void run() {
 						Loadscreen l = new Loadscreen();
-						Knightmare km = new Knightmare(spieler, false, null);
+						Knightmare km = new Knightmare(spieler, false, null, Spielname.getText());
 						km.setAllWG(settings[0].getValue(), (double) settings[1].getValue() / 100, (double) settings[2].getValue() / 100,
 								(double) settings[3].getValue() / 100, (double) settings[4].getValue() / 100, (double) settings[5].getValue() / 100,
 								(double) settings[6].getValue() / 100, (float) settings[7].getValue() / 100, (float) settings[8].getValue() / 100, 2f,

@@ -60,11 +60,10 @@ public class Knightmare extends Widget implements StringConstants {
 			buildingSelected = -1*/;//TODO
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
-	private String inGameStat = state.DEFAULT,savePath;
+	private String inGameStat = state.DEFAULT,savePath, GameName;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true,
 			rekrutriernShown = false, loaded, forceUpdate= false;
-	private Soldat figur;
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
@@ -79,7 +78,8 @@ public class Knightmare extends Widget implements StringConstants {
 
 	private DNCycl DN;
 
-	public Knightmare(Spieler[] spieler, boolean loaded, String savePath) {
+	public Knightmare(Spieler[] spieler, boolean loaded, String savePath, String GameName) {
+		this.GameName = GameName;
 		this.savePath = savePath;
 		this.loaded = loaded;
 		Vsync = (Loader.getCfgValue("SETTINGS: V-Sync").equals("On"));
@@ -268,6 +268,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (Keyboard.getEventKeyState()) {
 
 				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
+					LoadSaveHandler.save(GameName, newHandler, terrain);
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
@@ -293,7 +294,7 @@ public class Knightmare extends Widget implements StringConstants {
 					scale = 1f;
 				}
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
-					LoadSaveHandler.save("Test", newHandler, terrain); //TODO rename
+					LoadSaveHandler.save(GameName, newHandler, terrain);
 					labelZuTeuer.setText("Saving complete");
 					showGedNedSeitWann = 0;
 					if (getChildIndex(labelZuTeuer) == -1) {
@@ -636,29 +637,6 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 			if (CameraY > terrain.getHeight() * 32 - HEIGHT * scale) {
 				CameraY = terrain.getHeight() * 32 - HEIGHT * scale;
-			}
-		}
-
-		// TODO JJDK
-
-		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Vorwärts"))) {
-			if (figur != null) {
-				figur.moveY(0.3f);
-			}
-		}
-		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Links"))) {
-			if (figur != null) {
-				figur.moveX(-0.3f);
-			}
-		}
-		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rückwärts"))) {
-			if (figur != null) {
-				figur.moveY(-0.3f);
-			}
-		}
-		if (Keyboard.isKeyDown(getKeyCode("CONTROL_KEY: Rechts"))) {
-			if (figur != null) {
-				figur.moveX(0.3f);
 			}
 		}
 
