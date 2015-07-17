@@ -21,6 +21,17 @@ public class Terrain extends GraphicalObject{
 	private int renderD = 4;
 	
 	
+	public void reInit(){
+		waterPlane.initRender();
+		for(TerrainElement el[] : elements){
+			for(TerrainElement element:el){
+				if(element!=null){
+					element.initRender();
+				}
+			}
+		}
+	}
+	
 	public Terrain(int width, int height) {
 		super(new Pos(0,0), MeshType.GROUND);
 		this.width = width;

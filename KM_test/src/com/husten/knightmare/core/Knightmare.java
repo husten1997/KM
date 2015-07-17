@@ -65,7 +65,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private String inGameStat = state.DEFAULT,savePath;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true,
-			rekrutriernShown = false, loaded;
+			rekrutriernShown = false, loaded, forceUpdate= false;
 	private Soldat figur;
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
@@ -198,7 +198,9 @@ public class Knightmare extends Widget implements StringConstants {
 		if(loaded){
 			Object[] save = LoadSaveHandler.load(savePath);
 			newHandler = (EntityHandler) save[0];
+			newHandler.ReInitRender();
 			terrain = (Terrain) save[1];
+			terrain.reInit();
 			spieler = newHandler.getSpieler();
 		}else{
 			newHandler = new EntityHandler(513, 513, spieler);
@@ -528,6 +530,7 @@ public class Knightmare extends Widget implements StringConstants {
 											System.out.println(b.getAttribute()[i]);
 										}
 									}
+									forceUpdate = true;
 								} else {
 									labelZuTeuer.setText("Das kann da nicht plaziert werden, " + Loader.getCfgValue("SETTINGS: Profilname"));
 									showGedNedSeitWann = 0;
@@ -1316,7 +1319,8 @@ public class Knightmare extends Widget implements StringConstants {
 //			}
 //		}
 		if (aktuellesGebäude != -1) {
-			if(aktuellesGebäude != zuletztAktuellesGebäude){
+			if(aktuellesGebäude != zuletztAktuellesGebäude || forceUpdate){
+				forceUpdate = false;
 				int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
 				if (aktuellesGebäude == 2 && !spieler[0].hatLager()) {
 					help = new int[resK.length];

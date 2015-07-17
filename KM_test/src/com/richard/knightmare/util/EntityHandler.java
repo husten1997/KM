@@ -939,5 +939,14 @@ public class EntityHandler implements Serializable {
 	public Spieler[] getSpieler(){
 		return spieler;
 	}
+	
+	public void ReInitRender(){
+		for(RectangleGraphicalObject obj: entities){
+			obj.initRender();
+		}
+		for(RectangleGraphicalObject obj: entitiesWaren){
+			obj.initRender();
+		}
+	}
 
 }
