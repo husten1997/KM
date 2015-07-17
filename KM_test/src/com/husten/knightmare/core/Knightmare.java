@@ -12,12 +12,12 @@ import java.util.TimerTask;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-
 import com.husten.knightmare.constants.StringConstants;
 import com.husten.knightmare.graphicalObjects.DNCycl;
 import com.husten.knightmare.graphicalObjects.GraphicalObject;
@@ -73,6 +73,7 @@ public class Knightmare extends Widget implements StringConstants {
 	private Timer timer = new Timer(true);
 	private int renderD = 5;
 	private Spieler[] spieler;
+	private Cursor[] cursors = new Cursor[2];
 
 	public static double breightness = 1;
 
@@ -106,6 +107,17 @@ public class Knightmare extends Widget implements StringConstants {
 		init();
 		category = 0;
 		setCategory();
+		try {
+			cursors[1] = new Cursor(32, 32, 0, 31, 1, Texturloader.convertImageData(Loader.getImage("delete.png"), Texturloader.getTexture("delete.png")).asIntBuffer(), null);
+			cursors[0] = new Cursor(32, 32, 0, 31, 1, Texturloader.convertImageData(Loader.getImage("CursorIn.png"), Texturloader.getTexture("CursorIn.png")).asIntBuffer(), null);
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
+		try {
+			Mouse.setNativeCursor(cursors[0]);
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
 		for (int j = 0; j < categories.length; j++) {
 			if (j != category) {
 				categories[j].getAnimationState().setAnimationState(STATE_DISABLED, true);
@@ -283,7 +295,9 @@ public class Knightmare extends Widget implements StringConstants {
 					inGameStat = state.ABREIßEN;
 					newHandler.selClear();
 					if (cursorIndex == 0) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
+						Mouse.setNativeCursor(cursors[1]);
+//						Toolkit.getDefaultToolkit().createCustomCursor(Loader.getImage("delete.png"), new Point(0, 0), "del");
+//						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
 						cursorIndex = 1;
 					}
 				}
@@ -305,10 +319,6 @@ public class Knightmare extends Widget implements StringConstants {
 
 				if (getString("CONTROL_KEY: Baumenü ein/aus").equals(gFN(Keyboard.getEventKey()))) {
 					baumenueShowen = !baumenueShowen;
-					if (cursorIndex == 1) {
-						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
-						cursorIndex = 0;
-					}
 				}
 				if (getString("CONTROL_KEY: Volume -").equals(gFN(Keyboard.getEventKey()))) {
 					MoodMusic.changeVolume(-0.5f);
@@ -481,6 +491,11 @@ public class Knightmare extends Widget implements StringConstants {
 								if (((Building) object).getIndex() == 6) {
 									aktuellesGebäude = 20;
 									inGameStat = state.BAUEN;
+									if (cursorIndex == 1) {
+										Mouse.setNativeCursor(cursors[0]);
+//										gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+										cursorIndex = 0;
+									}
 									newHandler.selClear();
 									labelZuTeuer.setText("Plaziert eure Felder, " + Loader.getCfgValue("SETTINGS: Profilname"));
 									showGedNedSeitWann = 0;
@@ -549,6 +564,11 @@ public class Knightmare extends Widget implements StringConstants {
 					if (!isOn(Mouse.getX(), Mouse.getY())) {
 						newHandler.processRightClick(x, y);
 						inGameStat = state.DEFAULT;
+						if (cursorIndex == 1) {
+							Mouse.setNativeCursor(cursors[0]);
+//							gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+							cursorIndex = 0;
+						}
 						rekrutriernShown = false;
 						baumenueShowen = true;
 //						buildingSelected = -1;TODO
@@ -1178,7 +1198,16 @@ public class Knightmare extends Widget implements StringConstants {
 					@Override
 					public void run() {
 						gebäude[helpX][helpY].setTintAnimator(new TintAnimator(gebäude[helpX][helpY], Color.GRAY));
-						inGameStat = state.BAUEN;// state.N_BUILDINGS;
+						inGameStat = state.BAUEN;
+						if (cursorIndex == 1) {
+							try {
+								Mouse.setNativeCursor(cursors[0]);
+							} catch (LWJGLException e) {
+								e.printStackTrace();
+							}
+//							gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+							cursorIndex = 0;
+						}
 						aktuellesGebäude = cIndexes[helpX][helpY];
 						gebäude[helpX][helpY].getTintAnimator().fadeTo(Color.WHITE, 100);
 					}
