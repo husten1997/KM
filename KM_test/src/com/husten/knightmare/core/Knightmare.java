@@ -39,6 +39,7 @@ import com.richard.knightmare.util.Loader;
 import com.richard.knightmare.util.Pos;
 import com.richard.knightmare.util.TWLImage;
 import com.richard.knightmare.util.Texturloader;
+import com.richard.knightmare.visual.Overlay;
 
 import de.matthiasmann.twl.Button;
 import de.matthiasmann.twl.Color;
@@ -735,6 +736,7 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}
 		newHandler.draw((int) CameraX / 32, (int) CameraY / 32, (int) (WIDTH * scale / 32), (int) (HEIGHT * scale / 32));
+		Overlay.render(aktuellesGebäude);
 	}
 
 	public long getTime() {
