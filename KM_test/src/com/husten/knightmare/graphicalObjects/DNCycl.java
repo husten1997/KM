@@ -220,7 +220,7 @@ public class DNCycl {
 	}
 	
 	public Zeit getZeit(){
-		return new Zeit(jahr, aktuMon, jahr, time);
+		return new Zeit(jahr, aktuMon, tag, time);
 	}
 	
 }
