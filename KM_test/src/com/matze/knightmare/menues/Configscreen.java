@@ -159,7 +159,7 @@ public class Configscreen extends Optionsframesuperklasse implements ActionListe
 		
 		Spielname = new JTextField("Name des Spielstandes");
 		Spielname.setEditable(true);
-		Spielname.setFocusable(false);
+		Spielname.setFocusable(true);
 		Spielname.setBounds((screen.width - width) / 2 + 400, (screen.height - height) / 2 + 100, (int) Spielname.getPreferredSize().getWidth(), 50);
 		Spielname.setBorder(null);
 		Spielname.setBackground(new Color(0, 0.25f, 0.5f, 1f));
