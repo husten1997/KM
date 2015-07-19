@@ -10,17 +10,18 @@ import com.richard.knightmare.util.Loader;
 
 public class LoadSaveHandler {
 
-	public static boolean save(String name, EntityHandler handler, Terrain terrain){
+	public static boolean save(String name, EntityHandler handler, Terrain terrain, Zeit time){
 		File save = new File(new StringBuilder(Loader.getSavesDir().getAbsolutePath()).append("\\save_").append(name).append("_")
 				.append(new SimpleDateFormat("yyyy.MM.dd'_'HH.mm.ss").format(new Date())).toString());
 		save.mkdir();
-		return Save.save(new StringBuilder(save.getAbsolutePath()).append("\\handler.ser").toString(), handler) && Save.save(new StringBuilder(save.getAbsolutePath()).append("\\terrain.ser").toString(), terrain);
+		return Save.save(new StringBuilder(save.getAbsolutePath()).append("\\handler.ser").toString(), handler) && Save.save(new StringBuilder(save.getAbsolutePath()).append("\\terrain.ser").toString(), terrain) && Save.save(new StringBuilder(save.getAbsolutePath()).append("\\time.ser").toString(), time);
 	}
 	
 	public static Object[] load(String savePath){
-		Object[] returnA = new Object[2];
+		Object[] returnA = new Object[3];
 		returnA[0]=Save.load(new StringBuilder(savePath).append("\\handler.ser").toString());
 		returnA[1]=Save.load(new StringBuilder(savePath).append("\\terrain.ser").toString());
+		returnA[2]=Save.load(new StringBuilder(savePath).append("\\time.ser").toString());
 		return returnA;
 	}
 }

@@ -31,6 +31,7 @@ import com.matze.knightmare.meshes.Rohstoffe;
 import com.matze.knightmare.meshes.Soldat;
 import com.matze.knightmare.meshes.Spieler;
 import com.richard.knightmare.serial.LoadSaveHandler;
+import com.richard.knightmare.serial.Zeit;
 import com.richard.knightmare.sound.MoodMusic;
 import com.richard.knightmare.util.Dictionary;
 import com.richard.knightmare.util.DictionaryE;
@@ -207,6 +208,7 @@ public class Knightmare extends Widget implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
+		DN = new DNCycl();
 		if (loaded) {
 			Object[] save = LoadSaveHandler.load(savePath);
 			newHandler = (EntityHandler) save[0];
@@ -215,6 +217,7 @@ public class Knightmare extends Widget implements StringConstants {
 			terrain = (Terrain) save[1];
 			terrain.reInit();
 			spieler = newHandler.getSpieler();
+			DN.setZeit((Zeit) save[2]);
 		} else {
 			newHandler = new EntityHandler(513, 513, spieler);
 			terrain.gen();
@@ -231,7 +234,6 @@ public class Knightmare extends Widget implements StringConstants {
 				}
 			});
 		}
-		DN = new DNCycl();
 		initRender(new RectangleGraphicalObject(new Pos(0, 0), 1, 1, "", false), 1);
 		// will versuchen dummy objekt einzufügen damit die buttons gehen
 	}
@@ -285,7 +287,7 @@ public class Knightmare extends Widget implements StringConstants {
 			if (Keyboard.getEventKeyState()) {
 
 				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
-					LoadSaveHandler.save(GameName, newHandler, terrain);
+					LoadSaveHandler.save(GameName, newHandler, terrain, DN.getZeit());
 					MainMenue m = new MainMenue();
 					timer.cancel();
 					running = false;
@@ -315,7 +317,7 @@ public class Knightmare extends Widget implements StringConstants {
 					scale = 1f;
 				}
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
-					LoadSaveHandler.save(GameName, newHandler, terrain);
+					LoadSaveHandler.save(GameName, newHandler, terrain, DN.getZeit());
 					labelZuTeuer.setText("Saving complete");
 					showGedNedSeitWann = 0;
 					if (getChildIndex(labelZuTeuer) == -1) {
@@ -1283,7 +1285,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
-				LoadSaveHandler.save(GameName, newHandler, terrain);
+				LoadSaveHandler.save(GameName, newHandler, terrain, DN.getZeit());
 				MainMenue m = new MainMenue();
 				timer.cancel();
 				running = false;

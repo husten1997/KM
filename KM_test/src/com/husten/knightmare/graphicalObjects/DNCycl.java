@@ -1,6 +1,7 @@
 package com.husten.knightmare.graphicalObjects;
 
 import com.husten.knightmare.core.Knightmare;
+import com.richard.knightmare.serial.Zeit;
 import com.richard.knightmare.util.Loader;
 
 import java.lang.Math;
@@ -209,6 +210,17 @@ public class DNCycl {
 			green = 1 - funkGBA(time);
 			blue = 1 - funkGBA(time);
 		}
+	}
+	
+	public void setZeit(Zeit z){
+		time = z.getTime();
+		jahr = z.getJahr();
+		aktuMon = z.getMonat();
+		tag = z.getTag();
+	}
+	
+	public Zeit getZeit(){
+		return new Zeit(jahr, aktuMon, jahr, time);
 	}
 	
 }
