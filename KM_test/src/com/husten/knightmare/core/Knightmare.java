@@ -287,6 +287,12 @@ public class Knightmare extends Widget implements StringConstants {
 			if (Keyboard.getEventKeyState()) {
 
 				if (getString("CONTROL_KEY: Escape/Zurück").equals(gFN(Keyboard.getEventKey()))) {
+					labelZuTeuer.setText("Currently saving");
+					showGedNedSeitWann = 0;
+					if (getChildIndex(labelZuTeuer) == -1) {
+						add(labelZuTeuer);
+						gednedShown = true;
+					}
 					LoadSaveHandler.save(GameName, newHandler, terrain, DN.getZeit());
 					MainMenue m = new MainMenue();
 					timer.cancel();
@@ -317,6 +323,12 @@ public class Knightmare extends Widget implements StringConstants {
 					scale = 1f;
 				}
 				if (getString("CONTROL_KEY: Quicksave").equals(gFN(Keyboard.getEventKey()))) {
+					labelZuTeuer.setText("Curently saving");
+					showGedNedSeitWann = 0;
+					if (getChildIndex(labelZuTeuer) == -1) {
+						add(labelZuTeuer);
+						gednedShown = true;
+					}
 					LoadSaveHandler.save(GameName, newHandler, terrain, DN.getZeit());
 					labelZuTeuer.setText("Saving complete");
 					showGedNedSeitWann = 0;
@@ -1285,6 +1297,12 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
+				labelZuTeuer.setText("Currently saving");
+				showGedNedSeitWann = 0;
+				if (getChildIndex(labelZuTeuer) == -1) {
+					add(labelZuTeuer);
+					gednedShown = true;
+				}
 				LoadSaveHandler.save(GameName, newHandler, terrain, DN.getZeit());
 				MainMenue m = new MainMenue();
 				timer.cancel();

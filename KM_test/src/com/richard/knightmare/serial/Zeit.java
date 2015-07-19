@@ -1,7 +1,13 @@
 package com.richard.knightmare.serial;
 
-public class Zeit {
+import java.io.Serializable;
 
+public class Zeit implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3669076523195875359L;
 	private double time;
 	public double getTime() {
 		return time;
