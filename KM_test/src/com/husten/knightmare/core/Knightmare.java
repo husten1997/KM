@@ -1283,6 +1283,7 @@ public class Knightmare extends Widget implements StringConstants {
 
 			@Override
 			public void run() {
+				LoadSaveHandler.save(GameName, newHandler, terrain);
 				MainMenue m = new MainMenue();
 				timer.cancel();
 				running = false;
