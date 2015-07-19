@@ -18,10 +18,10 @@ public class Overlay {
 
 	public static void render(int index, RectangleGraphicalObject[][] world) {
 		if (index != -1) {
-			if (index != ind || mx != Mouse.getX() || my != Mouse.getY()) {
+			if (index != ind || mx != (int)(Mouse.getX()*Knightmare.scale) || my != (int)(Mouse.getY()*Knightmare.scale)) {
 				ind = index;
-				mx = Mouse.getX();
-				my = Mouse.getY();
+				mx = (int)(Mouse.getX()*Knightmare.scale);
+				my = (int)(Mouse.getY()*Knightmare.scale);
 				list.clear();
 				for (int x = (int) (mx + Knightmare.CameraX) / 32; x < (int) (mx + Knightmare.CameraX + Size.getSize(index).getWidth()) / 32; x++) {
 					for (int y = (int) (my + Knightmare.CameraY) / 32; y < (int) (my + Knightmare.CameraY + Size.getSize(index).getHeight()) / 32; y++) {
