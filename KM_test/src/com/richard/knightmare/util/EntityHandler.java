@@ -955,5 +955,9 @@ public class EntityHandler implements Serializable {
 			TimerTaskDistributer.distribute(obj);
 		}
 	}
+	
+	public RectangleGraphicalObject[][] getWorld(){
+		return world;
+	}
 
 }

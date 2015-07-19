@@ -57,14 +57,16 @@ import de.matthiasmann.twl.utils.TintAnimator;
 public class Knightmare extends Widget implements StringConstants {
 
 	private long lastFrame, lastFPS;
-	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1, zuletztAktuellesGebäude = -1/*,
-			buildingSelected = -1*/;//TODO
+	private int fps, ebenen = 3, VsyncF = 120, gameSpeed = 10 /* inverted */, cursorIndex = 0, category = -1, aktuellesGebäude = -1,
+			zuletztAktuellesGebäude = -1/*
+										 * , buildingSelected = -1
+										 */;// TODO
 	@SuppressWarnings("unused")
 	private double FPS = 60, zomingSpeed = 0.1, scrollingSpeed = 5, rückerstattungsanteil = 0.5;
-	private String inGameStat = state.DEFAULT,savePath, GameName;
+	private String inGameStat = state.DEFAULT, savePath, GameName;
 	public static int WIDTH = 1600, HEIGHT = 900;
 	private boolean fullscreen = Loader.getCfgValue("SETTINGS: Fenstermodus").equals("false"), Vsync = false, running = true, baumenueShowen = true,
-			rekrutriernShown = false, loaded, forceUpdate= false;
+			rekrutriernShown = false, loaded, forceUpdate = false;
 	public static Terrain terrain = new Terrain((512) + 1, (512) + 1);
 	private Pos pos1 = new Pos(0, 0), pos2 = new Pos(0, 0), ang = null;
 	public static double CameraX = 0, CameraY = 0, scale = 1;
@@ -109,8 +111,10 @@ public class Knightmare extends Widget implements StringConstants {
 		category = 0;
 		setCategory();
 		try {
-			cursors[1] = new Cursor(32, 32, 0, 31, 1, Texturloader.convertImageData(Loader.getImage("delete.png"), Texturloader.getTexture("delete.png")).asIntBuffer(), null);
-			cursors[0] = new Cursor(32, 32, 0, 31, 1, Texturloader.convertImageData(Loader.getImage("CursorIn.png"), Texturloader.getTexture("CursorIn.png")).asIntBuffer(), null);
+			cursors[1] = new Cursor(32, 32, 0, 31, 1, Texturloader.convertImageData(Loader.getImage("delete.png"), Texturloader.getTexture("delete.png")).asIntBuffer(),
+					null);
+			cursors[0] = new Cursor(32, 32, 0, 31, 1,
+					Texturloader.convertImageData(Loader.getImage("CursorIn.png"), Texturloader.getTexture("CursorIn.png")).asIntBuffer(), null);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
@@ -203,7 +207,7 @@ public class Knightmare extends Widget implements StringConstants {
 		for (int i = 0; i < ebenen; i++) {
 			renderList[i] = new ArrayList<GraphicalObject>();
 		}
-		if(loaded){
+		if (loaded) {
 			Object[] save = LoadSaveHandler.load(savePath);
 			newHandler = (EntityHandler) save[0];
 			newHandler.ReInitRender();
@@ -211,7 +215,7 @@ public class Knightmare extends Widget implements StringConstants {
 			terrain = (Terrain) save[1];
 			terrain.reInit();
 			spieler = newHandler.getSpieler();
-		}else{
+		} else {
 			newHandler = new EntityHandler(513, 513, spieler);
 			terrain.gen();
 			terrain.initRender();
@@ -297,8 +301,10 @@ public class Knightmare extends Widget implements StringConstants {
 					newHandler.selClear();
 					if (cursorIndex == 0) {
 						Mouse.setNativeCursor(cursors[1]);
-//						Toolkit.getDefaultToolkit().createCustomCursor(Loader.getImage("delete.png"), new Point(0, 0), "del");
-//						gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursorDel"));
+						// Toolkit.getDefaultToolkit().createCustomCursor(Loader.getImage("delete.png"),
+						// new Point(0, 0), "del");
+						// gui.setMouseCursor((MouseCursor)
+						// themeManager.getCursor("cursorDel"));
 						cursorIndex = 1;
 					}
 				}
@@ -437,20 +443,17 @@ public class Knightmare extends Widget implements StringConstants {
 											b.getSpieler().verteilen(12, (int) (10 * d));
 
 											Bauen.setGesBev(b.getSpieler().getAmountofResource(Rohstoffe.Mensch().getID()));
-											
+
 											b.setTimerTask(new TimerTask() {
 												@Override
 												public void run() {
-													if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(),
-															(int)(Bauen.getGesBev() / 2))) {
-														b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(),
-																(int) (Bauen.getGesBev() / 2));
+													if (b.getSpieler().possibleToRemove(Rohstoffe.Fleisch().getID(), (int) (Bauen.getGesBev() / 2))) {
+														b.getSpieler().abziehen(Rohstoffe.Fleisch().getID(), (int) (Bauen.getGesBev() / 2));
 													} else {
 														b.getSpieler().setAmountofResource(Rohstoffe.Fleisch().getID(), 0);
-														if (b.getSpieler().possibleToRemove(12, (int) (Bauen.getGesBev() / 8))){
-														b.getSpieler().abziehen(Rohstoffe.Mensch().getID(),
-																(int) (Bauen.getGesBev() / 10));
-														}														
+														if (b.getSpieler().possibleToRemove(12, (int) (Bauen.getGesBev() / 8))) {
+															b.getSpieler().abziehen(Rohstoffe.Mensch().getID(), (int) (Bauen.getGesBev() / 10));
+														}
 													}
 												}
 											});
@@ -488,13 +491,15 @@ public class Knightmare extends Widget implements StringConstants {
 							newHandler.selClear();
 							RectangleGraphicalObject object = newHandler.getOn(xR, yR);
 							if (object instanceof Building) {
-//								buildingSelected = ((Building) object).getIndex();TODO
+								// buildingSelected = ((Building)
+								// object).getIndex();TODO
 								if (((Building) object).getIndex() == 6) {
 									aktuellesGebäude = 20;
 									inGameStat = state.BAUEN;
 									if (cursorIndex == 1) {
 										Mouse.setNativeCursor(cursors[0]);
-//										gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+										// gui.setMouseCursor((MouseCursor)
+										// themeManager.getCursor("cursor1"));
 										cursorIndex = 0;
 									}
 									newHandler.selClear();
@@ -567,12 +572,13 @@ public class Knightmare extends Widget implements StringConstants {
 						inGameStat = state.DEFAULT;
 						if (cursorIndex == 1) {
 							Mouse.setNativeCursor(cursors[0]);
-//							gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+							// gui.setMouseCursor((MouseCursor)
+							// themeManager.getCursor("cursor1"));
 							cursorIndex = 0;
 						}
 						rekrutriernShown = false;
 						baumenueShowen = true;
-//						buildingSelected = -1;TODO
+						// buildingSelected = -1;TODO
 					}
 				}
 			} else {
@@ -736,7 +742,7 @@ public class Knightmare extends Widget implements StringConstants {
 			}
 		}
 		newHandler.draw((int) CameraX / 32, (int) CameraY / 32, (int) (WIDTH * scale / 32), (int) (HEIGHT * scale / 32));
-		Overlay.render(aktuellesGebäude);
+		Overlay.render(aktuellesGebäude, newHandler.getWorld());
 	}
 
 	public long getTime() {
@@ -1138,15 +1144,17 @@ public class Knightmare extends Widget implements StringConstants {
 	}
 
 	private void showKosten() {
-//		for (int x = 0; x < cIndexes.length; x++) {
-//			for (int y = 0; y < cIndexes[x].length; y++) {
-//				if (gebäude[x][y].getAnimationState().getAnimationState(Button.STATE_HOVER)) {
-//					System.out.println("Hovering");TODO
-//				}
-//			}
-//		}
+		// for (int x = 0; x < cIndexes.length; x++) {
+		// for (int y = 0; y < cIndexes[x].length; y++) {
+		// if
+		// (gebäude[x][y].getAnimationState().getAnimationState(Button.STATE_HOVER))
+		// {
+		// System.out.println("Hovering");TODO
+		// }
+		// }
+		// }
 		if (aktuellesGebäude != -1) {
-			if(aktuellesGebäude != zuletztAktuellesGebäude || forceUpdate){
+			if (aktuellesGebäude != zuletztAktuellesGebäude || forceUpdate) {
 				forceUpdate = false;
 				int[] help = Bauen.getKostenvonGeb(aktuellesGebäude);
 				if (aktuellesGebäude == 2 && !spieler[0].hatLager()) {
@@ -1207,7 +1215,8 @@ public class Knightmare extends Widget implements StringConstants {
 							} catch (LWJGLException e) {
 								e.printStackTrace();
 							}
-//							gui.setMouseCursor((MouseCursor) themeManager.getCursor("cursor1"));
+							// gui.setMouseCursor((MouseCursor)
+							// themeManager.getCursor("cursor1"));
 							cursorIndex = 0;
 						}
 						aktuellesGebäude = cIndexes[helpX][helpY];

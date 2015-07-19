@@ -103,7 +103,6 @@ public class RectangleGraphicalObject extends GraphicalObject {
 			initTexture();
 		}
 		init();
-
 	}
 
 	public void init() {
